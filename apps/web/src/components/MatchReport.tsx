@@ -20,7 +20,7 @@ export function MatchReport({ match, analytics, base, analyticsLoading = false }
     <Awards match={match} {...(analytics ? { analytics } : {})} base={base}/>
     <ReportNav/>
     <div id="scoreboard"><Scoreboard match={match} loading={analyticsLoading} {...(analytics ? { analytics } : {})} base={base}/></div>
-    <div id="rounds"><RoundHistory match={match}/></div>
+    <div id="rounds"><RoundHistory match={match} {...(analytics ? { analytics } : {})}/></div>
     <div id="statistics"><Charts match={match} loading={analyticsLoading} {...(analytics ? { analytics } : {})}/></div>
     <div id="moments"><Moments match={match} {...(analytics ? { analytics } : {})} base={base}/></div>
     {match.qualityIssues.length > 0 && <section className="panel quality-notes"><h2>{t('quality-notes', 'Data quality notes')}</h2><p className="muted">{t('diagnostics-note', 'Original diagnostic messages from the analysis service.')}</p><ul>{match.qualityIssues.map((issue, index) => <li key={index}><code>{issue.code}</code><span>{issue.message}</span>{issue.roundOrdinal && <small>{t('round-label', 'Round {{round}}', { round: issue.roundOrdinal })}</small>}</li>)}</ul></section>}

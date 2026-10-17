@@ -14,7 +14,7 @@ export function Scoreboard({ match, analytics, base, loading = false }: { match:
     { key: 'openingKills', label: t('opening-kills', 'Opening K') }, { key: 'openingDeaths', label: t('opening-deaths', 'Opening D') },
     { key: 'trades', label: t('trades', 'Trades') },
     ...(analytics?.source === 'm2' ? [{ key: 'heDamage' as const, label: t('he-damage', 'HE damage') }, { key: 'fireDamage' as const, label: t('fire-damage', 'Fire damage') }] : [{ key: 'utilityDamage' as const, label: t('utility-damage', 'Utility DMG') }]),
-    { key: 'performance', label: t('performance', 'Performance') }, { key: 'impact', label: t('impact', 'Impact') }, { key: 'mistakes', label: t('mistakes', 'Mistakes') },
+    { key: 'performance', label: t('performance', 'Performance') }, { key: 'impact', label: t('context-contribution', 'Context Contribution') }, { key: 'mistakes', label: t('confirmed-harm', 'Confirmed Harm') },
   ];
   return <section className="scoreboards"><div className="section-heading"><div><p className="eyebrow">{t('rosters', 'The full picture')}</p><h2>{t('scoreboard', 'Player scoreboard')}</h2></div><span className="muted">{t('scoreboard-help', 'Select a player to explore their match')}</span></div>
     <p className="data-note">{t('scoreboard-source', 'K/D/A comes from the parsed scoreboard. A dash means the metric is unavailable. Side labels refer to the final recorded round.')}</p>

@@ -1,10 +1,18 @@
-import { jobDtoSchema, jobStatusSchema, matchDataSchema, matchAnalyticsSchema, qualitySchema, type JobDto, type MatchData } from '@who-ruined/contracts';
+import {
+  jobDtoSchema, jobStatusSchema, matchDataSchema, matchAnalyticsSchema, playerScoringReportSchema,
+  qualitySchema, scoringReportSchema, type JobDto, type MatchData, type PlayerScoringReport,
+  type ScoringReport
+} from '@who-ruined/contracts';
 import { z } from 'zod';
 
 const uploadResultSchema = z.object({ matchId: z.string().min(1), jobId: z.string().min(1), duplicate: z.boolean() });
 const matchesSchema = z.object({
   items: z.array(z.object({ id: z.string().min(1), map: z.string().nullable(), status: jobStatusSchema, quality: qualitySchema.nullable(), createdAt: z.string().datetime() })),
   nextCursor: z.string().optional(),
+});
+const rescoreResultSchema = z.object({
+  matchId: z.string().min(1), jobId: z.string().min(1), scoringVersion: z.string().min(1),
+  configHash: z.string().regex(/^[a-f0-9]{64}$/)
 });
 export type MatchList = z.infer<typeof matchesSchema>;
 
@@ -77,6 +85,31 @@ export async function getMatch(id: string, signal: AbortSignal): Promise<MatchDa
 }
 export async function getMatchAnalytics(id: string, signal: AbortSignal) {
   const result = await request(`/api/v1/matches/${encodeURIComponent(id)}/analytics`, { signal }, matchAnalyticsSchema);
+  if (result.matchId !== id) throw new ApiClientError('INVALID_RESPONSE');
+  return result;
+}
+function scoringQuery(version?: string, configHash?: string): string {
+  const query = new URLSearchParams();
+  if (version) query.set('version', version);
+  if (configHash) query.set('configHash', configHash);
+  const value = query.toString();
+  return value ? `?${value}` : '';
+}
+export async function getScoringReport(id: string, signal: AbortSignal, version?: string, configHash?: string): Promise<ScoringReport> {
+  const result = await request(`/api/v1/matches/${encodeURIComponent(id)}/report${scoringQuery(version, configHash)}`, { signal }, scoringReportSchema);
+  if (result.matchId !== id) throw new ApiClientError('INVALID_RESPONSE');
+  return result;
+}
+export async function getPlayerScoringReport(id: string, playerId: string, signal: AbortSignal, version?: string, configHash?: string): Promise<PlayerScoringReport> {
+  const result = await request(`/api/v1/matches/${encodeURIComponent(id)}/players/${encodeURIComponent(playerId)}/report${scoringQuery(version, configHash)}`, { signal }, playerScoringReportSchema);
+  if (result.matchId !== id || result.player.playerId !== playerId) throw new ApiClientError('INVALID_RESPONSE');
+  return result;
+}
+export async function rescoreMatch(id: string, scoringVersion: string, signal: AbortSignal, configHash?: string) {
+  const result = await request(`/api/v1/matches/${encodeURIComponent(id)}/rescore`, {
+    method: 'POST', signal, headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ scoringVersion, ...(configHash ? { configHash } : {}) })
+  }, rescoreResultSchema);
   if (result.matchId !== id) throw new ApiClientError('INVALID_RESPONSE');
   return result;
 }

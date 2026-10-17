@@ -176,6 +176,13 @@ export type ScoringPlayer = z.infer<typeof scoringPlayerSchema>;
 
 const leaderSchema = z.object({ playerId: id, rate: z.number(), tied: z.boolean(), close: z.boolean(), tiedPlayerIds: z.array(id), margin: z.number().nonnegative(), reason: z.string() });
 const whoRuinedSchema = z.object({ playerId: id, ruinRaw: z.number().nonnegative(), relativeIndex: z.number().int().min(0).max(100), primaryScoreTied: z.boolean(), close: z.boolean(), tiedPlayerIds: z.array(id), margin: z.number().nonnegative(), noConfirmedHarm: z.boolean(), reason: z.string() });
+export const scoringRoundPlayerSchema = z.object({
+  playerId: id, positive: z.number().nonnegative(), negative: z.number().nonnegative(),
+  net: z.number(), findingIds: z.array(id), episodeIds: z.array(id)
+});
+export const scoringRoundSchema = z.object({
+  roundId: id, ordinal: z.number().int().positive(), players: z.array(scoringRoundPlayerSchema)
+});
 export const scoringReportSchema = z.object({
   schemaVersion: z.literal('m3-score-1'), matchId: id, scorerVersion: z.string().min(1), configHash: z.string().regex(/^[a-f0-9]{64}$/),
   model: z.enum(['V1_COMPAT','SUCCESSOR']), experimental: z.literal(true), status: z.enum(['COMPLETED','PARTIAL','UNSUPPORTED','INSUFFICIENT_COVERAGE']),
@@ -183,13 +190,21 @@ export const scoringReportSchema = z.object({
   coverage: z.object({ score: z.number().min(0).max(1), rounds: z.number().min(0).max(1), identities: z.number().min(0).max(1), deaths: z.number().min(0).max(1), enemyDamage: z.number().min(0).max(1), teamDamage: z.number().min(0).max(1), eligible: z.boolean(), reasons: z.array(z.string()) }),
   mvp: leaderSchema.nullable(), whoRuined: whoRuinedSchema.nullable(), v1ClearRuinerPlayerId: id.nullable(),
   players: z.array(scoringPlayerSchema), episodes: z.array(scoringEpisodeSchema),
-  rounds: z.array(z.object({
-    roundId: id, ordinal: z.number().int().positive(),
-    players: z.array(z.object({ playerId: id, positive: z.number().nonnegative(), negative: z.number().nonnegative(), net: z.number(), findingIds: z.array(id), episodeIds: z.array(id) }))
-  })),
+  rounds: z.array(scoringRoundSchema),
   warnings: z.array(z.string()), limitations: z.array(z.string())
 });
 export type ScoringReport = z.infer<typeof scoringReportSchema>;
+
+export const playerScoringReportSchema = z.object({
+  schemaVersion: z.literal('m3-score-1'), matchId: id, scorerVersion: z.string().min(1),
+  configHash: z.string().regex(/^[a-f0-9]{64}$/), model: z.enum(['V1_COMPAT','SUCCESSOR']),
+  experimental: z.literal(true), player: scoringPlayerSchema, episodes: z.array(scoringEpisodeSchema),
+  rounds: z.array(z.object({
+    roundId: id, ordinal: z.number().int().positive(), player: scoringRoundPlayerSchema
+  })),
+  warnings: z.array(z.string()), limitations: z.array(z.string())
+});
+export type PlayerScoringReport = z.infer<typeof playerScoringReportSchema>;
 
 export const rescoreRequestSchema = z.object({
   scoringVersion: z.string().min(1),
