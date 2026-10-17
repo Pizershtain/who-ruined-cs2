@@ -1,0 +1,23 @@
+{
+  "calculated": "Apskaičiuoti įvertinimai",
+  "description": "Išgalvoti žaidėjai, statistika ir įvertinimai. Tai nėra tikro demo analizė.",
+  "insufficient": "Nepakanka įrodymų",
+  "low-confidence": "Mažas patikimumas",
+  "m1": "Dabartiniai mačo duomenys",
+  "partial": "Nepilnas mačas",
+  "scenario": "Peržiūros scenarijus",
+  "state-empty": "Mačų dar nėra",
+  "state-error": "Užklausos klaida",
+  "state-failed": "Apdorojimas nepavyko",
+  "state-gallery": "Sąsajos būsenos",
+  "state-gallery-note": "Pasirinkite būseną ir patikrinkite jos išdėstymą bei animacijas. Užklausos nesiunčiamos.",
+  "state-job-loading": "Įkeliama užduotis",
+  "state-match-loading": "Įkeliamas mačas",
+  "state-offline": "Nėra ryšio",
+  "state-player-loading": "Įkeliamas žaidėjas",
+  "state-processing": "Apdorojamas demo",
+  "state-ready": "Ataskaita paruošta",
+  "state-recent-loading": "Įkeliamas mačų sąrašas",
+  "state-unavailable": "Nepasiekiami rodikliai",
+  "title": "Dizaino peržiūra · sintetiniai duomenys"
+}

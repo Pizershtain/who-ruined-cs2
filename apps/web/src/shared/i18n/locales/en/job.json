@@ -1,0 +1,12 @@
+{
+  "back": "Back to upload",
+  "elapsed": "Elapsed {{time}}",
+  "eyebrow": "Match processing",
+  "live-status": "Live status",
+  "open-report": "Open report",
+  "ready": "Your report is ready.",
+  "stage-note": "Stages show confirmed progress, not an estimated completion time.",
+  "stopped": "Processing has stopped. You can return and upload a different demo.",
+  "taking-longer": "Still processing. The last confirmed stage is shown; duration depends on the demo.",
+  "working": "Rebuilding the match from your demo. This page updates automatically."
+}

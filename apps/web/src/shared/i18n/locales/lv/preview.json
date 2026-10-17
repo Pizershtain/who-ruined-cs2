@@ -1,0 +1,23 @@
+{
+  "calculated": "Aprēķināti vērtējumi",
+  "description": "Izdomāti spēlētāji, statistika un vērtējumi. Tā nav īsta demo analīze.",
+  "insufficient": "Nepietiek pierādījumu",
+  "low-confidence": "Zema ticamība",
+  "m1": "Pašreizējie spēles dati",
+  "partial": "Nepilnīga spēle",
+  "scenario": "Priekšskatījuma scenārijs",
+  "state-empty": "Spēļu vēl nav",
+  "state-error": "Pieprasījuma kļūda",
+  "state-failed": "Apstrāde neizdevās",
+  "state-gallery": "Saskarnes stāvokļi",
+  "state-gallery-note": "Izvēlieties stāvokli, lai pārbaudītu tā izkārtojumu un animācijas. Pieprasījumi netiek sūtīti.",
+  "state-job-loading": "Uzdevuma ielāde",
+  "state-match-loading": "Spēles ielāde",
+  "state-offline": "Bez savienojuma",
+  "state-player-loading": "Spēlētāja ielāde",
+  "state-processing": "Demo apstrāde",
+  "state-ready": "Pārskats ir gatavs",
+  "state-recent-loading": "Spēļu saraksta ielāde",
+  "state-unavailable": "Nepieejami rādītāji",
+  "title": "Dizaina priekšskatījums · sintētiski dati"
+}

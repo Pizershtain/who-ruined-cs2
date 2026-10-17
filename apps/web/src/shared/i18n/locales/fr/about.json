@@ -1,0 +1,20 @@
+{
+  "data": "Où vont vos données",
+  "data-text": "Les démos et rapports sont stockés sur votre serveur d’analyse. Cet espace local ne sépare pas les comptes ; une mise en ligne exige une gestion distincte des accès et de la conservation.",
+  "eyebrow": "Les coulisses de l’analyse",
+  "facts": "Ce qui est disponible",
+  "facts-text": "Joueurs, équipes définies par leur composition, manches, K/D/A et événements extraits de la démo. Les mesures supplémentaires apparaissent lorsque le service d’analyse les fournit. Les équipes restent les mêmes lors du changement de camp T/CT.",
+  "faq-metrics": "Comment lire les mesures ?",
+  "faq-missing": "Pourquoi certaines valeurs sont-elles indisponibles ?",
+  "faq-ratings": "Où sont les notes des joueurs ?",
+  "faq-storage": "Où ma démo est-elle stockée ?",
+  "faq-title": "Vos questions, nos réponses",
+  "future": "La suite",
+  "future-text": "Les notes contextuelles, la coordination d’équipe et les conclusions tactiques nécessitent une analyse supplémentaire. Elles restent indisponibles tant que le service ne les a pas calculées.",
+  "intro": "Le tableau indique ce qui s’est passé. Comprendre pourquoi demande du contexte. Nous distinguons ces deux aspects.",
+  "pipeline-title": "De la démo au rapport",
+  "start": "Analyser un match",
+  "title": "Des faits, pas des suppositions.",
+  "uncertainty": "Les lacunes restent visibles",
+  "uncertainty-text": "Un tiret signifie indisponible, pas zéro. Les matchs partiels signalent leurs lacunes. Une mort ordinaire n’est jamais présentée comme une erreur prouvée."
+}

@@ -1,0 +1,23 @@
+{
+  "calculated": "Berekende beoordelingen",
+  "description": "Verzonnen spelers, statistieken en beoordelingen. Dit is geen analyse van een echte demo.",
+  "insufficient": "Onvoldoende bewijs",
+  "low-confidence": "Lage betrouwbaarheid",
+  "m1": "Huidige wedstrijdgegevens",
+  "partial": "Gedeeltelijke wedstrijd",
+  "scenario": "Voorbeeldscenario",
+  "state-empty": "Nog geen wedstrijden",
+  "state-error": "Aanvraagfout",
+  "state-failed": "Verwerking mislukt",
+  "state-gallery": "Interfacetoestanden",
+  "state-gallery-note": "Kies een toestand om de indeling en animaties te bekijken. Er worden geen aanvragen verstuurd.",
+  "state-job-loading": "Analyseopdracht laden",
+  "state-match-loading": "Wedstrijd laden",
+  "state-offline": "Offline",
+  "state-player-loading": "Speler laden",
+  "state-processing": "Demo verwerken",
+  "state-ready": "Rapport klaar",
+  "state-recent-loading": "Wedstrijdlijst laden",
+  "state-unavailable": "Niet-beschikbare statistieken",
+  "title": "Ontwerpvoorbeeld · synthetische gegevens"
+}

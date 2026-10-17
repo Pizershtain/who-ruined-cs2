@@ -1,0 +1,20 @@
+{
+  "data": "Ma’lumotlaringiz qayerda saqlanadi?",
+  "data-text": "Yuklangan demolar va hisobotlar sozlangan tahlil serverida saqlanadi. Bu versiya hisoblar ajratilmagan mahalliy ish maydonidir; ommaviy joylashtirish uchun kirish va saqlash tartibi alohida ishlab chiqilishi kerak.",
+  "eyebrow": "Tahlil ortida",
+  "facts": "Hozir nimalarni ko‘rish mumkin?",
+  "facts-text": "O‘qilgan o‘yinchilar, tarkibga asoslangan jamoalar, raundlar, K/D/A va qayd etilgan hodisalar. Tahlil xizmati taqdim etsa, qo‘shimcha o‘yin ko‘rsatkichlari ko‘rinadi. T va CT tomonlari almashganda jamoalar birga qoladi.",
+  "faq-metrics": "Ko‘rsatkichlarni qanday talqin qilish kerak?",
+  "faq-missing": "Nega ayrim qiymatlar mavjud emas?",
+  "faq-ratings": "Reytinglar qayerda?",
+  "faq-storage": "Demom qayerda saqlanadi?",
+  "faq-title": "Savollar va javoblar",
+  "future": "Keyingi imkoniyatlar",
+  "future-text": "Vaziyatga asoslangan reytinglar, jamoa muvofiqligi va taktik xulosalar qo‘shimcha tahlil talab qiladi. Xizmat hisoblamaguncha ular mavjud bo‘lmaydi.",
+  "intro": "Hisob jadvali nima bo‘lganini ko‘rsatadi. Sababini tushunish uchun vaziyat kerak. Bu ikki narsani alohida saqlaymiz.",
+  "pipeline-title": "Demodan hisobotgacha",
+  "start": "O‘yinni tahlil qilish",
+  "title": "Taxmindan avval dalil.",
+  "uncertainty": "Yetishmayotgan ma’lumot yashirilmaydi",
+  "uncertainty-text": "Chiziq nolni emas, ma’lumot yo‘qligini bildiradi. Qisman o‘yinlarning sifat muammolari ko‘rsatiladi. Oddiy o‘lim isbotlangan xato sifatida berilmaydi."
+}

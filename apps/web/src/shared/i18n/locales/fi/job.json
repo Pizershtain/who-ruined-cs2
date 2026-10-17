@@ -1,0 +1,12 @@
+{
+  "back": "Takaisin lataukseen",
+  "elapsed": "Kulunut aika: {{time}}",
+  "eyebrow": "Ottelua käsitellään",
+  "live-status": "Ajantasainen tila",
+  "open-report": "Avaa raportti",
+  "ready": "Raporttisi on valmis.",
+  "stage-note": "Vaiheet näyttävät vahvistetun edistymisen, eivät arvioitua valmistumisaikaa.",
+  "stopped": "Käsittely on pysähtynyt. Voit palata ja ladata toisen demon.",
+  "taking-longer": "Käsittely jatkuu. Näytössä on viimeisin vahvistettu vaihe; kesto riippuu demosta.",
+  "working": "Ottelua rakennetaan uudelleen demostasi. Tämä sivu päivittyy automaattisesti."
+}

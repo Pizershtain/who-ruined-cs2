@@ -1,0 +1,12 @@
+{
+  "back": "Torna al caricamento",
+  "elapsed": "Tempo trascorso: {{time}}",
+  "eyebrow": "Elaborazione della partita",
+  "live-status": "Stato in tempo reale",
+  "open-report": "Apri resoconto",
+  "ready": "Il tuo resoconto è pronto.",
+  "stage-note": "Le fasi mostrano l'avanzamento confermato, non una stima del tempo di completamento.",
+  "stopped": "L'elaborazione si è interrotta. Puoi tornare indietro e caricare un'altra demo.",
+  "taking-longer": "L'elaborazione continua. Viene mostrata l'ultima fase confermata; la durata dipende dalla demo.",
+  "working": "Ricostruzione della partita dalla tua demo. Questa pagina si aggiorna automaticamente."
+}

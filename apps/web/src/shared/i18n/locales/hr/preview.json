@@ -1,0 +1,23 @@
+{
+  "calculated": "Izračunate ocjene",
+  "description": "Izmišljeni igrači, statistika i ocjene. Ovo nije analiza stvarne snimke.",
+  "insufficient": "Nedovoljno dokaza",
+  "low-confidence": "Niska pouzdanost",
+  "m1": "Trenutačni podaci meča",
+  "partial": "Nepotpun meč",
+  "scenario": "Scenarij pregleda",
+  "state-empty": "Još nema mečeva",
+  "state-error": "Pogreška zahtjeva",
+  "state-failed": "Obrada nije uspjela",
+  "state-gallery": "Stanja sučelja",
+  "state-gallery-note": "Odaberite stanje kako biste provjerili raspored i animacije. Zahtjevi se ne šalju.",
+  "state-job-loading": "Učitavanje zadatka",
+  "state-match-loading": "Učitavanje meča",
+  "state-offline": "Bez veze",
+  "state-player-loading": "Učitavanje igrača",
+  "state-processing": "Obrada snimke",
+  "state-ready": "Izvještaj je spreman",
+  "state-recent-loading": "Učitavanje popisa mečeva",
+  "state-unavailable": "Nedostupna mjerila",
+  "title": "Pregled dizajna · sintetički podaci"
+}

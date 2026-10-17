@@ -1,0 +1,23 @@
+{
+  "calculated": "የተሰሉ ደረጃዎች",
+  "description": "የፈጠራ ተጫዋቾች፣ ስታቲስቲክስና ደረጃዎች። ይህ የእውነተኛ ዴሞ ትንተና አይደለም።",
+  "insufficient": "በቂ ማስረጃ የለም",
+  "low-confidence": "ዝቅተኛ እርግጠኝነት",
+  "m1": "የአሁኑ ጨዋታ ውሂብ",
+  "partial": "ከፊል ጨዋታ",
+  "scenario": "የቅድመ እይታ ሁኔታ",
+  "state-empty": "ገና ጨዋታዎች የሉም",
+  "state-error": "የጥያቄ ስህተት",
+  "state-failed": "ማስኬዱ አልተሳካም",
+  "state-gallery": "የበይነገጽ ሁኔታዎች",
+  "state-gallery-note": "አቀማመጡንና እንቅስቃሴውን ለመመርመር ሁኔታ ይምረጡ። ጥያቄዎች አይላኩም።",
+  "state-job-loading": "ሥራ በመጫን ላይ",
+  "state-match-loading": "ጨዋታ በመጫን ላይ",
+  "state-offline": "ከመስመር ውጭ",
+  "state-player-loading": "ተጫዋች በመጫን ላይ",
+  "state-processing": "ዴሞ በማስኬድ ላይ",
+  "state-ready": "ሪፖርት ዝግጁ ነው",
+  "state-recent-loading": "የጨዋታ ዝርዝር በመጫን ላይ",
+  "state-unavailable": "የማይገኙ መለኪያዎች",
+  "title": "የንድፍ ቅድመ እይታ · ሰው ሠራሽ ውሂብ"
+}

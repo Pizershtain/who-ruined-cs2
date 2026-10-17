@@ -1,0 +1,23 @@
+{
+  "calculated": "Kiszámított értékelések",
+  "description": "Kitalált játékosok, statisztikák és értékelések. Ez nem valódi demóelemzés.",
+  "insufficient": "Elégtelen bizonyíték",
+  "low-confidence": "Alacsony megbízhatóság",
+  "m1": "Jelenlegi meccsadatok",
+  "partial": "Részleges meccs",
+  "scenario": "Előnézeti forgatókönyv",
+  "state-empty": "Még nincsenek meccsek",
+  "state-error": "Kérési hiba",
+  "state-failed": "Sikertelen feldolgozás",
+  "state-gallery": "Felületi állapotok",
+  "state-gallery-note": "Válassz állapotot az elrendezés és az animációk megtekintéséhez. Nem küldünk kéréseket.",
+  "state-job-loading": "Elemzési feladat betöltése",
+  "state-match-loading": "Meccs betöltése",
+  "state-offline": "Nincs kapcsolat",
+  "state-player-loading": "Játékos betöltése",
+  "state-processing": "Demó feldolgozása",
+  "state-ready": "Jelentés elkészült",
+  "state-recent-loading": "Meccslista betöltése",
+  "state-unavailable": "Nem elérhető mutatók",
+  "title": "Tervelőnézet · szintetikus adatok"
+}

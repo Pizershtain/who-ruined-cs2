@@ -1,0 +1,12 @@
+{
+  "back": "Tilbake til opplasting",
+  "elapsed": "Tid brukt: {{time}}",
+  "eyebrow": "Behandler kampen",
+  "live-status": "Oppdatert status",
+  "open-report": "Åpne rapport",
+  "ready": "Rapporten din er klar.",
+  "stage-note": "Trinnene viser bekreftet fremdrift, ikke et anslag for når behandlingen er ferdig.",
+  "stopped": "Behandlingen har stoppet. Du kan gå tilbake og laste opp en annen demo.",
+  "taking-longer": "Behandlingen pågår fortsatt. Det sist bekreftede trinnet vises; varigheten avhenger av demoen.",
+  "working": "Gjenskaper kampen fra demoen din. Denne siden oppdateres automatisk."
+}

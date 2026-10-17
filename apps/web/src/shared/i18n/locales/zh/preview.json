@@ -1,0 +1,23 @@
+{
+  "calculated": "已计算评分",
+  "description": "玩家、统计与评分均为虚构，并非真实录像分析。",
+  "insufficient": "证据不足",
+  "low-confidence": "低置信度",
+  "m1": "当前比赛数据",
+  "partial": "不完整比赛",
+  "scenario": "预览场景",
+  "state-empty": "暂无比赛",
+  "state-error": "请求错误",
+  "state-failed": "处理失败",
+  "state-gallery": "界面状态",
+  "state-gallery-note": "选择状态，查看布局与动画。不会发送请求。",
+  "state-job-loading": "正在加载任务",
+  "state-match-loading": "正在加载比赛",
+  "state-offline": "离线",
+  "state-player-loading": "正在加载玩家",
+  "state-processing": "正在处理录像",
+  "state-ready": "报告已就绪",
+  "state-recent-loading": "正在加载比赛列表",
+  "state-unavailable": "指标不可用",
+  "title": "设计预览 · 合成数据"
+}

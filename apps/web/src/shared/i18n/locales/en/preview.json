@@ -1,0 +1,23 @@
+{
+  "calculated": "Calculated ratings",
+  "description": "Invented players, statistics and ratings. This is not a real demo analysis.",
+  "insufficient": "Insufficient evidence",
+  "low-confidence": "Low confidence",
+  "m1": "Current match data",
+  "partial": "Partial match",
+  "scenario": "Preview scenario",
+  "state-empty": "No matches yet",
+  "state-error": "Request error",
+  "state-failed": "Processing failed",
+  "state-gallery": "Interface states",
+  "state-gallery-note": "Choose a state to inspect its layout and motion. No requests are sent.",
+  "state-job-loading": "Job loading",
+  "state-match-loading": "Match loading",
+  "state-offline": "Offline",
+  "state-player-loading": "Player loading",
+  "state-processing": "Processing a demo",
+  "state-ready": "Report ready",
+  "state-recent-loading": "Match list loading",
+  "state-unavailable": "Unavailable metrics",
+  "title": "Design preview · synthetic data"
+}

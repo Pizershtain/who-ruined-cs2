@@ -1,0 +1,23 @@
+{
+  "calculated": "Berechnete Bewertungen",
+  "description": "Erfundene Spieler, Statistiken und Bewertungen. Dies ist keine Analyse einer echten Demo.",
+  "insufficient": "Unzureichende Belege",
+  "low-confidence": "Geringer Vertrauensgrad",
+  "m1": "Aktuelle Matchdaten",
+  "partial": "Unvollständiges Match",
+  "scenario": "Vorschauszenario",
+  "state-empty": "Noch keine Matches",
+  "state-error": "Anfragefehler",
+  "state-failed": "Verarbeitung fehlgeschlagen",
+  "state-gallery": "Oberflächenzustände",
+  "state-gallery-note": "Wähle einen Zustand, um Layout und Animationen zu prüfen. Es werden keine Anfragen gesendet.",
+  "state-job-loading": "Analyseauftrag wird geladen",
+  "state-match-loading": "Match wird geladen",
+  "state-offline": "Offline",
+  "state-player-loading": "Spieler wird geladen",
+  "state-processing": "Demo wird verarbeitet",
+  "state-ready": "Bericht fertig",
+  "state-recent-loading": "Matchliste wird geladen",
+  "state-unavailable": "Nicht verfügbare Werte",
+  "title": "Designvorschau · synthetische Daten"
+}

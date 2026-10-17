@@ -1,0 +1,20 @@
+{
+  "data": "Where your data goes",
+  "data-text": "Uploaded demos and reports are stored by your configured analysis server. This version is a local workspace without account isolation; public hosting requires a separate access and retention design.",
+  "eyebrow": "Behind the analysis",
+  "facts": "What you can see today",
+  "facts-text": "Parsed players, roster-based teams, rounds, K/D/A and recorded events. Additional match metrics appear when the analysis service provides them. Teams stay together when T and CT sides switch.",
+  "faq-metrics": "How should I read the metrics?",
+  "faq-missing": "Why are some values unavailable?",
+  "faq-ratings": "Where are the ratings?",
+  "faq-storage": "Where is my demo stored?",
+  "faq-title": "Questions, answered",
+  "future": "What comes next",
+  "future-text": "Contextual ratings, team coordination and tactical conclusions need additional analysis. They remain unavailable until the service calculates them.",
+  "intro": "A scoreboard describes what happened. Understanding why takes context. We keep those two things separate.",
+  "pipeline-title": "From demo to report",
+  "start": "Analyze a match",
+  "title": "Evidence over assumptions.",
+  "uncertainty": "Gaps stay visible",
+  "uncertainty-text": "A dash means unavailable, not zero. Partial matches show their quality issues. An ordinary death is never presented as a proven mistake."
+}

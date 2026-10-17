@@ -1,0 +1,20 @@
+{
+  "data": "Waar je gegevens terechtkomen",
+  "data-text": "Geüploade demo's en rapporten worden opgeslagen op je ingestelde analyseserver. Deze versie is een lokale werkruimte zonder accountscheiding; openbare hosting vereist een apart ontwerp voor toegang en bewaartermijnen.",
+  "eyebrow": "Achter de analyse",
+  "facts": "Wat je nu kunt zien",
+  "facts-text": "Uitgelezen spelers, teams op basis van hun spelers, rondes, K/D/A en vastgelegde gebeurtenissen. Aanvullende wedstrijdstatistieken verschijnen zodra de analysedienst ze levert. Teams blijven samen wanneer T en CT wisselen.",
+  "faq-metrics": "Hoe moet ik de maatstaven lezen?",
+  "faq-missing": "Waarom zijn sommige waarden niet beschikbaar?",
+  "faq-ratings": "Waar zijn de beoordelingen?",
+  "faq-storage": "Waar wordt mijn demo opgeslagen?",
+  "faq-title": "Vragen en antwoorden",
+  "future": "Wat er nog komt",
+  "future-text": "Contextuele beoordelingen, teamcoördinatie en tactische conclusies vereisen aanvullende analyse. Ze blijven niet beschikbaar totdat de dienst ze berekent.",
+  "intro": "Het scorebord beschrijft wat er gebeurde. Om te begrijpen waarom, is context nodig. We houden die twee zaken gescheiden.",
+  "pipeline-title": "Van demo naar rapport",
+  "start": "Analyseer een wedstrijd",
+  "title": "Bewijs boven aannames.",
+  "uncertainty": "Hiaten blijven zichtbaar",
+  "uncertainty-text": "Een streepje betekent niet beschikbaar, niet nul. Gedeeltelijke wedstrijden tonen hun kwaliteitsproblemen. Een gewone dood wordt nooit als een bewezen fout gepresenteerd."
+}

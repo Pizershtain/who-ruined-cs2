@@ -1,0 +1,12 @@
+{
+  "back": "Yuklashga qaytish",
+  "elapsed": "O‘tgan vaqt: {{time}}",
+  "eyebrow": "O‘yin qayta ishlanmoqda",
+  "live-status": "Joriy holat",
+  "open-report": "Hisobotni ochish",
+  "ready": "Hisobotingiz tayyor.",
+  "stage-note": "Bosqichlar taxminiy tugash vaqtini emas, tasdiqlangan jarayonni ko‘rsatadi.",
+  "stopped": "Qayta ishlash to‘xtadi. Qaytib boshqa demo yuklashingiz mumkin.",
+  "taking-longer": "Qayta ishlash davom etmoqda. Oxirgi tasdiqlangan bosqich ko‘rsatilgan; davomiylik demoga bog‘liq.",
+  "working": "O‘yin demodan tiklanmoqda. Sahifa avtomatik yangilanadi."
+}

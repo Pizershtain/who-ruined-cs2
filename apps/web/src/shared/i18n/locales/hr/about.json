@@ -1,0 +1,20 @@
+{
+  "data": "Kamo odlaze vaši podaci",
+  "data-text": "Učitane snimke i izvještaji pohranjuju se na postavljenom poslužitelju za analizu. Ova je verzija lokalni radni prostor bez odvajanja računa; javna objava zahtijeva zaseban plan pristupa i zadržavanja podataka.",
+  "eyebrow": "Iza analize",
+  "facts": "Što je dostupno danas",
+  "facts-text": "Pročitani podaci igrača, ekipe prema sastavima, runde, K/D/A i zabilježeni događaji. Dodatna mjerila meča prikazuju se kada ih pruži usluga analize. Ekipe ostaju iste kad se strane T i CT zamijene.",
+  "faq-metrics": "Kako čitati mjerila?",
+  "faq-missing": "Zašto neke vrijednosti nisu dostupne?",
+  "faq-ratings": "Gdje su ocjene?",
+  "faq-storage": "Gdje je pohranjena moja snimka?",
+  "faq-title": "Odgovori na pitanja",
+  "future": "Što slijedi",
+  "future-text": "Ocjene prema kontekstu, koordinacija ekipe i taktički zaključci zahtijevaju dodatnu analizu. Ostaju nedostupni dok ih usluga ne izračuna.",
+  "intro": "Tablica pokazuje što se dogodilo. Za razumijevanje razloga potreban je kontekst. Te dvije stvari odvajamo.",
+  "pipeline-title": "Od snimke do izvještaja",
+  "start": "Analiziraj meč",
+  "title": "Činjenice ispred pretpostavki.",
+  "uncertainty": "Nedostaci ostaju vidljivi",
+  "uncertainty-text": "Crtica znači da podatak nije dostupan, a ne nulu. Nepotpuni mečevi prikazuju probleme s kvalitetom. Obična smrt nikad se ne prikazuje kao dokazana pogreška."
+}

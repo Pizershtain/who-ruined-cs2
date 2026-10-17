@@ -1,0 +1,12 @@
+{
+  "back": "Retour à l’envoi",
+  "elapsed": "Temps écoulé : {{time}}",
+  "eyebrow": "Traitement du match",
+  "live-status": "État en direct",
+  "open-report": "Ouvrir le rapport",
+  "ready": "Votre rapport est prêt.",
+  "stage-note": "Les étapes indiquent une progression confirmée, sans estimer l’heure de fin.",
+  "stopped": "Le traitement s’est arrêté. Vous pouvez revenir et envoyer une autre démo.",
+  "taking-longer": "Traitement en cours. La dernière étape confirmée est affichée ; la durée dépend de la démo.",
+  "working": "Reconstitution du match depuis votre démo. Cette page se met à jour automatiquement."
+}

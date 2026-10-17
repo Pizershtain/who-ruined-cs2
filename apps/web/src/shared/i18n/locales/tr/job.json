@@ -1,0 +1,12 @@
+{
+  "back": "Yüklemeye dön",
+  "elapsed": "Geçen süre: {{time}}",
+  "eyebrow": "Maç işleniyor",
+  "live-status": "Anlık durum",
+  "open-report": "Raporu aç",
+  "ready": "Raporunuz hazır.",
+  "stage-note": "Aşamalar tahmini bitiş süresini değil, doğrulanmış ilerlemeyi gösterir.",
+  "stopped": "İşleme durdu. Geri dönüp başka bir demo yükleyebilirsiniz.",
+  "taking-longer": "İşleme devam ediyor. Son doğrulanan aşama gösteriliyor; süre demoya bağlıdır.",
+  "working": "Maç, demonuzdan yeniden oluşturuluyor. Bu sayfa otomatik güncellenir."
+}

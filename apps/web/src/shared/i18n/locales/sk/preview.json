@@ -1,0 +1,23 @@
+{
+  "calculated": "Vypočítané hodnotenia",
+  "description": "Vymyslení hráči, štatistiky a hodnotenia. Nejde o analýzu skutočného dema.",
+  "insufficient": "Nedostatok dôkazov",
+  "low-confidence": "Nízka istota",
+  "m1": "Aktuálne údaje zápasu",
+  "partial": "Neúplný zápas",
+  "scenario": "Scenár náhľadu",
+  "state-empty": "Zatiaľ žiadne zápasy",
+  "state-error": "Chyba požiadavky",
+  "state-failed": "Spracovanie zlyhalo",
+  "state-gallery": "Stavy rozhrania",
+  "state-gallery-note": "Vyberte stav a pozrite si jeho rozloženie a animácie. Žiadne požiadavky sa neodosielajú.",
+  "state-job-loading": "Načítavanie úlohy",
+  "state-match-loading": "Načítavanie zápasu",
+  "state-offline": "Bez pripojenia",
+  "state-player-loading": "Načítavanie hráča",
+  "state-processing": "Spracovanie dema",
+  "state-ready": "Prehľad je pripravený",
+  "state-recent-loading": "Načítavanie zoznamu zápasov",
+  "state-unavailable": "Nedostupné metriky",
+  "title": "Náhľad návrhu · syntetické údaje"
+}

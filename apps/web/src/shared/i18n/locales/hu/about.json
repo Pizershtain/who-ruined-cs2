@@ -1,0 +1,20 @@
+{
+  "data": "Hová kerülnek az adataid?",
+  "data-text": "A feltöltött demókat és jelentéseket a beállított elemzőszerver tárolja. Ez a verzió helyi munkaterület, elkülönített fiókok nélkül; a nyilvános üzemeltetéshez külön hozzáférési és adatmegőrzési terv szükséges.",
+  "eyebrow": "Az elemzés háttere",
+  "facts": "Mit láthatsz most?",
+  "facts-text": "Kiolvasott játékosok, játékoskeret alapján azonosított csapatok, körök, K/D/A és rögzített események. További meccsmutatók akkor jelennek meg, amikor az elemzőszolgáltatás elérhetővé teszi őket. A csapatok együtt maradnak a T és CT oldalak felcserélésekor is.",
+  "faq-metrics": "Hogyan értelmezzem a mutatókat?",
+  "faq-missing": "Miért nem érhetők el egyes értékek?",
+  "faq-ratings": "Hol vannak az értékelések?",
+  "faq-storage": "Hol tárolják a demómat?",
+  "faq-title": "Kérdések és válaszok",
+  "future": "Mi következik?",
+  "future-text": "A helyzetfüggő értékelések, a csapatkoordináció és a taktikai következtetések további elemzést igényelnek. Addig nem érhetők el, amíg a szolgáltatás ki nem számítja őket.",
+  "intro": "Az eredménytábla megmutatja, mi történt. Az okok megértéséhez összefüggések kellenek. Ezt a két dolgot külön kezeljük.",
+  "pipeline-title": "A demótól a jelentésig",
+  "start": "Meccs elemzése",
+  "title": "Bizonyítékok feltételezések helyett.",
+  "uncertainty": "A hiányok láthatók maradnak",
+  "uncertainty-text": "A gondolatjel hiányzó adatot jelent, nem nullát. A részleges meccseknél látszanak az adatminőségi problémák. Egy szokványos halált soha nem tüntetünk fel bizonyított hibaként."
+}

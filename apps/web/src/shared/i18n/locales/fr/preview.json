@@ -1,0 +1,23 @@
+{
+  "calculated": "Notes calculées",
+  "description": "Joueurs, statistiques et notes fictifs. Il ne s’agit pas de l’analyse d’une vraie démo.",
+  "insufficient": "Éléments insuffisants",
+  "low-confidence": "Faible confiance",
+  "m1": "Données actuelles du match",
+  "partial": "Match partiel",
+  "scenario": "Scénario d’aperçu",
+  "state-empty": "Aucun match pour le moment",
+  "state-error": "Erreur de requête",
+  "state-failed": "Échec du traitement",
+  "state-gallery": "États de l’interface",
+  "state-gallery-note": "Choisissez un état pour examiner sa mise en page et ses animations. Aucune requête n’est envoyée.",
+  "state-job-loading": "Chargement de la tâche",
+  "state-match-loading": "Chargement du match",
+  "state-offline": "Hors ligne",
+  "state-player-loading": "Chargement du joueur",
+  "state-processing": "Traitement d’une démo",
+  "state-ready": "Rapport prêt",
+  "state-recent-loading": "Chargement de la liste des matchs",
+  "state-unavailable": "Mesures indisponibles",
+  "title": "Aperçu du design · données fictives"
+}

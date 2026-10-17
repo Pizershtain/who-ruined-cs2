@@ -1,0 +1,20 @@
+{
+  "data": "Kuhu sinu andmed lähevad",
+  "data-text": "Üles laaditud demod ja raportid salvestatakse seadistatud analüüsiserverisse. See versioon on kohalik tööruum ilma kontode eraldatuseta; avalik majutus vajab eraldi ligipääsu- ja säilituslahendust.",
+  "eyebrow": "Analüüsi taustal",
+  "facts": "Mida saad praegu näha",
+  "facts-text": "Loetud mängijad, koosseisul põhinevad meeskonnad, voorud, K/D/A ja salvestatud sündmused. Täiendavad mängunäitajad ilmuvad siis, kui analüüsiteenus need väljastab. Meeskonnad jäävad kokku, kui T ja CT pooled vahetuvad.",
+  "faq-metrics": "Kuidas peaksin näitajaid tõlgendama?",
+  "faq-missing": "Miks pole mõned väärtused saadaval?",
+  "faq-ratings": "Kus on hinnangud?",
+  "faq-storage": "Kuhu mu demo salvestatakse?",
+  "faq-title": "Küsimused ja vastused",
+  "future": "Mis tuleb järgmisena",
+  "future-text": "Kontekstipõhised hinnangud, meeskonna koordineeritus ja taktikalised järeldused vajavad lisaanalüüsi. Need pole saadaval enne, kui teenus need arvutab.",
+  "intro": "Tulemustabel kirjeldab, mis juhtus. Põhjuse mõistmiseks on vaja konteksti. Hoiame need kaks asja lahus.",
+  "pipeline-title": "Demost raportini",
+  "start": "Analüüsi mängu",
+  "title": "Tõendid enne oletusi.",
+  "uncertainty": "Lüngad jäävad nähtavaks",
+  "uncertainty-text": "Kriips tähendab puuduvaid andmeid, mitte nulli. Osaliste mängude puhul on näha andmekvaliteedi probleemid. Tavalist surma ei esitata kunagi tõestatud veana."
+}

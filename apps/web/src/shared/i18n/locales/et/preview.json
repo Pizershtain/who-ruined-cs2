@@ -1,0 +1,23 @@
+{
+  "calculated": "Arvutatud hinnangud",
+  "description": "Väljamõeldud mängijad, statistika ja hinnangud. See pole tegeliku demo analüüs.",
+  "insufficient": "Ebapiisavad tõendid",
+  "low-confidence": "Madal usaldusväärsus",
+  "m1": "Praegused mänguandmed",
+  "partial": "Osaline mäng",
+  "scenario": "Eelvaate stsenaarium",
+  "state-empty": "Mänge veel pole",
+  "state-error": "Päringuviga",
+  "state-failed": "Töötlemine nurjus",
+  "state-gallery": "Kasutajaliidese olekud",
+  "state-gallery-note": "Vali olek, et vaadata selle paigutust ja animatsioone. Päringuid ei saadeta.",
+  "state-job-loading": "Analüüsiülesande laadimine",
+  "state-match-loading": "Mängu laadimine",
+  "state-offline": "Võrguühenduseta",
+  "state-player-loading": "Mängija laadimine",
+  "state-processing": "Demo töötlemine",
+  "state-ready": "Raport valmis",
+  "state-recent-loading": "Mänguloendi laadimine",
+  "state-unavailable": "Näitajad pole saadaval",
+  "title": "Kujunduse eelvaade · sünteetilised andmed"
+}

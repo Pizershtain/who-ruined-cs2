@@ -1,0 +1,23 @@
+{
+  "calculated": "Beräknade bedömningar",
+  "description": "Påhittade spelare, statistik och bedömningar. Detta är inte en analys av en riktig demo.",
+  "insufficient": "Otillräckliga belägg",
+  "low-confidence": "Låg tillförlitlighet",
+  "m1": "Aktuella matchdata",
+  "partial": "Ofullständig match",
+  "scenario": "Förhandsvisningsscenario",
+  "state-empty": "Inga matcher än",
+  "state-error": "Fel i förfrågan",
+  "state-failed": "Bearbetningen misslyckades",
+  "state-gallery": "Gränssnittets tillstånd",
+  "state-gallery-note": "Välj ett tillstånd för att granska layout och animationer. Inga förfrågningar skickas.",
+  "state-job-loading": "Läser in analysjobb",
+  "state-match-loading": "Läser in match",
+  "state-offline": "Offline",
+  "state-player-loading": "Läser in spelare",
+  "state-processing": "Bearbetar en demo",
+  "state-ready": "Rapport klar",
+  "state-recent-loading": "Läser in matchlista",
+  "state-unavailable": "Otillgängliga mått",
+  "title": "Designförhandsvisning · syntetiska data"
+}

@@ -1,0 +1,12 @@
+{
+  "back": "Natrag na učitavanje",
+  "elapsed": "Proteklo je {{time}}",
+  "eyebrow": "Obrada meča",
+  "live-status": "Trenutačno stanje",
+  "open-report": "Otvori izvještaj",
+  "ready": "Vaš izvještaj je spreman.",
+  "stage-note": "Faze prikazuju potvrđeni napredak, a ne procijenjeno vrijeme završetka.",
+  "stopped": "Obrada je zaustavljena. Možete se vratiti i učitati drugu snimku.",
+  "taking-longer": "Obrada još traje. Prikazana je posljednja potvrđena faza; trajanje ovisi o snimci.",
+  "working": "Rekonstruiramo meč iz snimke. Stranica se automatski osvježava."
+}

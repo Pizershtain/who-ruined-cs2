@@ -1,0 +1,20 @@
+{
+  "data": "Onde ficam os teus dados",
+  "data-text": "As demos e os relatórios enviados são guardados no servidor de análise configurado. Esta versão é um espaço de trabalho local sem isolamento entre contas; o alojamento público requer um modelo próprio de acesso e conservação de dados.",
+  "eyebrow": "Por trás da análise",
+  "facts": "O que podes ver hoje",
+  "facts-text": "Jogadores extraídos, equipas definidas pelos seus membros, rondas, K/D/A e eventos registados. As métricas adicionais da partida aparecem quando o serviço de análise as disponibiliza. As equipas mantêm-se quando os lados T e CT trocam.",
+  "faq-metrics": "Como devo interpretar as métricas?",
+  "faq-missing": "Porque estão alguns valores indisponíveis?",
+  "faq-ratings": "Onde estão as avaliações?",
+  "faq-storage": "Onde é guardada a minha demo?",
+  "faq-title": "Perguntas e respostas",
+  "future": "O que vem a seguir",
+  "future-text": "As avaliações contextuais, a coordenação da equipa e as conclusões táticas exigem análise adicional. Permanecem indisponíveis até o serviço as calcular.",
+  "intro": "O quadro de resultados descreve o que aconteceu. Perceber porquê exige contexto. Mantemos essas duas coisas separadas.",
+  "pipeline-title": "Da demo ao relatório",
+  "start": "Analisar uma partida",
+  "title": "Evidências em vez de suposições.",
+  "uncertainty": "As lacunas ficam visíveis",
+  "uncertainty-text": "Um traço significa indisponível, não zero. As partidas parciais mostram os seus problemas de qualidade. Uma morte comum nunca é apresentada como um erro comprovado."
+}

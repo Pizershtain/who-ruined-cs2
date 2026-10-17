@@ -1,0 +1,12 @@
+{
+  "back": "Zurück zum Upload",
+  "elapsed": "Vergangen: {{time}}",
+  "eyebrow": "Match wird verarbeitet",
+  "live-status": "Aktueller Status",
+  "open-report": "Bericht öffnen",
+  "ready": "Dein Bericht ist fertig.",
+  "stage-note": "Die Schritte zeigen den bestätigten Fortschritt, keine geschätzte Fertigstellungszeit.",
+  "stopped": "Die Verarbeitung wurde beendet. Du kannst zurückgehen und eine andere Demo hochladen.",
+  "taking-longer": "Die Verarbeitung läuft noch. Angezeigt wird der zuletzt bestätigte Schritt; die Dauer hängt von der Demo ab.",
+  "working": "Das Match wird aus deiner Demo rekonstruiert. Diese Seite aktualisiert sich automatisch."
+}

@@ -3,6 +3,7 @@ packages:
   - packages/*
 
 allowBuilds:
+  '@swc/core': true
   '@laihoe/demoparser2': true
   '@nestjs/core': true
   '@prisma/client': true

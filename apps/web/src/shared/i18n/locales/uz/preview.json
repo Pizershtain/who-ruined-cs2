@@ -1,0 +1,23 @@
+{
+  "calculated": "Hisoblangan reytinglar",
+  "description": "O‘yinchilar, statistika va reytinglar to‘qima. Bu haqiqiy demo tahlili emas.",
+  "insufficient": "Dalillar yetarli emas",
+  "low-confidence": "Past ishonchlilik",
+  "m1": "Joriy o‘yin ma’lumotlari",
+  "partial": "Qisman o‘yin",
+  "scenario": "Ko‘rib chiqish ssenariysi",
+  "state-empty": "Hali o‘yinlar yo‘q",
+  "state-error": "So‘rov xatosi",
+  "state-failed": "Qayta ishlash bajarilmadi",
+  "state-gallery": "Interfeys holatlari",
+  "state-gallery-note": "Joylashuvi va harakatini tekshirish uchun holatni tanlang. So‘rovlar yuborilmaydi.",
+  "state-job-loading": "Vazifa yuklanmoqda",
+  "state-match-loading": "O‘yin yuklanmoqda",
+  "state-offline": "Tarmoqdan uzilgan",
+  "state-player-loading": "O‘yinchi yuklanmoqda",
+  "state-processing": "Demo qayta ishlanmoqda",
+  "state-ready": "Hisobot tayyor",
+  "state-recent-loading": "O‘yinlar ro‘yxati yuklanmoqda",
+  "state-unavailable": "Mavjud bo‘lmagan ko‘rsatkichlar",
+  "title": "Dizayn ko‘rinishi · sun’iy ma’lumotlar"
+}

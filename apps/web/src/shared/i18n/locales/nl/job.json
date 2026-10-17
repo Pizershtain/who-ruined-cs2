@@ -1,0 +1,12 @@
+{
+  "back": "Terug naar uploaden",
+  "elapsed": "Verstreken: {{time}}",
+  "eyebrow": "Wedstrijdverwerking",
+  "live-status": "Actuele status",
+  "open-report": "Rapport openen",
+  "ready": "Je rapport is klaar.",
+  "stage-note": "De stappen tonen bevestigde voortgang, geen geschatte eindtijd.",
+  "stopped": "De verwerking is gestopt. Je kunt teruggaan en een andere demo uploaden.",
+  "taking-longer": "De verwerking loopt nog. De laatst bevestigde stap wordt getoond; de duur hangt af van de demo.",
+  "working": "De wedstrijd wordt uit je demo gereconstrueerd. Deze pagina wordt automatisch bijgewerkt."
+}

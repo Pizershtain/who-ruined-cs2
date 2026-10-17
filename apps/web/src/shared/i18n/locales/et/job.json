@@ -1,0 +1,12 @@
+{
+  "back": "Tagasi üleslaadimise juurde",
+  "elapsed": "Möödunud aeg: {{time}}",
+  "eyebrow": "Mängu töötlemine",
+  "live-status": "Reaalajaolek",
+  "open-report": "Ava raport",
+  "ready": "Sinu raport on valmis.",
+  "stage-note": "Etapid näitavad kinnitatud edenemist, mitte eeldatavat valmimisaega.",
+  "stopped": "Töötlemine on peatunud. Võid tagasi minna ja teise demo üles laadida.",
+  "taking-longer": "Töötlemine jätkub. Näidatakse viimast kinnitatud etappi; kestus sõltub demost.",
+  "working": "Mängu taastamine sinu demost. Leht uueneb automaatselt."
+}

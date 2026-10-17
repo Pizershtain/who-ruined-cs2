@@ -1,0 +1,12 @@
+{
+  "back": "Atgal į įkėlimą",
+  "elapsed": "Praėjo {{time}}",
+  "eyebrow": "Mačo apdorojimas",
+  "live-status": "Dabartinė būsena",
+  "open-report": "Atverti ataskaitą",
+  "ready": "Jūsų ataskaita paruošta.",
+  "stage-note": "Etapai rodo patvirtintą pažangą, o ne numatomą užbaigimo laiką.",
+  "stopped": "Apdorojimas sustojo. Galite grįžti ir įkelti kitą demo.",
+  "taking-longer": "Apdorojimas tęsiasi. Rodomas paskutinis patvirtintas etapas; trukmė priklauso nuo demo.",
+  "working": "Atkuriame mačą iš demo. Šis puslapis atsinaujina automatiškai."
+}

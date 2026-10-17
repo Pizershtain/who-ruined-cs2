@@ -1,0 +1,12 @@
+{
+  "back": "Nazaj na nalaganje",
+  "elapsed": "Preteklo je {{time}}",
+  "eyebrow": "Obdelava tekme",
+  "live-status": "Trenutno stanje",
+  "open-report": "Odpri poročilo",
+  "ready": "Vaše poročilo je pripravljeno.",
+  "stage-note": "Faze prikazujejo potrjeni napredek, ne predvidenega časa zaključka.",
+  "stopped": "Obdelava se je ustavila. Lahko se vrnete in naložite drug posnetek.",
+  "taking-longer": "Obdelava še poteka. Prikazana je zadnja potrjena faza; trajanje je odvisno od posnetka.",
+  "working": "Obnavljamo tekmo iz posnetka. Stran se osvežuje samodejno."
+}

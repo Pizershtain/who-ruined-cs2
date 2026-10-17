@@ -1,0 +1,12 @@
+{
+  "back": "Înapoi la încărcare",
+  "elapsed": "Timp scurs: {{time}}",
+  "eyebrow": "Procesarea meciului",
+  "live-status": "Stare în timp real",
+  "open-report": "Deschide raportul",
+  "ready": "Raportul tău este gata.",
+  "stage-note": "Etapele arată progresul confirmat, nu un timp estimat de finalizare.",
+  "stopped": "Procesarea s-a oprit. Poți reveni și încărca alt demo.",
+  "taking-longer": "Procesarea continuă. Este afișată ultima etapă confirmată; durata depinde de demo.",
+  "working": "Reconstituim meciul din demo. Această pagină se actualizează automat."
+}

@@ -1,0 +1,23 @@
+{
+  "calculated": "Lasketut arviot",
+  "description": "Keksityt pelaajat, tilastot ja arviot. Tämä ei ole oikean demon analyysi.",
+  "insufficient": "Riittämätön näyttö",
+  "low-confidence": "Heikko luotettavuus",
+  "m1": "Nykyiset ottelutiedot",
+  "partial": "Osittainen ottelu",
+  "scenario": "Esikatselutilanne",
+  "state-empty": "Ei vielä otteluita",
+  "state-error": "Pyyntövirhe",
+  "state-failed": "Käsittely epäonnistui",
+  "state-gallery": "Käyttöliittymän tilat",
+  "state-gallery-note": "Valitse tila tarkistaaksesi asettelun ja animaatiot. Pyyntöjä ei lähetetä.",
+  "state-job-loading": "Ladataan analyysitehtävää",
+  "state-match-loading": "Ladataan ottelua",
+  "state-offline": "Ei verkkoyhteyttä",
+  "state-player-loading": "Ladataan pelaajaa",
+  "state-processing": "Käsitellään demoa",
+  "state-ready": "Raportti valmis",
+  "state-recent-loading": "Ladataan otteluluetteloa",
+  "state-unavailable": "Mittarit eivät ole saatavilla",
+  "title": "Ulkoasun esikatselu · synteettiset tiedot"
+}

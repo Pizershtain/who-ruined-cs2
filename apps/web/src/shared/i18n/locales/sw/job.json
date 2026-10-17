@@ -1,0 +1,12 @@
+{
+  "back": "Rudi kupakia",
+  "elapsed": "Muda uliopita: {{time}}",
+  "eyebrow": "Inachakata mechi",
+  "live-status": "Hali ya sasa",
+  "open-report": "Fungua ripoti",
+  "ready": "Ripoti yako iko tayari.",
+  "stage-note": "Hatua zinaonyesha maendeleo yaliyothibitishwa, si makadirio ya muda wa kukamilika.",
+  "stopped": "Uchakataji umesimama. Unaweza kurudi na kupakia demo nyingine.",
+  "taking-longer": "Bado inachakata. Hatua ya mwisho iliyothibitishwa imeonyeshwa; muda hutegemea demo.",
+  "working": "Inajenga upya mechi kutoka kwenye demo. Ukurasa huu husasishwa kiotomatiki."
+}

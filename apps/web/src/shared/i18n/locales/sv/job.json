@@ -1,0 +1,12 @@
+{
+  "back": "Tillbaka till uppladdning",
+  "elapsed": "Förfluten tid: {{time}}",
+  "eyebrow": "Matchbearbetning",
+  "live-status": "Aktuell status",
+  "open-report": "Öppna rapport",
+  "ready": "Din rapport är klar.",
+  "stage-note": "Stegen visar bekräftade framsteg, ingen uppskattning av när bearbetningen är klar.",
+  "stopped": "Bearbetningen har stoppats. Du kan gå tillbaka och ladda upp en annan demo.",
+  "taking-longer": "Bearbetningen pågår fortfarande. Det senast bekräftade steget visas; tiden beror på demon.",
+  "working": "Återskapar matchen från din demo. Sidan uppdateras automatiskt."
+}

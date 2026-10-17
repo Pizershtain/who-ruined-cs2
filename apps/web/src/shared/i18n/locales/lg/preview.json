@@ -1,0 +1,23 @@
+{
+  "calculated": "Ebipimo ebibaliddwa",
+  "description": "Abazannyi, ebibaliriro n'ebipimo biyiiye. Kuno si kwekenneenya demo ya ddala.",
+  "insufficient": "Obujulizi tebwemala",
+  "low-confidence": "Obwesige butono",
+  "m1": "Ebikwata ku muzannyo ebiriwo kati",
+  "partial": "Omuzannyo ogutajjula",
+  "scenario": "Embeera y'okulaba okusooka",
+  "state-empty": "Tewannaba mizannyo",
+  "state-error": "Ensobi mu kusaba",
+  "state-failed": "Okukola ku demo kulemereddwa",
+  "state-gallery": "Embeera z'endabika",
+  "state-gallery-note": "Londa embeera okukebera enteekateeka n'entambula yaayo. Tewali kusaba kuweerezebwa.",
+  "state-job-loading": "Eleeta omulimu",
+  "state-match-loading": "Eleeta omuzannyo",
+  "state-offline": "Tewali kuyungibwa",
+  "state-player-loading": "Eleeta omuzannyi",
+  "state-processing": "Ekola ku demo",
+  "state-ready": "Lipoota etuuse",
+  "state-recent-loading": "Eleeta olukalala lw'emizannyo",
+  "state-unavailable": "Ebipimo ebitaliwo",
+  "title": "Okulaba endabika · ebikwata ku muzannyo ebiyiiye"
+}

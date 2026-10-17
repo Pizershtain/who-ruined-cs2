@@ -1,0 +1,20 @@
+{
+  "data": "Məlumatlarınız harada saxlanılır?",
+  "data-text": "Yüklənən demolar və hesabatlar seçilmiş təhlil serverində saxlanılır. Bu versiya hesabların ayrılmadığı yerli iş sahəsidir; açıq yayımlama üçün giriş və saxlama qaydaları ayrıca hazırlanmalıdır.",
+  "eyebrow": "Təhlilin arxasında",
+  "facts": "Hazırda görə biləcəkləriniz",
+  "facts-text": "Oxunmuş oyunçular, heyətə əsaslanan komandalar, raundlar, K/D/A və qeydə alınmış hadisələr. Təhlil xidməti təqdim etdikdə əlavə matç göstəriciləri görünür. T və CT tərəfləri dəyişəndə komandalar bir yerdə qalır.",
+  "faq-metrics": "Göstəriciləri necə şərh etməliyəm?",
+  "faq-missing": "Bəzi dəyərlər niyə əlçatan deyil?",
+  "faq-ratings": "Reytinqlər haradadır?",
+  "faq-storage": "Demom harada saxlanılır?",
+  "faq-title": "Suallar və cavablar",
+  "future": "Növbəti addımlar",
+  "future-text": "Kontekstə əsaslanan reytinqlər, komanda koordinasiyası və taktiki nəticələr əlavə təhlil tələb edir. Xidmət hesablayanadək onlar əlçatan deyil.",
+  "intro": "Hesab cədvəli nə baş verdiyini göstərir. Səbəbi anlamaq üçün kontekst lazımdır. Bunları ayrı saxlayırıq.",
+  "pipeline-title": "Demodan hesabata",
+  "start": "Matçı təhlil et",
+  "title": "Fərziyyədən əvvəl sübut.",
+  "uncertainty": "Boşluqlar görünür qalır",
+  "uncertainty-text": "Tire sıfır deyil, məlumatın olmadığını göstərir. Natamam matçların keyfiyyət problemləri göstərilir. Adi ölüm sübut edilmiş səhv kimi təqdim edilmir."
+}

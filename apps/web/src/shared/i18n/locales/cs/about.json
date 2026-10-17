@@ -1,0 +1,20 @@
+{
+  "data": "Kam putují vaše data",
+  "data-text": "Nahraná dema a přehledy jsou uloženy na nastaveném analytickém serveru. Tato verze je místní pracovní prostor bez oddělení účtů; veřejný provoz vyžaduje samostatný návrh přístupu a uchovávání dat.",
+  "eyebrow": "V zákulisí analýzy",
+  "facts": "Co je dostupné dnes",
+  "facts-text": "Načtené údaje hráčů, týmy podle sestav, kola, K/D/A a zaznamenané události. Další metriky zápasu se objeví, jakmile je poskytne analytická služba. Týmy si při výměně stran T a CT zachovávají totožnost.",
+  "faq-metrics": "Jak číst metriky?",
+  "faq-missing": "Proč nejsou některé hodnoty dostupné?",
+  "faq-ratings": "Kde jsou hodnocení?",
+  "faq-storage": "Kde je uložené moje demo?",
+  "faq-title": "Odpovědi na otázky",
+  "future": "Co bude následovat",
+  "future-text": "Hodnocení podle kontextu, týmová koordinace a taktické závěry vyžadují další analýzu. Zůstávají nedostupné, dokud je služba nevypočítá.",
+  "intro": "Tabulka ukazuje, co se stalo. K pochopení příčin je potřeba kontext. Tyto dvě věci oddělujeme.",
+  "pipeline-title": "Od dema k přehledu",
+  "start": "Analyzovat zápas",
+  "title": "Fakta místo domněnek.",
+  "uncertainty": "Mezery zůstávají viditelné",
+  "uncertainty-text": "Pomlčka znamená nedostupný údaj, nikoli nulu. Neúplné zápasy ukazují problémy s kvalitou. Běžná smrt se nikdy nevydává za prokázanou chybu."
+}

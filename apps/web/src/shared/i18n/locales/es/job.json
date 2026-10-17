@@ -1,0 +1,12 @@
+{
+  "back": "Volver a la subida",
+  "elapsed": "Tiempo transcurrido: {{time}}",
+  "eyebrow": "Procesando la partida",
+  "live-status": "Estado en directo",
+  "open-report": "Abrir informe",
+  "ready": "Tu informe está listo.",
+  "stage-note": "Las etapas muestran el progreso confirmado, no una estimación de cuándo terminará.",
+  "stopped": "El procesamiento se ha detenido. Puedes volver y subir otra demo.",
+  "taking-longer": "El procesamiento continúa. Se muestra la última etapa confirmada; la duración depende de la demo.",
+  "working": "Reconstruyendo la partida a partir de tu demo. Esta página se actualiza automáticamente."
+}

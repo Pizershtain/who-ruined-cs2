@@ -1,0 +1,20 @@
+{
+  "data": "Unde ajung datele tale",
+  "data-text": "Demourile și rapoartele încărcate sunt stocate pe serverul de analiză configurat. Această versiune este un spațiu local fără izolarea conturilor; găzduirea publică necesită un plan separat pentru acces și păstrarea datelor.",
+  "eyebrow": "În culisele analizei",
+  "facts": "Ce poți vedea acum",
+  "facts-text": "Datele jucătorilor citite din demo, echipele definite prin componență, rundele, K/D/A și evenimentele înregistrate. Indicatorii suplimentari ai meciului apar când serviciul de analiză îi furnizează. Echipele își păstrează identitatea la schimbarea taberelor T și CT.",
+  "faq-metrics": "Cum interpretez indicatorii?",
+  "faq-missing": "De ce sunt indisponibile unele valori?",
+  "faq-ratings": "Unde sunt evaluările?",
+  "faq-storage": "Unde este stocat demoul meu?",
+  "faq-title": "Răspunsuri la întrebări",
+  "future": "Ce urmează",
+  "future-text": "Evaluările contextuale, coordonarea echipei și concluziile tactice necesită analiză suplimentară. Rămân indisponibile până când serviciul le calculează.",
+  "intro": "Tabela arată ce s-a întâmplat. Pentru a înțelege de ce, ai nevoie de context. Păstrăm aceste lucruri separate.",
+  "pipeline-title": "De la demo la raport",
+  "start": "Analizează un meci",
+  "title": "Fapte înaintea presupunerilor.",
+  "uncertainty": "Lipsurile rămân vizibile",
+  "uncertainty-text": "O liniuță înseamnă indisponibil, nu zero. Meciurile incomplete afișează problemele de calitate. O moarte obișnuită nu este niciodată prezentată ca o greșeală dovedită."
+}

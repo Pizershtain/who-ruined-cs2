@@ -1,0 +1,23 @@
+{
+  "calculated": "Hesaplanan puanlar",
+  "description": "Oyuncular, istatistikler ve puanlar kurgusaldır. Bu gerçek bir demo analizi değildir.",
+  "insufficient": "Yetersiz kanıt",
+  "low-confidence": "Düşük güven",
+  "m1": "Mevcut maç verileri",
+  "partial": "Eksik maç",
+  "scenario": "Önizleme senaryosu",
+  "state-empty": "Henüz maç yok",
+  "state-error": "İstek hatası",
+  "state-failed": "İşleme başarısız",
+  "state-gallery": "Arayüz durumları",
+  "state-gallery-note": "Düzenini ve hareketlerini incelemek için bir durum seçin. İstek gönderilmez.",
+  "state-job-loading": "İş yükleniyor",
+  "state-match-loading": "Maç yükleniyor",
+  "state-offline": "Çevrimdışı",
+  "state-player-loading": "Oyuncu yükleniyor",
+  "state-processing": "Demo işleniyor",
+  "state-ready": "Rapor hazır",
+  "state-recent-loading": "Maç listesi yükleniyor",
+  "state-unavailable": "Kullanılamayan ölçütler",
+  "title": "Tasarım önizlemesi · sentetik veriler"
+}

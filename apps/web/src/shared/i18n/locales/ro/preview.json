@@ -1,0 +1,23 @@
+{
+  "calculated": "Evaluări calculate",
+  "description": "Jucători, statistici și evaluări inventate. Aceasta nu este analiza unui demo real.",
+  "insufficient": "Dovezi insuficiente",
+  "low-confidence": "Încredere scăzută",
+  "m1": "Datele actuale ale meciului",
+  "partial": "Meci parțial",
+  "scenario": "Scenariu de previzualizare",
+  "state-empty": "Încă nu există meciuri",
+  "state-error": "Eroare de solicitare",
+  "state-failed": "Procesarea a eșuat",
+  "state-gallery": "Stările interfeței",
+  "state-gallery-note": "Alege o stare pentru a verifica aspectul și animațiile. Nu se trimit solicitări.",
+  "state-job-loading": "Se încarcă sarcina",
+  "state-match-loading": "Se încarcă meciul",
+  "state-offline": "Fără conexiune",
+  "state-player-loading": "Se încarcă jucătorul",
+  "state-processing": "Se procesează un demo",
+  "state-ready": "Raport gata",
+  "state-recent-loading": "Se încarcă lista de meciuri",
+  "state-unavailable": "Indicatori indisponibili",
+  "title": "Previzualizarea designului · date sintetice"
+}

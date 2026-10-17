@@ -1,0 +1,12 @@
+{
+  "back": "Zpět k nahrávání",
+  "elapsed": "Uplynulo {{time}}",
+  "eyebrow": "Zpracování zápasu",
+  "live-status": "Aktuální stav",
+  "open-report": "Otevřít přehled",
+  "ready": "Váš přehled je připraven.",
+  "stage-note": "Fáze ukazují potvrzený postup, nikoli odhad času dokončení.",
+  "stopped": "Zpracování se zastavilo. Můžete se vrátit a nahrát jiné demo.",
+  "taking-longer": "Zpracování pokračuje. Zobrazuje se poslední potvrzená fáze; délka zpracování závisí na demu.",
+  "working": "Rekonstruujeme zápas z dema. Stránka se aktualizuje automaticky."
+}

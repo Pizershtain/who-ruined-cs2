@@ -1,0 +1,20 @@
+{
+  "data": "Dónde van tus datos",
+  "data-text": "Las demos y los informes subidos se almacenan en el servidor de análisis configurado. Esta versión es un espacio local sin separación entre cuentas; el alojamiento público requiere un diseño específico de acceso y conservación de datos.",
+  "eyebrow": "Detrás del análisis",
+  "facts": "Qué puedes ver hoy",
+  "facts-text": "Jugadores extraídos, equipos según sus integrantes, rondas, K/D/A y eventos registrados. Las métricas adicionales de la partida aparecen cuando las proporciona el servicio de análisis. Los equipos se mantienen al cambiar de bando T y CT.",
+  "faq-metrics": "¿Cómo debo interpretar las métricas?",
+  "faq-missing": "¿Por qué algunos valores no están disponibles?",
+  "faq-ratings": "¿Dónde están las valoraciones?",
+  "faq-storage": "¿Dónde se guarda mi demo?",
+  "faq-title": "Preguntas y respuestas",
+  "future": "Qué viene después",
+  "future-text": "Las valoraciones contextuales, la coordinación del equipo y las conclusiones tácticas requieren análisis adicionales. No estarán disponibles hasta que el servicio las calcule.",
+  "intro": "El marcador describe lo que ocurrió. Entender por qué requiere contexto. Mantenemos ambas cosas separadas.",
+  "pipeline-title": "De la demo al informe",
+  "start": "Analizar una partida",
+  "title": "Pruebas antes que suposiciones.",
+  "uncertainty": "Las carencias quedan visibles",
+  "uncertainty-text": "Un guion significa que el dato no está disponible, no que sea cero. Las partidas parciales muestran sus problemas de calidad. Una muerte corriente nunca se presenta como un error demostrado."
+}

@@ -1,0 +1,23 @@
+{
+  "calculated": "تقييمات محسوبة",
+  "description": "لاعبون وإحصاءات وتقييمات خيالية. هذا ليس تحليل تسجيل حقيقي.",
+  "insufficient": "أدلة غير كافية",
+  "low-confidence": "ثقة منخفضة",
+  "m1": "بيانات المباراة الحالية",
+  "partial": "مباراة جزئية",
+  "scenario": "سيناريو المعاينة",
+  "state-empty": "لا توجد مباريات بعد",
+  "state-error": "خطأ في الطلب",
+  "state-failed": "فشلت المعالجة",
+  "state-gallery": "حالات الواجهة",
+  "state-gallery-note": "اختر حالة لفحص تخطيطها وحركتها. لا تُرسل أي طلبات.",
+  "state-job-loading": "تحميل المهمة",
+  "state-match-loading": "تحميل المباراة",
+  "state-offline": "غير متصل",
+  "state-player-loading": "تحميل اللاعب",
+  "state-processing": "معالجة تسجيل",
+  "state-ready": "التقرير جاهز",
+  "state-recent-loading": "تحميل قائمة المباريات",
+  "state-unavailable": "مقاييس غير متاحة",
+  "title": "معاينة التصميم · بيانات اصطناعية"
+}

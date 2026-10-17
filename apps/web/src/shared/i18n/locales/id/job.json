@@ -1,0 +1,12 @@
+{
+  "back": "Kembali ke unggahan",
+  "elapsed": "Waktu berlalu: {{time}}",
+  "eyebrow": "Memproses pertandingan",
+  "live-status": "Status langsung",
+  "open-report": "Buka laporan",
+  "ready": "Laporan Anda siap.",
+  "stage-note": "Tahapan menunjukkan kemajuan yang terkonfirmasi, bukan perkiraan waktu selesai.",
+  "stopped": "Pemrosesan berhenti. Anda dapat kembali dan mengunggah demo lain.",
+  "taking-longer": "Masih diproses. Tahap terakhir yang terkonfirmasi ditampilkan; durasinya bergantung pada demo.",
+  "working": "Menyusun ulang pertandingan dari demo. Halaman ini diperbarui otomatis."
+}

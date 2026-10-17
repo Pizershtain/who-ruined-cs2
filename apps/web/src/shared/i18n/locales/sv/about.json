@@ -1,0 +1,20 @@
+{
+  "data": "Var dina data lagras",
+  "data-text": "Uppladdade demor och rapporter lagras på den konfigurerade analysservern. Den här versionen är en lokal arbetsyta utan separerade konton; offentlig drift kräver en särskild lösning för åtkomst och lagringstid.",
+  "eyebrow": "Bakom analysen",
+  "facts": "Vad du kan se i dag",
+  "facts-text": "Utlästa spelare, lag baserade på spelartrupper, rundor, K/D/A och registrerade händelser. Ytterligare matchmått visas när analystjänsten tillhandahåller dem. Lagen hålls ihop när T och CT byter sida.",
+  "faq-metrics": "Hur ska jag tolka måtten?",
+  "faq-missing": "Varför är vissa värden otillgängliga?",
+  "faq-ratings": "Var finns bedömningarna?",
+  "faq-storage": "Var lagras min demo?",
+  "faq-title": "Frågor och svar",
+  "future": "Vad som kommer härnäst",
+  "future-text": "Kontextbaserade bedömningar, lagkoordination och taktiska slutsatser kräver ytterligare analys. De förblir otillgängliga tills tjänsten har beräknat dem.",
+  "intro": "Resultattavlan beskriver vad som hände. För att förstå varför behövs sammanhang. Vi håller isär de två sakerna.",
+  "pipeline-title": "Från demo till rapport",
+  "start": "Analysera en match",
+  "title": "Belägg framför antaganden.",
+  "uncertainty": "Luckor förblir synliga",
+  "uncertainty-text": "Ett streck betyder otillgängligt, inte noll. Ofullständiga matcher visar sina datakvalitetsproblem. Ett vanligt dödsfall framställs aldrig som ett bevisat misstag."
+}

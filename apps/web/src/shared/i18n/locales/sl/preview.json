@@ -1,0 +1,23 @@
+{
+  "calculated": "Izračunane ocene",
+  "description": "Izmišljeni igralci, statistika in ocene. To ni analiza pravega posnetka.",
+  "insufficient": "Premalo dokazov",
+  "low-confidence": "Nizka zanesljivost",
+  "m1": "Trenutni podatki tekme",
+  "partial": "Nepopolna tekma",
+  "scenario": "Scenarij predogleda",
+  "state-empty": "Tekem še ni",
+  "state-error": "Napaka zahteve",
+  "state-failed": "Obdelava ni uspela",
+  "state-gallery": "Stanja vmesnika",
+  "state-gallery-note": "Izberite stanje za ogled postavitve in animacij. Zahteve se ne pošiljajo.",
+  "state-job-loading": "Nalaganje naloge",
+  "state-match-loading": "Nalaganje tekme",
+  "state-offline": "Brez povezave",
+  "state-player-loading": "Nalaganje igralca",
+  "state-processing": "Obdelava posnetka",
+  "state-ready": "Poročilo je pripravljeno",
+  "state-recent-loading": "Nalaganje seznama tekem",
+  "state-unavailable": "Nedostopna merila",
+  "title": "Predogled zasnove · sintetični podatki"
+}

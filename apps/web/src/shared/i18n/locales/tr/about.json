@@ -1,0 +1,20 @@
+{
+  "data": "Verileriniz nerede saklanır?",
+  "data-text": "Yüklenen demolar ve raporlar, yapılandırdığınız analiz sunucusunda saklanır. Bu sürüm, hesap ayrımı olmayan yerel bir çalışma alanıdır; herkese açık yayın için ayrı erişim ve saklama kuralları gerekir.",
+  "eyebrow": "Analizin arkasında",
+  "facts": "Bugün görebilecekleriniz",
+  "facts-text": "Okunan oyuncular, kadrolara göre takımlar, raundlar, K/D/A ve kayıtlı olaylar. Analiz hizmeti sağladığında ek maç ölçütleri gösterilir. T ve CT tarafları değiştiğinde takımlar aynı kalır.",
+  "faq-metrics": "Ölçütleri nasıl yorumlamalıyım?",
+  "faq-missing": "Bazı değerler neden kullanılamıyor?",
+  "faq-ratings": "Puanlar nerede?",
+  "faq-storage": "Demom nerede saklanıyor?",
+  "faq-title": "Sorular ve yanıtlar",
+  "future": "Sırada ne var?",
+  "future-text": "Bağlamsal puanlar, takım koordinasyonu ve taktiksel sonuçlar ek analiz gerektirir. Hizmet bunları hesaplayana kadar kullanılamazlar.",
+  "intro": "Skor tablosu ne olduğunu gösterir. Nedenini anlamak bağlam gerektirir. Bu ikisini ayrı tutuyoruz.",
+  "pipeline-title": "Demodan rapora",
+  "start": "Maç analiz et",
+  "title": "Varsayımlardan önce kanıt.",
+  "uncertainty": "Eksikler görünür kalır",
+  "uncertainty-text": "Çizgi, sıfır değil, verinin bulunmadığı anlamına gelir. Eksik maçların veri sorunları gösterilir. Sıradan bir ölüm, kanıtlanmış hata olarak sunulmaz."
+}

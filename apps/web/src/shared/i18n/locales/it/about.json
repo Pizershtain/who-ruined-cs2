@@ -1,0 +1,20 @@
+{
+  "data": "Dove finiscono i tuoi dati",
+  "data-text": "Le demo e i resoconti caricati vengono memorizzati sul server di analisi configurato. Questa versione è uno spazio di lavoro locale senza separazione tra account; l'hosting pubblico richiede una progettazione specifica di accesso e conservazione dei dati.",
+  "eyebrow": "Dietro l'analisi",
+  "facts": "Cosa puoi vedere oggi",
+  "facts-text": "Giocatori estratti, squadre definite dai loro componenti, round, K/D/A ed eventi registrati. Le metriche aggiuntive della partita compaiono quando il servizio di analisi le fornisce. Le squadre restano unite quando si scambiano i lati T e CT.",
+  "faq-metrics": "Come devo interpretare le metriche?",
+  "faq-missing": "Perché alcuni valori non sono disponibili?",
+  "faq-ratings": "Dove sono le valutazioni?",
+  "faq-storage": "Dove viene salvata la mia demo?",
+  "faq-title": "Domande e risposte",
+  "future": "Cosa arriverà",
+  "future-text": "Le valutazioni contestuali, la coordinazione della squadra e le conclusioni tattiche richiedono ulteriori analisi. Restano indisponibili finché il servizio non le calcola.",
+  "intro": "Il tabellino descrive cosa è successo. Per capire il perché serve il contesto. Manteniamo le due cose separate.",
+  "pipeline-title": "Dalla demo al resoconto",
+  "start": "Analizza una partita",
+  "title": "Prove prima delle supposizioni.",
+  "uncertainty": "Le lacune restano visibili",
+  "uncertainty-text": "Un trattino significa dato non disponibile, non zero. Le partite parziali mostrano i problemi di qualità dei dati. Una morte ordinaria non viene mai presentata come un errore dimostrato."
+}

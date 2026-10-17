@@ -1,0 +1,23 @@
+{
+  "calculated": "Hesablanmış reytinqlər",
+  "description": "Uydurma oyunçular, statistika və reytinqlər. Bu, həqiqi demo təhlili deyil.",
+  "insufficient": "Yetərsiz sübut",
+  "low-confidence": "Aşağı etibarlılıq",
+  "m1": "Mövcud matç məlumatları",
+  "partial": "Natamam matç",
+  "scenario": "Önbaxış ssenarisi",
+  "state-empty": "Hələ matç yoxdur",
+  "state-error": "Sorğu xətası",
+  "state-failed": "Emal uğursuz oldu",
+  "state-gallery": "İnterfeys vəziyyətləri",
+  "state-gallery-note": "Görünüşü və hərəkətləri yoxlamaq üçün vəziyyət seçin. Sorğu göndərilmir.",
+  "state-job-loading": "Tapşırıq yüklənir",
+  "state-match-loading": "Matç yüklənir",
+  "state-offline": "Oflayn",
+  "state-player-loading": "Oyunçu yüklənir",
+  "state-processing": "Demo emal olunur",
+  "state-ready": "Hesabat hazırdır",
+  "state-recent-loading": "Matç siyahısı yüklənir",
+  "state-unavailable": "Əlçatan olmayan göstəricilər",
+  "title": "Dizayn önbaxışı · süni məlumatlar"
+}

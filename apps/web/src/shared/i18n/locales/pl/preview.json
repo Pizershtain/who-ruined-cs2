@@ -1,0 +1,23 @@
+{
+  "calculated": "Obliczone oceny",
+  "description": "Zmyśleni gracze, statystyki i oceny. To nie jest analiza prawdziwego dema.",
+  "insufficient": "Za mało dowodów",
+  "low-confidence": "Niska pewność",
+  "m1": "Obecne dane meczu",
+  "partial": "Niepełny mecz",
+  "scenario": "Scenariusz podglądu",
+  "state-empty": "Brak meczów",
+  "state-error": "Błąd żądania",
+  "state-failed": "Przetwarzanie nie powiodło się",
+  "state-gallery": "Stany interfejsu",
+  "state-gallery-note": "Wybierz stan, aby sprawdzić jego układ i animacje. Żadne żądania nie są wysyłane.",
+  "state-job-loading": "Wczytywanie zadania",
+  "state-match-loading": "Wczytywanie meczu",
+  "state-offline": "Brak połączenia",
+  "state-player-loading": "Wczytywanie gracza",
+  "state-processing": "Przetwarzanie dema",
+  "state-ready": "Raport gotowy",
+  "state-recent-loading": "Wczytywanie listy meczów",
+  "state-unavailable": "Niedostępne wskaźniki",
+  "title": "Podgląd projektu · dane syntetyczne"
+}

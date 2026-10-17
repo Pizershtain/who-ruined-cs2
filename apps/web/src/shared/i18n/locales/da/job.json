@@ -1,0 +1,12 @@
+{
+  "back": "Tilbage til upload",
+  "elapsed": "Forløbet tid: {{time}}",
+  "eyebrow": "Behandler kampen",
+  "live-status": "Aktuel status",
+  "open-report": "Åbn rapport",
+  "ready": "Din rapport er klar.",
+  "stage-note": "Trinnene viser bekræftet fremdrift, ikke et anslået sluttidspunkt.",
+  "stopped": "Behandlingen er stoppet. Du kan gå tilbage og uploade en anden demo.",
+  "taking-longer": "Behandlingen fortsætter. Det senest bekræftede trin vises; varigheden afhænger af demoen.",
+  "working": "Genskaber kampen fra din demo. Siden opdateres automatisk."
+}

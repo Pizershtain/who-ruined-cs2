@@ -1,0 +1,20 @@
+{
+  "data": "Wo deine Daten gespeichert werden",
+  "data-text": "Hochgeladene Demos und Berichte werden auf deinem konfigurierten Analyseserver gespeichert. Diese Version ist ein lokaler Arbeitsbereich ohne getrennte Benutzerkonten; öffentliches Hosting erfordert ein eigenes Zugriffs- und Aufbewahrungskonzept.",
+  "eyebrow": "Hinter der Analyse",
+  "facts": "Was du heute sehen kannst",
+  "facts-text": "Ausgelesene Spieler, Teams nach Aufstellung, Runden, K/D/A und aufgezeichnete Ereignisse. Zusätzliche Matchwerte erscheinen, sobald der Analysedienst sie bereitstellt. Die Teams bleiben beim Wechsel zwischen T und CT zusammen.",
+  "faq-metrics": "Wie lese ich die Werte?",
+  "faq-missing": "Warum sind einige Werte nicht verfügbar?",
+  "faq-ratings": "Wo sind die Bewertungen?",
+  "faq-storage": "Wo wird meine Demo gespeichert?",
+  "faq-title": "Fragen und Antworten",
+  "future": "Was als Nächstes kommt",
+  "future-text": "Kontextbezogene Bewertungen, Teamkoordination und taktische Schlussfolgerungen erfordern weitere Analysen. Sie bleiben nicht verfügbar, bis der Dienst sie berechnet hat.",
+  "intro": "Die Ergebnistafel zeigt, was passiert ist. Um das Warum zu verstehen, braucht es Kontext. Wir halten beides auseinander.",
+  "pipeline-title": "Von der Demo zum Bericht",
+  "start": "Match analysieren",
+  "title": "Belege statt Vermutungen.",
+  "uncertainty": "Lücken bleiben sichtbar",
+  "uncertainty-text": "Ein Strich bedeutet nicht verfügbar, nicht null. Bei unvollständigen Matches werden Qualitätsprobleme angezeigt. Ein gewöhnlicher Tod wird niemals als nachgewiesener Fehler dargestellt."
+}

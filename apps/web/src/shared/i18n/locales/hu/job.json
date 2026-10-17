@@ -1,0 +1,12 @@
+{
+  "back": "Vissza a feltöltéshez",
+  "elapsed": "Eltelt idő: {{time}}",
+  "eyebrow": "Meccs feldolgozása",
+  "live-status": "Élő állapot",
+  "open-report": "Jelentés megnyitása",
+  "ready": "Elkészült a jelentésed.",
+  "stage-note": "A szakaszok a megerősített előrehaladást mutatják, nem a befejezés becsült idejét.",
+  "stopped": "A feldolgozás leállt. Visszaléphetsz, és feltölthetsz egy másik demót.",
+  "taking-longer": "A feldolgozás még tart. Az utolsó megerősített szakasz látható; az időtartam a demótól függ.",
+  "working": "A meccs helyreállítása a demódból. Az oldal automatikusan frissül."
+}

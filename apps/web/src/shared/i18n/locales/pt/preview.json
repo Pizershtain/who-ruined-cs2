@@ -1,0 +1,23 @@
+{
+  "calculated": "Avaliações calculadas",
+  "description": "Jogadores, estatísticas e avaliações inventados. Não é a análise de uma demo real.",
+  "insufficient": "Evidências insuficientes",
+  "low-confidence": "Confiança baixa",
+  "m1": "Dados atuais da partida",
+  "partial": "Partida parcial",
+  "scenario": "Cenário de pré-visualização",
+  "state-empty": "Ainda não há partidas",
+  "state-error": "Erro no pedido",
+  "state-failed": "Falha no processamento",
+  "state-gallery": "Estados da interface",
+  "state-gallery-note": "Escolhe um estado para inspecionar a disposição e as animações. Não são enviados pedidos.",
+  "state-job-loading": "A carregar a tarefa de análise",
+  "state-match-loading": "A carregar a partida",
+  "state-offline": "Sem ligação",
+  "state-player-loading": "A carregar o jogador",
+  "state-processing": "A processar uma demo",
+  "state-ready": "Relatório pronto",
+  "state-recent-loading": "A carregar a lista de partidas",
+  "state-unavailable": "Métricas indisponíveis",
+  "title": "Pré-visualização do design · dados sintéticos"
+}

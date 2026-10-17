@@ -1,0 +1,23 @@
+{
+  "calculated": "Beregnede vurderinger",
+  "description": "Oppdiktede spillere, statistikker og vurderinger. Dette er ikke en analyse av en ekte demo.",
+  "insufficient": "Utilstrekkelig dokumentasjon",
+  "low-confidence": "Lav sikkerhet",
+  "m1": "Gjeldende kampdata",
+  "partial": "Delvis kamp",
+  "scenario": "Forhåndsvisningsscenario",
+  "state-empty": "Ingen kamper ennå",
+  "state-error": "Forespørselsfeil",
+  "state-failed": "Behandlingen mislyktes",
+  "state-gallery": "Grensesnitttilstander",
+  "state-gallery-note": "Velg en tilstand for å undersøke oppsett og animasjoner. Ingen forespørsler sendes.",
+  "state-job-loading": "Laster inn analysejobb",
+  "state-match-loading": "Laster inn kamp",
+  "state-offline": "Frakoblet",
+  "state-player-loading": "Laster inn spiller",
+  "state-processing": "Behandler en demo",
+  "state-ready": "Rapport klar",
+  "state-recent-loading": "Laster inn kampliste",
+  "state-unavailable": "Utilgjengelige nøkkeltall",
+  "title": "Designforhåndsvisning · syntetiske data"
+}

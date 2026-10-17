@@ -1,0 +1,12 @@
+{
+  "back": "Wróć do przesyłania",
+  "elapsed": "Upłynęło {{time}}",
+  "eyebrow": "Przetwarzanie meczu",
+  "live-status": "Aktualny stan",
+  "open-report": "Otwórz raport",
+  "ready": "Twój raport jest gotowy.",
+  "stage-note": "Etapy pokazują potwierdzony postęp, a nie szacowany czas zakończenia.",
+  "stopped": "Przetwarzanie zostało zatrzymane. Możesz wrócić i przesłać inne demo.",
+  "taking-longer": "Przetwarzanie trwa. Wyświetlany jest ostatni potwierdzony etap; czas zależy od dema.",
+  "working": "Odtwarzanie meczu z dema. Ta strona aktualizuje się automatycznie."
+}

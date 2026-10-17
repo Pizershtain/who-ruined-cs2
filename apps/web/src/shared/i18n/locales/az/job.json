@@ -1,0 +1,12 @@
+{
+  "back": "Yükləməyə qayıt",
+  "elapsed": "Keçən vaxt: {{time}}",
+  "eyebrow": "Matç emal olunur",
+  "live-status": "Cari vəziyyət",
+  "open-report": "Hesabatı aç",
+  "ready": "Hesabatınız hazırdır.",
+  "stage-note": "Mərhələlər təxmini bitmə vaxtını deyil, təsdiqlənmiş irəliləyişi göstərir.",
+  "stopped": "Emal dayandırılıb. Geri qayıdıb başqa demo yükləyə bilərsiniz.",
+  "taking-longer": "Emal davam edir. Son təsdiqlənmiş mərhələ göstərilir; müddət demodan asılıdır.",
+  "working": "Matç demonuzdan bərpa olunur. Səhifə avtomatik yenilənir."
+}

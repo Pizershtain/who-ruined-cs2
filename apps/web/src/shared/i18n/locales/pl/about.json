@@ -1,0 +1,20 @@
+{
+  "data": "Gdzie trafiają Twoje dane",
+  "data-text": "Przesłane dema i raporty są przechowywane na skonfigurowanym serwerze analizy. Ta wersja to lokalny obszar roboczy bez izolacji kont. Publiczne udostępnienie wymaga osobnego projektu dostępu i przechowywania danych.",
+  "eyebrow": "Za kulisami analizy",
+  "facts": "Co zobaczysz już teraz",
+  "facts-text": "Dane graczy odczytane z dema, drużyny według składów, rundy, K/D/A i zapisane zdarzenia. Dodatkowe wskaźniki meczu pojawiają się, gdy dostarczy je usługa analizy. Drużyny zachowują tożsamość po zmianie stron T i CT.",
+  "faq-metrics": "Jak odczytywać wskaźniki?",
+  "faq-missing": "Dlaczego niektóre wartości są niedostępne?",
+  "faq-ratings": "Gdzie są oceny?",
+  "faq-storage": "Gdzie jest przechowywane moje demo?",
+  "faq-title": "Odpowiedzi na pytania",
+  "future": "Co dalej",
+  "future-text": "Oceny uwzględniające kontekst, koordynacja drużyny i wnioski taktyczne wymagają dodatkowej analizy. Pozostają niedostępne, dopóki usługa ich nie obliczy.",
+  "intro": "Tabela wyników pokazuje, co się stało. Zrozumienie przyczyn wymaga kontekstu. Rozdzielamy te dwie rzeczy.",
+  "pipeline-title": "Od dema do raportu",
+  "start": "Analizuj mecz",
+  "title": "Fakty ponad przypuszczeniami.",
+  "uncertainty": "Braki pozostają widoczne",
+  "uncertainty-text": "Kreska oznacza brak danych, nie zero. Niepełne mecze pokazują problemy z jakością. Zwykła śmierć nigdy nie jest przedstawiana jako udowodniony błąd."
+}

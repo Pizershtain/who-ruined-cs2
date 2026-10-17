@@ -1,0 +1,12 @@
+{
+  "back": "Atpakaļ uz augšupielādi",
+  "elapsed": "Pagājis {{time}}",
+  "eyebrow": "Spēles apstrāde",
+  "live-status": "Pašreizējais statuss",
+  "open-report": "Atvērt pārskatu",
+  "ready": "Jūsu pārskats ir gatavs.",
+  "stage-note": "Posmi rāda apstiprinātu progresu, nevis paredzamo pabeigšanas laiku.",
+  "stopped": "Apstrāde ir pārtraukta. Varat atgriezties un augšupielādēt citu demo.",
+  "taking-longer": "Apstrāde turpinās. Tiek rādīts pēdējais apstiprinātais posms; ilgums ir atkarīgs no demo.",
+  "working": "Atjaunojam spēles gaitu no demo. Šī lapa atjauninās automātiski."
+}

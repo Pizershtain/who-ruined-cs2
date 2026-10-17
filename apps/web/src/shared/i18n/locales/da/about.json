@@ -1,0 +1,20 @@
+{
+  "data": "Hvor dine data gemmes",
+  "data-text": "Uploadede demoer og rapporter gemmes på den konfigurerede analyseserver. Denne version er et lokalt arbejdsområde uden adskillelse mellem konti; offentlig hosting kræver en særskilt løsning for adgang og opbevaring.",
+  "eyebrow": "Bag analysen",
+  "facts": "Hvad du kan se i dag",
+  "facts-text": "Udlæste spillere, hold baseret på spillersammensætning, runder, K/D/A og registrerede hændelser. Yderligere kampmåltal vises, når analysetjenesten leverer dem. Holdene forbliver samlet, når T og CT skifter side.",
+  "faq-metrics": "Hvordan skal jeg læse måltallene?",
+  "faq-missing": "Hvorfor er nogle værdier utilgængelige?",
+  "faq-ratings": "Hvor er vurderingerne?",
+  "faq-storage": "Hvor gemmes min demo?",
+  "faq-title": "Spørgsmål og svar",
+  "future": "Hvad der kommer næste gang",
+  "future-text": "Kontekstbaserede vurderinger, holdkoordinering og taktiske konklusioner kræver yderligere analyse. De forbliver utilgængelige, indtil tjenesten har beregnet dem.",
+  "intro": "Resultattavlen beskriver, hvad der skete. At forstå hvorfor kræver kontekst. Vi holder de to ting adskilt.",
+  "pipeline-title": "Fra demo til rapport",
+  "start": "Analysér en kamp",
+  "title": "Dokumentation frem for antagelser.",
+  "uncertainty": "Huller forbliver synlige",
+  "uncertainty-text": "En streg betyder utilgængelig, ikke nul. Delvise kampe viser deres datakvalitetsproblemer. Et almindeligt dødsfald bliver aldrig præsenteret som en bevist fejl."
+}

@@ -1,0 +1,20 @@
+{
+  "data": "Kur saugomi jūsų duomenys",
+  "data-text": "Įkelti demo įrašai ir ataskaitos saugomi sukonfigūruotame analizės serveryje. Ši versija yra vietinė darbo erdvė be paskyrų atskyrimo; viešam talpinimui reikia atskiro prieigos ir duomenų saugojimo sprendimo.",
+  "eyebrow": "Analizės užkulisiai",
+  "facts": "Kas pasiekiama šiandien",
+  "facts-text": "Nuskaityti žaidėjų duomenys, komandos pagal sudėtį, raundai, K/D/A ir užfiksuoti įvykiai. Papildomi mačo rodikliai pasirodo, kai juos pateikia analizės paslauga. Komandos išlieka tos pačios, kai pasikeičia T ir CT pusės.",
+  "faq-metrics": "Kaip suprasti rodiklius?",
+  "faq-missing": "Kodėl kai kurios reikšmės nepasiekiamos?",
+  "faq-ratings": "Kur įvertinimai?",
+  "faq-storage": "Kur saugomas mano demo?",
+  "faq-title": "Atsakymai į klausimus",
+  "future": "Kas laukia toliau",
+  "future-text": "Kontekstiniams įvertinimams, komandos koordinacijai ir taktinėms išvadoms reikia papildomos analizės. Jie nepasiekiami, kol paslauga jų neapskaičiuoja.",
+  "intro": "Rezultatų lentelė parodo, kas įvyko. Norint suprasti kodėl, reikia konteksto. Šiuos dalykus atskiriame.",
+  "pipeline-title": "Nuo demo iki ataskaitos",
+  "start": "Analizuoti mačą",
+  "title": "Faktai vietoj prielaidų.",
+  "uncertainty": "Spragos išlieka matomos",
+  "uncertainty-text": "Brūkšnys reiškia, kad duomenų nėra, o ne nulį. Nepilni mačai rodo kokybės problemas. Įprasta mirtis niekada nepateikiama kaip įrodyta klaida."
+}

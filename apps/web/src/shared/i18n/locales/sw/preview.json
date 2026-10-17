@@ -1,0 +1,23 @@
+{
+  "calculated": "Ukadiriaji uliohesabiwa",
+  "description": "Wachezaji, takwimu na ukadiriaji ni wa kubuni. Huu si uchambuzi wa demo halisi.",
+  "insufficient": "Ushahidi hautoshi",
+  "low-confidence": "Uhakika mdogo",
+  "m1": "Data za mechi za sasa",
+  "partial": "Mechi isiyokamilika",
+  "scenario": "Hali ya onyesho la awali",
+  "state-empty": "Bado hakuna mechi",
+  "state-error": "Hitilafu ya ombi",
+  "state-failed": "Uchakataji umeshindwa",
+  "state-gallery": "Hali za kiolesura",
+  "state-gallery-note": "Chagua hali kuchunguza mpangilio na miondoko yake. Hakuna maombi yanayotumwa.",
+  "state-job-loading": "Inapakia kazi",
+  "state-match-loading": "Inapakia mechi",
+  "state-offline": "Nje ya mtandao",
+  "state-player-loading": "Inapakia mchezaji",
+  "state-processing": "Inachakata demo",
+  "state-ready": "Ripoti iko tayari",
+  "state-recent-loading": "Inapakia orodha ya mechi",
+  "state-unavailable": "Vipimo visivyopatikana",
+  "title": "Onyesho la muundo · data za kubuni"
+}

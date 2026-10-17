@@ -1,0 +1,20 @@
+{
+  "data": "Kam gredo vaši podatki",
+  "data-text": "Naloženi posnetki in poročila so shranjeni na nastavljenem strežniku za analizo. Ta različica je lokalni delovni prostor brez ločevanja računov; javna objava zahteva ločen načrt dostopa in hrambe podatkov.",
+  "eyebrow": "V ozadju analize",
+  "facts": "Kaj je na voljo danes",
+  "facts-text": "Prebrani podatki igralcev, ekipe glede na sestavo, runde, K/D/A in zabeleženi dogodki. Dodatna merila tekme se prikažejo, ko jih zagotovi storitev za analizo. Ekipe ostanejo iste ob menjavi strani T in CT.",
+  "faq-metrics": "Kako naj berem merila?",
+  "faq-missing": "Zakaj nekatere vrednosti niso na voljo?",
+  "faq-ratings": "Kje so ocene?",
+  "faq-storage": "Kje je shranjen moj posnetek?",
+  "faq-title": "Odgovori na vprašanja",
+  "future": "Kaj sledi",
+  "future-text": "Ocene glede na kontekst, usklajenost ekipe in taktični sklepi zahtevajo dodatno analizo. Niso na voljo, dokler jih storitev ne izračuna.",
+  "intro": "Lestvica pokaže, kaj se je zgodilo. Za razumevanje vzrokov je potreben kontekst. Ti stvari ločujemo.",
+  "pipeline-title": "Od posnetka do poročila",
+  "start": "Analiziraj tekmo",
+  "title": "Dejstva pred domnevami.",
+  "uncertainty": "Vrzeli ostanejo vidne",
+  "uncertainty-text": "Pomišljaj pomeni, da podatek ni na voljo, in ne ničle. Nepopolne tekme prikažejo težave s kakovostjo. Običajna smrt nikoli ni predstavljena kot dokazana napaka."
+}

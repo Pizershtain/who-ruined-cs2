@@ -111,5 +111,12 @@ pnpm test
 pnpm build
 ```
 
-M3 scientific calibration and M4 robustness remain outside this gate. No
-public deployment is configured.
+M3-C scoring calibration and M4 robustness remain outside this gate.
+No public deployment is configured.
+
+## Frontend and translations
+
+See [docs/frontend.md](docs/frontend.md) for Windows setup, routes, API integration,
+design previews, localization checks and backend requirements. Translation instructions
+are in [AGENTS.md](AGENTS.md). Start with `pnpm.cmd run setup:windows`, then
+`pnpm.cmd run dev:web` (http://localhost:5173, Ctrl+C to stop).

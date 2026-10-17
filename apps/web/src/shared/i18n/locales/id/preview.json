@@ -1,0 +1,23 @@
+{
+  "calculated": "Nilai terhitung",
+  "description": "Pemain, statistik, dan nilai rekaan. Ini bukan analisis demo nyata.",
+  "insufficient": "Bukti tidak cukup",
+  "low-confidence": "Keyakinan rendah",
+  "m1": "Data pertandingan saat ini",
+  "partial": "Pertandingan parsial",
+  "scenario": "Skenario pratinjau",
+  "state-empty": "Belum ada pertandingan",
+  "state-error": "Kesalahan permintaan",
+  "state-failed": "Pemrosesan gagal",
+  "state-gallery": "Status antarmuka",
+  "state-gallery-note": "Pilih status untuk memeriksa tata letak dan animasinya. Tidak ada permintaan yang dikirim.",
+  "state-job-loading": "Memuat tugas",
+  "state-match-loading": "Memuat pertandingan",
+  "state-offline": "Luring",
+  "state-player-loading": "Memuat pemain",
+  "state-processing": "Memproses demo",
+  "state-ready": "Laporan siap",
+  "state-recent-loading": "Memuat daftar pertandingan",
+  "state-unavailable": "Metrik tidak tersedia",
+  "title": "Pratinjau desain · data sintetis"
+}

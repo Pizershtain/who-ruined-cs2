@@ -1,0 +1,20 @@
+{
+  "data": "Ke mana data Anda disimpan",
+  "data-text": "Demo dan laporan yang diunggah disimpan di server analisis yang dikonfigurasi. Versi ini adalah ruang kerja lokal tanpa pemisahan akun; penerapan publik memerlukan rancangan akses dan penyimpanan tersendiri.",
+  "eyebrow": "Di balik analisis",
+  "facts": "Yang bisa Anda lihat sekarang",
+  "facts-text": "Pemain yang dibaca, tim berdasarkan susunan pemain, ronde, K/D/A, dan peristiwa tercatat. Metrik pertandingan tambahan muncul saat disediakan oleh layanan analisis. Tim tetap sama saat sisi T dan CT bertukar.",
+  "faq-metrics": "Bagaimana cara memahami metrik?",
+  "faq-missing": "Mengapa beberapa nilai tidak tersedia?",
+  "faq-ratings": "Di mana nilainya?",
+  "faq-storage": "Di mana demo saya disimpan?",
+  "faq-title": "Pertanyaan dan jawaban",
+  "future": "Langkah selanjutnya",
+  "future-text": "Nilai sesuai konteks, koordinasi tim, dan kesimpulan taktik membutuhkan analisis tambahan. Semuanya belum tersedia sampai dihitung oleh layanan.",
+  "intro": "Papan skor menjelaskan apa yang terjadi. Memahami alasannya membutuhkan konteks. Kami memisahkan keduanya.",
+  "pipeline-title": "Dari demo ke laporan",
+  "start": "Analisis pertandingan",
+  "title": "Bukti di atas asumsi.",
+  "uncertainty": "Kekurangan data tetap terlihat",
+  "uncertainty-text": "Tanda pisah berarti tidak tersedia, bukan nol. Pertandingan parsial menampilkan masalah kualitas datanya. Kematian biasa tidak pernah disajikan sebagai kesalahan yang terbukti."
+}

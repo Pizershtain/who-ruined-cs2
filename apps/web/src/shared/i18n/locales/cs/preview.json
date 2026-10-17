@@ -1,0 +1,23 @@
+{
+  "calculated": "Vypočítaná hodnocení",
+  "description": "Smyšlení hráči, statistiky a hodnocení. Nejde o analýzu skutečného dema.",
+  "insufficient": "Nedostatek důkazů",
+  "low-confidence": "Nízká jistota",
+  "m1": "Aktuální data zápasu",
+  "partial": "Neúplný zápas",
+  "scenario": "Scénář náhledu",
+  "state-empty": "Zatím žádné zápasy",
+  "state-error": "Chyba požadavku",
+  "state-failed": "Zpracování selhalo",
+  "state-gallery": "Stavy rozhraní",
+  "state-gallery-note": "Vyberte stav a prohlédněte si jeho rozvržení a animace. Žádné požadavky se neodesílají.",
+  "state-job-loading": "Načítání úlohy",
+  "state-match-loading": "Načítání zápasu",
+  "state-offline": "Bez připojení",
+  "state-player-loading": "Načítání hráče",
+  "state-processing": "Zpracování dema",
+  "state-ready": "Přehled je připraven",
+  "state-recent-loading": "Načítání seznamu zápasů",
+  "state-unavailable": "Nedostupné metriky",
+  "title": "Náhled návrhu · syntetická data"
+}
