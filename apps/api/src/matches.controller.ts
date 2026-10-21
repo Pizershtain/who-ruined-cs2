@@ -36,6 +36,12 @@ export class MatchesController {
   @ApiOperation({ summary: 'Factual M2 analytics for one match participant' })
   playerAnalytics(@Param('id') id: string, @Param('playerId') playerId: string) { return this.service.playerAnalytics(id, playerId); }
 
+  @Get('matches/:id/experimental-rating')
+  @ApiOperation({ summary: 'Feature-flagged M3-C8 experimental player ratings and factual analytics; not calibrated causal blame' })
+  @ApiOkResponse({ description: 'm3c8-integration-1 typed response for a supported 5v5 M2 artifact' })
+  @ApiConflictResponse({ description: 'Stored artifact predates M2 analytics' })
+  experimentalRating(@Param('id') id: string) { return this.service.experimentalRating(id); }
+
   @Get('matches/:id/report')
   @ApiOperation({ summary: 'Versioned deterministic M3 scoring report; experimental policy, not causal probability' })
   @ApiOkResponse({ description: 'm3-score-1 report with all ten players, per-round ledgers and evidence episodes' })

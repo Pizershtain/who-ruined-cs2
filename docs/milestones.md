@@ -138,3 +138,23 @@ separate M2.5 batch returned 9 PASS / 0 PARTIAL / 0 FAIL / 0 SKIPPED, and the
 M3 comparison scored 9/9 with 0 file failures. A real Train worker → SQLite →
 JSON.gz → rescore → HTTP API/OpenAPI check completed; frontend source was not
 changed.
+
+## M3-C8/P2 — experimental integration readiness
+
+Implemented on isolated branch `codex/m3c8-p2-integration-readiness` without
+replacing `m3-score-1`, changing frontend, or adding a database migration. The
+additive feature-flagged endpoint returns K/D/A, Combat, Support, descriptive
+Objectives, Direct Harm, opening/trades, grenades, round context, units and
+availability statuses in a versioned shared contract.
+
+The audit correction fitted P1 references on 649 eligible profiles instead of
+all 670. All 649 comparable values changed slightly (maximum absolute delta
+0.0003069), with no losing-five order change. Linked lethal POSTPLANT context
+was restored without a second reward. The runtime pass parsed 67/67 demos,
+built 67 reports and 670 player values; three matches were ties.
+
+Runtime values remain `PARTIAL_COVERAGE` because P3 clean-boundary provenance
+is not persisted in M2 artifacts. Open gates are an independent holdout and
+reference, participation masks, reviewed persisted boundaries, calibration,
+human labels, a bounded-tail policy, and a distinct non-5v5 policy. Technical
+frontend integration is ready behind the flag; production promotion is not.

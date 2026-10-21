@@ -1,0 +1,6666 @@
+{
+  "schemaVersion": "m3c8-integration-1",
+  "metricVersion": "m3c8-integration-metrics-0.2.0",
+  "matchId": "example_expanded_034",
+  "experimental": true,
+  "calibrated": false,
+  "causalBlame": false,
+  "originMeaning": "DEVELOPMENT_CENTERED_PRESENTATION_DEPOSIT",
+  "policy": {
+    "policyId": "m3c8-family-balanced-rnd@0.2.0",
+    "scoreScale": 0.1,
+    "referenceId": "m3c8-integration-dev-reference@0.2.0",
+    "referenceHash": "05278a5b8ca66bfaa2f9cb6a3aac175526dfe8f26a62595373d4dacc94d9c380",
+    "referenceStatus": "DEVELOPMENT_ONLY_FROZEN"
+  },
+  "scenario": "HOSTAGE",
+  "quality": "VALID",
+  "winningTeamId": null,
+  "losingTeamId": null,
+  "rankingStatus": "NO_LOSING_TEAM",
+  "roundCoverage": {
+    "validRounds": 24,
+    "totalRounds": 24,
+    "withheldRounds": 0,
+    "coverageRatio": 1,
+    "status": "COMPLETE",
+    "causeCodes": []
+  },
+  "players": [
+    {
+      "playerId": "player_01",
+      "teamId": "team_1",
+      "displayName": "Player 01",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 0.5582837907536604,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": 0.028410191890375136,
+        "support": 0.003895869606344571,
+        "directHarm": -0.47402227074305925,
+        "reconstructedRating": 0.5582837907536604,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 24,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 15,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 7,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 2.066666666666667,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 101.375,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 75,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.028410191890375136,
+          "metrics": {
+            "enemyDamage": {
+              "value": 2433,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 24,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.003895869606344571,
+          "metrics": {
+            "assists": {
+              "value": 7,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 10.848951041698456,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.47402227074305925,
+          "metrics": {
+            "teamDamage": {
+              "value": 172,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 1,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 5.332835018634796,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 15,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 6,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 7,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 6,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 10.848951041698456,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 5.332835018634796,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 19,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 278,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 12,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 16,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 64,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 12,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    },
+    {
+      "playerId": "player_02",
+      "teamId": "team_1",
+      "displayName": "Player 02",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 0.4173881411150707,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": -0.02573653040459016,
+        "support": -0.0393305800752608,
+        "directHarm": -0.5175447484050784,
+        "reconstructedRating": 0.4173881411150707,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 15,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 18,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 0.8333333333333334,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 48.25,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 58.333333333333336,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.02573653040459016,
+          "metrics": {
+            "enemyDamage": {
+              "value": 1158,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 15,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.0393305800752608,
+          "metrics": {
+            "assists": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 11.230244398117065,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.5175447484050784,
+          "metrics": {
+            "teamDamage": {
+              "value": 176,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 28.51158481836319,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 11,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 15,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 11,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 11.230244398117065,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 28.51158481836319,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 11,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 35,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 46,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 6,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 69,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 14,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    },
+    {
+      "playerId": "player_03",
+      "teamId": "team_1",
+      "displayName": "Player 03",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 0.9541335787909903,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": -0.020225515807931856,
+        "support": -0.0256409054010779,
+        "directHarm": 0,
+        "reconstructedRating": 0.9541335787909903,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 9,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 21,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 4,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 0.6190476190476191,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 57.583333333333336,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 45.83333333333333,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.020225515807931856,
+          "metrics": {
+            "enemyDamage": {
+              "value": 1382,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 9,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.0256409054010779,
+          "metrics": {
+            "assists": {
+              "value": 4,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0,
+          "metrics": {
+            "teamDamage": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 6,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 13,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 146,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 4,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 12,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 15,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    },
+    {
+      "playerId": "player_04",
+      "teamId": "team_2",
+      "displayName": "Player 04",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 0.9903534826410338,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": -0.006212060375047579,
+        "support": -0.0007222190093036818,
+        "directHarm": -0.0027122379746148803,
+        "reconstructedRating": 0.9903534826410338,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 12,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 17,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 8,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 1.1764705882352942,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 69.58333333333333,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 70.83333333333334,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.006212060375047579,
+          "metrics": {
+            "enemyDamage": {
+              "value": 1670,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 12,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.0007222190093036818,
+          "metrics": {
+            "assists": {
+              "value": 8,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.0027122379746148803,
+          "metrics": {
+            "teamDamage": {
+              "value": 1,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 22,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 225,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 12,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 60,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 14,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    },
+    {
+      "playerId": "player_05",
+      "teamId": "team_2",
+      "displayName": "Player 05",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 0.9758221005970458,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": -0.00924759891794289,
+        "support": -0.0055351256192146155,
+        "directHarm": -0.009395174865796618,
+        "reconstructedRating": 0.9758221005970458,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 11,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 21,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 6,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 0.8095238095238095,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 62.916666666666664,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 54.166666666666664,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.00924759891794289,
+          "metrics": {
+            "enemyDamage": {
+              "value": 1510,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 11,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.0055351256192146155,
+          "metrics": {
+            "assists": {
+              "value": 6,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 7.647275984287262,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.009395174865796618,
+          "metrics": {
+            "teamDamage": {
+              "value": 1,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 4.740906238555908,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 7,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 7.647275984287262,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 4.740906238555908,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 17,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 143,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 9,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 9,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    },
+    {
+      "playerId": "player_06",
+      "teamId": "team_2",
+      "displayName": "Player 06",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 0.9508257113455593,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": 0.004718972835594238,
+        "support": -0.01863416782004154,
+        "directHarm": -0.03525909366999344,
+        "reconstructedRating": 0.9508257113455593,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 16,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 16,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 1.3125,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 80.08333333333333,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 83.33333333333334,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.004718972835594238,
+          "metrics": {
+            "enemyDamage": {
+              "value": 1922,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 16,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.01863416782004154,
+          "metrics": {
+            "assists": {
+              "value": 5,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 0.7771512866020203,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.03525909366999344,
+          "metrics": {
+            "teamDamage": {
+              "value": 13,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 4,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 11,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 0.7771512866020203,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 12,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 118,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 13,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 8,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 16,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 7,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    },
+    {
+      "playerId": "player_07",
+      "teamId": "team_2",
+      "displayName": "Player 07",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 1.005152006325897,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": 0.01679149433215964,
+        "support": 0.011414777740911475,
+        "directHarm": -0.023054265747174164,
+        "reconstructedRating": 1.005152006325897,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 22,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 19,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 7,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 1.5263157894736843,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 96.20833333333333,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 70.83333333333334,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.01679149433215964,
+          "metrics": {
+            "enemyDamage": {
+              "value": 2309,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 22,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.011414777740911475,
+          "metrics": {
+            "assists": {
+              "value": 7,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 18.368684574961662,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.023054265747174164,
+          "metrics": {
+            "teamDamage": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 16.354802399873734,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 4,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 4,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 14,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 17,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 12,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 14,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 18.368684574961662,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 16.354802399873734,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 13,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 17,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 8,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 6,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 11,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    },
+    {
+      "playerId": "player_08",
+      "teamId": "team_1",
+      "displayName": "Player 08",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 0.8483366343290819,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": 0.008642181635540048,
+        "support": 0.04285526297839093,
+        "directHarm": -0.20316081028484897,
+        "reconstructedRating": 0.8483366343290819,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 18,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 17,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 7,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 1.4705882352941178,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 95.66666666666667,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 70.83333333333334,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.008642181635540048,
+          "metrics": {
+            "enemyDamage": {
+              "value": 2296,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 18,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.04285526297839093,
+          "metrics": {
+            "assists": {
+              "value": 7,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 49.81262123584747,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.20316081028484897,
+          "metrics": {
+            "teamDamage": {
+              "value": 72,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 5.589878559112549,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 13,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 16,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 18,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 49.81262123584747,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 5.589878559112549,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 18,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 174,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 16,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 147,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 17,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    },
+    {
+      "playerId": "player_09",
+      "teamId": "team_2",
+      "displayName": "Player 09",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 0.8711273699004185,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": 0.012477165828830784,
+        "support": -0.0195793296919676,
+        "directHarm": -0.12177046623644466,
+        "reconstructedRating": 0.8711273699004185,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 26,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 17,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 1.6470588235294117,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 92.33333333333333,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 66.66666666666666,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.012477165828830784,
+          "metrics": {
+            "enemyDamage": {
+              "value": 2216,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 26,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.0195793296919676,
+          "metrics": {
+            "assists": {
+              "value": 2,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 18.522952064871788,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.12177046623644466,
+          "metrics": {
+            "teamDamage": {
+              "value": 40,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 9.42156520485878,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 4,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 15,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 3,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 14,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 6,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 18.522952064871788,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 9.42156520485878,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 15,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 71,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 40,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 15,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 74,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 18,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    },
+    {
+      "playerId": "player_10",
+      "teamId": "team_1",
+      "displayName": "Player 10",
+      "steamId": null,
+      "steamProfileUrl": null,
+      "sideRounds": {
+        "T": 12,
+        "CT": 12
+      },
+      "exposure": {
+        "validRounds": 24,
+        "totalRounds": 24,
+        "coverageRatio": 1,
+        "denominatorStatus": "ROSTER_SCHEDULED_CONVENTION"
+      },
+      "rating": 0.6636641790817055,
+      "ratingStatus": "PARTIAL_COVERAGE",
+      "causeCodes": [
+        "NORMALIZED_BOUNDARY_ONLY"
+      ],
+      "dataQualityFlags": [
+        "P3_CLEAN_BOUNDARY_NOT_PERSISTED"
+      ],
+      "decomposition": {
+        "origin": 1,
+        "combat": 0.028226006536518067,
+        "support": 0.03138837764310703,
+        "directHarm": -0.3959502050979195,
+        "reconstructedRating": 0.6636641790817055,
+        "exact": true
+      },
+      "baseStats": {
+        "kills": {
+          "value": 21,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deaths": {
+          "value": 20,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "assists": {
+          "value": 11,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "kdaRatio": {
+          "value": 1.6,
+          "status": "COMPLETE",
+          "unit": "ratio",
+          "source": "M2_ANALYTICS"
+        },
+        "adr": {
+          "value": 113.625,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "kastPercent": {
+          "value": 70.83333333333334,
+          "status": "COMPLETE",
+          "unit": "percent",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "families": {
+        "combat": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.028226006536518067,
+          "metrics": {
+            "enemyDamage": {
+              "value": 2727,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyKills": {
+              "value": 21,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "support": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": 0.03138837764310703,
+          "metrics": {
+            "assists": {
+              "value": 11,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "enemyBlindSeconds": {
+              "value": 13.423055231571198,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        },
+        "objectives": {
+          "ratingRole": "DESCRIPTIVE_ONLY",
+          "status": "COMPLETE",
+          "contribution": null,
+          "metrics": {
+            "bombPlants": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombDefuses": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            },
+            "bombExplosions": {
+              "value": 0,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "M2_ANALYTICS"
+            }
+          }
+        },
+        "directHarm": {
+          "ratingRole": "RATED_PRIMARY",
+          "status": "COMPLETE",
+          "contribution": -0.3959502050979195,
+          "metrics": {
+            "teamDamage": {
+              "value": 143,
+              "status": "COMPLETE",
+              "unit": "hp",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamKills": {
+              "value": 1,
+              "status": "COMPLETE",
+              "unit": "count",
+              "source": "NORMALIZED_EVENTS"
+            },
+            "teamBlindSeconds": {
+              "value": 5.746301293373108,
+              "status": "COMPLETE",
+              "unit": "seconds",
+              "source": "NORMALIZED_EVENTS"
+            }
+          }
+        }
+      },
+      "context": {
+        "openingKills": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "openingDeaths": {
+          "value": 6,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "tradeKills": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "deathsTraded": {
+          "value": 1,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsWithAdvantage": {
+          "value": 15,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "killsAtDisadvantage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      },
+      "grenades": {
+        "flashesThrown": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemiesFlashed": {
+          "value": 5,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "teammatesFlashed": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "enemyBlindSeconds": {
+          "value": 13.423055231571198,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "teamBlindSeconds": {
+          "value": 5.746301293373108,
+          "status": "COMPLETE",
+          "unit": "seconds",
+          "source": "M2_ANALYTICS"
+        },
+        "heThrown": {
+          "value": 8,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "heEnemyDamage": {
+          "value": 101,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "heTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernosStarted": {
+          "value": 2,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoEnemyDamage": {
+          "value": 16,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "infernoTeamDamage": {
+          "value": 0,
+          "status": "COMPLETE",
+          "unit": "hp",
+          "source": "M2_ANALYTICS"
+        },
+        "smokesThrown": {
+          "value": 7,
+          "status": "COMPLETE",
+          "unit": "count",
+          "source": "M2_ANALYTICS"
+        }
+      }
+    }
+  ],
+  "rounds": [
+    {
+      "roundId": "round_1",
+      "ordinal": 1,
+      "winnerTeamId": "team_1",
+      "winnerSide": "CT",
+      "scoreAfter": {
+        "team_1": 1,
+        "team_2": 0
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 168,
+          "teamDamage": 21,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.055460332750040746,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 3,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004860679209529092,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 118,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0008781155381479065,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 32,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.00210908316737453,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 3,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 300,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0027188711818895337,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 32,
+          "teamDamage": 143,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.3857409472025533,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_2",
+      "ordinal": 2,
+      "winnerTeamId": "team_1",
+      "winnerSide": "CT",
+      "scoreAfter": {
+        "team_1": 2,
+        "team_2": 0
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 64,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0025618767468177316,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 17,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.005672221563455905,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 15,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004554434749269753,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 176,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.003206529619986393,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 20,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004426832890828362,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 97,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00041874884775889855,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 2,
+          "enemyDamage": 170,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.01400566296812563,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 119,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0057257983148558305,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 9,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004707556979399423,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 3,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 285,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.007087011804614462,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_3",
+      "ordinal": 3,
+      "winnerTeamId": "team_2",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 2,
+        "team_2": 1
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 135,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.000627586391460507,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 115,
+          "teamDamage": 8,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.029265354435470126,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 2,
+          "enemyDamage": 112,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.012499961038517214,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 68,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0018989304056790345,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 137,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0019305110355724827,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 51,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.002593970229451815,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 72,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.003346380427351414,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 124,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0017727142352474297,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.000444269219447177,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_4",
+      "ordinal": 4,
+      "winnerTeamId": "team_1",
+      "winnerSide": "CT",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 1
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 2,
+          "enemyDamage": 214,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.013929101853060797,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 29,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.006615223779410823,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 25,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004299231032386971,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 102,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.000291146989317508,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 23,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004350271775763528,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 86,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.002742488359402001,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 83,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0007760340513947926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 172,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.005564618401235052,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 149,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0010132333933930723,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_5",
+      "ordinal": 5,
+      "winnerTeamId": "team_2",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 2
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 164,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0010103919667846805,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 68,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0032018550497910085,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 23,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004350271775763528,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 43,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.002389807255945591,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 97,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0024617642708309405,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 11,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.03477185804535761,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 124,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00011250438749956053,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 12,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.03493205885114467,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 202,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0020822475776923646,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 102,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.004815628254341803,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_6",
+      "ordinal": 6,
+      "winnerTeamId": "team_2",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 3
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 100,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.276161037786082,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 22,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0646064757661213,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 88,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.002691447616025445,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 94,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0006484321929534029,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 83,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0034106221234767183,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 184,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0016117808174822927,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0055148057731088775,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 17,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.005555185794128673,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 101,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0014240909760061475,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_7",
+      "ordinal": 7,
+      "winnerTeamId": "team_2",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 4
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 200,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0030789277615449993,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 30,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0027666230430804933,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 57,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.001465084086978305,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 198,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.010482536457149349,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 59,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0034315383949855126,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 140,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.005910006099169013,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 111,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0021044790671950458,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 35,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.001793868917894236,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 70,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0030788572915291016,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_8",
+      "ordinal": 8,
+      "winnerTeamId": "team_2",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 5
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0017249465924920725,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 34,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004069547687192467,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 19,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00445235326251664,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 51,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.002593970229451816,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 190,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0018525642324978611,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 30,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004495276095407862,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 3,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 259,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.002506969852176049,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_9",
+      "ordinal": 9,
+      "winnerTeamId": "team_2",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 6
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 46,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0037633032269331294,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 3,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 242,
+          "teamDamage": 24,
+          "openingKill": true,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.06485798415483264,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 9,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004707556979399423,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 229,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.010763260545720412,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 3,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 220,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.005796927680956728,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.011733531843120282,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 29,
+          "teamDamage": 8,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.013855306441428262,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 10,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004682036607711144,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 29,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004197149545633859,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_10",
+      "ordinal": 10,
+      "winnerTeamId": "team_2",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 7
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 165,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.000495309962823733,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 98,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.002436243899142662,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 32,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004120588430569024,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 170,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.007648389511740689,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 56,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.004815628254341803,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 74,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.001005717396589298,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00032784251530114573,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 200,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.00016683401306171372,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0102412598062781,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_11",
+      "ordinal": 11,
+      "winnerTeamId": "team_2",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 8
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 149,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00024010624594095198,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 6,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004784118094464257,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 6,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00636619167652707,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 2,
+          "enemyDamage": 82,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.009614773349731992,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.005575963798820156,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 205,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0004733600001898144,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 5,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 406,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.006958024258163287,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_12",
+      "ordinal": 12,
+      "winnerTeamId": "team_2",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 9
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 11,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.005573798115303878,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.002385203155766106,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.002385203155766106,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 27,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.002748904728035776,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 97,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.005070831971224586,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "T",
+          "kills": 3,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 339,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.020831715835365413,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 3,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0058896959658375206,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 8,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0047330773510877,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_13",
+      "ordinal": 13,
+      "winnerTeamId": "team_2",
+      "winnerSide": "CT",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 10
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 21,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0044013125191400835,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 12,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0072719072537830685,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 45,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0037888235986214074,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 97,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0037679073271126135,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.002179654494250095,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 132,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.006373756615336558,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 6,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.021210668172283207,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 165,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00036770810438234257,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 3,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 358,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.008414071132404933,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_14",
+      "ordinal": 14,
+      "winnerTeamId": "team_2",
+      "winnerSide": "CT",
+      "scoreAfter": {
+        "team_1": 3,
+        "team_2": 11
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 99,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0006229118212651245,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 76,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.22014013354600012,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 99,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0024107235274543845,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 9,
+          "teamDamage": 1,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.007419794954014303,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 48,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0016437266887962532,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 34,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004069547687192467,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 3,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 241,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0027878847083941025,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 165,
+          "teamDamage": 14,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.03729270450977126,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 78,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00083422840154746,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 2,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00488619958121737,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_15",
+      "ordinal": 15,
+      "winnerTeamId": "team_1",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 4,
+        "team_2": 11
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 4,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 214,
+          "teamDamage": 51,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.12995972062832073,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 10,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004682036607711144,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 64,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0029257350613994316,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 2,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00488619958121737,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 85,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.000801554423083072,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 117,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0014937563694086059,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 89,
+          "teamDamage": 11,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0262708733671573,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 136,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0064322500043397625,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 187,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.00815879694550625,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_16",
+      "ordinal": 16,
+      "winnerTeamId": "team_1",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 5,
+        "team_2": 11
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 2,
+          "enemyDamage": 131,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.018027371887622278,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 37,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00023872055793116578,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 112,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.000750513679706516,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 264,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.006319967442619537,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0011333192550306884,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 6,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.003333244846771394,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 2,
+          "enemyDamage": 195,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.024092165608552193,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 25,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004299231032386971,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_17",
+      "ordinal": 17,
+      "winnerTeamId": "team_1",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 6,
+        "team_2": 11
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 46,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0027666230430804933,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 23,
+          "teamDamage": 46,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.129113218608048,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 35,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0021856442824393653,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 44,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0020265322641204258,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 165,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0018284295488193688,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 231,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.01424846774411191,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 61,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.002849173946334598,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 200,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0015207994005502444,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_18",
+      "ordinal": 18,
+      "winnerTeamId": "team_1",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 7,
+        "team_2": 11
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 190,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.008082235830441412,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 3,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 128,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.001956031407260759,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.000980197024901019,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 35,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004044027315504189,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 155,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.00014269932938322147,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004056839158643125,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 82,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0033851017517884407,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_19",
+      "ordinal": 19,
+      "winnerTeamId": "team_1",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 8,
+        "team_2": 11
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 61,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0014660835902319,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.005386971276726503,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 2,
+          "enemyDamage": 116,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.012448920295140659,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 82,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0028445698461551133,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 1,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.007649478299208807,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0012622922447995094,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 47,
+          "teamDamage": 21,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.059034570474409485,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.000903635909836185,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 2,
+          "enemyDamage": 125,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.010712149332327956,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_20",
+      "ordinal": 20,
+      "winnerTeamId": "team_1",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 9,
+        "team_2": 11
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 3,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 126,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0034631190248789584,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 3,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.006702178693621417,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 2,
+          "enemyDamage": 131,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.010865271562457634,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 146,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0012112660581053089,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 49,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0036867421118682944,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004201036131988713,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 205,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.00953828270468306,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 35,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0021856442824393653,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_21",
+      "ordinal": 21,
+      "winnerTeamId": "team_2",
+      "winnerSide": "CT",
+      "scoreAfter": {
+        "team_1": 9,
+        "team_2": 12
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 27,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004248190289010414,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.002385203155766106,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0003421877326940641,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 2,
+          "enemyDamage": 207,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.012804819810766768,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 95,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0037168665837360583,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 1,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937006509888122,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 49,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0010025753266056589,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 3,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 162,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.004101128317085916,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 155,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.006474452414079884,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_22",
+      "ordinal": 22,
+      "winnerTeamId": "team_1",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 10,
+        "team_2": 12
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 3,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004860679209529092,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 7,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004758597722775979,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0014140433436017486,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 200,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0025087828824232857,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 100,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.002385203155766106,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 53,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004675314350738324,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 4,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 390,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.009690089716818845,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_23",
+      "ordinal": 23,
+      "winnerTeamId": "team_1",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 11,
+        "team_2": 12
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 83,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0034106221234767183,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 112,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.002032592522325591,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 176,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0035127740802457304,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 113,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00039322847607062105,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 107,
+          "teamDamage": 0,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.000291146989317508,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 17,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0045033940058931965,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 2,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 141,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.00003594327243472602,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.000028339106559756764,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 164,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.005887483865249488,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "roundId": "round_24",
+      "ordinal": 24,
+      "winnerTeamId": "team_1",
+      "winnerSide": "T",
+      "scoreAfter": {
+        "team_1": 12,
+        "team_2": 12
+      },
+      "players": [
+        {
+          "playerId": "player_01",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 165,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.005657800520054984,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_02",
+          "side": "T",
+          "kills": 1,
+          "deaths": 0,
+          "assists": 0,
+          "enemyDamage": 22,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0027666230430804933,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_03",
+          "side": "T",
+          "kills": 2,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 199,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.0022367554958318196,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_04",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 79,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0029211309612199483,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_05",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004937240324593926,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_06",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 1,
+          "enemyDamage": 176,
+          "teamDamage": 2,
+          "openingKill": true,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.002377035792640593,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_07",
+          "side": "CT",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 0,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.0006018114157342584,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_08",
+          "side": "T",
+          "kills": 0,
+          "deaths": 0,
+          "assists": 1,
+          "enemyDamage": 22,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": 0.003921735019773225,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_09",
+          "side": "CT",
+          "kills": 1,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 19,
+          "teamDamage": 40,
+          "openingKill": false,
+          "tradeKill": true,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.10224642865919971,
+          "contributionStatus": "COMPLETE"
+        },
+        {
+          "playerId": "player_10",
+          "side": "T",
+          "kills": 0,
+          "deaths": 1,
+          "assists": 0,
+          "enemyDamage": 36,
+          "teamDamage": 0,
+          "openingKill": false,
+          "tradeKill": false,
+          "bombPlant": false,
+          "bombDefuse": false,
+          "ratingContribution": -0.004018506943815911,
+          "contributionStatus": "COMPLETE"
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "Experimental integration surface: coefficients are not scientifically validated and must not replace production scoring.",
+    "Direct Harm is one family of the model, not an independent worst-player rating."
+  ],
+  "limitations": [
+    "Runtime integration uses normalized LIVE round boundaries; P3 research-only clean-exposure provenance is not persisted in m2-artifact-1.",
+    "Objectives and contextual metrics are descriptive and receive no rating weight in this policy.",
+    "A death is a factual event and is not classified as tactical blame."
+  ],
+  "provenance": {
+    "parserVersion": "0.42.0",
+    "normalizerVersion": "1",
+    "featureVersion": "m2-0.1.0",
+    "kernelVersion": "m3c8-kernel-0.2.0"
+  }
+}

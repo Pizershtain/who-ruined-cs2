@@ -89,6 +89,16 @@ the shared M3 contracts without recalculating scores or falling back to fixtures
 `docs/frontend-backend-contract.md`; `tests/fixtures/m3-scoring-report.json` is
 the anonymous frontend fixture.
 
+## M3-C8/P2 additive experimental integration
+
+Set `ENABLE_EXPERIMENTAL_RATING=1` to enable
+`GET /api/v1/matches/:id/experimental-rating`. It reads the existing M2
+artifact and returns typed factual metrics plus an explicitly uncalibrated
+experimental family decomposition. It does not replace or persist production
+scoring. The default is disabled, and non-5v5 matches are rejected. See
+`docs/m3c8-integration.md` for statuses, units, privacy-safe real-derived
+fixtures and frontend handoff details.
+
 ## Batch validation
 
 ```powershell
