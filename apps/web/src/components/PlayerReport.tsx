@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import type { MatchData, MatchEvent } from '@who-ruined/contracts';
+import type { MatchData, MatchEvent, PlayerScoringReport } from '@who-ruined/contracts';
 import type { TFunction } from 'i18next';
 import type { MatchAnalytics } from '../analytics/types.js';
 import { playerEvents, teamOutcome, timeAtTick } from '../analytics/presentation.js';
@@ -28,7 +28,7 @@ function eventLabel(event: MatchEvent, playerId: string, t: TFunction): string {
     default: return t('recorded-event', 'Recorded event');
   }
 }
-export function PlayerReport({ match, playerId, base, analytics, analyticsLoading = false }: { match: MatchData; playerId: string; base: string; analytics?: MatchAnalytics; analyticsLoading?: boolean }) {
+export function PlayerReport({ match, playerId, base, analytics, scoring, analyticsLoading = false }: { match: MatchData; playerId: string; base: string; analytics?: MatchAnalytics; scoring?: PlayerScoringReport; analyticsLoading?: boolean }) {
   const { t, i18n } = useTranslation('player');
   const [roundId, setRoundId] = useState('');
   const [visible, setVisible] = useState(30);
@@ -42,6 +42,7 @@ export function PlayerReport({ match, playerId, base, analytics, analyticsLoadin
   const events = playerEvents(match, playerId).filter((event) => !roundId || event.roundId === roundId);
   const number = (value: number | null | undefined) => value == null ? '—' : new Intl.NumberFormat(i18n.resolvedLanguage, { maximumFractionDigits: 1 }).format(value);
   const pending = analyticsLoading && !analytics;
+  const scored = scoring?.player;
   const stats = [
     { title: 'K / D / A', value: [player.scoreboard?.kills, player.scoreboard?.deaths, player.scoreboard?.assists].map(number).join(' / '), pending: false },
     { title: 'ADR', value: number(metrics?.adr), pending }, { title: 'KAST %', value: number(metrics?.kast), pending },
@@ -59,6 +60,15 @@ export function PlayerReport({ match, playerId, base, analytics, analyticsLoadin
     <section className="player-hero panel"><span className="profile-avatar"><Icon name="crosshair" size={42}/></span><div><p className="eyebrow">{t('eyebrow', 'Player · this match only')}</p><h1>{player.displayName || t('unnamed', 'Unnamed player')}</h1><div className="player-meta"><span>{team?.label ?? '—'}</span><span>{match.map ?? '—'}</span>{steam && <a href={steam} target="_blank" rel="noreferrer">{t('steam', 'Steam profile')} ↗</a>}</div></div><span className={`pill ${outcome === 'win' ? 'success' : ''}`}>{outcome === 'win' ? t('won', 'Victory') : outcome === 'loss' ? t('lost', 'Defeat') : outcome === 'draw' ? t('draw', 'Draw') : t('unknown-result', 'Result unconfirmed')}</span></section>
     {outcome !== 'draw' && <p className="player-context">{outcome === 'win' ? t('win-context', 'Explore this player’s contribution to the win, alongside the actions that could be improved.') : outcome === 'loss' ? t('loss-context', 'Explore this player’s part in the result, including their positive contributions. Defeat alone does not establish blame.') : t('unknown-context', 'The match outcome is unconfirmed. Available actions are shown without a result-based rating.')}</p>}
     <section className="player-stats">{stats.map((item) => <div className="panel stat-card" key={item.title}><span>{item.title}</span><strong>{item.pending ? <Skeleton className="skeleton-metric"/> : item.value}</strong></div>)}</section>
+    {scoring && scored && <>
+      <div className="inline-alert" role="status"><Icon name="warning"/><p><strong>{t('experimental', 'Experimental')}</strong> · {t('relative-index-note', 'Relative index is not a probability or proof of intent.')}</p></div>
+      <section className="player-insights scoring-components" aria-label={t('performance', 'Performance')}>
+        <article className="panel"><h2>{t('performance', 'Performance')}</h2><strong>{number(scored.performanceRate)}</strong><dl className="detail-stats"><div><dt>K / A</dt><dd>{number(scored.components.performance.kills)} / {number(scored.components.performance.assists)}</dd></div><div><dt>ADR / KAST</dt><dd>{number(scored.components.performance.adr)} / {number(scored.components.performance.kastPercent)}</dd></div></dl></article>
+        <article className="panel"><h2>{t('context-contribution', 'Context Contribution')}</h2><strong>{number(scored.contextContributionRate)}</strong><dl className="detail-stats"><div><dt>{t('opening', 'Opening kills / deaths')}</dt><dd>{number(scored.components.contextContribution.openingKills)}</dd></div><div><dt>{t('trades', 'Successful trades')}</dt><dd>{number(scored.components.contextContribution.tradeKills)}</dd></div></dl></article>
+        <article className="panel"><h2>{t('confirmed-harm', 'Confirmed Harm')}</h2><strong>{number(scored.confirmedHarmRate)}</strong><dl className="detail-stats"><div><dt>TK</dt><dd>{number(scored.components.confirmedHarm.teamKills)}</dd></div><div><dt>HP</dt><dd>{number(scored.components.confirmedHarm.teamDamage)}</dd></div></dl></article>
+      </section>
+      {scored.ruinRaw !== null && <section className="panel quality-notes"><h2>{t('relative-index', 'Relative index')}: {number(scored.relativeIndex)}</h2>{scored.components.confirmedHarm.points === 0 && <p className="data-note">{t('no-confirmed-harm', 'No confirmed harmful action; selection is based on relative contribution shortfall.')}</p>}</section>}
+    </>}
     <Moments match={match} base={base} playerId={playerId} {...(analytics ? { analytics } : {})}/>
     <section className="player-insights"><article className="panel"><h2>{t('strengths', 'Strengths & opportunities')}</h2>{insights ? <ul className="insight-list">{insights.strengths.map((item) => <li className="positive" key={item}><Icon name="check" size={17}/>{item === 'opening-duels' ? t('insight-duels', 'Effective in opening duels.') : t('insight-utility', 'Useful support through utility.')}</li>)}{insights.opportunities.map((item) => <li key={item}><Icon name="warning" size={17}/>{t('insight-trades', 'Keep a teammate in trading distance on entry attempts.')}</li>)}{!insights.opportunities.length && <li>{t('insight-no-weakness', 'No contextual weakness identified in the supplied analysis.')}</li>}</ul> : <Unavailable note={t('strengths-unavailable', 'Personal strengths and weaknesses require contextual analysis. No conclusions are inferred from K/D/A.')}/>}</article><article className="panel"><h2>{t('utility', 'Utility & trades')}</h2><dl className="detail-stats">{utilityStats.map((item) => <div key={item.label}><dt>{item.label}</dt><dd>{pending ? <Skeleton className="skeleton-metric"/> : number(item.value)}</dd></div>)}<div><dt>{t('trades', 'Successful trades')}</dt><dd>{pending ? <Skeleton className="skeleton-metric"/> : number(metrics?.trades)}</dd></div><div><dt>{t('opening', 'Opening kills / deaths')}</dt><dd>{pending ? <Skeleton className="skeleton-metric"/> : <>{number(metrics?.openingKills)} / {number(metrics?.openingDeaths)}</>}</dd></div></dl></article></section>
     <Charts match={{ ...match, players: [player] }} loading={analyticsLoading} {...(analytics ? { analytics } : {})}/>

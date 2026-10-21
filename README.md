@@ -1,7 +1,7 @@
 # Who Ruined CS2
 
 Local-first CS2 demo analysis. The repository contains the validated M0/M1
-vertical slice, M2 factual analytics and an experimental M3-B backend:
+vertical slice, M2 factual analytics and an experimental M3-B backend/UI integration:
 parser → normalized facts → deterministic features → versioned scoring reports.
 
 > Status: **M0 and M1 passed on three external real golden demos:** Office,
@@ -84,9 +84,20 @@ See `docs/api-m2.md` for availability/null semantics and metric definitions.
 - `POST /api/v1/matches/:id/rescore` with `{ "scoringVersion": "...", "configHash": "..." }`
 
 Rescore reads the stored `m2-artifact-1` and never reparses the demo. Reports
-are deterministic, versioned and explicitly experimental. See
+are deterministic, versioned and explicitly experimental. The live UI consumes
+the shared M3 contracts without recalculating scores or falling back to fixtures. See
 `docs/frontend-backend-contract.md`; `tests/fixtures/m3-scoring-report.json` is
 the anonymous frontend fixture.
+
+## M3-C8/P2 additive experimental integration
+
+Set `ENABLE_EXPERIMENTAL_RATING=1` to enable
+`GET /api/v1/matches/:id/experimental-rating`. It reads the existing M2
+artifact and returns typed factual metrics plus an explicitly uncalibrated
+experimental family decomposition. It does not replace or persist production
+scoring. The default is disabled, and non-5v5 matches are rejected. See
+`docs/m3c8-integration.md` for statuses, units, privacy-safe real-derived
+fixtures and frontend handoff details.
 
 ## Batch validation
 

@@ -6,6 +6,8 @@ import {
   type ScoringFinding, type ScoringPlayer, type ScoringReport
 } from '@who-ruined/contracts';
 
+export * from './experimental-rating.js';
+
 type FindingCode = ScoringFinding['code'];
 type PlayerMutable = Omit<ScoringPlayer, 'episodeIds'> & { episodeIds: string[] };
 type EpisodeCore = Omit<ScoringEpisode, 'scorerVersion' | 'configHash'>;

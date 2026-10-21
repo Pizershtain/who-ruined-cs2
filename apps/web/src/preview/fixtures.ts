@@ -44,8 +44,8 @@ export function previewData(scenario: PreviewScenario): { match: MatchData; anal
   }
   const awardState = scenario === 'available' ? null : scenario;
   return { match, analytics: {
-    mvp: awardState ? { state: awardState } : { state: 'available', playerId: 'sample-player-0', value: 92.4, confidence: 0.93 },
-    whoRuined: awardState ? { state: awardState } : { state: 'available', playerId: 'sample-player-9', value: 31.6, confidence: 0.82 },
+    mvp: awardState ? { state: awardState } : { state: 'available', playerId: 'sample-player-0', value: 92.4, margin: 0.93, close: false, tied: false },
+    whoRuined: awardState ? { state: awardState } : { state: 'available', playerId: 'sample-player-9', value: 31.6, margin: 0.82, close: false, tied: false },
     players: Object.fromEntries(players.map((player, index) => [player.id, {
       damage: 2188 - index * 107, adr: 104.2 - index * 5.1, kast: 85.7 - index * 2.8, openingKills: 5 - index % 5, openingDeaths: index % 4,
       trades: 4 - index % 4, utilityDamage: 268 - index * 21, performance: 92.4 - index * 6.1,

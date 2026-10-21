@@ -6,8 +6,8 @@ import { promisify } from 'node:util';
 import { Injectable } from '@nestjs/common';
 import { prisma } from '@who-ruined/database';
 import { isSource2Header, loadNativeParser, NORMALIZER_VERSION, PARSER_LIBRARY_VERSION } from '@who-ruined/parser-adapter';
-import { matchAnalyticsSchema, matchArtifactSchema, matchDataSchema, rescoreRequestSchema, scoringReportSchema, type MatchAnalytics, type MatchData, type ScoringConfig, type ScoringReport } from '@who-ruined/contracts';
-import { SCORING_CONFIGS, scoringConfigHash, SUCCESSOR_75_25_CONFIG } from '@who-ruined/scoring';
+import { experimentalRatingReportSchema, matchAnalyticsSchema, matchArtifactSchema, matchDataSchema, rescoreRequestSchema, scoringReportSchema, type ExperimentalRatingReport, type MatchAnalytics, type MatchArtifact, type MatchData, type ScoringConfig, type ScoringReport } from '@who-ruined/contracts';
+import { buildExperimentalRatingReport, SCORING_CONFIGS, scoringConfigHash, SUCCESSOR_75_25_CONFIG } from '@who-ruined/scoring';
 import { ApiError } from './safe-exception.filter.js';
 import { dataRoot, safeDataPath } from './storage.js';
 import path from 'node:path';
@@ -89,6 +89,15 @@ export class MatchesService {
     const player = analytics.players.find((item) => item.playerId === playerId);
     if (!player) throw new ApiError('PLAYER_NOT_FOUND', 'Игрок не найден в матче.', 404);
     return { schemaVersion: analytics.schemaVersion, featureVersion: analytics.featureVersion, matchId: id, player };
+  }
+
+  async experimentalRating(id: string): Promise<ExperimentalRatingReport> {
+    if (process.env.ENABLE_EXPERIMENTAL_RATING !== '1') throw new ApiError('EXPERIMENTAL_RATING_DISABLED', 'Экспериментальный рейтинг отключён конфигурацией сервера.', 404);
+    const stored = await this.artifact(id);
+    if (!stored.analytics) throw new ApiError('INCOMPLETE_MATCH', 'Для экспериментального рейтинга нужен совместимый M2-артефакт.', 409);
+    if (stored.match.players.length !== 10 || stored.match.teams.length !== 2 || stored.match.teams.some((team) => team.playerIds.length !== 5)) throw new ApiError('UNSUPPORTED_ROSTER_SIZE', 'Экспериментальная политика M3-C8/P2 применима только к матчам 5v5.', 422);
+    const artifact: MatchArtifact = matchArtifactSchema.parse({ schemaVersion: 'm2-artifact-1', match: stored.match, analytics: stored.analytics });
+    return experimentalRatingReportSchema.parse(buildExperimentalRatingReport(artifact));
   }
 
   private scoringConfig(version?: string, configHash?: string): ScoringConfig {

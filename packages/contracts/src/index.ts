@@ -110,6 +110,51 @@ export type MatchAnalytics = z.infer<typeof matchAnalyticsSchema>;
 export const matchArtifactSchema = z.object({ schemaVersion: z.literal('m2-artifact-1'), match: matchDataSchema, analytics: matchAnalyticsSchema });
 export type MatchArtifact = z.infer<typeof matchArtifactSchema>;
 
+export const experimentalMetricStatusSchema = z.enum(['COMPLETE','PARTIAL','UNKNOWN','NOT_APPLICABLE','UNAVAILABLE']);
+export const experimentalRatingStatusSchema = z.enum(['CALCULATED_RESEARCH_ONLY','WITHHELD_REQUIRED_INPUT','INSUFFICIENT_EXPOSURE','PARTIAL_COVERAGE','UNSUPPORTED_ROSTER_SIZE']);
+export const experimentalRankingStatusSchema = z.enum(['LOSING_TEAM_AVAILABLE','NO_LOSING_TEAM','NOT_COMPARABLE']);
+export const experimentalReferenceStatusSchema = z.literal('DEVELOPMENT_ONLY_FROZEN');
+export const experimentalDenominatorStatusSchema = z.literal('ROSTER_SCHEDULED_CONVENTION');
+export const experimentalScenarioSchema = z.enum(['BOMB','HOSTAGE','UNKNOWN']);
+export const experimentalMetricSchema = z.object({
+  value: z.number().nullable(), status: experimentalMetricStatusSchema,
+  unit: z.enum(['count','hp','seconds','percent','ratio','rounds','credits']),
+  source: z.enum(['M2_ANALYTICS','NORMALIZED_EVENTS','DERIVED_EXPERIMENTAL'])
+});
+export const experimentalFamilySchema = z.object({
+  ratingRole: z.enum(['RATED_PRIMARY','DESCRIPTIVE_ONLY']),
+  status: experimentalMetricStatusSchema,
+  contribution: z.number().nullable(),
+  metrics: z.record(z.string(), experimentalMetricSchema)
+});
+export const experimentalRatingPlayerSchema = z.object({
+  playerId: id, teamId: id, displayName: z.string().max(160), steamId: z.string().regex(/^7656119\d{10}$/).nullable(), steamProfileUrl: z.string().url().nullable(),
+  sideRounds: z.object({ T: z.number().int().nonnegative(), CT: z.number().int().nonnegative() }),
+  exposure: z.object({ validRounds: z.number().int().nonnegative(), totalRounds: z.number().int().nonnegative(), coverageRatio: z.number().min(0).max(1).nullable(), denominatorStatus: experimentalDenominatorStatusSchema }),
+  rating: z.number().nullable(), ratingStatus: experimentalRatingStatusSchema, causeCodes: z.array(z.string()), dataQualityFlags: z.array(z.string()),
+  decomposition: z.object({ origin: z.literal(1), combat: z.number().nullable(), support: z.number().nullable(), directHarm: z.number().nullable(), reconstructedRating: z.number().nullable(), exact: z.boolean() }),
+  baseStats: z.object({ kills: experimentalMetricSchema, deaths: experimentalMetricSchema, assists: experimentalMetricSchema, kdaRatio: experimentalMetricSchema, adr: experimentalMetricSchema, kastPercent: experimentalMetricSchema }),
+  families: z.object({ combat: experimentalFamilySchema, support: experimentalFamilySchema, objectives: experimentalFamilySchema, directHarm: experimentalFamilySchema }),
+  context: z.object({ openingKills: experimentalMetricSchema, openingDeaths: experimentalMetricSchema, tradeKills: experimentalMetricSchema, deathsTraded: experimentalMetricSchema, killsWithAdvantage: experimentalMetricSchema, killsAtDisadvantage: experimentalMetricSchema }),
+  grenades: z.object({ flashesThrown: experimentalMetricSchema, enemiesFlashed: experimentalMetricSchema, teammatesFlashed: experimentalMetricSchema, enemyBlindSeconds: experimentalMetricSchema, teamBlindSeconds: experimentalMetricSchema, heThrown: experimentalMetricSchema, heEnemyDamage: experimentalMetricSchema, heTeamDamage: experimentalMetricSchema, infernosStarted: experimentalMetricSchema, infernoEnemyDamage: experimentalMetricSchema, infernoTeamDamage: experimentalMetricSchema, smokesThrown: experimentalMetricSchema })
+});
+export const experimentalRatingRoundSchema = z.object({
+  roundId: id, ordinal: z.number().int().positive(), winnerTeamId: id.nullable(), winnerSide: sideSchema.nullable(), scoreAfter: scoreRecord,
+  players: z.array(z.object({ playerId: id, side: sideSchema.nullable(), kills: z.number().int().nonnegative(), deaths: z.number().int().nonnegative(), assists: z.number().int().nonnegative(), enemyDamage: z.number().int().nonnegative().nullable(), teamDamage: z.number().int().nonnegative().nullable(), openingKill: z.boolean(), tradeKill: z.boolean(), bombPlant: z.boolean(), bombDefuse: z.boolean(), ratingContribution: z.number().nullable(), contributionStatus: experimentalMetricStatusSchema }))
+});
+export const experimentalRatingReportSchema = z.object({
+  schemaVersion: z.literal('m3c8-integration-1'), metricVersion: z.literal('m3c8-integration-metrics-0.2.0'), matchId: id,
+  experimental: z.literal(true), calibrated: z.literal(false), causalBlame: z.literal(false), originMeaning: z.literal('DEVELOPMENT_CENTERED_PRESENTATION_DEPOSIT'),
+  policy: z.object({ policyId: z.literal('m3c8-family-balanced-rnd@0.2.0'), scoreScale: z.literal(0.1), referenceId: z.literal('m3c8-integration-dev-reference@0.2.0'), referenceHash: z.string().regex(/^[a-f0-9]{64}$/), referenceStatus: experimentalReferenceStatusSchema }),
+  scenario: experimentalScenarioSchema, quality: qualitySchema, winningTeamId: id.nullable(), losingTeamId: id.nullable(), rankingStatus: experimentalRankingStatusSchema,
+  roundCoverage: z.object({ validRounds: z.number().int().nonnegative(), totalRounds: z.number().int().nonnegative(), withheldRounds: z.number().int().nonnegative(), coverageRatio: z.number().min(0).max(1).nullable(), status: experimentalMetricStatusSchema, causeCodes: z.array(z.string()) }),
+  players: z.array(experimentalRatingPlayerSchema).length(10), rounds: z.array(experimentalRatingRoundSchema),
+  warnings: z.array(z.string()), limitations: z.array(z.string()), provenance: z.object({ parserVersion: z.string(), normalizerVersion: z.string(), featureVersion: z.string(), kernelVersion: z.literal('m3c8-kernel-0.2.0') })
+});
+export type ExperimentalMetric = z.infer<typeof experimentalMetricSchema>;
+export type ExperimentalRatingPlayer = z.infer<typeof experimentalRatingPlayerSchema>;
+export type ExperimentalRatingReport = z.infer<typeof experimentalRatingReportSchema>;
+
 export const scoringFindingCodes = [
   'ENEMY_KILL','OPENING_KILL','TRADE_KILL','ENEMY_DAMAGE','BOMB_DEFUSE','BOMB_PLANT_WIN',
   'TEAM_KILL','TEAM_DAMAGE','TEAM_FLASH','LIVE_SUICIDE','FLASH_SUPPORT'
@@ -176,6 +221,13 @@ export type ScoringPlayer = z.infer<typeof scoringPlayerSchema>;
 
 const leaderSchema = z.object({ playerId: id, rate: z.number(), tied: z.boolean(), close: z.boolean(), tiedPlayerIds: z.array(id), margin: z.number().nonnegative(), reason: z.string() });
 const whoRuinedSchema = z.object({ playerId: id, ruinRaw: z.number().nonnegative(), relativeIndex: z.number().int().min(0).max(100), primaryScoreTied: z.boolean(), close: z.boolean(), tiedPlayerIds: z.array(id), margin: z.number().nonnegative(), noConfirmedHarm: z.boolean(), reason: z.string() });
+export const scoringRoundPlayerSchema = z.object({
+  playerId: id, positive: z.number().nonnegative(), negative: z.number().nonnegative(),
+  net: z.number(), findingIds: z.array(id), episodeIds: z.array(id)
+});
+export const scoringRoundSchema = z.object({
+  roundId: id, ordinal: z.number().int().positive(), players: z.array(scoringRoundPlayerSchema)
+});
 export const scoringReportSchema = z.object({
   schemaVersion: z.literal('m3-score-1'), matchId: id, scorerVersion: z.string().min(1), configHash: z.string().regex(/^[a-f0-9]{64}$/),
   model: z.enum(['V1_COMPAT','SUCCESSOR']), experimental: z.literal(true), status: z.enum(['COMPLETED','PARTIAL','UNSUPPORTED','INSUFFICIENT_COVERAGE']),
@@ -183,13 +235,21 @@ export const scoringReportSchema = z.object({
   coverage: z.object({ score: z.number().min(0).max(1), rounds: z.number().min(0).max(1), identities: z.number().min(0).max(1), deaths: z.number().min(0).max(1), enemyDamage: z.number().min(0).max(1), teamDamage: z.number().min(0).max(1), eligible: z.boolean(), reasons: z.array(z.string()) }),
   mvp: leaderSchema.nullable(), whoRuined: whoRuinedSchema.nullable(), v1ClearRuinerPlayerId: id.nullable(),
   players: z.array(scoringPlayerSchema), episodes: z.array(scoringEpisodeSchema),
-  rounds: z.array(z.object({
-    roundId: id, ordinal: z.number().int().positive(),
-    players: z.array(z.object({ playerId: id, positive: z.number().nonnegative(), negative: z.number().nonnegative(), net: z.number(), findingIds: z.array(id), episodeIds: z.array(id) }))
-  })),
+  rounds: z.array(scoringRoundSchema),
   warnings: z.array(z.string()), limitations: z.array(z.string())
 });
 export type ScoringReport = z.infer<typeof scoringReportSchema>;
+
+export const playerScoringReportSchema = z.object({
+  schemaVersion: z.literal('m3-score-1'), matchId: id, scorerVersion: z.string().min(1),
+  configHash: z.string().regex(/^[a-f0-9]{64}$/), model: z.enum(['V1_COMPAT','SUCCESSOR']),
+  experimental: z.literal(true), player: scoringPlayerSchema, episodes: z.array(scoringEpisodeSchema),
+  rounds: z.array(z.object({
+    roundId: id, ordinal: z.number().int().positive(), player: scoringRoundPlayerSchema
+  })),
+  warnings: z.array(z.string()), limitations: z.array(z.string())
+});
+export type PlayerScoringReport = z.infer<typeof playerScoringReportSchema>;
 
 export const rescoreRequestSchema = z.object({
   scoringVersion: z.string().min(1),
