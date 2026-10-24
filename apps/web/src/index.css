@@ -41,6 +41,9 @@
   --dur-slow: 240ms;
   --ease-out: cubic-bezier(.2, .8, .2, 1);
   --ease-in: cubic-bezier(.4, 0, 1, 1);
+  /* Larger shape changes (the section nav folding into a strip) get a longer, softer curve. */
+  --dur-morph: 460ms;
+  --ease-soft: cubic-bezier(.22, 1, .36, 1);
   /* San Francisco on Apple platforms; everywhere else the bundled Inter, which shares its proportions. */
   --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter Variable", system-ui, sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter Variable", system-ui, sans-serif;
@@ -463,9 +466,23 @@ tr.focusable.lit th:first-child { padding-inline-start: 10px; }
 .nav-score i { font-style: normal; font-weight: 300; color: var(--muted); padding-inline: 4px; }
 @keyframes dock-arrive { from { opacity: 0; transform: translateY(-10px) scale(.88); } to { opacity: 1; transform: none; } }
 
-/* Section nav: hides while reading down, returns on the way up. */
-.report-nav { transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur) var(--ease-out); }
-.report-nav.is-hidden { transform: translateY(calc(-100% - 28px)); opacity: 0; pointer-events: none; }
+/* Section nav: stays in place in the flow; once stuck it follows, then folds into a thin strip while
+   reading down. The pill closes in on its own centre-top, so the strip is where the nav was; it opens
+   again the same way on scroll up, on hover over the strip or on keyboard focus. */
+.report-nav-sentinel { height: 0; }
+.report-nav {
+  clip-path: inset(0 round 999px);
+  transition: clip-path var(--dur-morph) var(--ease-soft), background-color var(--dur-morph) var(--ease-soft), border-color var(--dur-morph) var(--ease-soft);
+}
+.report-nav > * { transition: opacity var(--dur-slow) var(--ease-soft) 160ms, background-color var(--dur-fast), color var(--dur-fast), transform var(--dur-fast) var(--ease-out); }
+.report-nav.is-collapsed {
+  clip-path: inset(0 calc(50% - 32px) calc(100% - 6px) calc(50% - 32px) round 999px);
+  background-color: rgb(var(--glass) / .46); border-color: transparent; pointer-events: none;
+}
+.report-nav.is-collapsed > * { opacity: 0; transition-duration: 140ms; transition-delay: 0ms; }
+/* Pointer target for the strip: much easier to reach than the 6 px strip itself. */
+.report-nav-handle { display: none; position: fixed; top: 0; left: 50%; z-index: 7; width: 220px; height: 44px; transform: translateX(-50%); cursor: pointer; }
+.report-nav-handle.is-active { display: block; }
 
 /* After a jump from the nav, the stage edge glows once so it is clear where you landed. */
 .stage.is-landing { animation: land-glow 900ms var(--ease-out); }
@@ -1049,7 +1066,7 @@ td { color: var(--muted); }
   .route-view, .content-reveal, .round-detail, .language-menu, .upload-transfer, .event-list li, .metric-extra, .connection-banner, .landing-dock, .key-figure, .sheet, .slide-from-start, .slide-from-end, .nav-score { animation-name: content-fade !important; }
   .stage.stagger-pending .stagger-item { opacity: 1; }
   .stage.is-in .stagger-item, .stage.is-landing { animation: none !important; }
-  .report-nav.is-hidden { transform: none; opacity: 1; pointer-events: auto; }
+  .report-nav, .report-nav > * { transition: none !important; }
   .bar-track > span, .impact-column-track i, .signal-sweep, .orbit-outer, .orbit-inner, .signal-path, .skeleton:after, .boot-track:after { animation: none !important; }
   .disclosure-inner, .disclosure.is-open .disclosure-inner { transform: none !important; }
   .disclosure-panel, .disclosure.is-open > .disclosure-panel { transition: none !important; }

@@ -5,8 +5,10 @@ import { Icon } from './Icon.js';
 import { demoBuild } from '../shared/env.js';
 
 const sections = ['scoreboard', 'rounds', 'statistics', 'moments'] as const;
-// Element whose score docks into the nav once it scrolls away.
-const SCORE_SELECTOR = '#overview .score';
+// Once stuck, the nav keeps following for this far down before it folds into a strip while reading.
+const COLLAPSE_AFTER_PX = 280;
+// After the strip was opened by hand, this much reading down folds it again.
+const RECOLLAPSE_AFTER_PX = 48;
 
 /** Lands on a section: scrolls there and briefly lights the stage edge once the scroll has settled. */
 function land(id: string) {
@@ -33,8 +35,11 @@ export function ReportNav({ focus, score }: { focus?: { name: string; clear: () 
   const { t } = useTranslation('match');
   const [active, setActive] = useState<string>('scoreboard');
   const [docked, setDocked] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const motion = useRef({ anchorY: 0, peeked: false });
   const navRef = useRef<HTMLElement>(null);
+  // Zero-height marker at the nav's place in the flow: tells when the nav has left it and is sticking.
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const requested = demoBuild ? '' : window.location.hash.slice(1);
@@ -51,27 +56,37 @@ export function ReportNav({ focus, score }: { focus?: { name: string; clear: () 
     return () => observer.disconnect();
   }, []);
 
-  // The hero score docks into the nav as soon as it has scrolled out above the nav.
-  useEffect(() => {
-    const target = document.querySelector(SCORE_SELECTOR);
-    if (!target) return;
-    const observer = new IntersectionObserver(([entry]) => { if (entry) setDocked(!entry.isIntersecting && entry.boundingClientRect.top < 0); }, { rootMargin: '-72px 0px 0px 0px' });
-    observer.observe(target);
-    return () => observer.disconnect();
-  }, []);
-
-  // Hide on the way down, show again on the way up.
+  // While the nav sits in its place in the flow it stays put. Only once it sticks to the top and
+  // follows the scroll does it carry the match score, and after following for a while on the way
+  // down it folds into a thin strip; any scroll up, a hover on the strip or focus opens it again.
   useEffect(() => {
     let lastY = window.scrollY;
+    let stuck = false;
     let frame = 0;
+    const state = motion.current;
     const update = () => {
       frame = 0;
+      const nav = navRef.current, sentinel = sentinelRef.current;
+      if (!nav || !sentinel) return;
       const y = window.scrollY;
       const delta = y - lastY;
       lastY = y;
-      const nav = navRef.current;
-      const focusInside = !!nav && nav.contains(document.activeElement);
-      if (Math.abs(delta) > 6) setHidden(delta > 0 && y > 480 && !focusInside);
+      const style = getComputedStyle(nav);
+      const isStuck = sentinel.getBoundingClientRect().top + (parseFloat(style.marginTop) || 0) < (parseFloat(style.top) || 0) - 0.5;
+      if (isStuck !== stuck) {
+        stuck = isStuck;
+        state.anchorY = y;
+        state.peeked = false;
+        setDocked(isStuck);
+        if (!isStuck) setCollapsed(false);
+      }
+      if (!stuck || Math.abs(delta) < 6) return;
+      if (delta < 0) { state.anchorY = y; state.peeked = false; setCollapsed(false); return; }
+      // Never fold away under the pointer or the keyboard focus.
+      if (y - state.anchorY > (state.peeked ? RECOLLAPSE_AFTER_PX : COLLAPSE_AFTER_PX) && !nav.contains(document.activeElement) && !nav.matches(':hover')) {
+        state.peeked = false;
+        setCollapsed(true);
+      }
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -79,10 +94,16 @@ export function ReportNav({ focus, score }: { focus?: { name: string; clear: () 
     return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(frame); };
   }, []);
 
+  const expand = () => {
+    if (!collapsed) return;
+    Object.assign(motion.current, { anchorY: window.scrollY, peeked: true });
+    setCollapsed(false);
+  };
+
   const labels = { scoreboard: t('scoreboard', 'Player scoreboard'), rounds: t('round-history-short', 'Rounds'), statistics: t('statistics', 'Statistics'), moments: t('moments', 'Key moments') };
-  return <nav ref={navRef} className={`report-nav ${hidden ? 'is-hidden' : ''}`} aria-label={t('report-sections', 'Report sections')}>
+  return <><div ref={sentinelRef} className="report-nav-sentinel" aria-hidden="true"/><div className={`report-nav-handle ${collapsed ? 'is-active' : ''}`} aria-hidden="true" onPointerEnter={expand} onClick={expand}/><nav ref={navRef} className={`report-nav ${collapsed ? 'is-collapsed' : ''}`} aria-label={t('report-sections', 'Report sections')} onFocus={expand}>
     {score && docked && <button type="button" className="nav-score" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><span>{score.map}</span><b dir="ltr">{score.parts.map((part, index) => <span key={index} className={`team-text-${part.team}`}>{part.value}{index < score.parts.length - 1 && <i>:</i>}</span>)}</b></button>}
     {focus && <button type="button" className="focus-chip" onClick={focus.clear} title={t('clear-focus', 'Clear player selection')}><span>{t('focus-player', 'In focus: {{name}}', { name: focus.name })}</span><span className="sr-only">{t('clear-focus', 'Clear player selection')}</span><Icon name="close" size={14}/></button>}
     {sections.map((id) => <a href={'#' + id} key={id} onClick={(event) => { event.preventDefault(); setActive(id); land(id); if (!demoBuild) window.history.replaceState(null, '', '#' + id); }} aria-current={active === id ? 'location' : undefined}>{labels[id]}</a>)}
-  </nav>;
+  </nav></>;
 }
