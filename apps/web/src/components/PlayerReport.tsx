@@ -12,6 +12,7 @@ import { Icon } from './Icon.js';
 import { ErrorState, Unavailable } from './States.js';
 import { Skeleton } from './Skeleton.js';
 import { Story } from './Story.js';
+import { Decode } from './Decode.js';
 import type { ReactNode } from 'react';
 
 const INITIAL_EVENTS = 12;
@@ -76,7 +77,7 @@ export function PlayerReport({ match, playerId, base, analytics, scoring, analyt
     <Story hero label={t('eyebrow', 'Player · this match only')} title={player.displayName || t('unnamed', 'Unnamed player')} lead={context}
       aside={<div className="story-aside"><span>{team?.label ?? '—'}</span><span>{match.map ?? '—'}</span>{steam && <a href={steam} target="_blank" rel="noreferrer">{t('steam', 'Steam profile')} ↗</a>}<span className={`pill ${outcome === 'win' ? 'success' : ''}`}>{outcome === 'win' ? t('won', 'Victory') : outcome === 'loss' ? t('lost', 'Defeat') : outcome === 'draw' ? t('draw', 'Draw') : t('unknown-result', 'Result unconfirmed')}</span></div>}
       expand={<div className="sheet-grid"><div className="stat-stage">{stats.map((item, index) => <div className={index === 0 ? 'primary-stat' : 'stat'} key={item.title}><span>{item.title}</span><strong>{item.pending ? <Skeleton className="skeleton-metric"/> : item.value}</strong></div>)}</div>{utilityList}</div>}>
-      <div className="stat-stage">{stats.map((item, index) => <div className={index === 0 ? 'primary-stat' : 'stat'} key={item.title}><span>{item.title}</span><strong className="key-figure">{item.pending ? <Skeleton className="skeleton-metric"/> : item.value}</strong></div>)}</div>
+      <div className="stat-stage">{stats.map((item, index) => <div className={index === 0 ? 'primary-stat' : 'stat'} key={item.title}><span>{item.title}</span><strong className="key-figure">{item.pending ? <Skeleton className="skeleton-metric"/> : index === 0 ? <Decode text={item.value}/> : item.value}</strong></div>)}</div>
     </Story>
     {notices}
     {scoring && scored && <Story alt label={t('experimental', 'Experimental')} title={t('relative-index', 'Relative index')} lead={t('relative-index-note', 'Relative index is not a probability or proof of intent.')}>

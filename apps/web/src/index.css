@@ -305,8 +305,10 @@ select option { background: var(--surface-solid); color: var(--text); }
 .band:before { content: ''; position: absolute; inset: -40px auto; left: 50%; width: 100vw; translate: -50% 0; z-index: -1; pointer-events: none; background: linear-gradient(to bottom, rgb(10 6 4 / 0), rgb(10 6 4 / .36) 120px, rgb(10 6 4 / .36) calc(100% - 120px), rgb(10 6 4 / 0)); }
 .stage {
   position: relative; display: grid; align-content: center; gap: 20px; min-width: 0; min-height: 434px; padding: 32px; overflow: hidden;
-  border-radius: 40px; border: 1px solid var(--line); background: rgb(var(--glass) / .06);
-  -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur);
+  border-radius: 40px; border: 1px solid var(--line);
+  /* Frosted hard over a dark base, so the living backdrop barely shows through any stage. */
+  background: linear-gradient(rgb(var(--glass) / .1), rgb(var(--glass) / .1)), rgb(20 14 11 / .58);
+  -webkit-backdrop-filter: blur(32px) saturate(1.2); backdrop-filter: blur(32px) saturate(1.2);
 }
 .story.hero .stage { min-height: 480px; }
 /* The opening story fills the first screen, so the section nav only appears once the reader scrolls. */
@@ -432,6 +434,42 @@ tr.focusable.lit th:first-child { padding-inline-start: 10px; }
 .focus-chip { display: inline-flex; flex-shrink: 0; align-items: center; gap: 8px; margin-inline-end: 6px; padding: 8px 10px 8px 14px; border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--accent) 8%, transparent); color: var(--text); font-size: .85rem; white-space: nowrap; animation: content-enter var(--dur) var(--ease-out); }
 .focus-chip:hover { background: color-mix(in srgb, var(--accent) 16%, transparent); }
 .focus-chip svg { color: var(--muted); }
+
+/* Decoded figures keep their final width while they scramble. */
+.decode { display: inline-block; white-space: pre; }
+
+/* ---------- Scroll motion ---------- */
+/* Stage contents cascade in once, the first time their stage scrolls into view. Fill mode is
+   `backwards` so hover and focus transforms take over again as soon as each item has arrived. */
+.stage.stagger-pending .stagger-item { opacity: 0; }
+@media print { .stage.stagger-pending .stagger-item { opacity: 1; } }
+.stage.is-in .stagger-item { animation: stagger-in var(--dur-slow) var(--ease-out) backwards; animation-delay: calc(min(var(--i, 0), 20) * 35ms); }
+.stage.is-in .round-chip.stagger-item { animation-name: stagger-in-x; }
+@keyframes stagger-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes stagger-in-x { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+[dir="rtl"] .stage.is-in .round-chip.stagger-item { animation-name: stagger-in-x-rtl; }
+@keyframes stagger-in-x-rtl { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
+
+/* The hero score shrinks upward as it leaves, then reappears docked in the section nav. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    #overview .score { animation: score-undock linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+  }
+}
+@keyframes score-undock { to { transform: translateY(-40px) scale(.58); opacity: 0; } }
+.nav-score { display: inline-flex; flex-shrink: 0; align-items: baseline; gap: 10px; margin-inline-end: 6px; padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 999px; background: rgb(var(--glass) / .06); color: var(--text-2); font-size: .85rem; white-space: nowrap; animation: dock-arrive var(--dur-slow) var(--ease-out); }
+.nav-score:hover { color: var(--text); background: rgb(var(--glass) / .1); }
+.nav-score b { font-family: var(--font-num); font-weight: 800; font-size: 1rem; letter-spacing: -.03em; }
+.nav-score i { font-style: normal; font-weight: 300; color: var(--muted); padding-inline: 4px; }
+@keyframes dock-arrive { from { opacity: 0; transform: translateY(-10px) scale(.88); } to { opacity: 1; transform: none; } }
+
+/* Section nav: hides while reading down, returns on the way up. */
+.report-nav { transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur) var(--ease-out); }
+.report-nav.is-hidden { transform: translateY(calc(-100% - 28px)); opacity: 0; pointer-events: none; }
+
+/* After a jump from the nav, the stage edge glows once so it is clear where you landed. */
+.stage.is-landing { animation: land-glow 900ms var(--ease-out); }
+@keyframes land-glow { 0% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 0%, transparent); } 25% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 70%, transparent), 0 0 40px color-mix(in srgb, var(--accent) 18%, transparent); } 100% { box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 0%, transparent); } }
 
 /* ---------- Home ---------- */
 .home-hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; padding-top: 24px; }
@@ -1008,7 +1046,10 @@ td { color: var(--muted); }
 /* Motion stays meaningful but never essential: keep only quick fades. */
 @media (prefers-reduced-motion: reduce) {
   *, *:before, *:after { scroll-behavior: auto !important; animation-iteration-count: 1 !important; }
-  .route-view, .content-reveal, .round-detail, .language-menu, .upload-transfer, .event-list li, .metric-extra, .connection-banner, .landing-dock, .key-figure, .sheet, .slide-from-start, .slide-from-end { animation-name: content-fade !important; }
+  .route-view, .content-reveal, .round-detail, .language-menu, .upload-transfer, .event-list li, .metric-extra, .connection-banner, .landing-dock, .key-figure, .sheet, .slide-from-start, .slide-from-end, .nav-score { animation-name: content-fade !important; }
+  .stage.stagger-pending .stagger-item { opacity: 1; }
+  .stage.is-in .stagger-item, .stage.is-landing { animation: none !important; }
+  .report-nav.is-hidden { transform: none; opacity: 1; pointer-events: auto; }
   .bar-track > span, .impact-column-track i, .signal-sweep, .orbit-outer, .orbit-inner, .signal-path, .skeleton:after, .boot-track:after { animation: none !important; }
   .disclosure-inner, .disclosure.is-open .disclosure-inner { transform: none !important; }
   .disclosure-panel, .disclosure.is-open > .disclosure-panel { transition: none !important; }

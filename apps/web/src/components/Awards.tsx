@@ -4,6 +4,7 @@ import type { MatchData } from '@who-ruined/contracts';
 import type { Award, MatchAnalytics } from '../analytics/types.js';
 import { playerPath, teamOutcome } from '../analytics/presentation.js';
 import { Icon } from './Icon.js';
+import { Decode } from './Decode.js';
 
 /** The player an award names, or null when the match quality or the award state rules it out. */
 export function awardWinner(match: MatchData, award: Award | undefined, kind: 'mvp' | 'whoRuined') {
@@ -21,7 +22,7 @@ export function Awards({ match, analytics, base }: { match: MatchData; analytics
     const eligible = !!player && match.quality === 'VALID' && (kind === 'mvp' || teamOutcome(match, player.teamId) === 'loss');
     return <article className={`award-card ${kind}`} key={kind}>
       <div className="award-heading"><span className="award-symbol"><Icon name={kind === 'mvp' ? 'trophy' : 'crosshair'} size={22}/></span><div><p className="eyebrow">{kind === 'mvp' ? t('mvp', 'Match MVP') : t('who-ruined', 'Who Ruined')}</p>{kind === 'mvp' && <small>{t('mvp-caption', 'Outstanding contribution')}</small>}</div></div>
-      {eligible && award.state === 'available' ? <div className="award-result"><strong>{player.displayName}</strong><span className="key-figure">{new Intl.NumberFormat(i18n.resolvedLanguage, { maximumFractionDigits: 2 }).format(award.value)}</span><small>{t('award-margin', 'Margin: {{value}}', { value: new Intl.NumberFormat(i18n.resolvedLanguage, { maximumFractionDigits: 3 }).format(award.margin) })}{award.close || award.tied ? ` · ${t('low-confidence', 'Too close to call')}` : ''}</small>{kind === 'whoRuined' && award.noConfirmedHarm && <small>{t('no-confirmed-harm', 'No confirmed harmful action; selection is based on relative contribution shortfall.')}</small>}<Link className="button primary" to={playerPath(base, player.id)}>{t('open-player', 'Open player analysis')}<Icon name="arrow" size={16}/></Link></div> :
+      {eligible && award.state === 'available' ? <div className="award-result"><strong><Decode text={player.displayName}/></strong><span className="key-figure"><Decode text={new Intl.NumberFormat(i18n.resolvedLanguage, { maximumFractionDigits: 2 }).format(award.value)}/></span><small>{t('award-margin', 'Margin: {{value}}', { value: new Intl.NumberFormat(i18n.resolvedLanguage, { maximumFractionDigits: 3 }).format(award.margin) })}{award.close || award.tied ? ` · ${t('low-confidence', 'Too close to call')}` : ''}</small>{kind === 'whoRuined' && award.noConfirmedHarm && <small>{t('no-confirmed-harm', 'No confirmed harmful action; selection is based on relative contribution shortfall.')}</small>}<Link className="button primary" to={playerPath(base, player.id)}>{t('open-player', 'Open player analysis')}<Icon name="arrow" size={16}/></Link></div> :
       <div className="award-unavailable"><strong>{award.state === 'low-confidence' ? t('low-confidence', 'Too close to call') : award.state === 'insufficient-data' || match.quality !== 'VALID' ? t('insufficient-data', 'Not enough evidence') : t('ratings-unavailable', 'Rating not available yet')}</strong><p>{award.state === 'low-confidence' ? t('low-confidence-text', 'The evidence does not support a confident selection.') : t('rating-note', 'A name appears here only when a contextual rating is available.')}</p></div>}
     </article>;
   }

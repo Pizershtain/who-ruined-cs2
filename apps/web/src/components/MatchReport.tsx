@@ -15,6 +15,7 @@ import { Icon } from './Icon.js';
 import { ReportNav } from './ReportNav.js';
 import { Disclosure } from './Disclosure.js';
 import { Story } from './Story.js';
+import { Decode } from './Decode.js';
 
 /** The match report as a sequence of stories: one thought and one stage per screen. */
 export function MatchReport({ match, analytics, base, analyticsLoading = false, notices }: { match: MatchData; analytics?: MatchAnalytics; base: string; analyticsLoading?: boolean; notices?: ReactNode }) {
@@ -36,12 +37,12 @@ export function MatchReport({ match, analytics, base, analyticsLoading = false, 
   const quality = <span className={`pill ${match.quality === 'VALID' ? 'success' : 'warning'}`}>{match.quality === 'VALID' ? t('validated-data', 'Validated data') : match.quality === 'PARTIAL' ? t('partial', 'Partial data') : t('unsupported', 'Unsupported data')}</span>;
   return <>
     <div className="breadcrumb"><Link to="/analyze">{t('home', 'Workspace')}</Link><span>/</span><span>{t('report', 'Match report')}</span></div>
-    <Story hero label={t('report', 'Match report')} title={match.map ?? t('unknown-map', 'Unknown map')}
+    <Story id="overview" hero label={t('report', 'Match report')} title={match.map ?? t('unknown-map', 'Unknown map')}
       aside={<div className="story-aside"><span><Icon name="rounds" size={16}/>{t('round-count', '{{count}} rounds', { count: match.rounds.length, defaultValue_one: '{{count}} round', defaultValue_other: '{{count}} rounds' })}</span><span><Icon name="crosshair" size={16}/>{t('player-count', '{{count}} players', { count: match.players.length, defaultValue_one: '{{count}} player', defaultValue_other: '{{count}} players' })}</span>{quality}</div>}
       lead={match.quality !== 'VALID' ? t('partial-warning', 'Some match data could not be confirmed. Ratings are unavailable; review the quality notes below.') : undefined}>
-      <div className="score-stage"><div className="score key-figure">{match.teams.map((team, index) => <span key={team.id} className={`team-text-${index}`}>{finalScore(match, team.id) ?? '—'}{index < match.teams.length - 1 && <i>:</i>}</span>)}</div><div className="teams">{match.teams.length ? match.teams.map((team, index) => <span key={team.id}><i className={`team-marker team-${index}`}/>{team.label}</span>) : <span>{t('no-rosters', 'Rosters unavailable')}</span>}</div>{(mvp || ruined) && <div className="verdicts">{mvp && <Link className="verdict mvp" to={playerPath(base, mvp.player.id)}><span>{t('mvp', 'Match MVP')}</span><strong>{mvp.player.displayName}</strong><b>{figure(mvp.value)}</b></Link>}{ruined && <Link className="verdict whoRuined" to={playerPath(base, ruined.player.id)}><span>{t('who-ruined', 'Who Ruined')}</span><strong>{ruined.player.displayName}</strong><b>{figure(ruined.value)}</b></Link>}</div>}</div>
+      <div className="score-stage"><div className="score key-figure">{match.teams.map((team, index) => <span key={team.id} className={`team-text-${index}`}><Decode text={String(finalScore(match, team.id) ?? '—')}/>{index < match.teams.length - 1 && <i>:</i>}</span>)}</div><div className="teams">{match.teams.length ? match.teams.map((team, index) => <span key={team.id}><i className={`team-marker team-${index}`}/>{team.label}</span>) : <span>{t('no-rosters', 'Rosters unavailable')}</span>}</div>{(mvp || ruined) && <div className="verdicts">{mvp && <Link className="verdict mvp" to={playerPath(base, mvp.player.id)}><span>{t('mvp', 'Match MVP')}</span><strong><Decode text={mvp.player.displayName}/></strong><b><Decode text={figure(mvp.value)}/></b></Link>}{ruined && <Link className="verdict whoRuined" to={playerPath(base, ruined.player.id)}><span>{t('who-ruined', 'Who Ruined')}</span><strong><Decode text={ruined.player.displayName}/></strong><b><Decode text={figure(ruined.value)}/></b></Link>}</div>}</div>
     </Story>
-    <ReportNav focus={focused ? { name: focused.displayName, clear: () => setFocusId(null) } : undefined}/>
+    <ReportNav focus={focused ? { name: focused.displayName, clear: () => setFocusId(null) } : undefined} score={{ map: match.map ?? t('unknown-map', 'Unknown map'), parts: match.teams.map((team, index) => ({ value: String(finalScore(match, team.id) ?? '—'), team: index })) }}/>
     {notices}
     <Story alt label={t('awards-label', 'Match results')} title={t('awards-title', 'Who shaped the result')} lead={t('evidence-disclaimer', 'Match facts are evidence, not proof of tactical blame or intent.', { ns: 'translation' })}>
       <Awards match={match} {...(analytics ? { analytics } : {})} base={base}/>

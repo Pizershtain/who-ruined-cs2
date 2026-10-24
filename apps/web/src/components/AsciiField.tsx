@@ -36,7 +36,10 @@ function parseColor(value: string): [number, number, number] {
   return rgb ? [Number(rgb[1]), Number(rgb[2]), Number(rgb[3])] : [240, 230, 220];
 }
 
-/** `quiet` is the backdrop for inner screens: dimmer, slower and without the pointer spotlight. */
+/**
+ * `quiet` is the backdrop for inner screens: dimmer and slower, no pointer spotlight. Instead the light
+ * sits behind the story stage being read and the field drifts with a slow parallax as the page scrolls.
+ */
 export function AsciiField({ className = '', quiet = false, progress }: { className?: string; quiet?: boolean; progress?: number | undefined }) {
   const progressRef = useRef(progress);
   progressRef.current = progress;
@@ -75,7 +78,17 @@ export function AsciiField({ className = '', quiet = false, progress }: { classN
     // The spotlight eases towards the pointer; without one it drifts gently on its own.
     // Over interactive chrome (the dock, the language menu) the spotlight fades out entirely.
     const pointer = { x: width / 2, y: height / 2, active: false, blocked: false };
-    const spot = { x: width / 2, y: height / 2, strength: 0 };
+    const spot = { x: width / 2, y: height / 2, rx: SPOT_RADIUS, ry: SPOT_RADIUS, strength: 0 };
+    // The stage nearest the middle of the viewport is the one being read.
+    const readingStage = () => {
+      let best: DOMRect | null = null, bestDistance = Infinity;
+      for (const stage of document.querySelectorAll('.story .stage')) {
+        const r = stage.getBoundingClientRect();
+        const distance = Math.abs(r.top + r.height / 2 - height / 2);
+        if (r.bottom > 0 && r.top < height && distance < bestDistance) { best = r; bestDistance = distance; }
+      }
+      return best;
+    };
     const move = (event: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       pointer.x = event.clientX - rect.left; pointer.y = event.clientY - rect.top;
@@ -83,6 +96,16 @@ export function AsciiField({ className = '', quiet = false, progress }: { classN
       pointer.blocked = event.target instanceof Element && event.target.closest('[data-spotlight="off"]') !== null;
     };
     const leave = () => { pointer.active = false; pointer.blocked = false; };
+    // Scroll speed (0..1): fast scrolling streaks the quiet backdrop, which then settles in about half a second.
+    let velocity = 0;
+    let lastScrollY = window.scrollY, lastScrollAt = performance.now();
+    const onScroll = () => {
+      const now = performance.now();
+      const speed = Math.abs(window.scrollY - lastScrollY) / Math.max(16, now - lastScrollAt);
+      lastScrollY = window.scrollY; lastScrollAt = now;
+      velocity = Math.max(velocity, Math.min(1, speed / 3));
+    };
+    if (quiet) window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('pointermove', move, { passive: true });
     window.addEventListener('pointerdown', move, { passive: true });
     document.documentElement.addEventListener('pointerleave', leave);
@@ -95,11 +118,17 @@ export function AsciiField({ className = '', quiet = false, progress }: { classN
       last = now;
       const still = reduceMotion.matches;
       if (!still) time += delta * pace;
-      const target = pointer.active ? pointer : { x: width * (0.5 + 0.22 * Math.sin(time * 0.17)), y: height * (0.5 + 0.18 * Math.cos(time * 0.13)) };
-      const ease = still ? 1 : 1 - Math.exp(-delta * 9);
-      if (!pointer.blocked) { spot.x += (target.x - spot.x) * ease; spot.y += (target.y - spot.y) * ease; }
-      const wanted = quiet || pointer.blocked ? 0 : pointer.active ? 1 : 0.45;
-      spot.strength += (wanted - spot.strength) * (pointer.blocked ? Math.min(1, ease * 1.4) : ease * 0.6);
+      const stage = quiet ? readingStage() : null;
+      const target = quiet ? (stage ? { x: stage.left + stage.width / 2, y: stage.top + stage.height / 2 } : spot)
+        : pointer.active ? pointer : { x: width * (0.5 + 0.22 * Math.sin(time * 0.17)), y: height * (0.5 + 0.18 * Math.cos(time * 0.13)) };
+      const ease = still ? 1 : 1 - Math.exp(-delta * (quiet ? 4 : 9));
+      if (!pointer.blocked || quiet) { spot.x += (target.x - spot.x) * ease; spot.y += (target.y - spot.y) * ease; }
+      if (stage) { spot.rx += (stage.width * 1.25 - spot.rx) * ease; spot.ry += (stage.height * 1.25 - spot.ry) * ease; }
+      const wanted = quiet ? (stage ? 1 : 0) : pointer.blocked ? 0 : pointer.active ? 1 : 0.45;
+      spot.strength += (wanted - spot.strength) * (pointer.blocked && !quiet ? Math.min(1, ease * 1.4) : ease * 0.6);
+      // Parallax: the backdrop scrolls at a quarter of the page speed.
+      const drift = quiet ? window.scrollY * 0.25 / CELL_H : 0;
+      velocity = still ? 0 : velocity * Math.exp(-delta * 4);
 
       const { dim, floor } = tuned();
       context.clearRect(0, 0, width, height);
@@ -107,17 +136,18 @@ export function AsciiField({ className = '', quiet = false, progress }: { classN
         const y = row * CELL_H + CELL_H / 2;
         for (let col = 0; col < columns; col++) {
           const x = col * CELL_W + CELL_W / 2;
-          const dx = x - spot.x, dy = y - spot.y;
+          const dx = (x - spot.x) / spot.rx, dy = (y - spot.y) / spot.ry;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          const light = distance < SPOT_RADIUS ? (1 - distance / SPOT_RADIUS) ** 2 * spot.strength : 0;
-          let value = field(col, row, time);
-          value = Math.min(1, Math.max(0, (value - floor) * 1.9 + light * 0.45));
+          const light = distance < 1 ? (1 - distance) ** 2 * spot.strength : 0;
+          let value = field(col, row + drift, time);
+          value = Math.min(1, Math.max(0, (value - floor) * 1.9 + light * 0.45 + velocity * 0.22));
           if (value < 0.06) continue;
           // Digits surface in the denser pockets; symbols carry the texture.
           const digit = noise(col * 0.9 + 40, row * 0.9 - 40) > 0.78;
-          const glyph = digit ? String(Math.floor(value * 9.99)) : RAMP[Math.min(RAMP.length - 1, Math.floor(value * RAMP.length))] ?? ' ';
+          const streak = quiet && velocity > 0.05 && hash(col * 1.3, row * 2.1) < velocity;
+          const glyph = streak ? (value > 0.45 ? '|' : ':') : digit ? String(Math.floor(value * 9.99)) : RAMP[Math.min(RAMP.length - 1, Math.floor(value * RAMP.length))] ?? ' ';
           if (glyph === ' ') continue;
-          const alpha = Math.min(1, (0.1 + 0.42 * value) * (0.6 + 1.3 * light)) * dim;
+          const alpha = quiet ? Math.min(1, (0.1 + 0.42 * value) * dim * (1 + light * 2.4)) : Math.min(1, (0.1 + 0.42 * value) * (0.6 + 1.3 * light)) * dim;
           const mix = light * 0.55;
           const r = Math.round(base[0] + (warm[0] - base[0]) * mix), g = Math.round(base[1] + (warm[1] - base[1]) * mix), b = Math.round(base[2] + (warm[2] - base[2]) * mix);
           context.fillStyle = `rgba(${r},${g},${b},${alpha.toFixed(3)})`;
@@ -138,6 +168,7 @@ export function AsciiField({ className = '', quiet = false, progress }: { classN
       window.removeEventListener('pointermove', move);
       window.removeEventListener('pointerdown', move);
       document.documentElement.removeEventListener('pointerleave', leave);
+      window.removeEventListener('scroll', onScroll);
     };
   }, [quiet]);
   return <canvas ref={canvasRef} className={`ascii-field ${className}`} aria-hidden="true"/>;

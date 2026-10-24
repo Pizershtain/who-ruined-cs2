@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { MatchData } from '@who-ruined/contracts';
@@ -49,7 +49,7 @@ export function Scoreboard({ match, analytics, base, loading = false, full = fal
           const metrics = analytics?.players[id];
           const steam = steamProfileUrl(player?.steamId ?? null);
           const cell = (key: keyof PlayerMetrics) => loading && !analytics && !['performance', 'impact', 'mistakes'].includes(key) ? <Skeleton className="skeleton-metric"/> : number(metrics?.[key]);
-          return <tr key={id} className={`focusable ${focusClass(focus, id)}`} onClick={(event) => { if (!(event.target instanceof Element && event.target.closest('a'))) focus?.toggle(id); }}><th scope="row"><div className="player-cell"><span className={`player-avatar team-${teamIndex}`} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="player-identity">{player ? <Link to={playerPath(base, id)}>{player.displayName || t('unnamed-player', 'Unnamed player')}</Link> : <span>{t('unknown-player', 'Unknown player')}</span>}{steam && <a className="steam-link" href={steam} target="_blank" rel="noreferrer" aria-label={t('steam-profile', 'Steam profile: {{name}}', { name: player?.displayName })}>Steam ↗</a>}</span></div></th>
+          return <tr key={id} className={`focusable stagger-item ${focusClass(focus, id)}`} style={{ '--i': teamIndex * team.playerIds.length + index } as CSSProperties} onClick={(event) => { if (!(event.target instanceof Element && event.target.closest('a'))) focus?.toggle(id); }}><th scope="row"><div className="player-cell"><span className={`player-avatar team-${teamIndex}`} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="player-identity">{player ? <Link to={playerPath(base, id)}>{player.displayName || t('unnamed-player', 'Unnamed player')}</Link> : <span>{t('unknown-player', 'Unknown player')}</span>}{steam && <a className="steam-link" href={steam} target="_blank" rel="noreferrer" aria-label={t('steam-profile', 'Steam profile: {{name}}', { name: player?.displayName })}>Steam ↗</a>}</span></div></th>
             <td className="stat-strong">{number(player?.scoreboard?.kills)}</td><td>{number(player?.scoreboard?.deaths)}</td><td>{number(player?.scoreboard?.assists)}</td>
             {keyColumns.map((column) => <td key={column.key}>{cell(column.key)}</td>)}
             {extra.mounted && <><td className="metric-extra">{number(player?.scoreboard?.teamKills)}</td>{extraColumns.map((column) => <td key={column.key} className={`metric-extra ${column.key === 'impact' ? 'accent-stat' : ''}`}>{cell(column.key)}</td>)}</>}</tr>;

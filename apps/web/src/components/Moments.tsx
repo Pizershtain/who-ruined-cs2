@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
@@ -6,6 +6,7 @@ import type { MatchData } from '@who-ruined/contracts';
 import type { AnalysisMoment, MatchAnalytics } from '../analytics/types.js';
 import { focusClass, playerPath, timeAtTick, type PlayerFocus } from '../analytics/presentation.js';
 import { Unavailable } from './States.js';
+import { Decode } from './Decode.js';
 
 const INITIAL_MOMENTS = 4;
 
@@ -35,13 +36,13 @@ export function Moments({ match, analytics, base, playerId, full = false, focus 
       <button aria-pressed={filter === 'all'} onClick={() => choose('all')}>{t('filter-all', 'All actions')}</button>
     </div><span className="pill">{count.format(entries.length)}</span></div>
     {!entries.length ? <div className="empty-state">{t('no-moments', 'No actions match this filter.')}</div> :
-    <div className="moment-list content-reveal" key={filter}>{entries.slice(0, visible).map((moment) => {
+    <div className="moment-list content-reveal" key={filter}>{entries.slice(0, visible).map((moment, index) => {
       const player = match.players.find((item) => item.id === moment.playerId);
       const round = match.rounds.find((item) => item.id === moment.roundId);
       const ticks = t('moment-tick', 'Tick {{tick}}', { tick: moment.tick }) + (moment.endTick !== undefined && moment.endTick !== moment.tick ? `–${moment.endTick}` : '');
-      return <article className={`moment ${moment.category} ${playerId ? '' : 'focusable'} ${focusClass(focus, moment.playerId)}`} key={moment.id} onClick={(event) => { if (!playerId && !(event.target instanceof Element && event.target.closest('a'))) focus?.toggle(moment.playerId); }}>
+      return <article style={{ '--i': index } as CSSProperties} className={`moment stagger-item ${moment.category} ${playerId ? '' : 'focusable'} ${focusClass(focus, moment.playerId)}`} key={moment.id} onClick={(event) => { if (!playerId && !(event.target instanceof Element && event.target.closest('a'))) focus?.toggle(moment.playerId); }}>
         <p className="moment-what">{momentDescription(moment.kind, t)}</p>
-        <div className="moment-confidence">{moment.confidence === null ? <span>{t('confidence-unknown', 'Confidence unavailable')}</span> : <><strong className="key-figure">{new Intl.NumberFormat(i18n.resolvedLanguage, { style: 'percent' }).format(moment.confidence)}</strong><span>{t('confidence-label', 'Confidence')}</span></>}</div>
+        <div className="moment-confidence">{moment.confidence === null ? <span>{t('confidence-unknown', 'Confidence unavailable')}</span> : <><strong className="key-figure"><Decode text={new Intl.NumberFormat(i18n.resolvedLanguage, { style: 'percent' }).format(moment.confidence)}/></strong><span>{t('confidence-label', 'Confidence')}</span></>}</div>
         <div className="moment-meta">{player && <Link to={playerPath(base, player.id)}>{player.displayName}</Link>}<span>{t('moment-round', 'Round {{round}}', { round: round?.ordinal ?? '—' })}</span><span dir="ltr">{match.tickRate ? timeAtTick(moment.tick, match.tickRate) + ' · ' : ''}{ticks}</span><span>{moment.evidenceStrength ?? (moment.importance === 'high' ? t('importance-high', 'High importance') : t('importance-medium', 'Medium importance'))}</span></div>
         {moment.observedFacts?.length ? <small className="moment-facts">{moment.observedFacts.join(' · ')}</small> : null}
       </article>;

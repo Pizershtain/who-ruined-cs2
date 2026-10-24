@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon } from './Icon.js';
 
@@ -14,6 +14,33 @@ export function Story({ id, label, title, lead, aside, actions, expand, hero = f
 }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  // Items marked `stagger-item` cascade in the first time the stage enters the viewport.
+  const stageRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const stage = stageRef.current;
+    if (!stage || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    stage.classList.add('stagger-pending');
+    // Content must never stay hidden: besides the observer, a plain geometry check on scroll, resize
+    // and a slow timer reveals the stage, which also covers pages where observers and scroll events are throttled.
+    const reveal = () => {
+      if (!stage.classList.contains('stagger-pending')) return;
+      stage.classList.replace('stagger-pending', 'is-in');
+      cleanup();
+    };
+    const check = () => {
+      const r = stage.getBoundingClientRect();
+      const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      if (visible > Math.min(r.height, window.innerHeight) * 0.15) reveal();
+    };
+    const poll = window.setInterval(() => check(), 500);
+    const observer = new IntersectionObserver((entries) => { if (entries.some((entry) => entry.isIntersecting)) reveal(); }, { threshold: 0.15 });
+    const cleanup = () => { observer.disconnect(); window.removeEventListener('scroll', check); window.removeEventListener('resize', check); window.clearInterval(poll); };
+    observer.observe(stage);
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    check();
+    return () => { cleanup(); stage.classList.remove('stagger-pending'); };
+  }, []);
   const [origin, setOrigin] = useState('50% 50%');
   const heading = hero ? <h1>{title}</h1> : <h2>{title}</h2>;
   return <section id={id} className={`story ${hero ? 'hero' : ''} ${alt ? 'alt' : ''} ${band ? 'band' : ''} ${className}`}>
@@ -25,7 +52,7 @@ export function Story({ id, label, title, lead, aside, actions, expand, hero = f
       {aside}
       {actions && <div className="story-actions">{actions}</div>}
     </div>
-    <div className="stage">{children}</div>
+    <div className="stage" ref={stageRef}>{children}</div>
     {expand && open && <Sheet title={title} origin={origin} onClose={() => setOpen(false)}>{expand}</Sheet>}
   </section>;
 }
