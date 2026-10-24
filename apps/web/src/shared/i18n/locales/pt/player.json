@@ -33,6 +33,7 @@
   "round": "Ronda {{round}}",
   "steam": "Perfil Steam",
   "strengths": "Pontos fortes e oportunidades",
+  "strengths-lead": "O que as ações registradas dizem sobre este jogador, com os números de granadas e trades por trás.",
   "strengths-unavailable": "Os pontos fortes e fracos individuais exigem análise contextual. Não se retiram conclusões de K/D/A.",
   "tick": "Tick {{tick}}",
   "trades": "Eliminações de resposta bem-sucedidas",

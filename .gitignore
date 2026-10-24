@@ -1,6 +1,7 @@
 node_modules/
 .turbo/
 dist/
+dist-demo/
 coverage/
 .env
 *.log

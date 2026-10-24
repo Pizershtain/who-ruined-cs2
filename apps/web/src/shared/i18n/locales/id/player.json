@@ -33,6 +33,7 @@
   "round": "Ronde {{round}}",
   "steam": "Profil Steam",
   "strengths": "Kekuatan dan peluang",
+  "strengths-lead": "Apa yang dikatakan aksi yang tercatat tentang pemain ini, dengan angka granat dan trade di baliknya.",
   "strengths-unavailable": "Kekuatan dan kelemahan pribadi memerlukan analisis sesuai konteks. Tidak ada kesimpulan yang ditarik dari K/D/A.",
   "tick": "Tick {{tick}}",
   "trades": "Eliminasi balasan berhasil",

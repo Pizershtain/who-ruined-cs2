@@ -33,6 +33,7 @@
   "round": "Round {{round}}",
   "steam": "Steam profile",
   "strengths": "Strengths & opportunities",
+  "strengths-lead": "What the recorded actions say about this player, with the utility and trade numbers behind them.",
   "strengths-unavailable": "Personal strengths and weaknesses require contextual analysis. No conclusions are inferred from K/D/A.",
   "tick": "Tick {{tick}}",
   "trades": "Successful trades",

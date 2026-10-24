@@ -4,18 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { createLocaleOptions, languageStorageKey } from './settings.js';
 import type { SupportedLanguage } from './locale-catalog.js';
-
-// Keep only asset URLs in the bundle; fetch can retry a failed locale request.
-const resources = import.meta.glob<string>('./locales/*/*.json', { query: '?url&no-inline', import: 'default', eager: true });
-async function readLocale(language: string, namespace: string): Promise<Record<string, string>> {
-  const url = resources[`./locales/${language}/${namespace}.json`];
-  if (!url) throw new Error(`Unknown locale resource: ${language}/${namespace}`);
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Locale request failed: ${response.status}`);
-  const resource: unknown = await response.json();
-  if (!resource || typeof resource !== 'object' || Array.isArray(resource) || !Object.keys(resource).length || Object.values(resource).some((value) => typeof value !== 'string')) throw new Error('Invalid locale resource');
-  return resource as Record<string, string>;
-}
+import { readLocale } from './resources.js';
 
 export const i18n = createInstance();
 export const i18nReady = i18n.use(initReactI18next).use(LanguageDetector).use(resourcesToBackend(readLocale)).init({

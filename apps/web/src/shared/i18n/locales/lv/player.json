@@ -33,6 +33,7 @@
   "round": "Raunds {{round}}",
   "steam": "Steam profils",
   "strengths": "Stiprās puses un iespējas",
+  "strengths-lead": "Ko ierakstītās darbības saka par šo spēlētāju, ar granātu un trade skaitļiem aiz tām.",
   "strengths-unavailable": "Personīgajām stiprajām un vājajām pusēm vajadzīga konteksta analīze. No K/D/A netiek izdarīti secinājumi.",
   "tick": "Tiks {{tick}}",
   "trades": "Veiksmīgas atbildes nogalināšanas",

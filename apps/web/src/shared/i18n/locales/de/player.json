@@ -33,6 +33,7 @@
   "round": "Runde {{round}}",
   "steam": "Steam-Profil",
   "strengths": "Stärken & Potenzial",
+  "strengths-lead": "Was die aufgezeichneten Aktionen über diesen Spieler sagen, mit den Granaten- und Trade-Zahlen dahinter.",
   "strengths-unavailable": "Persönliche Stärken und Schwächen erfordern eine kontextbezogene Analyse. Aus K/D/A werden keine Schlüsse gezogen.",
   "tick": "Tick {{tick}}",
   "trades": "Erfolgreiche Vergeltungskills",

@@ -33,6 +33,7 @@
   "round": "Runda {{round}}",
   "steam": "Steam-profil",
   "strengths": "Styrkor och möjligheter",
+  "strengths-lead": "Vad de registrerade handlingarna säger om den här spelaren, med granat- och tradesiffrorna bakom.",
   "strengths-unavailable": "Personliga styrkor och svagheter kräver kontextbaserad analys. Inga slutsatser dras från K/D/A.",
   "tick": "Tick {{tick}}",
   "trades": "Lyckade hämndelimineringar",

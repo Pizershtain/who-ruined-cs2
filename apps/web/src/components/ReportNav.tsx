@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { revealSection } from './Disclosure.js';
+import { Icon } from './Icon.js';
+import { demoBuild } from '../shared/env.js';
 
 const sections = ['scoreboard', 'rounds', 'statistics', 'moments'] as const;
 
-export function ReportNav() {
+export function ReportNav({ focus }: { focus?: { name: string; clear: () => void } | undefined }) {
   const { t } = useTranslation('match');
   const [active, setActive] = useState<string>('scoreboard');
   useEffect(() => {
-    const requested = window.location.hash.slice(1);
+    const requested = demoBuild ? '' : window.location.hash.slice(1);
     if (sections.some((id) => id === requested)) document.getElementById(requested)?.scrollIntoView({ block: 'start', behavior: 'instant' });
     const visible = new Set<Element>();
     const observer = new IntersectionObserver((entries) => {
@@ -21,5 +24,5 @@ export function ReportNav() {
     return () => observer.disconnect();
   }, []);
   const labels = { scoreboard: t('scoreboard', 'Player scoreboard'), rounds: t('round-history-short', 'Rounds'), statistics: t('statistics', 'Statistics'), moments: t('moments', 'Key moments') };
-  return <nav className="report-nav" aria-label={t('report-sections', 'Report sections')}>{sections.map((id) => <a href={'#' + id} key={id} onClick={() => setActive(id)} aria-current={active === id ? 'location' : undefined}>{labels[id]}</a>)}</nav>;
+  return <nav className="report-nav" aria-label={t('report-sections', 'Report sections')}>{focus && <button type="button" className="focus-chip" onClick={focus.clear} title={t('clear-focus', 'Clear player selection')}><span>{t('focus-player', 'In focus: {{name}}', { name: focus.name })}</span><span className="sr-only">{t('clear-focus', 'Clear player selection')}</span><Icon name="close" size={14}/></button>}{sections.map((id) => <a href={'#' + id} key={id} onClick={(event) => { event.preventDefault(); setActive(id); revealSection(id); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); if (!demoBuild) window.history.replaceState(null, '', '#' + id); }} aria-current={active === id ? 'location' : undefined}>{labels[id]}</a>)}</nav>;
 }

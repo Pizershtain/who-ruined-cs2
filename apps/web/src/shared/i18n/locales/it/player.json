@@ -33,6 +33,7 @@
   "round": "Round {{round}}",
   "steam": "Profilo Steam",
   "strengths": "Punti di forza e opportunità",
+  "strengths-lead": "Cosa dicono le azioni registrate di questo giocatore, con i numeri di granate e trade alle spalle.",
   "strengths-unavailable": "I punti di forza e le debolezze personali richiedono un'analisi contestuale. Non vengono tratte conclusioni da K/D/A.",
   "tick": "Tick {{tick}}",
   "trades": "Uccisioni di risposta riuscite",

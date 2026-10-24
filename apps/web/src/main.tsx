@@ -5,6 +5,10 @@ import { I18nextProvider } from 'react-i18next';
 import { RouterProvider } from 'react-router-dom';
 import { i18n, i18nReady } from './shared/i18n/client.js';
 import { router } from './App.js';
+// Bundled fallback for platforms without San Francisco; served with the app, no CDN.
+import '@fontsource-variable/inter';
+// Tabular monospace for every figure, so numbers scan as a column anywhere on the page.
+import '@fontsource-variable/jetbrains-mono';
 import './index.css';
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } } });

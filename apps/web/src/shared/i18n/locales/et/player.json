@@ -33,6 +33,7 @@
   "round": "Voor {{round}}",
   "steam": "Steami profiil",
   "strengths": "Tugevused ja võimalused",
+  "strengths-lead": "Mida salvestatud tegevused selle mängija kohta ütlevad, koos granaadi- ja trade-arvudega nende taga.",
   "strengths-unavailable": "Isiklikud tugevused ja nõrkused nõuavad kontekstipõhist analüüsi. K/D/A põhjal järeldusi ei tehta.",
   "tick": "Tikk {{tick}}",
   "trades": "Edukad vastustapmised",
