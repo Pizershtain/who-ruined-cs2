@@ -33,6 +33,7 @@
   "round": "Runde {{round}}",
   "steam": "Steam-profil",
   "strengths": "Styrker og muligheder",
+  "strengths-lead": "Hvad de registrerede handlinger siger om denne spiller, med granat- og tradetallene bag.",
   "strengths-unavailable": "Personlige styrker og svagheder kræver kontekstbaseret analyse. Der drages ingen konklusioner ud fra K/D/A.",
   "tick": "Tick {{tick}}",
   "trades": "Vellykkede gengældelsesdrab",

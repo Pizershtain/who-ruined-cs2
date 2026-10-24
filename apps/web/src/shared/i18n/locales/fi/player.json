@@ -33,6 +33,7 @@
   "round": "Kierros {{round}}",
   "steam": "Steam-profiili",
   "strengths": "Vahvuudet ja mahdollisuudet",
+  "strengths-lead": "Mitä tallennetut toimet kertovat tästä pelaajasta, ja niiden takana olevat kranaatti- ja trade-luvut.",
   "strengths-unavailable": "Henkilökohtaiset vahvuudet ja heikkoudet edellyttävät tilannekohtaista analyysiä. K/D/A:sta ei tehdä päätelmiä.",
   "tick": "Tick {{tick}}",
   "trades": "Onnistuneet kostotapot",

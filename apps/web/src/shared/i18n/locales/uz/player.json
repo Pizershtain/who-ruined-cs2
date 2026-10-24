@@ -33,6 +33,7 @@
   "round": "{{round}}-raund",
   "steam": "Steam profili",
   "strengths": "Kuchli tomonlar va imkoniyatlar",
+  "strengths-lead": "Yozib olingan harakatlar bu o‘yinchi haqida nima deydi va ularning ortidagi granata va trade raqamlari.",
   "strengths-unavailable": "Shaxsiy kuchli va zaif tomonlar vaziyat tahlilini talab qiladi. K/D/A asosida xulosa chiqarilmaydi.",
   "tick": "Tik {{tick}}",
   "trades": "Muvaffaqiyatli javob o‘ldirishlari",
