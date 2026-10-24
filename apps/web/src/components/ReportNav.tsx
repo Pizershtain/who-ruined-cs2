@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { revealSection } from './Disclosure.js';
 import { Icon } from './Icon.js';
@@ -36,7 +37,7 @@ export function ReportNav({ focus, score }: { focus?: { name: string; clear: () 
   const [active, setActive] = useState<string>('scoreboard');
   const [docked, setDocked] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
-  const motion = useRef({ anchorY: 0, peeked: false });
+  const motion = useRef({ anchorY: 0, peeked: false, landing: false });
   const navRef = useRef<HTMLElement>(null);
   // Zero-height marker at the nav's place in the flow: tells when the nav has left it and is sticking.
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -82,8 +83,10 @@ export function ReportNav({ focus, score }: { focus?: { name: string; clear: () 
       }
       if (!stuck || Math.abs(delta) < 6) return;
       if (delta < 0) { state.anchorY = y; state.peeked = false; setCollapsed(false); return; }
-      // Never fold away under the pointer or the keyboard focus.
-      if (y - state.anchorY > (state.peeked ? RECOLLAPSE_AFTER_PX : COLLAPSE_AFTER_PX) && !nav.contains(document.activeElement) && !nav.matches(':hover')) {
+      if (state.landing) return;
+      // Never fold away under the pointer or the keyboard focus. A link that merely kept focus after a
+      // click does not count, otherwise the nav would never fold again after picking a section.
+      if (y - state.anchorY > (state.peeked ? RECOLLAPSE_AFTER_PX : COLLAPSE_AFTER_PX) && !nav.querySelector(':focus-visible') && !nav.matches(':hover')) {
         state.peeked = false;
         setCollapsed(true);
       }
@@ -100,10 +103,29 @@ export function ReportNav({ focus, score }: { focus?: { name: string; clear: () 
     setCollapsed(false);
   };
 
+  // A picked section is flown to with the nav open; reading on from there folds it again.
+  const pick = (id: string) => {
+    const state = motion.current;
+    state.landing = true;
+    // The flight has settled once the page has been still for a moment (works without `scrollend`).
+    let timer = 0;
+    const settle = () => {
+      window.removeEventListener('scroll', wait);
+      Object.assign(state, { landing: false, anchorY: window.scrollY, peeked: true });
+    };
+    const wait = () => { window.clearTimeout(timer); timer = window.setTimeout(settle, 160); };
+    window.addEventListener('scroll', wait, { passive: true });
+    timer = window.setTimeout(settle, 400);
+    setActive(id);
+    land(id);
+  };
+
   const labels = { scoreboard: t('scoreboard', 'Player scoreboard'), rounds: t('round-history-short', 'Rounds'), statistics: t('statistics', 'Statistics'), moments: t('moments', 'Key moments') };
-  return <><div ref={sentinelRef} className="report-nav-sentinel" aria-hidden="true"/><div className={`report-nav-handle ${collapsed ? 'is-active' : ''}`} aria-hidden="true" onPointerEnter={expand} onClick={expand}/><nav ref={navRef} className={`report-nav ${collapsed ? 'is-collapsed' : ''}`} aria-label={t('report-sections', 'Report sections')} onFocus={expand}>
+  return <><div ref={sentinelRef} className="report-nav-sentinel" aria-hidden="true"/>{/* Portalled to the body: the route wrapper keeps a transform from its entry animation, which
+       would pin a fixed child to the top of the page instead of the viewport. */}
+    {createPortal(<div className={`report-nav-handle ${collapsed ? 'is-active' : ''}`} aria-hidden="true" onPointerEnter={expand} onClick={expand}/>, document.body)}<nav ref={navRef} className={`report-nav ${collapsed ? 'is-collapsed' : ''}`} aria-label={t('report-sections', 'Report sections')} onFocus={expand}>
     {score && docked && <button type="button" className="nav-score" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}><span>{score.map}</span><b dir="ltr">{score.parts.map((part, index) => <span key={index} className={`team-text-${part.team}`}>{part.value}{index < score.parts.length - 1 && <i>:</i>}</span>)}</b></button>}
     {focus && <button type="button" className="focus-chip" onClick={focus.clear} title={t('clear-focus', 'Clear player selection')}><span>{t('focus-player', 'In focus: {{name}}', { name: focus.name })}</span><span className="sr-only">{t('clear-focus', 'Clear player selection')}</span><Icon name="close" size={14}/></button>}
-    {sections.map((id) => <a href={'#' + id} key={id} onClick={(event) => { event.preventDefault(); setActive(id); land(id); if (!demoBuild) window.history.replaceState(null, '', '#' + id); }} aria-current={active === id ? 'location' : undefined}>{labels[id]}</a>)}
+    {sections.map((id) => <a href={'#' + id} key={id} onClick={(event) => { event.preventDefault(); pick(id); if (!demoBuild) window.history.replaceState(null, '', '#' + id); }} aria-current={active === id ? 'location' : undefined}>{labels[id]}</a>)}
   </nav></>;
 }
