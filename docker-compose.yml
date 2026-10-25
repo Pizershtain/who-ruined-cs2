@@ -9,6 +9,8 @@ services:
       MAX_UPLOAD_BYTES: ${MAX_UPLOAD_BYTES:-262144000}
       PUBLIC_MODE: "false"
       LOG_LEVEL: ${LOG_LEVEL:-info}
+      ENABLE_EXPERIMENTAL_PARTICIPATION_RATING: ${ENABLE_EXPERIMENTAL_PARTICIPATION_RATING:-0}
+      API_BIND_HOST: 0.0.0.0
     volumes:
       - ./data:/data
     ports:
@@ -30,6 +32,7 @@ services:
       PARSE_TIMEOUT_MS: ${PARSE_TIMEOUT_MS:-120000}
       WORKER_POLL_MS: ${WORKER_POLL_MS:-1000}
       LOG_LEVEL: ${LOG_LEVEL:-info}
+      ENABLE_EXPERIMENTAL_PARTICIPATION_RATING: ${ENABLE_EXPERIMENTAL_PARTICIPATION_RATING:-0}
     volumes:
       - ./data:/data
     depends_on:

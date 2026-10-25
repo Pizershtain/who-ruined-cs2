@@ -10,6 +10,8 @@ import { normalizeSnapshot } from '@who-ruined/match-domain';
 import { parseDemoSnapshot } from '@who-ruined/parser-adapter';
 import { SCORING_CONFIGS, scoreMatch, scoringConfigHash, SUCCESSOR_75_25_CONFIG, V1_CONFIG } from '@who-ruined/scoring';
 import { resolveDataPath } from './storage.js';
+import { buildC2S2PreparedSidecar, persistC2S2PreparedSidecar } from './c2s2-sidecar.js';
+import { buildParticipationSidecar, persistParticipationSidecar } from './participation-sidecar.js';
 
 const zip = promisify(gzip);
 const unzip = promisify(gunzip);
@@ -87,6 +89,14 @@ export async function processJob(jobId: string, matchId: string): Promise<void> 
     const normalized = normalizeSnapshot({ matchId, fileSha256: match.fileSha256, snapshot });
     currentStage = 'VALIDATING'; await stage(jobId, currentStage);
     const validated = matchDataSchema.parse(normalized);
+    if (process.env.ENABLE_EXPERIMENTAL_RATING === '1') {
+      const sidecar = buildC2S2PreparedSidecar(snapshot, validated, safePath(match.rawFilePath));
+      await persistC2S2PreparedSidecar(dataRoot, sidecar);
+    }
+    if (process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING === '1') {
+      const sidecar = buildParticipationSidecar(snapshot, validated, safePath(match.rawFilePath));
+      await persistParticipationSidecar(dataRoot, sidecar);
+    }
     currentStage = 'FEATURIZING'; await stage(jobId, currentStage);
     const analytics = computeMatchAnalytics(validated);
     const artifact = matchArtifactSchema.parse({ schemaVersion: 'm2-artifact-1', match: validated, analytics });

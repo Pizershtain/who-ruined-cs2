@@ -99,6 +99,48 @@ scoring. The default is disabled, and non-5v5 matches are rejected. See
 `docs/m3c8-integration.md` for statuses, units, privacy-safe real-derived
 fixtures and frontend handoff details.
 
+The approved P6 C2+S2 candidate is an explicit opt-in on the same route:
+
+```text
+GET /api/v1/matches/:id/experimental-rating?model=c2-s2
+```
+
+The call without `model` still returns P2. C2+S2 reads an immutable,
+versioned prepared-input sidecar created from the original demo; it never
+approximates missing inputs from the M2 artifact. For an older stored match
+whose source demo is still available:
+
+```powershell
+npm.cmd run experimental:c2s2:prepare -- <matchId>
+```
+
+Use `--all` only for a deliberately selected local database. Missing source
+demos, invalid sidecars and stale versions return distinct `409` errors. See
+`docs/m3c8-integration.md` for the sidecar path, schema and API contract.
+
+## M3-C8/P7.2-F player-aware experimental API
+
+The P7.2-E participation-aware candidate is available through a separate,
+default-off, read-only backend route:
+
+```text
+GET /api/v1/matches/:id/experimental-participation-rating
+GET /api/v1/matches/:id/experimental-participation-rating?policy=H1
+```
+
+Set `ENABLE_EXPERIMENTAL_PARTICIPATION_RATING=1` for both the API and worker.
+Omitting `policy` selects PRIMARY H×2; `policy=H1` selects the immutable
+fallback over the same prepared input. GET never parses a demo or creates a
+sidecar. Backfill existing matches explicitly with:
+
+```powershell
+npm.cmd run experimental:participation:prepare -- <matchId>
+```
+
+See `docs/api-m3c8-participation-rating.md` for the versioned DTO, availability
+codes, award pools and errors. `docs/frontend-handoff-m3c8-participation.md` is
+the backend-only handoff; no frontend implementation is included in this gate.
+
 ## Batch validation
 
 ```powershell

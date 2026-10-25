@@ -7,6 +7,8 @@ import {
 } from '@who-ruined/contracts';
 
 export * from './experimental-rating.js';
+export * from './c2s2-rating.js';
+export * from './p72-participation-rating.js';
 
 type FindingCode = ScoringFinding['code'];
 type PlayerMutable = Omit<ScoringPlayer, 'episodeIds'> & { episodeIds: string[] };

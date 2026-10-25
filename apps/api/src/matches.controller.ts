@@ -1,9 +1,11 @@
-import { Body, Controller, Get, HttpCode, Param, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Inject, Param, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiAcceptedResponse, ApiBody, ApiConflictResponse, ApiConsumes, ApiOkResponse, ApiOperation, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import { ApiAcceptedResponse, ApiBody, ApiConflictResponse, ApiConsumes, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiQuery, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface.js';
 import { diskStorage } from 'multer';
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
+import { participationRatingOpenApiSchema } from '@who-ruined/contracts';
 import { MatchesService } from './matches.service.js';
 import { dataRoot } from './storage.js';
 import { ApiError } from './safe-exception.filter.js';
@@ -13,7 +15,7 @@ const maxUploadBytes = Number(process.env.MAX_UPLOAD_BYTES ?? 262_144_000);
 @ApiTags('matches')
 @Controller()
 export class MatchesController {
-  constructor(private readonly service: MatchesService) {}
+  constructor(@Inject(MatchesService) private readonly service: MatchesService) {}
 
   @Post('matches')
   @HttpCode(202)
@@ -37,10 +39,22 @@ export class MatchesController {
   playerAnalytics(@Param('id') id: string, @Param('playerId') playerId: string) { return this.service.playerAnalytics(id, playerId); }
 
   @Get('matches/:id/experimental-rating')
-  @ApiOperation({ summary: 'Feature-flagged M3-C8 experimental player ratings and factual analytics; not calibrated causal blame' })
-  @ApiOkResponse({ description: 'm3c8-integration-1 typed response for a supported 5v5 M2 artifact' })
+  @ApiOperation({ summary: 'Feature-flagged M3-C8 experimental ratings; default P2 or explicit model=c2-s2, never calibrated causal blame' })
+  @ApiOkResponse({ description: 'Default m3c8-integration-1 P2 response, or m3c8-c2s2-integration-1 when model=c2-s2 is explicitly selected' })
   @ApiConflictResponse({ description: 'Stored artifact predates M2 analytics' })
-  experimentalRating(@Param('id') id: string) { return this.service.experimentalRating(id); }
+  experimentalRating(@Param('id') id: string, @Query('model') model?: string) { return this.service.experimentalRating(id, model); }
+
+  @Get('matches/:id/experimental-participation-rating')
+  @ApiOperation({ summary: 'Opt-in player-aware C2+S2 participation rating; H×2 default and frozen H×1 fallback' })
+  @ApiQuery({ name: 'policy', required: false, enum: ['H2','H1'], description: 'Frozen policy selector. Omission selects PRIMARY H×2.' })
+  @ApiOkResponse({
+    description: 'm3c8-participation-rating-report@1.0.0-experimental; read-only projection of the persisted P7.2-E prepared sidecar',
+    schema: participationRatingOpenApiSchema as unknown as SchemaObject
+  })
+  @ApiNotFoundResponse({ description: 'Match not found or ENABLE_EXPERIMENTAL_PARTICIPATION_RATING is not enabled' })
+  @ApiConflictResponse({ description: 'Prepared sidecar missing, corrupt, stale, incompatible or requires controlled backfill' })
+  @ApiUnprocessableEntityResponse({ description: 'Unknown policy selector or unsupported non-5v5 roster' })
+  participationRating(@Param('id') id: string, @Query('policy') policy?: string) { return this.service.participationRating(id, policy); }
 
   @Get('matches/:id/report')
   @ApiOperation({ summary: 'Versioned deterministic M3 scoring report; experimental policy, not causal probability' })

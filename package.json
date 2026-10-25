@@ -13,6 +13,8 @@
     "parser:probe": "pnpm --filter @who-ruined/parser-adapter probe",
     "validate:demos": "pnpm --filter @who-ruined/validation validate --",
     "score:demos": "pnpm --filter @who-ruined/validation score --",
+    "experimental:c2s2:prepare": "pnpm --filter @who-ruined/worker prepare:c2s2 --",
+    "experimental:participation:prepare": "pnpm --filter @who-ruined/worker prepare:participation --",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "setup:windows": "node scripts/setup-windows.mjs",
