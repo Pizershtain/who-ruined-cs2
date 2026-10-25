@@ -1,15 +1,16 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { createReadStream } from 'node:fs';
-import { open, readFile, rm } from 'node:fs/promises';
+import { access, open, readFile, rm } from 'node:fs/promises';
 import { gunzip } from 'node:zlib';
 import { promisify } from 'node:util';
 import { Injectable } from '@nestjs/common';
 import { prisma } from '@who-ruined/database';
 import { isSource2Header, loadNativeParser, NORMALIZER_VERSION, PARSER_LIBRARY_VERSION } from '@who-ruined/parser-adapter';
-import { experimentalRatingReportSchema, matchAnalyticsSchema, matchArtifactSchema, matchDataSchema, rescoreRequestSchema, scoringReportSchema, type ExperimentalRatingReport, type MatchAnalytics, type MatchArtifact, type MatchData, type ScoringConfig, type ScoringReport } from '@who-ruined/contracts';
-import { buildExperimentalRatingReport, SCORING_CONFIGS, scoringConfigHash, SUCCESSOR_75_25_CONFIG } from '@who-ruined/scoring';
+import { c2s2PreparedSidecarSchema, c2s2RatingReportSchema, experimentalRatingReportSchema, matchAnalyticsSchema, matchArtifactSchema, matchDataSchema, rescoreRequestSchema, scoringReportSchema, type C2S2RatingReport, type ExperimentalRatingReport, type MatchAnalytics, type MatchArtifact, type MatchData, type ParticipationRatingReport, type ScoringConfig, type ScoringReport } from '@who-ruined/contracts';
+import { buildExperimentalRatingReport, C2S2_MODEL_VERSION, C2S2_POLICY_DIGEST, C2S2_REFERENCE_VERSION, scoreC2S2PreparedProfiles, SCORING_CONFIGS, scoringConfigHash, SUCCESSOR_75_25_CONFIG, type C2S2PreparedProfile } from '@who-ruined/scoring';
 import { ApiError } from './safe-exception.filter.js';
 import { dataRoot, safeDataPath } from './storage.js';
+import { buildParticipationRatingReport, readParticipationSidecarForApi } from './participation-rating.js';
 import path from 'node:path';
 
 const unzip = promisify(gunzip);
@@ -91,13 +92,95 @@ export class MatchesService {
     return { schemaVersion: analytics.schemaVersion, featureVersion: analytics.featureVersion, matchId: id, player };
   }
 
-  async experimentalRating(id: string): Promise<ExperimentalRatingReport> {
+  async experimentalRating(id: string, model?: string): Promise<ExperimentalRatingReport | C2S2RatingReport> {
     if (process.env.ENABLE_EXPERIMENTAL_RATING !== '1') throw new ApiError('EXPERIMENTAL_RATING_DISABLED', 'Экспериментальный рейтинг отключён конфигурацией сервера.', 404);
+    if (model !== undefined && model !== 'p2' && model !== 'c2-s2') throw new ApiError('UNSUPPORTED_MODE', 'Неизвестный selector экспериментальной модели.', 422);
     const stored = await this.artifact(id);
     if (!stored.analytics) throw new ApiError('INCOMPLETE_MATCH', 'Для экспериментального рейтинга нужен совместимый M2-артефакт.', 409);
     if (stored.match.players.length !== 10 || stored.match.teams.length !== 2 || stored.match.teams.some((team) => team.playerIds.length !== 5)) throw new ApiError('UNSUPPORTED_ROSTER_SIZE', 'Экспериментальная политика M3-C8/P2 применима только к матчам 5v5.', 422);
     const artifact: MatchArtifact = matchArtifactSchema.parse({ schemaVersion: 'm2-artifact-1', match: stored.match, analytics: stored.analytics });
+    if (model === 'c2-s2') return this.c2s2Rating(artifact);
     return experimentalRatingReportSchema.parse(buildExperimentalRatingReport(artifact));
+  }
+
+  async participationRating(id: string, policy?: string): Promise<ParticipationRatingReport> {
+    if (process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING !== '1') {
+      throw new ApiError('EXPERIMENTAL_PARTICIPATION_RATING_DISABLED', 'Экспериментальный participation rating отключён конфигурацией сервера.', 404);
+    }
+    if (policy !== undefined && policy !== 'H2' && policy !== 'H1') {
+      throw new ApiError('UNSUPPORTED_MODE', 'Неизвестный selector frozen participation policy.', 422);
+    }
+    const stored = await this.artifact(id);
+    if (stored.match.matchId !== id) throw new ApiError('PARTICIPATION_SIDECAR_STALE', 'Идентификатор матча в артефакте не совпадает с запросом.', 409);
+    if (!stored.analytics) throw new ApiError('INCOMPLETE_MATCH', 'Для participation rating нужен совместимый M2-артефакт.', 409);
+    const artifact = matchArtifactSchema.parse({ schemaVersion: 'm2-artifact-1', match: stored.match, analytics: stored.analytics });
+    const databaseMatch = await prisma.match.findUnique({ where: { id }, select: { rawFilePath: true } });
+    if (!databaseMatch) throw new ApiError('MATCH_NOT_FOUND', 'Матч не найден.', 404);
+    const sidecar = await readParticipationSidecarForApi(artifact, databaseMatch.rawFilePath);
+    return buildParticipationRatingReport(artifact, sidecar, policy ?? 'H2');
+  }
+
+  private async c2s2Rating(artifact: MatchArtifact): Promise<C2S2RatingReport> {
+    const match = artifact.match;
+    const relative = `experimental/c2s2/${match.matchId}/${match.fileSha256}.${C2S2_POLICY_DIGEST}.m3c8-c2s2-prepared-sidecar-1.json.gz`;
+    let compressed: Buffer;
+    try { compressed = await readFile(safeDataPath(relative)); }
+    catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw new ApiError('C2S2_SIDECAR_INVALID', 'Не удалось безопасно прочитать sidecar C2+S2.', 409);
+      const stored = await prisma.match.findUnique({ where: { id: match.matchId }, select: { rawFilePath: true } });
+      if (!stored?.rawFilePath) throw new ApiError('C2S2_SOURCE_DEMO_UNAVAILABLE', 'Sidecar C2+S2 отсутствует, а путь исходной демки не сохранён.', 409);
+      try { await access(safeDataPath(stored.rawFilePath)); }
+      catch { throw new ApiError('C2S2_SOURCE_DEMO_UNAVAILABLE', 'Sidecar C2+S2 отсутствует, а исходная демка недоступна для контролируемого повторного разбора.', 409); }
+      throw new ApiError('C2S2_SIDECAR_UNAVAILABLE', 'Для C2+S2 отсутствует подготовленный sidecar; запустите контролируемый повторный разбор исходной демки.', 409);
+    }
+    let decoded: unknown;
+    try { decoded = JSON.parse((await unzip(compressed)).toString('utf8')) as unknown; }
+    catch { throw new ApiError('C2S2_SIDECAR_INVALID', 'Sidecar C2+S2 повреждён и не может быть прочитан.', 409); }
+    const parsed = c2s2PreparedSidecarSchema.safeParse(decoded);
+    if (!parsed.success) throw new ApiError('C2S2_SIDECAR_INVALID', 'Sidecar C2+S2 повреждён или имеет неподдерживаемую схему.', 409, { issues: parsed.error.issues.map((issue) => ({ path: issue.path.join('.'), code: issue.code })) });
+    const sidecar = parsed.data;
+    if (sidecar.binding.matchId !== match.matchId || sidecar.binding.fileSha256 !== match.fileSha256 || sidecar.binding.parserVersion !== match.provenance.parserVersion || sidecar.binding.normalizerVersion !== NORMALIZER_VERSION) throw new ApiError('C2S2_SIDECAR_STALE', 'Sidecar C2+S2 не соответствует матчу или версиям parser/normalizer.', 409);
+    if (sidecar.model.modelVersion !== C2S2_MODEL_VERSION || sidecar.model.policyDigest !== C2S2_POLICY_DIGEST || sidecar.model.referenceVersion !== C2S2_REFERENCE_VERSION) throw new ApiError('C2S2_SIDECAR_STALE', 'Sidecar C2+S2 создан для другой версии модели, политики или reference.', 409);
+    const kernelProfiles = sidecar.preparedProfiles.map((profile) => ({
+      profileKey: profile.profileKey, scenario: profile.scenario,
+      p4BPlus: { status: profile.p4BPlus.status, reason: profile.p4BPlus.reason ?? null, familyContributions: profile.p4BPlus.familyContributions ?? null, objectiveSignals: profile.p4BPlus.objectiveSignals ?? null, episodeContributions: profile.p4BPlus.episodeContributions ?? null },
+      p4CPlus: { status: profile.p4CPlus.status, reason: profile.p4CPlus.reason ?? null, familyContributions: profile.p4CPlus.familyContributions ?? null, objectiveSignals: profile.p4CPlus.objectiveSignals ?? null, episodeContributions: profile.p4CPlus.episodeContributions ?? null }
+    })) as C2S2PreparedProfile[];
+    const rows = scoreC2S2PreparedProfiles(kernelProfiles);
+    const rowByProfile = new Map(rows.map((row) => [row.profileKey, row]));
+    const preparedByPlayer = new Map(sidecar.preparedProfiles.map((profile) => [profile.playerId, profile]));
+    const analyticsByPlayer = new Map(artifact.analytics.players.map((player) => [player.playerId, player]));
+    const calculated = rows.filter((row) => row.status === 'CALCULATED_RESEARCH_ONLY').sort((left, right) => left.rating - right.rating || left.profileKey.localeCompare(right.profileKey));
+    const ordering = calculated.length === 10 ? calculated.map((row) => sidecar.preparedProfiles.find((profile) => profile.profileKey === row.profileKey)!.playerId) : [];
+    const scores = match.teams.map((team) => ({ teamId: team.id, score: match.rounds.filter((round) => round.isValid).at(-1)?.scoreAfter[team.id] ?? 0 })).sort((left, right) => right.score - left.score);
+    const winningTeamId = scores.length === 2 && scores[0]!.score !== scores[1]!.score ? scores[0]!.teamId : null;
+    const losingTeamId = scores.length === 2 && scores[0]!.score !== scores[1]!.score ? scores[1]!.teamId : null;
+    const losingRows = calculated.filter((row) => preparedByPlayer.get(sidecar.preparedProfiles.find((profile) => profile.profileKey === row.profileKey)!.playerId)?.teamId === losingTeamId);
+    const losingTeamOrdering = losingTeamId && losingRows.length === 5 ? losingRows.map((row) => sidecar.preparedProfiles.find((profile) => profile.profileKey === row.profileKey)!.playerId) : null;
+    const players = match.players.map((player) => {
+      const prepared = preparedByPlayer.get(player.id); const analytics = analyticsByPlayer.get(player.id);
+      if (!prepared || !analytics) throw new ApiError('C2S2_SIDECAR_INVALID', 'Sidecar не содержит полный набор участников матча.', 409);
+      const row = rowByProfile.get(prepared.profileKey); if (!row) throw new ApiError('C2S2_SIDECAR_INVALID', 'Sidecar не содержит подготовленный профиль игрока.', 409);
+      const fullRank = ordering.indexOf(player.id); const loseRank = losingTeamOrdering?.indexOf(player.id) ?? -1;
+      return {
+        playerId: player.id, teamId: player.teamId, displayName: player.displayName, steamId: player.steamId,
+        steamProfileUrl: player.steamId ? `https://steamcommunity.com/profiles/${player.steamId}` : null,
+        rank: fullRank >= 0 ? fullRank + 1 : null, losingTeamRank: loseRank >= 0 ? loseRank + 1 : null,
+        status: row.status, reason: row.reason, rating: row.rating, familyContributions: row.familyContributions,
+        factorContributions: row.factorContributions, directHarm: row.directHarm, context: row.context, objectives: row.objectives,
+        directHarmRoundAllocation: row.directHarmRoundAllocation,
+        baseStats: { kills: analytics.kills, deaths: analytics.deaths, assists: analytics.assists, kdaRatio: analytics.kdaRatio, adr: analytics.adr, kastPercent: analytics.kastPercent }, analytics
+      };
+    });
+    return c2s2RatingReportSchema.parse({
+      schemaVersion: 'm3c8-c2s2-integration-1', matchId: match.matchId, experimental: true, calibrated: false, causalBlame: false,
+      modelVersion: C2S2_MODEL_VERSION, policyDigest: C2S2_POLICY_DIGEST, referenceVersion: C2S2_REFERENCE_VERSION,
+      sidecarSchemaVersion: sidecar.schemaVersion, scenario: sidecar.scenario, quality: match.quality, winningTeamId, losingTeamId,
+      players, ordering, losingTeamOrdering,
+      warnings: ['Experimental C2+S2 development-corpus model; not a calibrated causal blame probability.'],
+      limitations: ['BOMB and HOSTAGE absolute ratings are not cross-mode calibrated.','Missing, stale or invalid prepared inputs never fall back to an approximate rating.'],
+      provenance: { parserVersion: sidecar.binding.parserVersion, normalizerVersion: sidecar.binding.normalizerVersion, featureVersion: artifact.analytics.featureVersion, sidecarPath: relative, sourceDemoSha256: sidecar.binding.fileSha256 }
+    });
   }
 
   private scoringConfig(version?: string, configHash?: string): ScoringConfig {
