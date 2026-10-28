@@ -6,5 +6,6 @@ WORKDIR /app
 COPY . .
 RUN pnpm install --frozen-lockfile
 RUN pnpm build
+RUN install -d -o node -g node /app/apps/web/node_modules/.vite-temp
 USER node
 CMD ["pnpm", "--filter", "@who-ruined/web", "run", "preview"]

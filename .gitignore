@@ -5,6 +5,7 @@ coverage/
 .env
 *.log
 data/*.db*
+prisma/*.db*
 data/uploads/*
 !data/uploads/.gitkeep
 data/cache/*
@@ -15,6 +16,7 @@ data/research/*
 !data/research/.gitkeep
 data/experimental/*
 tests/golden/*.dem
+tests/golden/.env.local
 apps/web/.vite/
 packages/database/generated/
 .pnpm-store/
@@ -28,3 +30,9 @@ artifacts/
 test-results/
 playwright-report/
 apps/web/src/shared/i18n/compaction-tasks.json
+
+# Local research/task kits archived out of the application root.
+_local-archive/
+
+# Isolated localhost development data and resolved configuration.
+_local-dev/

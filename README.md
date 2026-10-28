@@ -24,7 +24,35 @@ docker compose up --build
 
 Both published ports bind to host loopback. Uploaded demos and SQLite data remain under `./data` and are ignored by Git.
 
+The backend upload path streams multipart data directly to a random file under
+`DATA_DIR/uploads`; it does not buffer the complete demo in the Node heap. The
+local default `MAX_UPLOAD_BYTES` is 536870912 bytes (512 MiB), with a separate
+256 MiB free-space reserve. Both values are finite and configurable. The 512
+MiB default was selected from a read-only audit of the available local corpus;
+it is a supported upload ceiling, not a promise that every demo below it will
+parse within the worker timeout or memory limit.
+
+For an isolated Compose run, set `LOCAL_DATA_DIR` to a dedicated empty host
+directory and optionally set `API_PORT` to a free loopback port. `DATA_DIR`
+inside the containers remains `/data`:
+
+```powershell
+$env:LOCAL_DATA_DIR = '<dedicated-empty-directory>'
+$env:API_PORT = '3301'
+docker compose -p wrc-isolated up --build api worker
+```
+
+Never point an isolated test at the normal `./data` directory. The API
+container is limited to 512 MiB RAM / 1 CPU and the native-parser worker to 2
+GiB RAM / 2 CPUs by the supplied Compose file. Upload failures use stable
+codes: `SIZE_LIMIT` (413), `INVALID_DEMO` (415/422),
+`INGESTION_PERSISTENCE_FAILED` (503), and `STORAGE_UNAVAILABLE` (507).
+
 ## Local development
+
+For the isolated Windows Docker stand used for manual real-demo verification,
+including start, logs, stop, restart and H2/H1 owner policy commands, see
+[`docs/local-dev.md`](docs/local-dev.md).
 
 Node.js 22.17+ and pnpm 11.25 are pinned for this milestone.
 
@@ -89,57 +117,44 @@ the shared M3 contracts without recalculating scores or falling back to fixtures
 `docs/frontend-backend-contract.md`; `tests/fixtures/m3-scoring-report.json` is
 the anonymous frontend fixture.
 
-## M3-C8/P2 additive experimental integration
+## Active participation result
 
-Set `ENABLE_EXPERIMENTAL_RATING=1` to enable
-`GET /api/v1/matches/:id/experimental-rating`. It reads the existing M2
-artifact and returns typed factual metrics plus an explicitly uncalibrated
-experimental family decomposition. It does not replace or persist production
-scoring. The default is disabled, and non-5v5 matches are rejected. See
-`docs/m3c8-integration.md` for statuses, units, privacy-safe real-derived
-fixtures and frontend handoff details.
-
-The approved P6 C2+S2 candidate is an explicit opt-in on the same route:
-
-```text
-GET /api/v1/matches/:id/experimental-rating?model=c2-s2
-```
-
-The call without `model` still returns P2. C2+S2 reads an immutable,
-versioned prepared-input sidecar created from the original demo; it never
-approximates missing inputs from the M2 artifact. For an older stored match
-whose source demo is still available:
-
-```powershell
-npm.cmd run experimental:c2s2:prepare -- <matchId>
-```
-
-Use `--all` only for a deliberately selected local database. Missing source
-demos, invalid sidecars and stale versions return distinct `409` errors. See
-`docs/m3c8-integration.md` for the sidecar path, schema and API contract.
-
-## M3-C8/P7.2-F player-aware experimental API
-
-The P7.2-E participation-aware candidate is available through a separate,
-default-off, read-only backend route:
+The participation-aware candidate remains on a separate, default-off backend
+route, but M4.3 now exposes one owner-selected active policy:
 
 ```text
 GET /api/v1/matches/:id/experimental-participation-rating
-GET /api/v1/matches/:id/experimental-participation-rating?policy=H1
 ```
 
 Set `ENABLE_EXPERIMENTAL_PARTICIPATION_RATING=1` for both the API and worker.
-Omitting `policy` selects PRIMARY H×2; `policy=H1` selects the immutable
-fallback over the same prepared input. GET never parses a demo or creates a
-sidecar. Backfill existing matches explicitly with:
+Set `ACTIVE_RATING_POLICY=H2` (default PRIMARY) or `H1` (permanent FALLBACK) on
+the backend. HTTP `?policy=` selection is forbidden. New completed matches keep
+one `match-result@1` gzip JSON and delete the source only after verified
+publication and SQLite binding. GET never parses or backfills.
+
+To change the owner policy without a demo, cache or sidecar:
 
 ```powershell
-npm.cmd run experimental:participation:prepare -- <matchId>
+$env:ACTIVE_RATING_POLICY = 'H1'
+npm.cmd run rating:rebuild -- --dry-run
+npm.cmd run rating:rebuild -- --apply
 ```
 
-See `docs/api-m3c8-participation-rating.md` for the versioned DTO, availability
-codes, award pools and errors. `docs/frontend-handoff-m3c8-participation.md` is
-the backend-only handoff; no frontend implementation is included in this gate.
+See `docs/api-participation-rating.md` for the versioned DTO, availability
+codes, award pools and errors. `docs/frontend-handoff-participation-rating.md` is
+the backend-only handoff. Storage, migration, deletion and recovery are in
+`docs/m4.3-compact-result-and-lifecycle.md`. Historical migration is explicit:
+
+```powershell
+npm.cmd run result:migrate -- --dry-run
+npm.cmd run result:migrate -- --apply
+```
+
+Migration never deletes legacy files automatically.
+
+The obsolete P2/C2+S2 HTTP route was retired in M4.5. Historical files are not
+deleted automatically, while the shared prepared-input kernel remains internal
+because H2/H1 reconstruction depends on it.
 
 ## Batch validation
 
@@ -164,8 +179,20 @@ pnpm test
 pnpm build
 ```
 
-M3-C scoring calibration and M4 robustness remain outside this gate.
+M3-C scoring calibration remains experimental. M4.2 isolates the synchronous
+native parser behind an owned OS-process boundary, applies a real wall-clock
+hard timeout, and uses renewable lease tokens plus immutable publication for
+bounded worker recovery. Relevant worker settings are `JOB_LEASE_MS`,
+`JOB_HEARTBEAT_MS`, `MAX_JOB_ATTEMPTS`, `CHILD_KILL_GRACE_MS`,
+`MAX_PARSE_ARTIFACT_BYTES` and `MAX_PARSE_ARTIFACT_OUTPUT_BYTES`. Deletion,
+retention and compact-result lifecycle are implemented in M4.3. M4.4 adds
+finite upload/queue admission, strict HTTP inputs, bounded gzip inflation and
+container resource limits; see `docs/m4.4-backend-hardening.md`. Public
+deployment remains out of scope.
 No public deployment is configured.
+
+For a concise map of backend components and the `.dem` to HTTP data flow, see
+[`docs/backend-map.md`](docs/backend-map.md).
 
 ## Frontend and translations
 

@@ -1,0 +1,14 @@
+services:
+  api:
+    command:
+      - sh
+      - -c
+      - node node_modules/prisma/build/index.js migrate deploy && exec node apps/api/dist/main.js
+    environment:
+      ENABLE_EXPERIMENTAL_PARTICIPATION_RATING: "1"
+      ACTIVE_RATING_POLICY: ${ACTIVE_RATING_POLICY:-H2}
+
+  worker:
+    environment:
+      ENABLE_EXPERIMENTAL_PARTICIPATION_RATING: "1"
+      ACTIVE_RATING_POLICY: ${ACTIVE_RATING_POLICY:-H2}

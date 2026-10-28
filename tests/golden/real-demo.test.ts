@@ -1,10 +1,17 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+import { loadEnvFile } from 'node:process';
 import { CDataGCCStrike15_v2_MatchInfoSchema, fromBinary } from 'csgo-protobuf';
 import { describe, expect, it } from 'vitest';
 import { normalizeSnapshot, stableTeamId } from '../../packages/match-domain/dist/index.js';
 import { NORMALIZER_VERSION, PARSER_LIBRARY_VERSION, parseDemoSnapshot } from '../../packages/parser-adapter/dist/index.js';
 import { computeMatchAnalytics } from '../../packages/features/dist/index.js';
+
+try {
+  loadEnvFile(new URL('./.env.local', import.meta.url));
+} catch (error) {
+  if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+}
 
 interface GoldenFixture {
   id: string;

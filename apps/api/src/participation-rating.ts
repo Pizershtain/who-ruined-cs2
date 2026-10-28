@@ -1,7 +1,5 @@
 import { createHash } from 'node:crypto';
-import { access, readFile } from 'node:fs/promises';
-import { gunzip } from 'node:zlib';
-import { promisify } from 'node:util';
+import { access } from 'node:fs/promises';
 import { NORMALIZER_VERSION } from '@who-ruined/parser-adapter';
 import {
   participationRatingReportSchema,
@@ -26,8 +24,8 @@ import {
 } from '@who-ruined/scoring';
 import { ApiError } from './safe-exception.filter.js';
 import { safeDataPath } from './storage.js';
+import { readBoundedGzipJson } from './bounded-gzip.js';
 
-const unzip = promisify(gunzip);
 const fingerprintPattern = /^[a-f0-9]{64}$/;
 const safePathSegment = /^[A-Za-z0-9_-]{1,160}$/;
 const arithmeticTolerance = 1e-12;
@@ -80,11 +78,11 @@ export async function readParticipationSidecarForApi(
 ): Promise<ParticipationSidecar> {
   const { match } = artifact;
   const relative = participationSidecarRelativePath(match.matchId, match.fileSha256);
-  let compressed: Buffer;
+  let decoded: unknown;
   try {
-    compressed = await readFile(safeDataPath(relative));
+    decoded = await readBoundedGzipJson(relative);
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw new ApiError('PARTICIPATION_SIDECAR_INVALID', 'Prepared sidecar не удалось безопасно прочитать.', 409);
+    if ((error as Error).message !== 'BOUNDED_GZIP_MISSING') throw new ApiError('PARTICIPATION_SIDECAR_INVALID', 'Prepared sidecar не удалось безопасно прочитать.', 409);
     if (!rawFilePath) throw new ApiError('PARTICIPATION_SIDECAR_UNAVAILABLE_REQUIRES_ORIGINAL_DEMO', 'Prepared sidecar отсутствует, а исходная демка недоступна.', 409);
     try {
       await access(safeDataPath(rawFilePath));
@@ -94,12 +92,6 @@ export async function readParticipationSidecarForApi(
     throw new ApiError('PARTICIPATION_SIDECAR_BACKFILL_REQUIRED', 'Prepared sidecar отсутствует; запустите контролируемую backfill-команду для исходной демки.', 409);
   }
 
-  let decoded: unknown;
-  try {
-    decoded = JSON.parse((await unzip(compressed)).toString('utf8')) as unknown;
-  } catch {
-    throw new ApiError('PARTICIPATION_SIDECAR_INVALID', 'Prepared sidecar повреждён или не является корректным gzip JSON.', 409);
-  }
   if ((decoded as { schemaVersion?: unknown } | null)?.schemaVersion !== participationSidecarSchemaVersion) {
     throw new ApiError('PARTICIPATION_SIDECAR_SCHEMA_MISMATCH', 'Версия prepared sidecar не поддерживается этим endpoint.', 409);
   }

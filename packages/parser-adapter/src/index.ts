@@ -69,6 +69,18 @@ export interface ParsedDemoSnapshot {
   ticks: UnknownRow[];
 }
 
+export const parsedDemoSnapshotSchema = z.object({
+  header: z.record(z.string(), z.unknown()),
+  players: rowsSchema,
+  eventNames: z.array(z.string()),
+  events: rowsSchema,
+  ticks: rowsSchema
+});
+
+export function validateParsedDemoSnapshot(value: unknown): ParsedDemoSnapshot {
+  return parsedDemoSnapshotSchema.parse(value);
+}
+
 const requiredCandidates = ['round_prestart','round_poststart','round_start','round_freeze_end','round_end','round_officially_ended','cs_win_panel_match','player_connect','player_connect_full','player_disconnect','player_death','player_hurt','bomb_beginplant','bomb_begindefuse','bomb_planted','bomb_defused','bomb_exploded','player_blind','flashbang_detonate','hegrenade_detonate','smokegrenade_detonate','inferno_startburn','inferno_expire'];
 export function parseDemoSnapshot(path: string, parser: DemoParserPort = loadNativeParser()): ParsedDemoSnapshot {
   const rawHeader = parser.parseHeader(path);

@@ -6,15 +6,34 @@ services:
     environment:
       DATA_DIR: /data
       DATABASE_URL: file:/data/app.db
-      MAX_UPLOAD_BYTES: ${MAX_UPLOAD_BYTES:-262144000}
+      MAX_UPLOAD_BYTES: ${MAX_UPLOAD_BYTES:-536870912}
+      MIN_UPLOAD_FREE_BYTES: ${MIN_UPLOAD_FREE_BYTES:-268435456}
       PUBLIC_MODE: "false"
       LOG_LEVEL: ${LOG_LEVEL:-info}
       ENABLE_EXPERIMENTAL_PARTICIPATION_RATING: ${ENABLE_EXPERIMENTAL_PARTICIPATION_RATING:-0}
+      ACTIVE_RATING_POLICY: ${ACTIVE_RATING_POLICY:-H2}
       API_BIND_HOST: 0.0.0.0
+      API_PORT: 3000
+      API_CORS_ORIGINS: ${API_CORS_ORIGINS:-http://127.0.0.1:5173,http://localhost:5173}
+      API_REQUEST_TIMEOUT_MS: ${API_REQUEST_TIMEOUT_MS:-1800000}
+      API_HEADERS_TIMEOUT_MS: ${API_HEADERS_TIMEOUT_MS:-15000}
+      API_KEEP_ALIVE_TIMEOUT_MS: ${API_KEEP_ALIVE_TIMEOUT_MS:-5000}
+      MAX_JSON_BODY_BYTES: ${MAX_JSON_BODY_BYTES:-131072}
+      MAX_QUERY_STRING_BYTES: ${MAX_QUERY_STRING_BYTES:-8192}
+      MAX_CONCURRENT_UPLOADS: ${MAX_CONCURRENT_UPLOADS:-2}
+      MAX_QUEUED_JOBS: ${MAX_QUEUED_JOBS:-32}
+      MAX_RESULT_COMPRESSED_BYTES: ${MAX_RESULT_COMPRESSED_BYTES:-8388608}
+      MAX_RESULT_JSON_BYTES: ${MAX_RESULT_JSON_BYTES:-67108864}
+      MAX_RESULT_JSON_DEPTH: ${MAX_RESULT_JSON_DEPTH:-128}
     volumes:
-      - ./data:/data
+      - ${LOCAL_DATA_DIR:-./data}:/data
     ports:
-      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:${API_PORT:-3000}:3000"
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 128
+    security_opt:
+      - no-new-privileges:true
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/v1/health').then(r=>{if(!r.ok)process.exit(1)})"]
       interval: 5s
@@ -31,15 +50,29 @@ services:
       DATABASE_URL: file:/data/app.db
       PARSE_TIMEOUT_MS: ${PARSE_TIMEOUT_MS:-120000}
       WORKER_POLL_MS: ${WORKER_POLL_MS:-1000}
+      JOB_LEASE_MS: ${JOB_LEASE_MS:-30000}
+      JOB_HEARTBEAT_MS: ${JOB_HEARTBEAT_MS:-5000}
+      MAX_JOB_ATTEMPTS: ${MAX_JOB_ATTEMPTS:-3}
+      CHILD_KILL_GRACE_MS: ${CHILD_KILL_GRACE_MS:-5000}
+      MAX_PARSE_ARTIFACT_BYTES: ${MAX_PARSE_ARTIFACT_BYTES:-536870912}
+      MAX_PARSE_ARTIFACT_OUTPUT_BYTES: ${MAX_PARSE_ARTIFACT_OUTPUT_BYTES:-1610612736}
       LOG_LEVEL: ${LOG_LEVEL:-info}
       ENABLE_EXPERIMENTAL_PARTICIPATION_RATING: ${ENABLE_EXPERIMENTAL_PARTICIPATION_RATING:-0}
+      ACTIVE_RATING_POLICY: ${ACTIVE_RATING_POLICY:-H2}
+      RETAIN_SOURCE_DEMO: ${RETAIN_SOURCE_DEMO:-0}
+      MAX_RESULT_COMPRESSED_BYTES: ${MAX_RESULT_COMPRESSED_BYTES:-8388608}
+      MAX_RESULT_JSON_BYTES: ${MAX_RESULT_JSON_BYTES:-67108864}
+      MAX_RESULT_JSON_DEPTH: ${MAX_RESULT_JSON_DEPTH:-128}
     volumes:
-      - ./data:/data
+      - ${LOCAL_DATA_DIR:-./data}:/data
     depends_on:
       api:
         condition: service_healthy
     mem_limit: 2g
     cpus: 2
+    pids_limit: 256
+    security_opt:
+      - no-new-privileges:true
     restart: unless-stopped
 
   web:

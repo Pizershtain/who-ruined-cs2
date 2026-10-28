@@ -21,6 +21,14 @@ model Match {
   normalizerVersion  String
   normalizedFilePath String?
   rawFilePath        String?
+  resultFilePath     String?
+  resultSchemaVersion String?
+  resultSha256       String?
+  resultPolicyId     String?
+  resultPolicyDigest String?
+  sourceDeletedAt    DateTime?
+  deletionState      String?
+  deletionRequestedAt DateTime?
   winningTeamId      String?
   losingTeamId       String?
   jobs               Job[]
@@ -28,6 +36,7 @@ model Match {
 
   @@unique([fileSha256, parserVersion, normalizerVersion])
   @@index([createdAt])
+  @@index([deletionState])
 }
 
 model Job {
@@ -38,6 +47,7 @@ model Job {
   stage        String
   attempts     Int      @default(0)
   leaseUntil   DateTime?
+  leaseToken   String?
   errorCode    String?
   errorMessage String?
   requestedScoringVersion String?
@@ -47,6 +57,7 @@ model Job {
   match        Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
 
   @@index([status, createdAt])
+  @@index([leaseUntil])
 }
 
 model Report {

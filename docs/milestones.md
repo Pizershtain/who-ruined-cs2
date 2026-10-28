@@ -1,5 +1,38 @@
 # Milestone status
 
+## M4.5 — legacy experimental retirement and backend closure
+
+The obsolete `GET /api/v1/matches/:id/experimental-rating` endpoint, its P2
+and C2+S2 response DTOs, old feature flag, rating-only projector and preparation
+CLI have been removed. The shared C2+S2 family-input kernel and worker-side
+prepared-profile builder remain internal because the active frozen H2/H1
+policies depend on them.
+
+The current `experimental-participation-rating` endpoint remains opt-in,
+owner-selected through `ACTIVE_RATING_POLICY`, and policy-neutral over HTTP.
+The M4.5 Docker smoke completed one real upload, worker parse, compact-result
+publication, H2 read, production-report read, RESCORE, API/worker restart and
+post-restart H2 read. The retired URLs returned 404 and an HTTP policy selector
+returned typed 422. The raw upload and temporary worker files were absent after
+completion; the disposable data directory was removed after verification.
+
+M4.5 is **PASS / LOCAL ONLY / OWNER GIT REVIEW PENDING**. The active rating is
+still experimental and non-causal. M5 evaluation and public-hosting security
+remain separate work.
+
+## M4.4 — backend hardening (superseded owner gate)
+
+Implemented finite HTTP, upload/queue and canonical-gzip limits; strict route
+inputs; request correlation; local CORS/origin policy; cross-match result
+binding; and Docker PID/memory/CPU/no-new-privileges constraints. The isolated
+Docker checks covered real uploads, dedup, restart, deletion, corruption,
+512 MiB boundary behavior, concurrency backpressure and reversible H2/H1 owner
+policy changes. The full automated suite passes. Final acceptance remains
+`PARTIAL / OWNER GATE` at that milestone: the old default-off C2+S2 route was
+then preserved for backward compatibility. M4.5 resolves that owner gate by
+retiring the route. Git-state checks remain intentionally unexecuted because
+the work explicitly prohibits all Git operations.
+
 ## M0/M1 — accepted on three real demos
 
 Office (`cs_office`, 13:8), Dust2 (`de_dust2`, 3:13) and Train
@@ -52,7 +85,7 @@ team kills; the overtime fixture is still open.
 | Independent ADR/KAST/trade/utility reference | OPEN — reference unavailable |
 | Positive real team-kill fixture | PASS (2 events in the 9-demo M2.5 batch) |
 | Overtime/expected-`PARTIAL` fixture | OPEN |
-| Docker Compose startup | OPEN — Docker daemon unavailable on this host |
+| Docker Compose backend upload/read/restart/delete | PASS — isolated real-demo run |
 | M3-B exact v1 scorer and experimental successor | IMPLEMENTED — calibration gates remain open |
 
 The original M2 gate completed successfully with 31 tests. The M2.5 gate below
@@ -158,3 +191,31 @@ is not persisted in M2 artifacts. Open gates are an independent holdout and
 reference, participation masks, reviewed persisted boundaries, calibration,
 human labels, a bounded-tail policy, and a distinct non-5v5 policy. Technical
 frontend integration is ready behind the flag; production promotion is not.
+
+## M4.3 — compact result and match lifecycle
+
+Backend-only M4.3 introduces one canonical `match-result@1` gzip JSON per new
+completed match, a policy-neutral in-file recompute seed, owner-only H2/H1
+selection, explicit historical migration and safe match deletion. The worker
+publishes and validates the result before recording its SQLite binding, then
+removes the raw demo unless debug retention was explicitly selected. Startup
+reconciliation finishes a cleanup interrupted after the DB pointer.
+
+The public participation endpoint now returns
+`m4.3-participation-rating@1` with one active rating and no policy/prepared
+fields. HTTP policy selectors are rejected. H2 → H1 → H2 is performed through
+the local `rating:rebuild` dry-run/apply CLI from the same result, without the
+demo, cache or sidecar. The frozen math and policy digests were not changed.
+
+Real checks covered BOMB, HOSTAGE, a draw, disconnect/9-of-10, partial and
+unknown states, same-SHA dedup after raw deletion, delete/re-upload, active-job
+delete rejection, crash-window source reconciliation, canonical-only P2 and
+RESCORE, migration preservation and typed missing-source blocking. The 88-match
+parity rerun had 839 comparable calculated profiles and zero numeric, status or
+award deltas. An isolated backend-only Docker run completed real upload, read,
+restart, H2/H1 owner switching, dedup and delete with one result and no durable
+raw/cache/sidecar/report duplicates.
+
+Detailed commands, measurements and acceptance evidence are in
+`docs/m4.3-compact-result-and-lifecycle.md` and `docs/m4.3-test-evidence.md`.
+Scoring remains experimental and public hosting remains out of scope.
