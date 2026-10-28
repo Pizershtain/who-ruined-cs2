@@ -33,6 +33,7 @@
   "round": "Manche {{round}}",
   "steam": "Profil Steam",
   "strengths": "Points forts et pistes de progrès",
+  "strengths-lead": "Ce que les actions enregistrées disent de ce joueur, avec les chiffres d’utilitaires et de trades derrière.",
   "strengths-unavailable": "Les forces et faiblesses exigent une analyse contextuelle. Aucune conclusion n’est déduite du K/D/A.",
   "tick": "Tick {{tick}}",
   "trades": "Échanges réussis",

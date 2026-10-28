@@ -33,6 +33,7 @@
   "round": "Runda {{round}}",
   "steam": "Profil Steam",
   "strengths": "Mocne strony i możliwości",
+  "strengths-lead": "Co zarejestrowane akcje mówią o tym graczu, wraz z liczbami granatów i trade’ów za nimi.",
   "strengths-unavailable": "Mocne i słabe strony wymagają analizy kontekstu. Nie wyciągamy wniosków z samego K/D/A.",
   "tick": "Tick {{tick}}",
   "trades": "Udane wymiany",

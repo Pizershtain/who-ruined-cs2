@@ -33,6 +33,7 @@
   "round": "{{round}}. kör",
   "steam": "Steam-profil",
   "strengths": "Erősségek és lehetőségek",
+  "strengths-lead": "Mit mondanak a rögzített akciók erről a játékosról, a mögöttük álló gránát- és trade-számokkal.",
   "strengths-unavailable": "Az egyéni erősségek és gyengeségek helyzetfüggő elemzést igényelnek. A K/D/A alapján nem vonunk le következtetéseket.",
   "tick": "Tick: {{tick}}",
   "trades": "Sikeres visszaölések",

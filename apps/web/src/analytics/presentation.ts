@@ -22,3 +22,7 @@ export function playerEvents(match: MatchData, playerId: string): MatchEvent[] {
 export function playerPath(base: string, playerId: string): string {
   return `${base}/players/${encodeURIComponent(playerId)}`;
 }
+
+/** One player chosen anywhere in the report lights up in every stage; `toggle` clears it when chosen again. */
+export interface PlayerFocus { id: string | null; toggle: (playerId: string) => void }
+export const focusClass = (focus: PlayerFocus | undefined, playerId: string) => !focus?.id ? '' : focus.id === playerId ? 'lit' : 'dim';

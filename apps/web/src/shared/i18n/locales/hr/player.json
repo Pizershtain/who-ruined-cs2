@@ -33,6 +33,7 @@
   "round": "Runda {{round}}",
   "steam": "Profil Steam",
   "strengths": "Prednosti i prilike",
+  "strengths-lead": "Što zabilježene akcije govore o ovom igraču, s brojkama granata i tradeova iza njih.",
   "strengths-unavailable": "Osobne prednosti i slabosti zahtijevaju kontekstualnu analizu. Iz K/D/A ne izvode se zaključci.",
   "tick": "Tick {{tick}}",
   "trades": "Uspješne razmjene",

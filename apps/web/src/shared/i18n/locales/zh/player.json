@@ -33,6 +33,7 @@
   "round": "第 {{round}} 回合",
   "steam": "Steam 个人资料",
   "strengths": "优势与提升空间",
+  "strengths-lead": "已记录的行动说明了这名玩家的什么，以及背后的道具与补枪数据。",
   "strengths-unavailable": "个人优势与不足需要结合上下文分析，不根据 K/D/A 推断结论。",
   "tick": "Tick {{tick}}",
   "trades": "成功补枪",

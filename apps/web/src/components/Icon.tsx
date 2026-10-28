@@ -18,7 +18,13 @@ const paths = {
   search: 'M21 21l-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z',
   refresh: 'M20 7v5h-5M4 17v-5h5m-4-4a8 8 0 0 1 13-3l2 3M4 16l2 3a8 8 0 0 0 13-3',
   offline: 'm3 3 18 18M2 8a16 16 0 0 1 4-2m4-1a16 16 0 0 1 12 3M5 12a11 11 0 0 1 5-2m5 1 4 1m-11 4a5 5 0 0 1 7 0m-3 4h.01',
+  bolt: 'M13 2 4 14h7l-1 8 9-12h-7l1-8Z',
+  list: 'M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01',
+  info: 'M12 16v-5m0-3h.01M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z',
+  spark: 'M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5m7 7L18 18M6 18l2.5-2.5m7-7L18 6',
+  expand: 'M15 3h6v6m0-6-7 7M9 21H3v-6m0 6 7-7',
 } as const;
-export function Icon({ name, size = 20, style }: { name: keyof typeof paths; size?: number; style?: CSSProperties }) {
+export type IconName = keyof typeof paths;
+export function Icon({ name, size = 20, style }: { name: IconName; size?: number; style?: CSSProperties }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={style}><path d={paths[name]}/></svg>;
 }
