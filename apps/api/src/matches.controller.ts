@@ -1,16 +1,35 @@
-import { Body, Controller, Get, HttpCode, Inject, Param, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Inject, Param, Post, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiAcceptedResponse, ApiBody, ApiConflictResponse, ApiConsumes, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiQuery, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import type { Request } from 'express';
+import { ApiAcceptedResponse, ApiBody, ApiConflictResponse, ApiConsumes, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiPayloadTooLargeResponse, ApiResponse, ApiTags, ApiUnsupportedMediaTypeResponse, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface.js';
-import { diskStorage } from 'multer';
-import { randomUUID } from 'node:crypto';
-import path from 'node:path';
-import { participationRatingOpenApiSchema } from '@who-ruined/contracts';
+import { activeParticipationRatingOpenApiSchema } from '@who-ruined/contracts';
 import { MatchesService } from './matches.service.js';
-import { dataRoot } from './storage.js';
+import { safeDataPath } from './storage.js';
 import { ApiError } from './safe-exception.filter.js';
+import { UploadAdmissionInterceptor } from './upload-admission.interceptor.js';
+import { resolveUploadConfig } from './upload-config.js';
+import { createAbortSafeDiskStorage } from './upload-storage.js';
+import { assertExactQuery, assertNoPolicySelector, assertOpaqueId } from './http-validation.js';
 
-const maxUploadBytes = Number(process.env.MAX_UPLOAD_BYTES ?? 262_144_000);
+export const uploadConfig = resolveUploadConfig();
+export const uploadDirectory = safeDataPath('uploads');
+
+export function createDemoUploadOptions(directory = uploadDirectory, config = uploadConfig) {
+  return {
+    storage: createAbortSafeDiskStorage(directory),
+    fileFilter: (_request: unknown, file: Express.Multer.File, callback: (error: Error | null, acceptFile: boolean) => void) => {
+      if (!file.originalname.toLowerCase().endsWith('.dem')) {
+        callback(new ApiError('INVALID_DEMO', 'Поддерживаются только файлы .dem.', 415), false);
+        return;
+      }
+      callback(null, true);
+    },
+    // Busboy emits LIMIT_FILE_SIZE when bytesRead reaches fileSize, so use
+    // max+1 to allow the exact documented boundary while rejecting +1.
+    limits: { fileSize: config.maxUploadBytes + 1 }
+  };
+}
 
 @ApiTags('matches')
 @Controller()
@@ -21,51 +40,60 @@ export class MatchesController {
   @HttpCode(202)
   @ApiConsumes('multipart/form-data')
   @ApiBody({ schema: { type: 'object', required: ['demo'], properties: { demo: { type: 'string', format: 'binary' } } } })
-  @UseInterceptors(FileInterceptor('demo', { storage: diskStorage({ destination: path.join(dataRoot, 'uploads'), filename: (_request, _file, callback) => callback(null, `${randomUUID()}.dem`) }), limits: { fileSize: maxUploadBytes, files: 1 } }))
-  async upload(@UploadedFile() file?: Express.Multer.File) {
+  @ApiPayloadTooLargeResponse({ description: 'SIZE_LIMIT: the demo exceeds MAX_UPLOAD_BYTES' })
+  @ApiUnsupportedMediaTypeResponse({ description: 'INVALID_DEMO: only .dem uploads are accepted' })
+  @ApiUnprocessableEntityResponse({ description: 'INVALID_DEMO: missing, empty, malformed, truncated or non-Source-2 demo' })
+  @ApiResponse({ status: 503, description: 'INGESTION_PERSISTENCE_FAILED: upload metadata could not be committed atomically' })
+  @ApiResponse({ status: 507, description: 'STORAGE_UNAVAILABLE: upload storage is unavailable or lacks the configured safety reserve' })
+  @UseInterceptors(new UploadAdmissionInterceptor(uploadDirectory, uploadConfig), FileInterceptor('demo', createDemoUploadOptions()))
+  async upload(@UploadedFile() file?: Express.Multer.File, @Req() request?: Request) {
+    if (request) assertExactQuery(request, []);
     if (!file) throw new ApiError('INVALID_DEMO', 'Поле multipart demo обязательно.', 422);
     return this.service.ingest(file);
   }
 
-  @Get('jobs/:id') job(@Param('id') id: string) { return this.service.job(id); }
-  @Get('matches') list(@Query('cursor') cursor?: string) { return this.service.list(cursor); }
-  @Get('matches/:id') match(@Param('id') id: string) { return this.service.match(id); }
-  @Get('matches/:id/rounds') rounds(@Param('id') id: string) { return this.service.rounds(id); }
+  @Get('jobs/:id') job(@Param('id') id: string, @Req() request: Request) { assertExactQuery(request, []); return this.service.job(assertOpaqueId(id, 'JOB_NOT_FOUND')); }
+  @Get('matches') list(@Req() request: Request) { const query = assertExactQuery(request, ['cursor']); return this.service.list(query.cursor); }
+  @Get('matches/:id') match(@Param('id') id: string, @Req() request: Request) { assertExactQuery(request, []); return this.service.match(assertOpaqueId(id, 'MATCH_NOT_FOUND')); }
+  @Get('matches/:id/rounds') rounds(@Param('id') id: string, @Req() request: Request) { assertExactQuery(request, []); return this.service.rounds(assertOpaqueId(id, 'MATCH_NOT_FOUND')); }
   @Get('matches/:id/analytics')
   @ApiOperation({ summary: 'Versioned factual M2 analytics without scores or blame labels' })
-  analytics(@Param('id') id: string) { return this.service.analytics(id); }
+  analytics(@Param('id') id: string, @Req() request: Request) { assertExactQuery(request, []); return this.service.analytics(assertOpaqueId(id, 'MATCH_NOT_FOUND')); }
   @Get('matches/:id/players/:playerId/analytics')
   @ApiOperation({ summary: 'Factual M2 analytics for one match participant' })
-  playerAnalytics(@Param('id') id: string, @Param('playerId') playerId: string) { return this.service.playerAnalytics(id, playerId); }
-
-  @Get('matches/:id/experimental-rating')
-  @ApiOperation({ summary: 'Feature-flagged M3-C8 experimental ratings; default P2 or explicit model=c2-s2, never calibrated causal blame' })
-  @ApiOkResponse({ description: 'Default m3c8-integration-1 P2 response, or m3c8-c2s2-integration-1 when model=c2-s2 is explicitly selected' })
-  @ApiConflictResponse({ description: 'Stored artifact predates M2 analytics' })
-  experimentalRating(@Param('id') id: string, @Query('model') model?: string) { return this.service.experimentalRating(id, model); }
+  playerAnalytics(@Param('id') id: string, @Param('playerId') playerId: string, @Req() request: Request) { assertExactQuery(request, []); return this.service.playerAnalytics(assertOpaqueId(id, 'MATCH_NOT_FOUND'), assertOpaqueId(playerId, 'PLAYER_NOT_FOUND')); }
 
   @Get('matches/:id/experimental-participation-rating')
-  @ApiOperation({ summary: 'Opt-in player-aware C2+S2 participation rating; H×2 default and frozen H×1 fallback' })
-  @ApiQuery({ name: 'policy', required: false, enum: ['H2','H1'], description: 'Frozen policy selector. Omission selects PRIMARY H×2.' })
+  @ApiOperation({ summary: 'Owner-selected participation rating; policy is server-only and cannot be selected over HTTP' })
   @ApiOkResponse({
-    description: 'm3c8-participation-rating-report@1.0.0-experimental; read-only projection of the persisted P7.2-E prepared sidecar',
-    schema: participationRatingOpenApiSchema as unknown as SchemaObject
+    description: 'm4.3-participation-rating@1; policy-neutral read from the canonical match result',
+    schema: activeParticipationRatingOpenApiSchema as unknown as SchemaObject
   })
   @ApiNotFoundResponse({ description: 'Match not found or ENABLE_EXPERIMENTAL_PARTICIPATION_RATING is not enabled' })
-  @ApiConflictResponse({ description: 'Prepared sidecar missing, corrupt, stale, incompatible or requires controlled backfill' })
-  @ApiUnprocessableEntityResponse({ description: 'Unknown policy selector or unsupported non-5v5 roster' })
-  participationRating(@Param('id') id: string, @Query('policy') policy?: string) { return this.service.participationRating(id, policy); }
+  @ApiConflictResponse({ description: 'Canonical result missing, corrupt or bound to a different owner policy' })
+  @ApiUnprocessableEntityResponse({ description: 'HTTP policy selection is forbidden' })
+  participationRating(@Param('id') id: string, @Req() request: Request) {
+    assertNoPolicySelector(request);
+    return this.service.participationRating(assertOpaqueId(id, 'MATCH_NOT_FOUND'));
+  }
+
+  @Delete('matches/:id')
+  @HttpCode(204)
+  @ApiOperation({ summary: 'Delete one inactive match and its owned artifacts' })
+  @ApiConflictResponse({ description: 'MATCH_ACTIVE: an active worker owns this match' })
+  @ApiNotFoundResponse({ description: 'MATCH_NOT_FOUND' })
+  async deleteMatch(@Param('id') id: string, @Req() request: Request): Promise<void> { assertExactQuery(request, []); await this.service.deleteMatch(assertOpaqueId(id, 'MATCH_NOT_FOUND')); }
 
   @Get('matches/:id/report')
   @ApiOperation({ summary: 'Versioned deterministic M3 scoring report; experimental policy, not causal probability' })
   @ApiOkResponse({ description: 'm3-score-1 report with all ten players, per-round ledgers and evidence episodes' })
   @ApiConflictResponse({ description: 'Report is pending or the stored artifact predates M2 analytics' })
-  report(@Param('id') id: string, @Query('version') version?: string, @Query('configHash') configHash?: string) { return this.service.report(id, version, configHash); }
+  report(@Param('id') id: string, @Req() request: Request) { const query = assertExactQuery(request, ['version','configHash']); return this.service.report(assertOpaqueId(id, 'MATCH_NOT_FOUND'), query.version, query.configHash); }
 
   @Get('matches/:id/players/:playerId/report')
   @ApiOperation({ summary: 'Attributed findings and evidence episodes for one participant' })
   @ApiOkResponse({ description: 'Player components, findings, episodes and per-round rows for the selected scorer version' })
-  playerReport(@Param('id') id: string, @Param('playerId') playerId: string, @Query('version') version?: string, @Query('configHash') configHash?: string) { return this.service.playerReport(id, playerId, version, configHash); }
+  playerReport(@Param('id') id: string, @Param('playerId') playerId: string, @Req() request: Request) { const query = assertExactQuery(request, ['version','configHash']); return this.service.playerReport(assertOpaqueId(id, 'MATCH_NOT_FOUND'), assertOpaqueId(playerId, 'PLAYER_NOT_FOUND'), query.version, query.configHash); }
 
   @Post('matches/:id/rescore')
   @HttpCode(202)
@@ -74,5 +102,5 @@ export class MatchesController {
   @ApiConflictResponse({ description: 'Stored M2 artifact is unavailable or incompatible' })
   @ApiUnprocessableEntityResponse({ description: 'Unknown scorer version/config hash' })
   @ApiBody({ schema: { type: 'object', required: ['scoringVersion'], properties: { scoringVersion: { type: 'string' }, configHash: { type: 'string', pattern: '^[a-f0-9]{64}$' } } } })
-  rescore(@Param('id') id: string, @Body() body: unknown) { return this.service.rescore(id, body); }
+  rescore(@Param('id') id: string, @Body() body: unknown, @Req() request: Request) { assertExactQuery(request, []); return this.service.rescore(assertOpaqueId(id, 'MATCH_NOT_FOUND'), body); }
 }

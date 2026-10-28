@@ -1,23 +1,25 @@
 import { createHash } from 'node:crypto';
 import { gzipSync } from 'node:zlib';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import request from 'supertest';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { NORMALIZER_VERSION } from '@who-ruined/parser-adapter';
-import { buildExperimentalRatingReport, C2S2_MODEL_VERSION, C2S2_POLICY_DIGEST, C2S2_REFERENCE_VERSION, P72_POLICIES } from '@who-ruined/scoring';
+import { buildCanonicalMatchResult, C2S2_MODEL_VERSION, C2S2_POLICY_DIGEST, C2S2_REFERENCE_VERSION, P72_POLICIES, rebuildCanonicalMatchResult } from '@who-ruined/scoring';
 
 const findUnique = vi.fn();
 const readFile = vi.fn();
+const stat = vi.fn();
 const access = vi.fn();
 vi.mock('@who-ruined/database', () => ({ prisma: { match: { findUnique }, report: { findUnique: vi.fn() }, job: { create: vi.fn() } } }));
-vi.mock('node:fs/promises', async (original) => ({ ...(await original<typeof import('node:fs/promises')>()), readFile, access }));
+vi.mock('node:fs/promises', async (original) => ({ ...(await original<typeof import('node:fs/promises')>()), readFile, access, stat }));
 
 const { MatchesService } = await import('../src/matches.service.js');
 const { AppModule } = await import('../src/app.module.js');
 const { SafeExceptionFilter } = await import('../src/safe-exception.filter.js');
 
 const previousParticipationFlag = process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING;
-const previousLegacyFlag = process.env.ENABLE_EXPERIMENTAL_RATING;
+const previousPolicy = process.env.ACTIVE_RATING_POLICY;
 
 function canonical(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(canonical).join(',')}]`;
@@ -81,12 +83,13 @@ function mockStored(data: ReturnType<typeof fixture>, sidecarOverride: unknown =
 describe('P7.2-F participation rating API', () => {
   beforeEach(() => {
     process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING = '1';
-    process.env.ENABLE_EXPERIMENTAL_RATING = '1';
-    findUnique.mockReset(); readFile.mockReset(); access.mockReset();
+    process.env.ACTIVE_RATING_POLICY = 'H2';
+    findUnique.mockReset(); readFile.mockReset(); access.mockReset(); stat.mockReset();
+    stat.mockResolvedValue({ isFile: () => true, size: 1024 });
   });
   afterEach(() => {
     if (previousParticipationFlag === undefined) delete process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING; else process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING = previousParticipationFlag;
-    if (previousLegacyFlag === undefined) delete process.env.ENABLE_EXPERIMENTAL_RATING; else process.env.ENABLE_EXPERIMENTAL_RATING = previousLegacyFlag;
+    if (previousPolicy === undefined) delete process.env.ACTIVE_RATING_POLICY; else process.env.ACTIVE_RATING_POLICY = previousPolicy;
   });
 
   it('is default-off and performs no data access while disabled', async () => {
@@ -95,20 +98,19 @@ describe('P7.2-F participation rating API', () => {
     expect(findUnique).not.toHaveBeenCalled();
   });
 
-  it('uses H2 by default, switches to H1 over one sidecar, and returns to byte-equivalent H2', async () => {
+  it('uses the owner-selected policy while keeping the public DTO policy-neutral', async () => {
     const data = fixture(); mockStored(data);
     const service = new MatchesService();
     const h2First = await service.participationRating(data.match.matchId);
-    const h1 = await service.participationRating(data.match.matchId, 'H1');
-    const h2Second = await service.participationRating(data.match.matchId, 'H2');
-    expect(h2First).toEqual(h2Second);
-    expect(h2First.policy).toMatchObject({ selector: 'H2', policyId: P72_POLICIES.H2.id, policyDigest: P72_POLICIES.H2.digest, harmMultiplier: 2 });
-    expect(h1.policy).toMatchObject({ selector: 'H1', policyId: P72_POLICIES.H1.id, policyDigest: P72_POLICIES.H1.digest, harmMultiplier: 1 });
+    process.env.ACTIVE_RATING_POLICY = 'H1';
+    const h1 = await service.participationRating(data.match.matchId);
+    expect(h2First.schemaVersion).toBe('m4.3-participation-rating@1');
+    expect('policy' in h2First).toBe(false);
+    expect('prepared' in h2First).toBe(false);
     for (let index = 0; index < 10; index += 1) {
       const primary = h2First.players[index]!.rating; const fallback = h1.players[index]!.rating;
       expect(primary).not.toBeNull(); expect(fallback).not.toBeNull();
       expect(Math.abs((primary!.value - fallback!.value) - primary!.rawFamilyInputs.DIRECT_HARM)).toBeLessThanOrEqual(1e-12);
-      expect(Math.abs(primary!.value - primary!.arithmetic.reconstructed)).toBeLessThanOrEqual(1e-12);
     }
   });
 
@@ -120,8 +122,64 @@ describe('P7.2-F participation rating API', () => {
     expect(response.players[7]).toMatchObject({ availability: { status: 'PARTICIPATION_ABSENT_GT_2_ROUNDS' }, rating: null, coverage: { absentFullRounds: 12 } });
   });
 
-  it('rejects an unknown selector before reading match data', async () => {
-    await expect(new MatchesService().participationRating('match', 'H3')).rejects.toMatchObject({ code: 'UNSUPPORTED_MODE', status: 422 });
+  it('reads the ready DTO from one canonical result and fails closed on owner-policy mismatch', async () => {
+    const data = fixture();
+    const canonicalResult = buildCanonicalMatchResult({ artifact: data.artifact, sidecar: data.sidecar, productionReports: [], selector: 'H2', sourceDemoRetained: false, createdAt: '2026-10-26T00:00:00.000Z' });
+    const compressed = gzipSync(Buffer.from(JSON.stringify(canonicalResult)));
+    findUnique.mockResolvedValue({
+      id: data.match.matchId, deletionState: null, normalizedFilePath: null, rawFilePath: null,
+      resultFilePath: 'results/synthetic/result.json.gz', resultSha256: createHash('sha256').update(compressed).digest('hex'),
+      resultPolicyId: P72_POLICIES.H2.id, resultPolicyDigest: P72_POLICIES.H2.digest
+    });
+    readFile.mockResolvedValue(compressed);
+    await expect(new MatchesService().participationRating(data.match.matchId)).resolves.toEqual(JSON.parse(JSON.stringify(canonicalResult.activeRating)));
+    process.env.ACTIVE_RATING_POLICY = 'H1';
+    await expect(new MatchesService().participationRating(data.match.matchId)).rejects.toMatchObject({ code: 'REPORT_POLICY_MISMATCH', status: 409 });
+  });
+
+  it('rebuilds one retained canonical input H2 to H1 and back to identical H2 values and awards', () => {
+    const data = fixture();
+    const before = buildCanonicalMatchResult({ artifact: data.artifact, sidecar: data.sidecar, productionReports: [], selector: 'H2', sourceDemoRetained: false, createdAt: '2026-10-26T00:00:00.000Z' });
+    const h1 = rebuildCanonicalMatchResult(before, 'H1');
+    const after = rebuildCanonicalMatchResult(h1, 'H2');
+    expect(h1.internal.selectedPolicyId).toBe(P72_POLICIES.H1.id);
+    expect(after.internal.selectedPolicyId).toBe(P72_POLICIES.H2.id);
+    expect(after.activeRating.awards).toEqual(before.activeRating.awards);
+    expect(after.activeRating.ordering).toEqual(before.activeRating.ordering);
+    for (const player of before.activeRating.players) {
+      const rebuilt = after.activeRating.players.find((candidate) => candidate.playerId === player.playerId)!;
+      expect(rebuilt.rating?.value ?? null).toBe(player.rating?.value ?? null);
+    }
+  });
+
+  it('fails closed when the canonical result bytes do not match the SQLite checksum', async () => {
+    const data = fixture();
+    const canonicalResult = buildCanonicalMatchResult({ artifact: data.artifact, sidecar: data.sidecar, productionReports: [], selector: 'H2', sourceDemoRetained: false, createdAt: '2026-10-26T00:00:00.000Z' });
+    const compressed = gzipSync(Buffer.from(JSON.stringify(canonicalResult)));
+    findUnique.mockResolvedValue({
+      id: data.match.matchId, deletionState: null, normalizedFilePath: null, rawFilePath: null,
+      resultFilePath: 'results/synthetic/result.json.gz', resultSha256: '0'.repeat(64),
+      resultPolicyId: P72_POLICIES.H2.id, resultPolicyDigest: P72_POLICIES.H2.digest
+    });
+    readFile.mockResolvedValue(compressed);
+    await expect(new MatchesService().participationRating(data.match.matchId)).rejects.toMatchObject({ code: 'REPORT_CORRUPT', status: 409 });
+  });
+
+  it('fails closed when a valid canonical file is pointed at by another match row', async () => {
+    const data = fixture();
+    const canonicalResult = buildCanonicalMatchResult({ artifact: data.artifact, sidecar: data.sidecar, productionReports: [], selector: 'H2', sourceDemoRetained: false, createdAt: '2026-10-26T00:00:00.000Z' });
+    const compressed = gzipSync(Buffer.from(JSON.stringify(canonicalResult)));
+    findUnique.mockResolvedValue({
+      id: 'another-match', deletionState: null, normalizedFilePath: null, rawFilePath: null,
+      resultFilePath: 'results/synthetic/result.json.gz', resultSha256: createHash('sha256').update(compressed).digest('hex'),
+      resultPolicyId: P72_POLICIES.H2.id, resultPolicyDigest: P72_POLICIES.H2.digest
+    });
+    readFile.mockResolvedValue(compressed);
+    await expect(new MatchesService().participationRating(data.match.matchId)).rejects.toMatchObject({ code: 'REPORT_CORRUPT', status: 409 });
+  });
+
+  it('rejects every HTTP policy selector before reading match data', async () => {
+    await expect(new MatchesService().participationRating('match', 'H3')).rejects.toMatchObject({ code: 'INVALID_POLICY_SELECTOR', status: 422 });
     expect(findUnique).not.toHaveBeenCalled();
   });
 
@@ -170,25 +228,37 @@ describe('P7.2-F participation rating API', () => {
     expect(response.awards.whoRuined).toMatchObject({ scope: 'DRAW_ALL_ELIGIBLE', awardPoolSize: 10 });
   });
 
-  it('keeps the legacy no-selector P2 response structurally unchanged', async () => {
-    const data = fixture(); mockStored(data);
-    const actual = await new MatchesService().experimentalRating(data.match.matchId);
-    expect(actual).toEqual(buildExperimentalRatingReport(data.artifact));
-    expect(actual.schemaVersion).toBe('m3c8-integration-1');
-  });
-
   it('serves the new contract through the actual Nest HTTP route and safe error envelope', async () => {
     const data = fixture(); mockStored(data);
     const app = await NestFactory.create(AppModule, { logger: false });
     app.setGlobalPrefix('api/v1'); app.useGlobalFilters(new SafeExceptionFilter()); await app.init();
     try {
-      const ok = await request(app.getHttpServer()).get(`/api/v1/matches/${data.match.matchId}/experimental-participation-rating?policy=H1`).expect(200);
-      expect(ok.body.schemaVersion).toBe('m3c8-participation-rating-report@1.0.0-experimental');
-      expect(ok.body.policy.policyId).toBe(P72_POLICIES.H1.id);
+      const rejected = await request(app.getHttpServer()).get(`/api/v1/matches/${data.match.matchId}/experimental-participation-rating?policy=H1`).expect(422);
+      expect(rejected.body.error.code).toBe('INVALID_POLICY_SELECTOR');
+      const ok = await request(app.getHttpServer()).get(`/api/v1/matches/${data.match.matchId}/experimental-participation-rating`).expect(200);
+      expect(ok.body.schemaVersion).toBe('m4.3-participation-rating@1');
+      expect(ok.body.policy).toBeUndefined();
       delete process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING;
       const disabled = await request(app.getHttpServer()).get(`/api/v1/matches/${data.match.matchId}/experimental-participation-rating`).expect(404);
       expect(disabled.body.error.code).toBe('EXPERIMENTAL_PARTICIPATION_RATING_DISABLED');
       expect(JSON.stringify(disabled.body)).not.toContain('Who Ruined CS2');
     } finally { await app.close(); }
+  });
+
+  it('does not register the retired P2/C2+S2 route even when the obsolete flag is present', async () => {
+    process.env.ENABLE_EXPERIMENTAL_RATING = '1';
+    const app = await NestFactory.create(AppModule, { logger: false });
+    app.setGlobalPrefix('api/v1'); app.useGlobalFilters(new SafeExceptionFilter()); await app.init();
+    try {
+      await request(app.getHttpServer()).get('/api/v1/matches/synthetic/experimental-rating').expect(404);
+      await request(app.getHttpServer()).get('/api/v1/matches/synthetic/experimental-rating?model=c2-s2').expect(404);
+      const document = SwaggerModule.createDocument(app, new DocumentBuilder().setTitle('test').setVersion('test').build());
+      expect(document.paths['/api/v1/matches/{id}/experimental-rating']).toBeUndefined();
+      expect(JSON.stringify(document)).not.toContain('m3c8-integration-1');
+      expect(JSON.stringify(document)).not.toContain('m3c8-c2s2-integration-1');
+    } finally {
+      delete process.env.ENABLE_EXPERIMENTAL_RATING;
+      await app.close();
+    }
   });
 });

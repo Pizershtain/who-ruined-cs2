@@ -17,6 +17,11 @@ $env:GOLDEN_TRAIN_INFO_PATH = 'C:\external\train.dem.info'
 pnpm test:golden
 ```
 
+For repeatable local runs, the spec also loads `tests/golden/.env.local` when
+present. The file is Git-ignored and uses the same six variable names. Explicit
+environment variables take precedence because Node does not overwrite values
+that already exist in `process.env`.
+
 Each configured fixture is checked independently for SHA-256, Source 2
 normalization, map, tick rate, stable 5v5 teams, side swap, all valid rounds,
 every score transition, live/non-live death coverage, unique event IDs and all
