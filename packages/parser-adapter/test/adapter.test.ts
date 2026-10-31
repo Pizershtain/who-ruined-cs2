@@ -3,6 +3,7 @@ import {
   asInteger,
   asText,
   isSource2Header,
+  parseDemoReplaySnapshot,
   parseDemoSnapshot,
   sanitizeSchema,
   toRows,
@@ -67,5 +68,24 @@ describe("parser boundary", () => {
       "parseEvents:round_end,player_death",
       "parseTicks:team_num,team_name,team_rounds_total,is_alive,game_time,current_equip_value,inventory,armor_value,has_helmet,has_defuser,cash:150,200",
     ]);
+  });
+  it("samples replay at 4 Hz, includes round boundaries, and requests only factual player state", () => {
+    let requestedProps: string[] = [];
+    let requestedTicks: number[] = [];
+    const parser: DemoParserPort = {
+      parseHeader: () => ({}), parsePlayerInfo: () => [], listGameEvents: () => [], parseEvents: () => [],
+      parseTicks: (_path, props, ticks) => {
+        requestedProps = props;
+        requestedTicks = ticks ?? [];
+        return requestedTicks.map((tick) => ({ tick, steamid: '76561198000000000', X: -10, Y: 20, Z: 3, yaw: null, pitch: null, is_alive: true }));
+      }
+    };
+    const snapshot = parseDemoReplaySnapshot('synthetic.dem', {
+      tickRate: 64, sampleRateHz: 4,
+      rounds: [{ id: 'round_1', ordinal: 1, startTick: 100, freezeEndTick: 110, endTick: 140 }]
+    }, parser);
+    expect(requestedProps).toEqual(['X','Y','Z','yaw','pitch','steamid','is_alive']);
+    expect(requestedTicks).toEqual([100, 110, 116, 132, 140]);
+    expect(snapshot.rows[0]).toMatchObject({ X: -10, Y: 20, is_alive: true });
   });
 });

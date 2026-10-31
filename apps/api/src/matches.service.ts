@@ -4,8 +4,8 @@ import { open, rm } from 'node:fs/promises';
 import { Injectable } from '@nestjs/common';
 import { prisma } from '@who-ruined/database';
 import { isSource2Header, loadNativeParser, NORMALIZER_VERSION, PARSER_LIBRARY_VERSION } from '@who-ruined/parser-adapter';
-import { activeParticipationRatingReportSchema, matchAnalyticsSchema, matchArtifactSchema, matchDataSchema, rescoreRequestSchema, scoringReportSchema, type ActiveParticipationRatingReport, type MatchAnalytics, type MatchData, type ScoringConfig, type ScoringReport } from '@who-ruined/contracts';
-import { buildActiveParticipationRating, SCORING_CONFIGS, scoringConfigHash, SUCCESSOR_75_25_CONFIG } from '@who-ruined/scoring';
+import { activeParticipationRatingReportSchema, matchAnalyticsSchema, matchArtifactSchema, matchDataSchema, participationExplanationReportSchema, replayMetadataSchema, rescoreRequestSchema, scoringReportSchema, type ActiveParticipationRatingReport, type MatchAnalytics, type MatchData, type ParticipationExplanationReport, type ReplayMetadata, type ReplayRoundArtifact, type ScoringConfig, type ScoringReport } from '@who-ruined/contracts';
+import { buildActiveParticipationRating, buildParticipationExplanation, SCORING_CONFIGS, scoringConfigHash, SUCCESSOR_75_25_CONFIG } from '@who-ruined/scoring';
 import { ApiError } from './safe-exception.filter.js';
 import { dataRoot, safeDataPath, safeExistingDataPath } from './storage.js';
 import { readParticipationSidecarForApi } from './participation-rating.js';
@@ -15,6 +15,7 @@ import path from 'node:path';
 import { readBoundedGzipJson } from './bounded-gzip.js';
 import { assertOpaqueId, assertPlainObjectWithKeys } from './http-validation.js';
 import { resolveApiRuntimeConfig } from './runtime-config.js';
+import { readReplayIndex, readReplayRound } from './replay-storage.js';
 
 async function sha256(filePath: string): Promise<string> {
   const hash = createHash('sha256');
@@ -123,6 +124,57 @@ export class MatchesService {
   }
 
   async rounds(id: string) { return { items: (await this.match(id)).rounds }; }
+  async replay(id: string): Promise<ReplayMetadata> {
+    const match = await this.match(id);
+    const index = await readReplayIndex(match.matchId, match.fileSha256);
+    if (!index) {
+      return replayMetadataSchema.parse({
+        schemaVersion: 'm4.7-replay-metadata@1',
+        matchId: match.matchId,
+        availability: 'REPLAY_UNAVAILABLE',
+        reason: 'REPLAY_UNAVAILABLE',
+        map: match.map,
+        tickRate: match.tickRate,
+        sampleRateHz: null,
+        calibration: null,
+        players: match.players.map(({ id: playerId, displayName, teamId }) => ({ id: playerId, displayName, teamId })),
+        teams: match.teams,
+        rounds: match.rounds.map(({ id: roundId, ordinal, startTick, freezeEndTick, endTick }) => ({ id: roundId, ordinal, startTick, freezeEndTick, endTick, sampleCount: 0, eventCount: 0, coverage: null })),
+        totalFrames: 0,
+        totalCompressedBytes: 0,
+        warnings: ['REPLAY_UNAVAILABLE']
+      });
+    }
+    const supported = index.map === 'de_dust2' && index.calibration !== null;
+    return replayMetadataSchema.parse({
+      schemaVersion: 'm4.7-replay-metadata@1',
+      matchId: match.matchId,
+      availability: supported ? 'AVAILABLE' : 'UNSUPPORTED_MAP',
+      reason: supported ? null : 'UNSUPPORTED_MAP',
+      map: index.map,
+      tickRate: index.tickRate,
+      sampleRateHz: index.sampleRateHz,
+      calibration: index.calibration,
+      players: index.players,
+      teams: index.teams,
+      rounds: index.rounds.map((round) => ({
+        id: round.id, ordinal: round.ordinal, startTick: round.startTick, freezeEndTick: round.freezeEndTick,
+        endTick: round.endTick, sampleCount: round.sampleCount, eventCount: round.eventCount, coverage: round.coverage
+      })),
+      totalFrames: index.totalFrames,
+      totalCompressedBytes: index.totalCompressedBytes,
+      warnings: index.warnings
+    });
+  }
+
+  async replayRound(id: string, roundId: string): Promise<ReplayRoundArtifact> {
+    assertOpaqueId(roundId, 'REPLAY_ROUND_NOT_FOUND');
+    const match = await this.match(id);
+    const index = await readReplayIndex(match.matchId, match.fileSha256);
+    if (!index) throw new ApiError('REPLAY_UNAVAILABLE', 'Для этого матча координаты 2D-реконструкции не сохранены.', 409);
+    return readReplayRound(index, roundId);
+  }
+
   async analytics(id: string): Promise<MatchAnalytics> {
     const analytics = (await this.artifact(id)).analytics;
     if (!analytics) throw new ApiError('INCOMPLETE_MATCH', 'M2-аналитика для этого артефакта отсутствует; требуется повторный разбор.', 409);
@@ -150,6 +202,18 @@ export class MatchesService {
     const artifact = matchArtifactSchema.parse({ schemaVersion: 'm2-artifact-1', match: stored.match, analytics: stored.analytics });
     const sidecar = await readParticipationSidecarForApi(artifact, databaseMatch.rawFilePath);
     return buildActiveParticipationRating(artifact, sidecar, resolveActiveRatingPolicy());
+  }
+
+  async participationExplanation(id: string): Promise<ParticipationExplanationReport> {
+    if (process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING !== '1') {
+      throw new ApiError('EXPERIMENTAL_PARTICIPATION_RATING_DISABLED', 'Экспериментальное объяснение participation rating отключено конфигурацией сервера.', 404);
+    }
+    const databaseMatch = await prisma.match.findUnique({ where: { id } });
+    if (!databaseMatch || databaseMatch.deletionState) throw new ApiError('MATCH_NOT_FOUND', 'Матч не найден.', 404);
+    if (!databaseMatch.resultFilePath) throw new ApiError('REPORT_NOT_READY', 'Канонический результат матча ещё не готов.', 409);
+    const result = await readCanonicalResult(databaseMatch, true);
+    try { return participationExplanationReportSchema.parse(buildParticipationExplanation(result)); }
+    catch { throw new ApiError('REPORT_CORRUPT', 'Канонический результат не позволяет достоверно построить объяснение рейтинга.', 409); }
   }
 
   private scoringConfig(version?: string, configHash?: string): ScoringConfig {
@@ -215,7 +279,7 @@ export class MatchesService {
     const files = new Set<string>();
     for (const candidate of [match.rawFilePath, match.normalizedFilePath, match.resultFilePath, ...match.reports.map((report) => report.jsonFilePath)]) if (candidate) files.add(candidate);
     for (const relative of files) await rm(await safeExistingDataPath(relative), { force: true }).catch((error) => { throw new ApiError('STORAGE_FAILURE', 'Не удалось удалить принадлежащий матчу файл.', 503, { code: (error as NodeJS.ErrnoException).code ?? 'UNKNOWN' }); });
-    for (const directory of [`results/${id}`,`reports/${id}`,`experimental/c2s2/${id}`,`experimental/c2s2-participation/${id}`]) {
+    for (const directory of [`results/${id}`,`reports/${id}`,`replays/${id}`,`experimental/c2s2/${id}`,`experimental/c2s2-participation/${id}`]) {
       await rm(await safeExistingDataPath(directory), { recursive: true, force: true }).catch((error) => { throw new ApiError('STORAGE_FAILURE', 'Не удалось завершить очистку каталога матча.', 503, { code: (error as NodeJS.ErrnoException).code ?? 'UNKNOWN' }); });
     }
     await prisma.match.delete({ where: { id } });

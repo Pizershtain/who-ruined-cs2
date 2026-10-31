@@ -17,6 +17,10 @@ export interface WorkerRuntimeConfig {
   childKillGraceMs: number;
   maxParseArtifactBytes: number;
   maxParseArtifactOutputBytes: number;
+  maxReplayParseArtifactBytes: number;
+  maxReplayParseArtifactOutputBytes: number;
+  maxReplayRoundCompressedBytes: number;
+  maxReplayTotalCompressedBytes: number;
   maxResultCompressedBytes: number;
   maxResultJsonBytes: number;
   maxResultJsonDepth: number;
@@ -47,6 +51,10 @@ export function resolveWorkerRuntimeConfig(environment: NodeJS.ProcessEnv = proc
     childKillGraceMs: positiveInteger('CHILD_KILL_GRACE_MS', environment.CHILD_KILL_GRACE_MS, 5_000, 60_000),
     maxParseArtifactBytes: positiveInteger('MAX_PARSE_ARTIFACT_BYTES', environment.MAX_PARSE_ARTIFACT_BYTES, 512 * 1024 * 1024, 2 * 1024 * 1024 * 1024),
     maxParseArtifactOutputBytes: positiveInteger('MAX_PARSE_ARTIFACT_OUTPUT_BYTES', environment.MAX_PARSE_ARTIFACT_OUTPUT_BYTES, 1536 * 1024 * 1024, 2 * 1024 * 1024 * 1024),
+    maxReplayParseArtifactBytes: positiveInteger('MAX_REPLAY_PARSE_ARTIFACT_BYTES', environment.MAX_REPLAY_PARSE_ARTIFACT_BYTES, 64 * 1024 * 1024, 512 * 1024 * 1024),
+    maxReplayParseArtifactOutputBytes: positiveInteger('MAX_REPLAY_PARSE_ARTIFACT_OUTPUT_BYTES', environment.MAX_REPLAY_PARSE_ARTIFACT_OUTPUT_BYTES, 256 * 1024 * 1024, 1024 * 1024 * 1024),
+    maxReplayRoundCompressedBytes: positiveInteger('MAX_REPLAY_ROUND_COMPRESSED_BYTES', environment.MAX_REPLAY_ROUND_COMPRESSED_BYTES, 8 * 1024 * 1024, 64 * 1024 * 1024),
+    maxReplayTotalCompressedBytes: positiveInteger('MAX_REPLAY_TOTAL_COMPRESSED_BYTES', environment.MAX_REPLAY_TOTAL_COMPRESSED_BYTES, 64 * 1024 * 1024, 512 * 1024 * 1024),
     maxResultCompressedBytes: positiveInteger('MAX_RESULT_COMPRESSED_BYTES', environment.MAX_RESULT_COMPRESSED_BYTES, 8 * 1024 * 1024, 256 * 1024 * 1024),
     maxResultJsonBytes: positiveInteger('MAX_RESULT_JSON_BYTES', environment.MAX_RESULT_JSON_BYTES, 64 * 1024 * 1024, 512 * 1024 * 1024),
     maxResultJsonDepth: positiveInteger('MAX_RESULT_JSON_DEPTH', environment.MAX_RESULT_JSON_DEPTH, 128, 512),

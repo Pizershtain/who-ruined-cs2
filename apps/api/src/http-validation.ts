@@ -4,9 +4,11 @@ import { ApiError } from './safe-exception.filter.js';
 const OPAQUE_ID = /^[A-Za-z0-9][A-Za-z0-9:_-]{0,159}$/;
 const TOKEN = /^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$/;
 
-export function assertOpaqueId(value: string, missingCode: 'MATCH_NOT_FOUND'|'JOB_NOT_FOUND'|'PLAYER_NOT_FOUND'): string {
+export function assertOpaqueId(value: string, missingCode: 'MATCH_NOT_FOUND'|'JOB_NOT_FOUND'|'PLAYER_NOT_FOUND'|'REPLAY_ROUND_NOT_FOUND'): string {
   if (!OPAQUE_ID.test(value) || value.normalize('NFC') !== value) {
-    const message = missingCode === 'JOB_NOT_FOUND' ? 'Задача не найдена.' : missingCode === 'PLAYER_NOT_FOUND' ? 'Игрок не найден.' : 'Матч не найден.';
+    const message = missingCode === 'JOB_NOT_FOUND' ? 'Задача не найдена.'
+      : missingCode === 'PLAYER_NOT_FOUND' ? 'Игрок не найден.'
+        : missingCode === 'REPLAY_ROUND_NOT_FOUND' ? 'Раунд 2D-реконструкции не найден.' : 'Матч не найден.';
     throw new ApiError(missingCode, message, 404);
   }
   return value;

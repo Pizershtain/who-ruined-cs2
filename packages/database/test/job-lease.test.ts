@@ -19,7 +19,9 @@ async function fixture() {
       id TEXT PRIMARY KEY, originalFileName TEXT NOT NULL, fileSha256 TEXT NOT NULL,
       map TEXT, status TEXT NOT NULL, quality TEXT, createdAt DATETIME NOT NULL,
       updatedAt DATETIME NOT NULL, parserVersion TEXT NOT NULL, normalizerVersion TEXT NOT NULL,
-      normalizedFilePath TEXT, rawFilePath TEXT, winningTeamId TEXT, losingTeamId TEXT
+      normalizedFilePath TEXT, rawFilePath TEXT, resultFilePath TEXT, resultSchemaVersion TEXT,
+      resultSha256 TEXT, resultPolicyId TEXT, resultPolicyDigest TEXT, sourceDeletedAt DATETIME,
+      deletionState TEXT, deletionRequestedAt DATETIME, winningTeamId TEXT, losingTeamId TEXT
     );
     CREATE TABLE Job (
       id TEXT PRIMARY KEY, matchId TEXT NOT NULL, type TEXT NOT NULL, status TEXT NOT NULL,

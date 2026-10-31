@@ -3,14 +3,16 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runOwnedChild } from './owned-child.js';
 import { resolveDataPath } from './storage.js';
+import type { ReplaySamplingRequest } from '@who-ruined/parser-adapter';
 
 type Request = {
-  kind: 'PARSE';
+  kind: 'PARSE' | 'REPLAY';
   rawRelative: string;
   outputRelative: string;
   timeoutMs: number;
   killGraceMs: number;
   maxArtifactBytes: number;
+  replay?: ReplaySamplingRequest;
 };
 
 const parserEntrypoint = fileURLToPath(new URL('./parser-child.js', import.meta.url));
@@ -29,7 +31,7 @@ process.once('message', async (value: unknown) => {
   if (accepted) return;
   accepted = true;
   const request = value as Partial<Request>;
-  if (request.kind !== 'PARSE' || typeof request.rawRelative !== 'string' || typeof request.outputRelative !== 'string' ||
+  if ((request.kind !== 'PARSE' && request.kind !== 'REPLAY') || typeof request.rawRelative !== 'string' || typeof request.outputRelative !== 'string' ||
       !Number.isSafeInteger(request.timeoutMs) || !Number.isSafeInteger(request.killGraceMs) || !Number.isSafeInteger(request.maxArtifactBytes)) {
     process.send?.({ ok: false, code: 'PARSE_SUPERVISOR_PROTOCOL' });
     process.exit(64);
@@ -48,9 +50,15 @@ process.once('message', async (value: unknown) => {
     return;
   }
   const encoded = Buffer.from(JSON.stringify({
+    kind: request.kind,
     rawRelative: request.rawRelative,
     outputRelative: request.outputRelative,
-    maxArtifactBytes
+    maxArtifactBytes,
+    ...(request.kind === 'REPLAY' && request.replay ? { replay: {
+      tickRate: request.replay.tickRate,
+      sampleRateHz: request.replay.sampleRateHz,
+      rounds: request.replay.rounds.map((round) => [round.id, round.ordinal, round.startTick, round.freezeEndTick, round.endTick])
+    } } : {})
   })).toString('base64url');
   const result = await runOwnedChild({
     entrypoint: parserEntrypoint,
@@ -61,7 +69,7 @@ process.once('message', async (value: unknown) => {
   });
   if (result.timedOut || result.aborted || result.code !== 0) {
     await rm(outputPath, { force: true });
-    const code = result.timedOut ? 'PARSE_TIMEOUT' : result.aborted ? 'PARENT_DISCONNECTED' : 'PARSE_FAILED';
+    const code = result.timedOut ? 'PARSE_TIMEOUT' : result.aborted ? 'PARENT_DISCONNECTED' : request.kind === 'REPLAY' ? 'REPLAY_PARSE_FAILED' : 'PARSE_FAILED';
     process.send?.({ ok: false, code, durationMs: Math.round(result.durationMs) });
     process.exit(result.timedOut ? 124 : result.aborted ? 125 : 1);
     return;

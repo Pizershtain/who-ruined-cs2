@@ -71,6 +71,121 @@ export type MatchData = z.infer<typeof matchDataSchema>;
 export type MatchRound = z.infer<typeof roundSchema>;
 export type MatchEvent = z.infer<typeof matchEventSchema>;
 
+export const replayEventKindSchema = z.enum(['KILL', 'BOMB_PLANTED', 'BOMB_DEFUSED']);
+export type ReplayEventKind = z.infer<typeof replayEventKindSchema>;
+export const replayCoverageSchema = z.enum(['COMPLETE', 'PARTIAL']);
+export const replayAvailabilitySchema = z.enum(['AVAILABLE', 'REPLAY_UNAVAILABLE', 'UNSUPPORTED_MAP']);
+export const replayPlayerStateSchema = z.tuple([
+  z.number().int().nonnegative(),
+  z.number().nullable(), z.number().nullable(), z.number().nullable(),
+  z.number().nullable(), z.number().nullable(), z.boolean()
+]);
+export const replayFrameSchema = z.object({
+  tick: z.number().int().nonnegative(),
+  states: z.array(replayPlayerStateSchema).max(64)
+});
+export const replayEventSchema = z.object({
+  id,
+  kind: replayEventKindSchema,
+  tick: z.number().int().nonnegative(),
+  actorId: id.nullable(),
+  targetId: id.nullable(),
+  assisterId: id.nullable()
+});
+export const replayMapCalibrationSchema = z.object({
+  id: z.string().min(1).max(160),
+  map: z.literal('de_dust2'),
+  imageWidth: z.number().int().positive().max(8192),
+  imageHeight: z.number().int().positive().max(8192),
+  posX: z.number(),
+  posY: z.number(),
+  scale: z.number().positive(),
+  rotate: z.number().int(),
+  source: z.literal('VALVE_OVERVIEW_METADATA'),
+  sourceVersion: z.string().min(1).max(160),
+  imageUrl: z.string().max(512).nullable()
+});
+export type ReplayMapCalibration = z.infer<typeof replayMapCalibrationSchema>;
+
+const replayBindingSchema = z.object({
+  matchId: id,
+  fileSha256: z.string().regex(/^[a-f0-9]{64}$/),
+  parserVersion: z.string().min(1).max(80),
+  normalizerVersion: z.string().min(1).max(80)
+});
+export const replayRoundArtifactSchema = z.object({
+  schemaVersion: z.literal('m4.7-replay-round@1'),
+  binding: replayBindingSchema,
+  round: z.object({
+    id, ordinal: z.number().int().positive(),
+    startTick: z.number().int().nonnegative(),
+    freezeEndTick: z.number().int().nonnegative().nullable(),
+    endTick: z.number().int().nonnegative()
+  }),
+  tickRate: z.number().positive(),
+  sampleRateHz: z.number().positive().max(32),
+  coverage: replayCoverageSchema,
+  frames: z.array(replayFrameSchema).max(20_000),
+  events: z.array(replayEventSchema).max(5_000),
+  warnings: z.array(z.string().max(160)).max(100)
+});
+export type ReplayRoundArtifact = z.infer<typeof replayRoundArtifactSchema>;
+
+export const replayIndexArtifactSchema = z.object({
+  schemaVersion: z.literal('m4.7-replay-index@1'),
+  binding: replayBindingSchema,
+  fingerprint: z.string().regex(/^[a-f0-9]{64}$/),
+  map: z.string().nullable(),
+  tickRate: z.number().positive(),
+  sampleRateHz: z.number().positive().max(32),
+  calibration: replayMapCalibrationSchema.nullable(),
+  players: z.array(z.object({ id, displayName: z.string().max(160), teamId: id })).max(64),
+  teams: z.array(teamSchema).max(8),
+  rounds: z.array(z.object({
+    id, ordinal: z.number().int().positive(),
+    startTick: z.number().int().nonnegative(),
+    freezeEndTick: z.number().int().nonnegative().nullable(),
+    endTick: z.number().int().nonnegative(),
+    sampleCount: z.number().int().nonnegative(),
+    eventCount: z.number().int().nonnegative(),
+    coverage: replayCoverageSchema,
+    sha256: z.string().regex(/^[a-f0-9]{64}$/),
+    compressedBytes: z.number().int().positive()
+  })).max(256),
+  totalFrames: z.number().int().nonnegative(),
+  totalCompressedBytes: z.number().int().nonnegative(),
+  warnings: z.array(z.string().max(160)).max(100)
+});
+export type ReplayIndexArtifact = z.infer<typeof replayIndexArtifactSchema>;
+
+export const replayMetadataSchema = z.object({
+  schemaVersion: z.literal('m4.7-replay-metadata@1'),
+  matchId: id,
+  availability: replayAvailabilitySchema,
+  reason: z.enum(['REPLAY_UNAVAILABLE', 'UNSUPPORTED_MAP']).nullable(),
+  map: z.string().nullable(),
+  tickRate: z.number().positive().nullable(),
+  sampleRateHz: z.number().positive().max(32).nullable(),
+  calibration: replayMapCalibrationSchema.nullable(),
+  players: z.array(z.object({ id, displayName: z.string().max(160), teamId: id })).max(64),
+  teams: z.array(teamSchema).max(8),
+  rounds: z.array(z.object({
+    id, ordinal: z.number().int().positive(),
+    startTick: z.number().int().nonnegative(),
+    freezeEndTick: z.number().int().nonnegative().nullable(),
+    endTick: z.number().int().nonnegative(),
+    sampleCount: z.number().int().nonnegative(),
+    eventCount: z.number().int().nonnegative(),
+    coverage: replayCoverageSchema.nullable()
+  })).max(256),
+  totalFrames: z.number().int().nonnegative(),
+  totalCompressedBytes: z.number().int().nonnegative(),
+  warnings: z.array(z.string().max(160)).max(100)
+});
+export type ReplayMetadata = z.infer<typeof replayMetadataSchema>;
+export const replayMetadataOpenApiSchema = z.toJSONSchema(replayMetadataSchema, { target: 'openapi-3.0' });
+export const replayRoundOpenApiSchema = z.toJSONSchema(replayRoundArtifactSchema, { target: 'openapi-3.0' });
+
 export const availabilitySchema = z.enum(['AVAILABLE', 'PARTIAL', 'UNAVAILABLE']);
 const nullableCount = z.number().int().nonnegative().nullable();
 const nullableMetric = z.number().nonnegative().nullable();
@@ -290,6 +405,84 @@ export const activeParticipationRatingReportSchema = participationRatingReportSc
 });
 export type ActiveParticipationRatingReport = z.infer<typeof activeParticipationRatingReportSchema>;
 export const activeParticipationRatingOpenApiSchema = z.toJSONSchema(activeParticipationRatingReportSchema, { target: 'openapi-3.0' });
+
+export const participationExplanationFamilySchema = z.enum([
+  'COMBAT','SUPPORT','DEATH_RELATED','OBJECTIVES','CONTEXT','DIRECT_HARM'
+]);
+export const participationExplanationSourceKindSchema = z.enum(['EVENT','AGGREGATE','BASELINE']);
+export const participationExplanationReasonSchema = z.enum([
+  'CONFIRMED_COMBAT_EVENT','CONFIRMED_SUPPORT_EVENT','RECORDED_DEATH_EVENT',
+  'CONFIRMED_FRIENDLY_HARM','CONTEXT_FACTOR','OBJECTIVE_FACTOR','MODEL_BASELINE'
+]);
+export const participationExplanationTransformationSchema = z.enum([
+  'POSITIVE_LINEAR_SCALE','NEGATIVE_MASS_SOFTENING','DIRECT_HARM_SOFTENING',
+  'DIRECT_HARM_MULTIPLIER','CONTEXT_CENTERING','CONTEXT_SATURATION','OBJECTIVE_CAP'
+]);
+export const participationExplanationSourceSchema = z.object({
+  kind: participationExplanationSourceKindSchema,
+  reason: participationExplanationReasonSchema,
+  rawContribution: z.number(),
+  finalContribution: z.number().nullable(),
+  roundIds: z.array(id),
+  evidenceEventIds: z.array(id)
+});
+export const participationExplanationTransformSchema = z.object({
+  code: participationExplanationTransformationSchema,
+  scope: z.enum(['FAMILY','CROSS_FAMILY']),
+  input: z.number().nullable(),
+  output: z.number().nullable(),
+  adjustment: z.number().nullable()
+});
+export const participationExplanationFamilyRowSchema = z.object({
+  family: participationExplanationFamilySchema,
+  rawInput: z.number(),
+  finalAttribution: z.number(),
+  sources: z.array(participationExplanationSourceSchema),
+  transformations: z.array(participationExplanationTransformSchema)
+});
+export const importantMomentSchema = z.object({
+  id,
+  type: z.enum(['MULTI_KILL','TRADE','FAST_TRADE']),
+  playerId: id,
+  roundId: id,
+  roundOrdinal: z.number().int().positive(),
+  startTick: z.number().int().nonnegative(),
+  endTick: z.number().int().nonnegative(),
+  killCount: z.number().int().min(1).max(5),
+  tradeCount: z.number().int().nonnegative(),
+  tradeDelaySeconds: z.number().nonnegative().nullable(),
+  evidenceEventIds: z.array(id).min(1)
+});
+export const participationExplanationPlayerSchema = z.object({
+  playerId: id,
+  teamId: id,
+  availability: z.object({ status: participationRatingAvailabilitySchema, reason: z.string().nullable() }),
+  rating: z.object({
+    value: z.number(),
+    arithmetic: z.object({
+      origin: z.literal(1), reconstructed: z.number(), tolerance: z.literal(1e-12), exactWithinTolerance: z.literal(true)
+    }),
+    aggregates: participationRatingAggregatesSchema,
+    families: z.array(participationExplanationFamilyRowSchema).length(6)
+  }).nullable(),
+  importantMoments: z.array(importantMomentSchema).max(8)
+});
+export const participationExplanationReportSchema = z.object({
+  schemaVersion: z.literal('m4.6-participation-explanation@1'),
+  reportVersion: z.literal('match-result@1'),
+  matchId: id,
+  experimental: z.literal(true),
+  calibrated: z.literal(false),
+  causalBlame: z.literal(false),
+  players: z.array(participationExplanationPlayerSchema).length(10),
+  importantMoments: z.array(importantMomentSchema).max(8),
+  provenance: z.object({ source: z.literal('match-result@1'), originalDemoParsedAtRequest: z.literal(false) })
+});
+export const participationExplanationOpenApiSchema = z.toJSONSchema(participationExplanationReportSchema, { target: 'openapi-3.0' });
+export type ParticipationExplanationReport = z.infer<typeof participationExplanationReportSchema>;
+export type ParticipationExplanationPlayer = z.infer<typeof participationExplanationPlayerSchema>;
+export type ParticipationExplanationFamilyRow = z.infer<typeof participationExplanationFamilyRowSchema>;
+export type ImportantMoment = z.infer<typeof importantMomentSchema>;
 
 export const matchResultRecomputeSeedSchema = z.object({
   schemaVersion: z.literal('match-result-recompute-seed@1'),

@@ -2,14 +2,20 @@ import { open, mkdir, rename, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { gzip } from 'node:zlib';
 import { promisify } from 'node:util';
-import { parseDemoSnapshot, validateParsedDemoSnapshot } from '@who-ruined/parser-adapter';
+import { parseDemoReplaySnapshot, parseDemoSnapshot, validateParsedDemoSnapshot, validateParsedReplaySnapshot, type ReplaySamplingRequest } from '@who-ruined/parser-adapter';
 import { resolveDataPath } from './storage.js';
 
 const zip = promisify(gzip);
 const requestText = process.argv[2];
 if (!requestText || requestText.length > 4096) process.exit(64);
 
-type Request = { rawRelative: string; outputRelative: string; maxArtifactBytes: number };
+type Request = {
+  kind: 'PARSE' | 'REPLAY';
+  rawRelative: string;
+  outputRelative: string;
+  maxArtifactBytes: number;
+  replay?: { tickRate: number; sampleRateHz: number; rounds: Array<[string, number, number, number | null, number]> };
+};
 let request: Request;
 try {
   request = JSON.parse(Buffer.from(requestText, 'base64url').toString('utf8')) as Request;
@@ -19,8 +25,10 @@ try {
 
 const safeRelative = (value: unknown, prefix: string, suffix: string): value is string =>
   typeof value === 'string' && value.length <= 512 && value.startsWith(prefix) && value.endsWith(suffix) && !value.includes('..');
-if (!safeRelative(request.rawRelative, 'uploads/', '.dem') ||
-    !safeRelative(request.outputRelative, 'worker-tmp/', '.snapshot.json.gz') ||
+const outputSuffix = request.kind === 'REPLAY' ? '.replay-snapshot.json.gz' : '.snapshot.json.gz';
+if ((request.kind !== 'PARSE' && request.kind !== 'REPLAY') ||
+    !safeRelative(request.rawRelative, 'uploads/', '.dem') ||
+    !safeRelative(request.outputRelative, 'worker-tmp/', outputSuffix) ||
     !Number.isSafeInteger(request.maxArtifactBytes) || request.maxArtifactBytes < 1) process.exit(64);
 
 const dataRoot = path.resolve(process.env.DATA_DIR ?? path.resolve(process.cwd(), 'data'));
@@ -29,7 +37,14 @@ const outputPath = resolveDataPath(dataRoot, request.outputRelative);
 const temporaryPath = `${outputPath}.${process.pid}.tmp`;
 
 try {
-  const snapshot = validateParsedDemoSnapshot(parseDemoSnapshot(rawPath));
+  const replay = request.replay ? {
+    tickRate: request.replay.tickRate,
+    sampleRateHz: request.replay.sampleRateHz,
+    rounds: request.replay.rounds.map(([id, ordinal, startTick, freezeEndTick, endTick]) => ({ id, ordinal, startTick, freezeEndTick, endTick }))
+  } satisfies ReplaySamplingRequest : undefined;
+  const snapshot = request.kind === 'REPLAY'
+    ? validateParsedReplaySnapshot(parseDemoReplaySnapshot(rawPath, replay as ReplaySamplingRequest))
+    : validateParsedDemoSnapshot(parseDemoSnapshot(rawPath));
   const compressed = await zip(Buffer.from(JSON.stringify(snapshot)));
   if (compressed.length > request.maxArtifactBytes) throw new Error('PARSE_ARTIFACT_TOO_LARGE');
   await mkdir(path.dirname(outputPath), { recursive: true });
