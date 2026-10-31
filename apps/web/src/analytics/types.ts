@@ -1,9 +1,22 @@
-// View model. M2 is mapped explicitly by adapter.ts; ratings exist only in dev previews.
+export type RatingFamily = 'COMBAT' | 'SUPPORT' | 'DEATH_RELATED' | 'OBJECTIVES' | 'CONTEXT' | 'DIRECT_HARM';
+export type RatingFamilies = Record<RatingFamily, number>;
+
+export interface PlayerRating {
+  value: number;
+  rank: number;
+  losingTeamRank: number | null;
+  rawFamilyInputs: RatingFamilies;
+  finalAttribution: RatingFamilies;
+}
+
 export type Award =
-  | { state: 'available'; playerId: string; value: number; margin: number; close: boolean; tied: boolean; noConfirmedHarm?: boolean }
-  | { state: 'low-confidence' | 'insufficient-data' | 'unavailable' };
+  | { state: 'available'; playerId: string; value: number; poolSize: number; close: boolean; tied: boolean; scoreGap: number | null; tiedPlayerIds: string[]; scope?: 'LOSING_TEAM_ELIGIBLE' | 'DRAW_ALL_ELIGIBLE' | 'UNAVAILABLE' }
+  | { state: 'insufficient-data' | 'unavailable'; poolSize?: number; reason?: string | null; tied?: boolean; scope?: 'LOSING_TEAM_ELIGIBLE' | 'DRAW_ALL_ELIGIBLE' | 'UNAVAILABLE' };
 
 export interface PlayerMetrics {
+  kills: number | null;
+  deaths: number | null;
+  assists: number | null;
   damage: number | null;
   adr: number | null;
   kast: number | null;
@@ -15,9 +28,10 @@ export interface PlayerMetrics {
   fireDamage?: number | null;
   enemiesFlashed?: number | null;
   enemyBlindSeconds?: number | null;
-  performance: number | null;
-  impact: number | null;
-  mistakes: number | null;
+  rating: PlayerRating | null;
+  ratingAvailability?: 'CALCULATED_RESEARCH_ONLY' | 'PARTICIPATION_ABSENT_GT_2_ROUNDS' | 'PARTICIPATION_EVIDENCE_UNKNOWN' | 'PARTIAL_COVERAGE_INSUFFICIENT' | 'WITHHELD_INSUFFICIENT_VERIFIED_EXPOSURE' | 'UNKNOWN_APPLICABILITY';
+  ratingReason?: string | null;
+  ratingCoverage?: { verifiedRounds: number; partialRounds: number; unknownRounds: number; absentFullRounds: number; globalExcludedRounds: number };
 }
 export interface AnalysisMoment {
   id: string;
@@ -33,7 +47,7 @@ export interface AnalysisMoment {
   observedFacts?: string[];
 }
 export interface MatchAnalytics {
-  source?: 'm2';
+  source?: 'm2' | 'm4';
   availability?: { damage: 'AVAILABLE' | 'PARTIAL' | 'UNAVAILABLE'; flashes: 'AVAILABLE' | 'PARTIAL' | 'UNAVAILABLE'; economy: 'AVAILABLE' | 'PARTIAL' | 'UNAVAILABLE'; aliveContext: 'AVAILABLE' | 'PARTIAL' | 'UNAVAILABLE' };
   limitations?: string[];
   mvp: Award;
@@ -42,13 +56,13 @@ export interface MatchAnalytics {
   moments: AnalysisMoment[] | null;
   roundImpact: Array<{ roundId: string; players: Record<string, number> }> | null;
   insights: Record<string, { strengths: Array<'opening-duels' | 'utility-support'>; opportunities: Array<'untraded-entries'> }> | null;
-  scoring?: {
-    scorerVersion: string;
-    configHash: string;
-    model: 'V1_COMPAT' | 'SUCCESSOR';
+  activeRating?: {
     experimental: true;
-    status: 'COMPLETED' | 'PARTIAL' | 'UNSUPPORTED' | 'INSUFFICIENT_COVERAGE';
-    coverage: { score: number; rounds: number; identities: number; deaths: number; enemyDamage: number; teamDamage: number; eligible: boolean; reasons: string[] };
+    calibrated: false;
+    causalBlame: false;
+    eligiblePoolSize: number;
+    incompletePool: boolean;
+    outcome: 'DECIDED' | 'DRAW' | 'UNKNOWN';
     warnings: string[];
     limitations: string[];
   };

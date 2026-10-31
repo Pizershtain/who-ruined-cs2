@@ -1,8 +1,10 @@
 import { createInstance } from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
-import { createLocaleOptions, languageStorageKey } from './settings.js';
+import {
+  createLocaleOptions, languagePreferenceModeKey, languageStorageKey,
+  manualLanguagePreference, resolveInitialLanguage,
+} from './settings.js';
 import type { SupportedLanguage } from './locale-catalog.js';
 
 // Keep only asset URLs in the bundle; fetch can retry a failed locale request.
@@ -17,10 +19,34 @@ async function readLocale(language: string, namespace: string): Promise<Record<s
   return resource as Record<string, string>;
 }
 
+function initialLanguage(): SupportedLanguage {
+  let storedLanguage: string | null = null;
+  let storedMode: string | null = null;
+  try {
+    storedLanguage = window.localStorage.getItem(languageStorageKey);
+    storedMode = window.localStorage.getItem(languagePreferenceModeKey);
+  } catch { /* Storage can be unavailable in privacy-restricted contexts. */ }
+  const legacyNavigator = navigator as Navigator & { userLanguage?: string };
+  const detected = [
+    ...navigator.languages,
+    legacyNavigator.userLanguage,
+    navigator.language,
+    Intl.DateTimeFormat().resolvedOptions().locale,
+  ];
+  return resolveInitialLanguage(storedLanguage, storedMode, detected);
+}
+
+export function rememberLanguagePreference(language: SupportedLanguage): void {
+  try {
+    window.localStorage.setItem(languageStorageKey, language);
+    window.localStorage.setItem(languagePreferenceModeKey, manualLanguagePreference);
+  } catch { /* The active language still changes when persistence is unavailable. */ }
+}
+
 export const i18n = createInstance();
-export const i18nReady = i18n.use(initReactI18next).use(LanguageDetector).use(resourcesToBackend(readLocale)).init({
+export const i18nReady = i18n.use(initReactI18next).use(resourcesToBackend(readLocale)).init({
   ...createLocaleOptions(),
-  detection: { order: ['localStorage', 'navigator'], lookupLocalStorage: languageStorageKey, caches: ['localStorage'] },
+  lng: initialLanguage(),
 });
 
 /** Prepare the namespaces already in use without changing the active language.

@@ -9,6 +9,8 @@ import {
 export * from './participation-family-kernel.js';
 export * from './participation-rating.js';
 export * from './active-match-result.js';
+export * from './important-moments.js';
+export * from './participation-explanation.js';
 
 type FindingCode = ScoringFinding['code'];
 type PlayerMutable = Omit<ScoringPlayer, 'episodeIds'> & { episodeIds: string[] };

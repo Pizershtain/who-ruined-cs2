@@ -42,14 +42,20 @@ export function previewData(scenario: PreviewScenario): { match: MatchData; anal
     if (firstPlayer) delete firstPlayer.scoreboard;
     return { match };
   }
-  const awardState = scenario === 'available' ? null : scenario;
+  const awardState = scenario === 'available' ? null : { state: 'insufficient-data' as const, reason: 'SYNTHETIC_PREVIEW_UNAVAILABLE' };
   return { match, analytics: {
-    mvp: awardState ? { state: awardState } : { state: 'available', playerId: 'sample-player-0', value: 92.4, margin: 0.93, close: false, tied: false },
-    whoRuined: awardState ? { state: awardState } : { state: 'available', playerId: 'sample-player-9', value: 31.6, margin: 0.82, close: false, tied: false },
+    source: 'm4',
+    mvp: awardState ?? { state: 'available', playerId: 'sample-player-0', value: 1.42, poolSize: 10, scoreGap: 0.08, close: false, tied: false, tiedPlayerIds: [] },
+    whoRuined: awardState ?? { state: 'available', playerId: 'sample-player-9', value: 0.68, poolSize: 5, scoreGap: 0.06, close: false, tied: false, tiedPlayerIds: [], scope: 'LOSING_TEAM_ELIGIBLE' },
     players: Object.fromEntries(players.map((player, index) => [player.id, {
+      kills: player.scoreboard?.kills ?? null, deaths: player.scoreboard?.deaths ?? null, assists: player.scoreboard?.assists ?? null,
       damage: 2188 - index * 107, adr: 104.2 - index * 5.1, kast: 85.7 - index * 2.8, openingKills: 5 - index % 5, openingDeaths: index % 4,
-      trades: 4 - index % 4, utilityDamage: 268 - index * 21, performance: 92.4 - index * 6.1,
-      impact: 88.6 - index * 6.4, mistakes: index % 4,
+      trades: 4 - index % 4, utilityDamage: null, heDamage: 80 - index * 3, fireDamage: 45 - index * 2,
+      ratingAvailability: 'CALCULATED_RESEARCH_ONLY', ratingReason: null,
+      ratingCoverage: { verifiedRounds: 21, partialRounds: 0, unknownRounds: 0, absentFullRounds: 0, globalExcludedRounds: 0 },
+      rating: { value: 1.42 - index * 0.08, rank: index + 1, losingTeamRank: index < 5 ? null : index - 4,
+        rawFamilyInputs: { COMBAT: 0.04 - index * 0.002, SUPPORT: 0.01, DEATH_RELATED: -0.01, OBJECTIVES: 0.003, CONTEXT: 0.002, DIRECT_HARM: index === 0 ? 0 : -index * 0.001 },
+        finalAttribution: { COMBAT: 0.4 - index * 0.02, SUPPORT: 0.1, DEATH_RELATED: -0.03, OBJECTIVES: 0.03, CONTEXT: 0.02, DIRECT_HARM: index === 0 ? 0 : -index * 0.002 } },
     }])),
     moments: [
       { id: 'sample-trade', playerId: 'sample-player-0', roundId: 'sample-round-3', tick: 21300, category: 'positive', kind: 'trade', importance: 'high', confidence: 0.96 },
@@ -61,5 +67,6 @@ export function previewData(scenario: PreviewScenario): { match: MatchData; anal
     insights: Object.fromEntries(players.map((player, index) => [player.id, {
       strengths: index % 2 ? ['utility-support'] : ['opening-duels'], opportunities: index > 4 ? ['untraded-entries'] : [],
     }])),
+    activeRating: { experimental: true, calibrated: false, causalBlame: false, eligiblePoolSize: 10, incompletePool: false, outcome: 'DECIDED', warnings: [], limitations: [] },
   } };
 }

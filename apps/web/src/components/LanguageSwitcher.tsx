@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { localeCatalog, type SupportedLanguage } from '../shared/i18n/locale-catalog.js';
-import { prepareLanguage } from '../shared/i18n/client.js';
+import { prepareLanguage, rememberLanguagePreference } from '../shared/i18n/client.js';
 import { Icon } from './Icon.js';
 
 const englishNames = new Intl.DisplayNames(['en'], { type: 'language' });
@@ -76,6 +76,7 @@ export function LanguageSwitcher() {
       await prepareLanguage(code);
       if (!mounted.current) return;
       await i18n.changeLanguage(code);
+      rememberLanguagePreference(code);
       if (mounted.current) closeMenu(!!root.current?.contains(document.activeElement));
     } catch {
       if (mounted.current) setError(true);

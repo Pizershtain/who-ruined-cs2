@@ -3,7 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import type { Request } from 'express';
 import { ApiAcceptedResponse, ApiBody, ApiConflictResponse, ApiConsumes, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiPayloadTooLargeResponse, ApiResponse, ApiTags, ApiUnsupportedMediaTypeResponse, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface.js';
-import { activeParticipationRatingOpenApiSchema } from '@who-ruined/contracts';
+import { activeParticipationRatingOpenApiSchema, participationExplanationOpenApiSchema, replayMetadataOpenApiSchema, replayRoundOpenApiSchema } from '@who-ruined/contracts';
 import { MatchesService } from './matches.service.js';
 import { safeDataPath } from './storage.js';
 import { ApiError } from './safe-exception.filter.js';
@@ -56,6 +56,23 @@ export class MatchesController {
   @Get('matches') list(@Req() request: Request) { const query = assertExactQuery(request, ['cursor']); return this.service.list(query.cursor); }
   @Get('matches/:id') match(@Param('id') id: string, @Req() request: Request) { assertExactQuery(request, []); return this.service.match(assertOpaqueId(id, 'MATCH_NOT_FOUND')); }
   @Get('matches/:id/rounds') rounds(@Param('id') id: string, @Req() request: Request) { assertExactQuery(request, []); return this.service.rounds(assertOpaqueId(id, 'MATCH_NOT_FOUND')); }
+  @Get('matches/:id/replay')
+  @ApiOperation({ summary: 'Versioned metadata and availability for stored 2D match replay' })
+  @ApiOkResponse({ description: 'm4.7-replay-metadata@1', schema: replayMetadataOpenApiSchema as unknown as SchemaObject })
+  replay(@Param('id') id: string, @Req() request: Request) {
+    assertExactQuery(request, []);
+    return this.service.replay(assertOpaqueId(id, 'MATCH_NOT_FOUND'));
+  }
+
+  @Get('matches/:id/replay/rounds/:roundId')
+  @ApiOperation({ summary: 'One stored replay round with sampled player coordinates and factual events' })
+  @ApiOkResponse({ description: 'm4.7-replay-round@1', schema: replayRoundOpenApiSchema as unknown as SchemaObject })
+  @ApiNotFoundResponse({ description: 'Match or replay round not found' })
+  @ApiConflictResponse({ description: 'Replay unavailable or corrupt' })
+  replayRound(@Param('id') id: string, @Param('roundId') roundId: string, @Req() request: Request) {
+    assertExactQuery(request, []);
+    return this.service.replayRound(assertOpaqueId(id, 'MATCH_NOT_FOUND'), assertOpaqueId(roundId, 'REPLAY_ROUND_NOT_FOUND'));
+  }
   @Get('matches/:id/analytics')
   @ApiOperation({ summary: 'Versioned factual M2 analytics without scores or blame labels' })
   analytics(@Param('id') id: string, @Req() request: Request) { assertExactQuery(request, []); return this.service.analytics(assertOpaqueId(id, 'MATCH_NOT_FOUND')); }
@@ -75,6 +92,19 @@ export class MatchesController {
   participationRating(@Param('id') id: string, @Req() request: Request) {
     assertNoPolicySelector(request);
     return this.service.participationRating(assertOpaqueId(id, 'MATCH_NOT_FOUND'));
+  }
+
+  @Get('matches/:id/experimental-participation-explanation')
+  @ApiOperation({ summary: 'Read-only explanation of the active participation rating and verified important moments' })
+  @ApiOkResponse({
+    description: 'm4.6-participation-explanation@1 built from the stored canonical match-result@1',
+    schema: participationExplanationOpenApiSchema as unknown as SchemaObject
+  })
+  @ApiNotFoundResponse({ description: 'Match not found or ENABLE_EXPERIMENTAL_PARTICIPATION_RATING is not enabled' })
+  @ApiConflictResponse({ description: 'REPORT_NOT_READY, REPORT_CORRUPT or REPORT_POLICY_MISMATCH' })
+  participationExplanation(@Param('id') id: string, @Req() request: Request) {
+    assertExactQuery(request, []);
+    return this.service.participationExplanation(assertOpaqueId(id, 'MATCH_NOT_FOUND'));
   }
 
   @Delete('matches/:id')

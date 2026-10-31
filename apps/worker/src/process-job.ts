@@ -7,14 +7,15 @@ import { assertJobLease, advanceJobStage, ACTIVE_JOB_STAGES, prisma } from '@who
 import { canonicalMatchResultSchema, matchArtifactSchema, matchDataSchema, participationSidecarSchema, scoringReportSchema, type MatchArtifact, type ScoringConfig, type ScoringReport } from '@who-ruined/contracts';
 import { computeMatchAnalytics } from '@who-ruined/features';
 import { normalizeSnapshot } from '@who-ruined/match-domain';
-import { NORMALIZER_VERSION, PARSER_LIBRARY_VERSION } from '@who-ruined/parser-adapter';
+import { NORMALIZER_VERSION, PARSER_LIBRARY_VERSION, type ParsedReplaySnapshot } from '@who-ruined/parser-adapter';
 import { SCORING_CONFIGS, scoreMatch, scoringConfigHash, SUCCESSOR_75_25_CONFIG, V1_CONFIG } from '@who-ruined/scoring';
-import { parseInKillableProcess } from './parser-boundary.js';
+import { parseInKillableProcess, parseReplayInKillableProcess } from './parser-boundary.js';
 import { buildParticipationSidecar } from './participation-sidecar.js';
 import { resolveWorkerRuntimeConfig, type WorkerRuntimeConfig } from './runtime-config.js';
 import { assertNoSymlinkComponents, publishImmutableBytes, resolveDataPath } from './storage.js';
 import { buildCanonicalMatchResult } from '@who-ruined/scoring';
 import { publishCanonicalMatchResult, readCanonicalMatchResult, removeOwnedResult } from './match-result-storage.js';
+import { persistReplayArtifacts, REPLAY_SAMPLE_RATE_HZ } from './replay-artifact.js';
 
 const zip = promisify(gzip);
 const unzip = promisify(gunzip);
@@ -174,6 +175,7 @@ export async function processJob(
     if (job.type !== 'PARSE' || !match.rawFilePath) throw new Error('RAW_DEMO_UNAVAILABLE');
     let artifact: MatchArtifact | null = null;
     let preparedSidecar = null;
+    let replaySnapshot: ParsedReplaySnapshot | null = null;
     {
       await reached(jobId, leaseToken, 'PARSING', config, options.hooks);
       const outputRelative = `worker-tmp/${jobId}/${leaseToken}.snapshot.json.gz`;
@@ -189,6 +191,27 @@ export async function processJob(
       await reached(jobId, leaseToken, currentStage, config, options.hooks);
       const validated = matchDataSchema.parse(normalized);
       await assertOwned();
+      if (validated.tickRate !== null && validated.rounds.length > 0) {
+        try {
+          const replayOutputRelative = `worker-tmp/${jobId}/${leaseToken}.replay-snapshot.json.gz`;
+          replaySnapshot = await parseReplayInKillableProcess({
+            dataRoot,
+            rawRelative: match.rawFilePath,
+            outputRelative: replayOutputRelative,
+            replay: {
+              tickRate: validated.tickRate,
+              sampleRateHz: REPLAY_SAMPLE_RATE_HZ,
+              rounds: validated.rounds.map(({ id, ordinal, startTick, freezeEndTick, endTick }) => ({ id, ordinal, startTick, freezeEndTick, endTick }))
+            },
+            config,
+            ...(options.signal ? { signal: options.signal } : {})
+          });
+          await assertOwned();
+        } catch (error) {
+          replaySnapshot = null;
+          console.warn(JSON.stringify({ level: 'warn', event: 'replay_parse_unavailable', code: error instanceof Error ? error.message : 'REPLAY_PARSE_FAILED' }));
+        }
+      }
       preparedSidecar = buildParticipationSidecar(snapshot, validated, safePath(match.rawFilePath));
       await assertOwned();
       currentStage = 'FEATURIZING';
@@ -210,6 +233,14 @@ export async function processJob(
     });
     const published = await publishCanonicalMatchResult(dataRoot, canonical, assertOwned);
     await options.hooks?.afterStage?.('RESULT_PUBLISHED');
+    if (replaySnapshot) {
+      try {
+        const replayIndex = await persistReplayArtifacts({ dataRoot, match: validated, snapshot: replaySnapshot, config, assertOwned });
+        console.info(JSON.stringify({ level: 'info', event: 'replay_published', matchId, rounds: replayIndex.rounds.length, frames: replayIndex.totalFrames, compressedBytes: replayIndex.totalCompressedBytes }));
+      } catch (error) {
+        console.warn(JSON.stringify({ level: 'warn', event: 'replay_publish_unavailable', code: error instanceof Error ? error.message : 'REPLAY_PUBLISH_FAILED' }));
+      }
+    }
     const selectedPolicy = canonical.internal;
     await completeOwned({
       jobId, matchId, leaseToken, terminal,
