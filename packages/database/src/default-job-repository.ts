@@ -9,4 +9,5 @@ export const assertJobLease = repository.assertLease;
 export const advanceJobStage = repository.advanceStage;
 export const releaseJobLeaseForRetry = repository.releaseLeaseForRetry;
 export const completeOwnedJob = repository.completeOwnedJob;
+export const persistOwnedReport = repository.persistOwnedReport;
 export const failOwnedJob = repository.failOwnedJob;

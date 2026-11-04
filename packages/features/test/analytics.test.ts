@@ -53,6 +53,61 @@ describe('M2 factual analytics', () => {
     expect(analytics.players.find((player) => player.playerId === b2)?.tradeKills).toBe(1);
   });
 
+  it('does not link a one-second revenge kill across round boundaries', () => {
+    const match = syntheticValidMatch();
+    const a1 = match.teams[0]!.playerIds[0]!;
+    const b1 = match.teams[1]!.playerIds[0]!;
+    const b2 = match.teams[1]!.playerIds[1]!;
+    const original = event(0, 'PLAYER_DEATH', 1_800, a1, b1, { friendlyFire: false, suicide: false });
+    const nextRound = event(1, 'PLAYER_DEATH', 1_864, b2, a1, { friendlyFire: false, suicide: false });
+    nextRound.roundId = 'round_2';
+    match.events = [original, nextRound];
+
+    const analytics = computeMatchAnalytics(match, '2026-10-16T00:00:00.000Z');
+    expect(analytics.players.find((player) => player.playerId === b1)).toMatchObject({
+      deathsTraded: 0,
+      kastRounds: 12,
+    });
+    expect(analytics.players.find((player) => player.playerId === b2)?.tradeKills).toBe(0);
+  });
+
+  it('assigns one death to only the first of two possible revenge kills', () => {
+    const match = syntheticValidMatch();
+    const a1 = match.teams[0]!.playerIds[0]!;
+    const [b1, b2, b3] = match.teams[1]!.playerIds;
+    match.events = [
+      event(0, 'PLAYER_DEATH', 1_200, a1, b1!, { friendlyFire: false, suicide: false }),
+      event(1, 'PLAYER_DEATH', 1_250, b2!, a1, { friendlyFire: false, suicide: false }),
+      event(2, 'PLAYER_DEATH', 1_260, b3!, a1, { friendlyFire: false, suicide: false }),
+    ];
+
+    const analytics = computeMatchAnalytics(match, '2026-10-16T00:00:00.000Z');
+    expect(analytics.players.find((player) => player.playerId === b1)?.deathsTraded).toBe(1);
+    expect(analytics.players.reduce((sum, player) => sum + (player.tradeKills ?? 0), 0)).toBe(1);
+    expect(analytics.players.find((player) => player.playerId === b2)?.tradeKills).toBe(1);
+    expect(analytics.players.find((player) => player.playerId === b3)?.tradeKills).toBe(0);
+  });
+
+  it('does not classify an unknown player team as enemy or friendly', () => {
+    const match = syntheticValidMatch();
+    const actorId = match.teams[0]!.playerIds[0]!;
+    match.events = [
+      event(0, 'PLAYER_DEATH', 1_200, actorId, 'unknown-player', { friendlyFire: false, suicide: false }),
+      event(1, 'PLAYER_HURT', 1_210, actorId, 'unknown-player', { rawHealthDamage: 25, healthAfter: 75, weapon: 'hegrenade' }),
+      event(2, 'PLAYER_BLIND', 1_220, actorId, 'unknown-player', { blindDuration: 2 }),
+    ];
+
+    const player = computeMatchAnalytics(match, '2026-10-16T00:00:00.000Z')
+      .players.find((candidate) => candidate.playerId === actorId)!;
+    expect(player).toMatchObject({ kills: 0, enemyDamage: 0, teamDamage: 0, tradeKills: 0 });
+    expect(player.grenades).toMatchObject({
+      enemiesFlashed: 0,
+      teammatesFlashed: 0,
+      heEnemyDamage: 0,
+      heTeamDamage: 0,
+    });
+  });
+
   it('keeps unsupported parser fields unavailable instead of inventing zeroes', () => {
     const match = syntheticValidMatch();
     const analytics = computeMatchAnalytics(match, '2026-10-16T00:00:00.000Z');

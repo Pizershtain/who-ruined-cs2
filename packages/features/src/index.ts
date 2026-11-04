@@ -5,6 +5,18 @@ export const TRADE_WINDOW_SECONDS = 5 as const;
 
 type Fact = PlayerAnalytics['facts'][number];
 type MutableMetrics = Omit<PlayerAnalytics, 'facts'> & { facts: Fact[] };
+type TeamRelation = 'ENEMY' | 'FRIENDLY' | 'UNKNOWN';
+
+function teamRelation(
+  teamByPlayer: ReadonlyMap<string, string>,
+  actorId: string,
+  targetId: string,
+): TeamRelation {
+  const actorTeam = teamByPlayer.get(actorId);
+  const targetTeam = teamByPlayer.get(targetId);
+  if (actorTeam === undefined || targetTeam === undefined) return 'UNKNOWN';
+  return actorTeam === targetTeam ? 'FRIENDLY' : 'ENEMY';
+}
 
 function numberAttr(event: MatchEvent, key: string): number | null {
   const value = event.attrs[key];
@@ -61,13 +73,24 @@ export function computeMatchAnalytics(match: MatchData, generatedAt = new Date()
     facts: []
   }]));
 
-  const enemyDeath = (event: MatchEvent): boolean => event.actorId !== null && event.targetId !== null && event.actorId !== event.targetId && teamByPlayer.get(event.actorId) !== teamByPlayer.get(event.targetId);
+  const enemyDeath = (event: MatchEvent): boolean => event.actorId !== null
+    && event.targetId !== null
+    && event.actorId !== event.targetId
+    && teamRelation(teamByPlayer, event.actorId, event.targetId) === 'ENEMY';
   const usedTradeKills = new Set<string>();
   const tradedDeaths = new Set<string>();
   const tickRate = match.tickRate;
   if (tickRate !== null) {
     for (const original of deaths.filter(enemyDeath)) {
-      const revenge = deaths.find((candidate) => !usedTradeKills.has(candidate.id) && enemyDeath(candidate) && (candidate.tick > original.tick || candidate.tick === original.tick && candidate.source.rowIndex > original.source.rowIndex) && (candidate.tick - original.tick) / tickRate <= TRADE_WINDOW_SECONDS && candidate.actorId !== null && candidate.targetId === original.actorId && original.targetId !== null && teamByPlayer.get(candidate.actorId) === teamByPlayer.get(original.targetId));
+      const revenge = deaths.find((candidate) => candidate.roundId === original.roundId
+        && !usedTradeKills.has(candidate.id)
+        && enemyDeath(candidate)
+        && (candidate.tick > original.tick || candidate.tick === original.tick && candidate.source.rowIndex > original.source.rowIndex)
+        && (candidate.tick - original.tick) / tickRate <= TRADE_WINDOW_SECONDS
+        && candidate.actorId !== null
+        && candidate.targetId === original.actorId
+        && original.targetId !== null
+        && teamRelation(teamByPlayer, candidate.actorId, original.targetId) === 'FRIENDLY');
       if (!revenge) continue;
       usedTradeKills.add(revenge.id); tradedDeaths.add(original.id);
     }
@@ -139,16 +162,16 @@ export function computeMatchAnalytics(match: MatchData, generatedAt = new Date()
     const after = numberAttr(event, 'healthAfter'); hpByRoundPlayer.set(hpKey, after === null ? previousHp - actual : Math.max(0, after));
     if (!event.actorId || event.actorId === event.targetId) continue;
     const current = metrics.get(event.actorId); if (!current) continue;
-    const friendly = teamByPlayer.get(event.actorId) === teamByPlayer.get(event.targetId);
-    if (friendly) { current.teamDamage = current.teamDamage === null ? null : current.teamDamage + actual; addFact(current, 'ERROR', 'TEAM_DAMAGE', event, actual); }
-    else { current.enemyDamage = current.enemyDamage === null ? null : current.enemyDamage + actual; }
+    const relation = teamRelation(teamByPlayer, event.actorId, event.targetId);
+    if (relation === 'FRIENDLY') { current.teamDamage = current.teamDamage === null ? null : current.teamDamage + actual; addFact(current, 'ERROR', 'TEAM_DAMAGE', event, actual); }
+    if (relation === 'ENEMY') { current.enemyDamage = current.enemyDamage === null ? null : current.enemyDamage + actual; }
     if (weapon(event) === 'hegrenade') {
-      if (friendly) current.grenades.heTeamDamage = current.grenades.heTeamDamage === null ? null : current.grenades.heTeamDamage + actual;
-      else current.grenades.heEnemyDamage = current.grenades.heEnemyDamage === null ? null : current.grenades.heEnemyDamage + actual;
+      if (relation === 'FRIENDLY') current.grenades.heTeamDamage = current.grenades.heTeamDamage === null ? null : current.grenades.heTeamDamage + actual;
+      if (relation === 'ENEMY') current.grenades.heEnemyDamage = current.grenades.heEnemyDamage === null ? null : current.grenades.heEnemyDamage + actual;
     }
     if (weapon(event) === 'inferno') {
-      if (friendly) current.grenades.infernoTeamDamage = current.grenades.infernoTeamDamage === null ? null : current.grenades.infernoTeamDamage + actual;
-      else current.grenades.infernoEnemyDamage = current.grenades.infernoEnemyDamage === null ? null : current.grenades.infernoEnemyDamage + actual;
+      if (relation === 'FRIENDLY') current.grenades.infernoTeamDamage = current.grenades.infernoTeamDamage === null ? null : current.grenades.infernoTeamDamage + actual;
+      if (relation === 'ENEMY') current.grenades.infernoEnemyDamage = current.grenades.infernoEnemyDamage === null ? null : current.grenades.infernoEnemyDamage + actual;
     }
   }
 
@@ -167,12 +190,12 @@ export function computeMatchAnalytics(match: MatchData, generatedAt = new Date()
     if (!event.actorId || !event.targetId || event.actorId === event.targetId) continue;
     const current = metrics.get(event.actorId); if (!current) continue;
     const duration = numberAttr(event, 'blindDuration');
-    const friendly = teamByPlayer.get(event.actorId) === teamByPlayer.get(event.targetId);
-    if (friendly) {
+    const relation = teamRelation(teamByPlayer, event.actorId, event.targetId);
+    if (relation === 'FRIENDLY') {
       current.grenades.teammatesFlashed = nullableIncrement(current.grenades.teammatesFlashed);
       if (duration !== null && current.grenades.teamBlindSeconds !== null) current.grenades.teamBlindSeconds += duration;
       addFact(current, 'ERROR', 'TEAM_FLASH', event, duration);
-    } else {
+    } else if (relation === 'ENEMY') {
       current.grenades.enemiesFlashed = nullableIncrement(current.grenades.enemiesFlashed);
       if (duration !== null && current.grenades.enemyBlindSeconds !== null) current.grenades.enemyBlindSeconds += duration;
     }

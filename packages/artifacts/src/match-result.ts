@@ -1,10 +1,28 @@
 import {
   canonicalMatchResultSchema,
+  assertMatchRelations,
+  matchArtifactSchema,
   type CanonicalMatchResult,
+  type MatchArtifact,
 } from '@who-ruined/contracts';
 import { ArtifactError } from './errors.js';
 import { gzipJson, type FileArtifactStore } from './store.js';
 import { sha256Bytes } from './canonical.js';
+
+function assertArtifactRelations(artifact: MatchArtifact): void {
+  try {
+    assertMatchRelations(artifact.match);
+  } catch (error) {
+    throw new ArtifactError('INTEGRITY_MISMATCH', { cause: error });
+  }
+}
+
+export function parseMatchArtifact(value: unknown): MatchArtifact {
+  const parsed = matchArtifactSchema.safeParse(value);
+  if (!parsed.success) throw new ArtifactError('SCHEMA_MISMATCH');
+  assertArtifactRelations(parsed.data);
+  return parsed.data;
+}
 
 export interface MatchResultBinding {
   matchId: string;
@@ -21,6 +39,7 @@ export async function encodeCanonicalMatchResult(
 ): Promise<{ bytes: Buffer; sha256: string }> {
   const parsed = canonicalMatchResultSchema.safeParse(value);
   if (!parsed.success) throw new ArtifactError('SCHEMA_MISMATCH');
+  assertArtifactRelations(parsed.data.artifact);
   const bytes = await gzipJson(parsed.data);
   return { bytes, sha256: sha256Bytes(bytes) };
 }
@@ -32,6 +51,7 @@ export function parseCanonicalMatchResult(
   const parsed = canonicalMatchResultSchema.safeParse(value);
   if (!parsed.success) throw new ArtifactError('SCHEMA_MISMATCH');
   const result = parsed.data;
+  assertArtifactRelations(result.artifact);
   if (binding) assertCanonicalMatchResultBinding(result, binding);
   return result;
 }

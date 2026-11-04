@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import type { PrismaClient } from '../generated/client/index.js';
 import { ACTIVE_JOB_STAGES } from './job-status.js';
+import { runSerializedJobWrite } from './serialized-job-write.js';
 
 export interface JobLeasePolicy {
   leaseMs: number;
@@ -23,13 +24,36 @@ export interface CompleteOwnedJobInput {
   matchData: Record<string, unknown>;
 }
 
+export interface PersistOwnedReportInput {
+  jobId: string;
+  matchId: string;
+  leaseToken: string;
+  reportId: string;
+  scoringVersion: string;
+  configHash: string;
+  jsonFilePath: string;
+  quality: string;
+}
+
+export interface JobRepositoryHooks {
+  /** Programmatic integration-test seams; production callers use the defaults. */
+  now?: () => Date;
+  afterReportOwnershipCheck?: () => void | Promise<void>;
+  afterReportUpsert?: () => void | Promise<void>;
+}
+
 type DatabaseClient = PrismaClient;
 
 function activeStageFor(type: string): string {
   return type === 'RESCORE' ? 'SCORING' : 'PARSING';
 }
 
-export function createJobRepository(client: DatabaseClient) {
+export function createJobRepository(
+  client: DatabaseClient,
+  hooks: JobRepositoryHooks = {},
+) {
+  const currentTime = (): Date => hooks.now?.() ?? new Date();
+
   async function recoverExpiredJobs(policy: JobLeasePolicy, now = new Date()): Promise<{ requeued: number; failed: number }> {
     const expired = await client.job.findMany({
       where: { status: { in: [...ACTIVE_JOB_STAGES] }, leaseUntil: { lt: now } },
@@ -207,6 +231,51 @@ export function createJobRepository(client: DatabaseClient) {
     });
   }
 
+  async function persistOwnedReport(options: PersistOwnedReportInput): Promise<void> {
+    await runSerializedJobWrite(client, async (transaction) => {
+      const ownership = () => ({
+        id: options.jobId,
+        matchId: options.matchId,
+        leaseToken: options.leaseToken,
+        status: { in: [...ACTIVE_JOB_STAGES] },
+        leaseUntil: { gte: currentTime() },
+      });
+      const assertOwnership = async (): Promise<void> => {
+        if (await transaction.job.count({ where: ownership() }) !== 1) {
+          throw new Error('STALE_JOB_OWNER');
+        }
+      };
+
+      await assertOwnership();
+      await hooks.afterReportOwnershipCheck?.();
+      await transaction.report.upsert({
+        where: {
+          matchId_scoringVersion_configHash: {
+            matchId: options.matchId,
+            scoringVersion: options.scoringVersion,
+            configHash: options.configHash,
+          },
+        },
+        create: {
+          id: options.reportId,
+          matchId: options.matchId,
+          scoringVersion: options.scoringVersion,
+          configHash: options.configHash,
+          jsonFilePath: options.jsonFilePath,
+          quality: options.quality,
+        },
+        update: {
+          jsonFilePath: options.jsonFilePath,
+          quality: options.quality,
+        },
+      });
+      await hooks.afterReportUpsert?.();
+      // Recheck expiry as close to commit as possible. The write reservation
+      // prevents another owner from changing this Job during the transaction.
+      await assertOwnership();
+    });
+  }
+
   async function failOwnedJob(
     jobId: string,
     leaseToken: string,
@@ -261,6 +330,7 @@ export function createJobRepository(client: DatabaseClient) {
     advanceStage,
     releaseLeaseForRetry,
     completeOwnedJob,
+    persistOwnedReport,
     failOwnedJob,
   };
 }

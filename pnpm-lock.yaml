@@ -90,6 +90,12 @@ importers:
       '@nestjs/cli':
         specifier: 11.0.10
         version: 11.0.10(@swc/core@1.16.18)(@types/node@22.18.8)(esbuild@0.25.12)(postcss@8.5.6)
+      '@who-ruined/features':
+        specifier: workspace:*
+        version: link:../../packages/features
+      '@who-ruined/testkit':
+        specifier: workspace:*
+        version: link:../../packages/testkit
       '@types/express':
         specifier: 5.0.3
         version: 5.0.3

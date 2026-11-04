@@ -108,7 +108,9 @@ export async function runRescorePipeline(options: {
   );
   await persistScoringReport({
     dataRoot: options.dataRoot,
+    jobId: options.jobId,
     matchId: options.matchId,
+    leaseToken: options.leaseToken,
     report,
     assertOwned: options.assertOwned,
   });

@@ -6,6 +6,12 @@ import type {
   NormalizationTickInput,
 } from './normalization-input.js';
 
+export {
+  assertMatchRelations,
+  MatchRelationError,
+  type MatchRelationIssue,
+} from '@who-ruined/contracts';
+
 export type {
   NormalizationEventInput,
   NormalizationInput,
