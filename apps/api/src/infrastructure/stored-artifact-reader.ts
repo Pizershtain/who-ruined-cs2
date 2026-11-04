@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import {
   type CanonicalMatchResult,
-  matchArtifactSchema,
+  assertMatchRelations,
   matchDataSchema,
   scoringReportSchema,
   type MatchArtifact,
 } from '@who-ruined/contracts';
 import {
   assertCanonicalMatchResultBinding,
+  parseMatchArtifact,
   parseCanonicalMatchResult,
 } from '@who-ruined/artifacts';
 import { H2_PARTICIPATION_RATING_POLICY } from '@who-ruined/scoring';
@@ -30,10 +31,29 @@ export class StoredArtifactReader implements ArtifactReaderPort {
     } catch {
       throw new ApplicationError('INCOMPLETE_MATCH', 'Сохранённый артефакт недоступен или повреждён.', 409);
     }
-    const artifact = matchArtifactSchema.safeParse(decoded);
-    if (artifact.success) return { match: artifact.data.match, analytics: artifact.data.analytics };
+    try {
+      const artifact = parseMatchArtifact(decoded);
+      return { match: artifact.match, analytics: artifact.analytics };
+    } catch {
+      // A legacy matchData@1 fallback remains valid, but corrupt M2 relations do not.
+    }
     const legacy = matchDataSchema.safeParse(decoded);
-    if (legacy.success) return { match: legacy.data, analytics: null };
+    if (legacy.success) {
+      try {
+        assertMatchRelations(legacy.data);
+      } catch {
+        throw new ApplicationError('REPORT_CORRUPT', 'Сохранённый Match содержит противоречивые связи.', 409);
+      }
+      return { match: legacy.data, analytics: null };
+    }
+    if (
+      typeof decoded === 'object'
+      && decoded !== null
+      && 'schemaVersion' in decoded
+      && decoded.schemaVersion === 'm2-artifact-1'
+    ) {
+      throw new ApplicationError('REPORT_CORRUPT', 'Сохранённый M2-артефакт повреждён.', 409);
+    }
     throw new ApplicationError('INCOMPLETE_MATCH', 'Артефакт создан несовместимой версией; требуется повторный разбор исходного демо.', 409);
   }
 

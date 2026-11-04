@@ -25,4 +25,27 @@ describe('artifact-only rescore', () => {
     expect(report.matchId).toBe(match.matchId);
     expect(parser).not.toHaveBeenCalled();
   });
+
+  it('rejects a shape-valid legacy artifact with contradictory Match relations', async () => {
+    const match = syntheticValidMatch();
+    const analytics = computeMatchAnalytics(match, '2026-10-17T00:00:00.000Z');
+    match.events = [{
+      id: 'synthetic-corrupt-event',
+      kind: 'PLAYER_DEATH',
+      roundId: 'unknown-round',
+      tick: 1_200,
+      actorId: match.players[0]!.id,
+      targetId: match.players[5]!.id,
+      assisterId: null,
+      attrs: {},
+      source: { eventName: 'synthetic-corrupt-event', rowIndex: 0 },
+    }];
+    const artifact = { schemaVersion: 'm2-artifact-1' as const, match, analytics };
+    await mkdir(path.dirname(absolute), { recursive: true });
+    await writeFile(absolute, gzipSync(Buffer.from(JSON.stringify(artifact))));
+
+    await expect(scoreStoredArtifact(relative, SUCCESSOR_75_25_CONFIG))
+      .rejects.toMatchObject({ reason: 'INTEGRITY_MISMATCH' });
+    expect(parser).not.toHaveBeenCalled();
+  });
 });

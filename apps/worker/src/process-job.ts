@@ -131,11 +131,14 @@ export async function processJob(
     const message = error instanceof Error ? error.message : 'UNKNOWN_WORKER_ERROR';
     if (message === 'STALE_JOB_OWNER') return;
     const timeout = message === 'PARSE_TIMEOUT';
+    const corruptStoredReport = job.type === 'RESCORE'
+      && (message === 'REPORT_CORRUPT' || message.startsWith('ARTIFACT_'));
     const validationFailure = currentStage === 'VALIDATING';
     const scoringFailure = currentStage === 'SCORING';
-    const errorCode = timeout ? 'PARSE_TIMEOUT' : validationFailure ? 'VALIDATION_FAILED' : scoringFailure ? 'SCORING_FAILED' : 'PARSE_FAILED';
+    const errorCode = timeout ? 'PARSE_TIMEOUT' : corruptStoredReport ? 'REPORT_CORRUPT' : validationFailure ? 'VALIDATION_FAILED' : scoringFailure ? 'SCORING_FAILED' : 'PARSE_FAILED';
     const errorMessage = timeout ? 'Превышено время разбора демо.' : validationFailure
       ? 'Нормализованные данные не прошли обязательную валидацию.'
+      : corruptStoredReport ? 'Сохранённый результат повреждён и не может быть пересчитан.'
       : scoringFailure ? 'Не удалось детерминированно построить scoring-отчёт.' : 'Парсер не смог безопасно обработать демо.';
     const failed = await failOwnedJob(jobId, leaseToken, errorCode, errorMessage);
     if (failed) {

@@ -1,6 +1,7 @@
 export * from './common.js';
 export * from './api-errors.js';
 export * from './matches.js';
+export * from './match-relations.js';
 export * from './replay.js';
 export * from './analytics.js';
 export * from './participation.js';

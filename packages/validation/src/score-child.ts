@@ -1,10 +1,10 @@
 import { createHash } from 'node:crypto';
 import { createReadStream } from 'node:fs';
 import { computeMatchAnalytics } from '@who-ruined/features';
-import { normalizeSnapshot } from '@who-ruined/match-domain';
+import { assertMatchRelations, normalizeSnapshot } from '@who-ruined/match-domain';
 import { parseDemoSnapshot, toNormalizationInput } from '@who-ruined/parser-adapter';
 import { SCORING_CONFIGS, scoreMatch } from '@who-ruined/scoring';
-import type { MatchArtifact, ScoringReport } from '@who-ruined/contracts';
+import { matchDataSchema, type MatchArtifact, type ScoringReport } from '@who-ruined/contracts';
 
 export interface AnonymousScoreResult {
   demoId: string;
@@ -66,7 +66,8 @@ const demoPath = process.argv[2];
 if (!demoPath) process.exit(2);
 const digest = await sha256(demoPath);
 const snapshot = parseDemoSnapshot(demoPath);
-const match = normalizeSnapshot(toNormalizationInput({ matchId: `scoring_${digest.slice(0, 16)}`, fileSha256: digest, normalizedAt: '2000-01-01T00:00:00.000Z', snapshot }));
+const match = matchDataSchema.parse(normalizeSnapshot(toNormalizationInput({ matchId: `scoring_${digest.slice(0, 16)}`, fileSha256: digest, normalizedAt: '2000-01-01T00:00:00.000Z', snapshot })));
+assertMatchRelations(match);
 const artifact: MatchArtifact = { schemaVersion: 'm2-artifact-1', match, analytics: computeMatchAnalytics(match, '2000-01-01T00:00:00.000Z') };
 const playerAlias = new Map(match.players.map((player, index) => [player.id, `player_${String(index + 1).padStart(2, '0')}`]));
 const teamAlias = new Map(match.teams.map((team, index) => [team.id, `team_${index + 1}`]));

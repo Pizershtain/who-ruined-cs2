@@ -4,23 +4,69 @@ import { ACTIVE_JOB_STAGES, prisma, UNFINISHED_JOB_STATUSES } from '@who-ruined/
 import { assertNoSymlinkComponents, resolveDataPath } from './storage.js';
 import { readCanonicalMatchResult } from './match-result-storage.js';
 
-async function currentLeaseTokens(now = new Date()): Promise<Set<string>> {
+const SNAPSHOT_SUFFIXES = [
+  '.snapshot.json.gz',
+  '.replay-snapshot.json.gz',
+] as const;
+
+function snapshotLeaseToken(fileName: string): string | null {
+  const completeName = fileName.endsWith('.tmp') ? fileName.slice(0, -4) : fileName;
+  for (const suffix of SNAPSHOT_SUFFIXES) {
+    if (!completeName.endsWith(suffix)) continue;
+    const token = completeName.slice(0, -suffix.length);
+    return token.length > 0 ? token : null;
+  }
+  return null;
+}
+
+async function removeEmptyDirectory(directory: string): Promise<boolean> {
+  try {
+    await rmdir(directory);
+    return true;
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+    if (code === 'ENOENT') return true;
+    if (code === 'ENOTEMPTY') return false;
+    throw error;
+  }
+}
+
+type ActiveWorkerLeases = Map<string, string>;
+
+async function currentWorkerLeases(now = new Date()): Promise<ActiveWorkerLeases> {
   const jobs = await prisma.job.findMany({
     where: { status: { in: [...ACTIVE_JOB_STAGES] }, leaseUntil: { gte: now }, leaseToken: { not: null } },
-    select: { leaseToken: true }
+    select: { id: true, leaseToken: true }
   });
-  return new Set(jobs.flatMap((job) => job.leaseToken ? [job.leaseToken] : []));
+  return new Map(jobs.flatMap((job) => job.leaseToken ? [[job.leaseToken, job.id]] : []));
 }
 
 export async function reconcileWorkerTemp(
   dataRoot: string,
-  readActiveTokens: () => Promise<Set<string>> = currentLeaseTokens
+  readActiveLeases: () => Promise<ActiveWorkerLeases> = currentWorkerLeases
 ): Promise<{ removed: number; retained: number }> {
   const root = resolveDataPath(dataRoot, 'worker-tmp');
-  const active = await readActiveTokens();
+  const active = await readActiveLeases();
   let removed = 0;
   let retained = 0;
+
+  async function isProtectedSnapshot(directory: string, fileName: string): Promise<boolean> {
+    const token = snapshotLeaseToken(fileName);
+    if (!token) return false;
+    const jobId = path.basename(directory);
+    if (active.get(token) === jobId) return true;
+
+    // A lease may have been claimed after the initial scan. Refresh before
+    // deletion; lease tokens are never reactivated after they become stale.
+    const refreshed = await readActiveLeases();
+    for (const [activeToken, activeJobId] of refreshed) {
+      active.set(activeToken, activeJobId);
+    }
+    return active.get(token) === jobId;
+  }
+
   async function visit(directory: string): Promise<boolean> {
+    await assertNoSymlinkComponents(dataRoot, directory);
     let entries;
     try { entries = await readdir(directory, { withFileTypes: true }); }
     catch (error) {
@@ -32,14 +78,20 @@ export async function reconcileWorkerTemp(
       const candidate = path.join(directory, entry.name);
       if (entry.isDirectory()) {
         const childEmpty = await visit(candidate);
-        if (childEmpty) await rmdir(candidate); else empty = false;
+        if (childEmpty) {
+          if (!(await removeEmptyDirectory(candidate))) empty = false;
+        } else {
+          empty = false;
+        }
         continue;
       }
-      const token = entry.name.split('.snapshot.json.gz', 1)[0] ?? '';
-      if (!entry.isSymbolicLink() && entry.name.endsWith('.snapshot.json.gz') && active.has(token)) {
+      if (!entry.isSymbolicLink() && await isProtectedSnapshot(directory, entry.name)) {
         retained += 1;
         empty = false;
       } else {
+        if (!entry.isSymbolicLink()) {
+          await assertNoSymlinkComponents(dataRoot, candidate);
+        }
         await rm(candidate, { force: true });
         removed += 1;
       }

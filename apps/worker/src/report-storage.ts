@@ -1,16 +1,16 @@
 import { randomUUID } from 'node:crypto';
 import {
-  matchArtifactSchema,
   scoringReportSchema,
   type MatchArtifact,
   type ScoringConfig,
   type ScoringReport,
 } from '@who-ruined/contracts';
-import { prisma } from '@who-ruined/database';
+import { persistOwnedReport } from '@who-ruined/database';
 import {
   ArtifactError,
   FileArtifactStore,
   gzipJson,
+  parseMatchArtifact,
 } from '@who-ruined/artifacts';
 import {
   SCORING_CONFIGS,
@@ -32,7 +32,7 @@ export async function loadMatchArtifact(
   dataRoot: string,
   relativePath: string,
 ): Promise<MatchArtifact> {
-  return matchArtifactSchema.parse(await store(dataRoot).readGzipJson(relativePath));
+  return parseMatchArtifact(await store(dataRoot).readGzipJson(relativePath));
 }
 
 export async function scoreStoredArtifact(
@@ -56,7 +56,9 @@ export function requestedScoringConfig(
 
 export async function persistScoringReport(options: {
   dataRoot: string;
+  jobId: string;
   matchId: string;
+  leaseToken: string;
   report: ScoringReport;
   assertOwned: () => Promise<void>;
 }): Promise<'CREATED' | 'REUSED'> {
@@ -85,28 +87,15 @@ export async function persistScoringReport(options: {
     ).publication;
   }
 
-  await options.assertOwned();
-  await prisma.report.upsert({
-    where: {
-      matchId_scoringVersion_configHash: {
-        matchId: options.matchId,
-        scoringVersion: options.report.scorerVersion,
-        configHash: options.report.configHash,
-      },
-    },
-    create: {
-      id: randomUUID(),
-      matchId: options.matchId,
-      scoringVersion: options.report.scorerVersion,
-      configHash: options.report.configHash,
-      jsonFilePath: relativePath,
-      quality: options.report.quality,
-    },
-    update: {
-      jsonFilePath: relativePath,
-      quality: options.report.quality,
-    },
+  await persistOwnedReport({
+    jobId: options.jobId,
+    matchId: options.matchId,
+    leaseToken: options.leaseToken,
+    reportId: randomUUID(),
+    scoringVersion: options.report.scorerVersion,
+    configHash: options.report.configHash,
+    jsonFilePath: relativePath,
+    quality: options.report.quality,
   });
-  await options.assertOwned();
   return publication;
 }

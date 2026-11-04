@@ -378,6 +378,24 @@ describe('P7.2-F participation rating API', () => {
     await expect(createTestApiFacade().participationRating(data.match.matchId)).rejects.toMatchObject({ code: 'REPORT_CORRUPT', status: 409 });
   });
 
+  it('maps shape-valid canonical Match relationship corruption to REPORT_CORRUPT', async () => {
+    const data = fixture();
+    const canonicalResult = buildCanonicalMatchResult({ artifact: data.artifact, sidecar: data.sidecar, productionReports: [], sourceDemoRetained: false, createdAt: '2026-10-26T00:00:00.000Z' });
+    canonicalResult.artifact.match.players[0]!.teamId = 'unknown-team';
+    const compressed = gzipSync(Buffer.from(JSON.stringify(canonicalResult)));
+    findUnique.mockResolvedValue({
+      id: data.match.matchId, deletionState: null, normalizedFilePath: null, rawFilePath: null,
+      resultFilePath: 'results/synthetic/corrupt-relations.json.gz',
+      resultSha256: createHash('sha256').update(compressed).digest('hex'),
+      resultPolicyId: H2_PARTICIPATION_RATING_POLICY.id,
+      resultPolicyDigest: H2_PARTICIPATION_RATING_POLICY.digest
+    });
+    readFile.mockResolvedValue(compressed);
+
+    await expect(createTestApiFacade().participationRating(data.match.matchId))
+      .rejects.toMatchObject({ code: 'REPORT_CORRUPT', status: 409 });
+  });
+
   it('fails closed when a valid canonical file is pointed at by another match row', async () => {
     const data = fixture();
     const canonicalResult = buildCanonicalMatchResult({ artifact: data.artifact, sidecar: data.sidecar, productionReports: [], sourceDemoRetained: false, createdAt: '2026-10-26T00:00:00.000Z' });

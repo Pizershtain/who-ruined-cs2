@@ -79,6 +79,11 @@ function boolAttr(event: MatchEvent, key: string): boolean | null { const value 
 function round6(value: number): number { if (!Number.isFinite(value)) throw new Error('Non-finite scoring value'); return Math.round(value * 1_000_000) / 1_000_000; }
 function eventOrder(a: MatchEvent, b: MatchEvent): number { return a.tick - b.tick || a.source.rowIndex - b.source.rowIndex || a.id.localeCompare(b.id); }
 function isLive(event: MatchEvent): boolean { return event.context?.phase === 'LIVE' && event.kind !== 'PLAYER_DEATH_NONLIVE'; }
+function teamRelation(playerTeam: ReadonlyMap<string, string>, leftId: string, rightId: string): 'ENEMY'|'FRIENDLY'|'UNKNOWN' {
+  const leftTeam = playerTeam.get(leftId); const rightTeam = playerTeam.get(rightId);
+  if (leftTeam === undefined || rightTeam === undefined) return 'UNKNOWN';
+  return leftTeam === rightTeam ? 'FRIENDLY' : 'ENEMY';
+}
 function contextOf(event: MatchEvent): ScoringEpisode['context'] {
   return { phase: event.context?.phase ?? null, side: event.context?.actorSide ?? null, weapon: stringAttr(event, 'weapon'), bombState: event.context?.bombState ?? null, secondsFromFreezeEnd: event.context?.secondsFromFreezeEnd ?? null, equipmentValue: event.context?.actorEquipmentValue ?? null, aliveByTeamId: event.context?.aliveByTeamId ?? null };
 }
@@ -100,9 +105,9 @@ function teamOutcome(artifact: MatchArtifact): { winningTeamId: string | null; l
 function tradeSets(deaths: MatchEvent[], playerTeam: ReadonlyMap<string,string>, tickRate: number | null): { tradeKills: Set<string>; tradedDeaths: Set<string> } {
   const tradeKills = new Set<string>(); const tradedDeaths = new Set<string>();
   if (tickRate === null) return { tradeKills, tradedDeaths };
-  const enemy = (event: MatchEvent): boolean => event.actorId !== null && event.targetId !== null && event.actorId !== event.targetId && playerTeam.get(event.actorId) !== playerTeam.get(event.targetId);
+  const enemy = (event: MatchEvent): boolean => event.actorId !== null && event.targetId !== null && event.actorId !== event.targetId && teamRelation(playerTeam, event.actorId, event.targetId) === 'ENEMY';
   for (const original of deaths.filter(enemy)) {
-    const revenge = deaths.find((candidate) => candidate.roundId === original.roundId && !tradeKills.has(candidate.id) && enemy(candidate) && (candidate.tick > original.tick || candidate.tick === original.tick && candidate.source.rowIndex > original.source.rowIndex) && (candidate.tick - original.tick) / tickRate <= 5 && candidate.actorId !== null && candidate.targetId === original.actorId && original.targetId !== null && playerTeam.get(candidate.actorId) === playerTeam.get(original.targetId));
+    const revenge = deaths.find((candidate) => candidate.roundId === original.roundId && !tradeKills.has(candidate.id) && enemy(candidate) && (candidate.tick > original.tick || candidate.tick === original.tick && candidate.source.rowIndex > original.source.rowIndex) && (candidate.tick - original.tick) / tickRate <= 5 && candidate.actorId !== null && candidate.targetId === original.actorId && original.targetId !== null && teamRelation(playerTeam, candidate.actorId, original.targetId) === 'FRIENDLY');
     if (revenge) { tradeKills.add(revenge.id); tradedDeaths.add(original.id); }
   }
   return { tradeKills, tradedDeaths };
@@ -163,7 +168,7 @@ function buildEpisodes(artifact: MatchArtifact, findings: ScoringFinding[], conf
   const { match } = artifact; const eventById = new Map(match.events.map((event) => [event.id, event])); const teamByPlayer = new Map(match.players.map((player) => [player.id, player.teamId]));
   const live = match.events.filter(isLive).sort(eventOrder); const episodes: EpisodeCore[] = []; const representedFindingIds = new Set<string>();
   const killsByRoundPlayer = new Map<string, MatchEvent[]>();
-  for (const event of live.filter((item) => item.kind === 'PLAYER_DEATH' && item.actorId && item.targetId && item.actorId !== item.targetId && teamByPlayer.get(item.actorId) !== teamByPlayer.get(item.targetId))) {
+  for (const event of live.filter((item) => item.kind === 'PLAYER_DEATH' && item.actorId && item.targetId && item.actorId !== item.targetId && teamRelation(teamByPlayer, item.actorId, item.targetId) === 'ENEMY')) {
     const key = `${event.roundId}:${event.actorId}`; killsByRoundPlayer.set(key, [...(killsByRoundPlayer.get(key) ?? []), event]);
   }
   for (const rows of killsByRoundPlayer.values()) {
@@ -199,8 +204,8 @@ function buildEpisodes(artifact: MatchArtifact, findings: ScoringFinding[], conf
     const suicideFinding = finding(config, 'LIVE_SUICIDE', 'NEGATIVE', death.actorId!, death, 1, 1, config.weights.liveSuicide, 'DIRECT'); findings.push(suicideFinding);
     episodes.push({ id: `episode:${death.roundId}:${death.actorId}:${death.tick}:suicide`, kind: 'ANTI_HIGHLIGHT', type: 'LIVE_SUICIDE_EPISODE', playerId: death.actorId!, roundId: death.roundId, startTick: death.tick, endTick: death.tick, evidenceEventIds: [death.id], observedFacts: ['liveSuicide=true'], significance: suicideFinding.weightedValue, confidence: 1, evidenceStrength: 'DIRECT', explanationKey: 'episode.live_suicide', supportingFindingCodes: ['LIVE_SUICIDE'], context: contextOf(death), research: null });
   }
-  if (match.tickRate !== null) for (const hurt of live.filter((event) => event.kind === 'PLAYER_HURT' && event.actorId && event.targetId && event.actorId !== event.targetId && teamByPlayer.get(event.actorId) === teamByPlayer.get(event.targetId) && isFirearm(event))) {
-    const enemyHurt = live.find((candidate) => candidate.kind === 'PLAYER_HURT' && candidate.roundId === hurt.roundId && candidate.actorId === hurt.actorId && candidate.targetId && teamByPlayer.get(candidate.targetId) !== teamByPlayer.get(hurt.actorId!) && isFirearm(candidate) && (candidate.tick > hurt.tick || candidate.tick === hurt.tick && candidate.source.rowIndex > hurt.source.rowIndex));
+  if (match.tickRate !== null) for (const hurt of live.filter((event) => event.kind === 'PLAYER_HURT' && event.actorId && event.targetId && event.actorId !== event.targetId && teamRelation(teamByPlayer, event.actorId, event.targetId) === 'FRIENDLY' && isFirearm(event))) {
+    const enemyHurt = live.find((candidate) => candidate.kind === 'PLAYER_HURT' && candidate.roundId === hurt.roundId && candidate.actorId === hurt.actorId && candidate.targetId && teamRelation(teamByPlayer, hurt.actorId!, candidate.targetId) === 'ENEMY' && isFirearm(candidate) && (candidate.tick > hurt.tick || candidate.tick === hurt.tick && candidate.source.rowIndex > hurt.source.rowIndex));
     if (!enemyHurt) continue; const interval = (enemyHurt.tick - hurt.tick) / match.tickRate; const classification = interval <= 0.5 ? 'STRONG' : interval <= 1 ? 'MODERATE' : 'NOT_TRIGGERED';
     episodes.push({ id: `research:${hurt.roundId}:${hurt.actorId}:${hurt.tick}:${hurt.source.rowIndex}`, kind: 'RESEARCH', type: 'FRIENDLY_FIRE_COMBAT_CONTEXT', playerId: hurt.actorId!, roundId: hurt.roundId, startTick: hurt.tick, endTick: enemyHurt.tick, evidenceEventIds: [hurt.id, enemyHurt.id], observedFacts: [`friendlyFirearmDamageThenEnemyFirearmDamage=${round6(interval)}s`], significance: null, confidence: 0, evidenceStrength: 'RESEARCH_HYPOTHESIS', explanationKey: 'research.ff_combat_context', supportingFindingCodes: [], context: contextOf(hurt), research: { classification, intervalSeconds: round6(interval), alternatives: ['crossfire','target transition','accidental input','unknown positioning and visibility'] } });
   }

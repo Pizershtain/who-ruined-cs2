@@ -6,7 +6,7 @@ import {
   type ParticipationSidecar,
 } from '@who-ruined/contracts';
 import { computeMatchAnalytics } from '@who-ruined/features';
-import { normalizeSnapshot } from '@who-ruined/match-domain';
+import { assertMatchRelations, normalizeSnapshot } from '@who-ruined/match-domain';
 import {
   toNormalizationInput,
   type ParsedReplaySnapshot,
@@ -77,6 +77,7 @@ export async function runParsePipeline(options: {
 
   await reach('VALIDATING');
   const validated = matchDataSchema.parse(normalized);
+  assertMatchRelations(validated);
   await options.assertOwned();
 
   let replaySnapshot: ParsedReplaySnapshot | null = null;

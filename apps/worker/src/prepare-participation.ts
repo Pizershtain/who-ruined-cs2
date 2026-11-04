@@ -4,7 +4,7 @@ import { access } from 'node:fs/promises';
 import path from 'node:path';
 import { matchDataSchema } from '@who-ruined/contracts';
 import { prisma } from '@who-ruined/database';
-import { normalizeSnapshot } from '@who-ruined/match-domain';
+import { assertMatchRelations, normalizeSnapshot } from '@who-ruined/match-domain';
 import { toNormalizationInput } from '@who-ruined/parser-adapter';
 import { parseInKillableProcess } from './parser-boundary.js';
 import {
@@ -59,6 +59,7 @@ for (const match of matches) {
       fileSha256: match.fileSha256,
       snapshot: parsed.snapshot,
     })));
+    assertMatchRelations(normalized);
     const relative = await persistParticipationSidecar(
       dataRoot,
       buildParticipationSidecar(parsed.snapshot, normalized, parsed.participation),

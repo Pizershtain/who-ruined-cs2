@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import {
-  Prisma,
+  DatabaseConcurrentWriteError,
   prisma,
+  runSerializedJobWrite,
   UNFINISHED_JOB_STATUSES,
+  type Prisma,
   type PrismaClient,
 } from '@who-ruined/database';
 import type {
@@ -18,37 +20,11 @@ import type {
   UploadRegistration,
 } from '../application/ports.js';
 
-const MAX_WRITE_TRANSACTION_ATTEMPTS = 3;
-const WRITE_TRANSACTION_OPTIONS = {
-  isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
-  maxWait: 5_000,
-  timeout: 5_000,
-} as const;
-
 type AtomicOperation = 'UPLOAD' | 'RESCORE' | 'DELETE';
 type TransactionCheckpoint =
   | 'BEFORE_WRITE_LOCK'
   | 'AFTER_WRITE_LOCK'
   | 'AFTER_UPLOAD_MATCH_CREATED';
-
-class ConcurrentWriteError extends Error {
-  constructor(cause: unknown) {
-    super('DATABASE_CONCURRENT_WRITE', { cause });
-    this.name = 'ConcurrentWriteError';
-  }
-}
-
-function databaseErrorCode(error: unknown): string | null {
-  if (!error || typeof error !== 'object' || !('code' in error)) return null;
-  return typeof error.code === 'string' ? error.code : null;
-}
-
-function isRetryableWriteConflict(error: unknown): boolean {
-  const code = databaseErrorCode(error);
-  if (code === 'P1008' || code === 'P2034') return true;
-  if (!(error instanceof Error)) return false;
-  return /SQLITE_BUSY|database is locked/i.test(error.message);
-}
 
 @Injectable()
 export class PrismaApiRepository implements MatchQueryPort, MatchCommandPort {
@@ -69,25 +45,10 @@ export class PrismaApiRepository implements MatchQueryPort, MatchCommandPort {
     operation: AtomicOperation,
     action: (transaction: Prisma.TransactionClient) => Promise<T>,
   ): Promise<T> {
-    let lastConflict: unknown;
-    for (let attempt = 0; attempt < MAX_WRITE_TRANSACTION_ATTEMPTS; attempt += 1) {
-      try {
-        await this.transactionCheckpoint('BEFORE_WRITE_LOCK', operation);
-        return await this.databaseClient().$transaction(async (transaction) => {
-          // SQLite starts a DEFERRED transaction by default. A write as the first
-          // statement acquires the database write reservation before any admission read.
-          await transaction.$executeRawUnsafe(
-            'UPDATE "Job" SET "id" = "id" WHERE 0 = 1',
-          );
-          await this.transactionCheckpoint('AFTER_WRITE_LOCK', operation);
-          return action(transaction);
-        }, WRITE_TRANSACTION_OPTIONS);
-      } catch (error) {
-        if (!isRetryableWriteConflict(error)) throw error;
-        lastConflict = error;
-      }
-    }
-    throw new ConcurrentWriteError(lastConflict);
+    return runSerializedJobWrite(this.databaseClient(), action, {
+      beforeWriteLock: () => this.transactionCheckpoint('BEFORE_WRITE_LOCK', operation),
+      afterWriteLock: () => this.transactionCheckpoint('AFTER_WRITE_LOCK', operation),
+    });
   }
 
   findMatch(id: string): Promise<StoredMatch | null> {
@@ -165,7 +126,7 @@ export class PrismaApiRepository implements MatchQueryPort, MatchCommandPort {
         return { kind: 'ADMITTED' };
       });
     } catch (error) {
-      if (error instanceof ConcurrentWriteError) return { kind: 'CONCURRENT_WRITE' };
+      if (error instanceof DatabaseConcurrentWriteError) return { kind: 'CONCURRENT_WRITE' };
       throw error;
     }
   }
@@ -221,7 +182,7 @@ export class PrismaApiRepository implements MatchQueryPort, MatchCommandPort {
         return { kind: 'ADMITTED', jobId: input.jobId };
       });
     } catch (error) {
-      if (error instanceof ConcurrentWriteError) return { kind: 'CONCURRENT_WRITE' };
+      if (error instanceof DatabaseConcurrentWriteError) return { kind: 'CONCURRENT_WRITE' };
       throw error;
     }
   }
@@ -270,7 +231,7 @@ export class PrismaApiRepository implements MatchQueryPort, MatchCommandPort {
         };
       });
     } catch (error) {
-      if (error instanceof ConcurrentWriteError) return { kind: 'CONCURRENT_WRITE' };
+      if (error instanceof DatabaseConcurrentWriteError) return { kind: 'CONCURRENT_WRITE' };
       throw error;
     }
   }
@@ -284,7 +245,7 @@ export class PrismaApiRepository implements MatchQueryPort, MatchCommandPort {
       });
       return { kind: 'COMPLETED' };
     } catch (error) {
-      if (error instanceof ConcurrentWriteError) return { kind: 'CONCURRENT_WRITE' };
+      if (error instanceof DatabaseConcurrentWriteError) return { kind: 'CONCURRENT_WRITE' };
       throw error;
     }
   }
