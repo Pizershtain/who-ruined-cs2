@@ -84,6 +84,10 @@ Vite proxies same-origin `/api` requests to `API_URL` and removes the developmen
 
 `match-replay` loads replay metadata first and the selected round separately. Playback/interpolation/geometry are UI concerns; event and position facts come from the versioned replay DTO.
 
+Playback starts paused. After an explicit Play action, position interpolation and short aim transitions remain enabled even with `prefers-reduced-motion`: they convey replay movement, rather than decorative animation. Missing samples and large gaps are not interpolated. Hovering a visible player marker shows its nickname; keyboard users can highlight the player through the roster or player selector.
+
+The client requests replay metadata version 2, loads the selected map's real radar image, and offers altitude layers when supplied. Failed image loads have a retry action; no player markers are shown over an absent or invented map. See [map assets, updates and Workshop extension](replay-maps.md) for the catalogue workflow and version limitations.
+
 The component handles:
 
 - unavailable/corrupt replay independently of the match report;

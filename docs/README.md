@@ -12,6 +12,7 @@ This index separates the current system contract from milestone evidence. A docu
 | API | [API reference](api.md) | Routes, versioned DTOs and public error envelope |
 | Storage and jobs | [storage lifecycle](storage-lifecycle.md) | Artifacts, checksums, leases, publication, recovery and retention |
 | Frontend | [frontend architecture](frontend.md) | Feature modules, routes, data ownership, i18n and browser checks |
+| Replay maps | [radar assets](replay-maps.md) | Catalogue updates, rollback, map layers and future Workshop acquisition |
 | Rating and reports | [scoring](scoring.md) | H2 semantics, explanation, important moments and historical compatibility |
 | Constraints | [limitations](limitations.md) | Known data, model, runtime and deployment limits |
 | Parser evidence | [compatibility](compatibility.md) | Verified parser capability mapping and external-demo evidence |

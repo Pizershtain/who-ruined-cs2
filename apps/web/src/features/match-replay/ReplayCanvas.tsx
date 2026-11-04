@@ -1,83 +1,67 @@
-import { useEffect, useRef, useState } from 'react';
-import type { ReplayMetadata, ReplayRoundArtifact } from '@who-ruined/contracts';
-import { replayStatesAtTick, worldToRadar } from './geometry.js';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Skeleton } from '../../shared/ui/Skeleton.js';
+import type { ReplayMetadata, ReplayRadarCalibration, ReplayRadarLayer, ReplayRoundArtifact } from '@who-ruined/contracts';
+import { isOnRadarLayer, replayStatesAtTick, worldToRadar } from './geometry.js';
 
-type Point = readonly [number, number];
-
-function strokeRoute(context: CanvasRenderingContext2D, points: readonly Point[], width: number, color: string): void {
-  context.beginPath();
-  points.forEach(([x, y], index) => index === 0 ? context.moveTo(x, y) : context.lineTo(x, y));
-  context.lineCap = 'round';
-  context.lineJoin = 'round';
-  context.lineWidth = width;
-  context.strokeStyle = color;
-  context.stroke();
-}
-
-function drawTacticalDust2(context: CanvasRenderingContext2D, size: number): void {
-  context.fillStyle = '#100d0b';
-  context.fillRect(0, 0, size, size);
-  context.save();
-  context.scale(size, size);
-  context.strokeStyle = 'rgba(255, 197, 120, .055)';
-  context.lineWidth = 1 / size;
-  for (let value = .1; value < 1; value += .1) {
-    context.beginPath(); context.moveTo(value, 0); context.lineTo(value, 1); context.stroke();
-    context.beginPath(); context.moveTo(0, value); context.lineTo(1, value); context.stroke();
-  }
-  const shadow = '#231d18';
-  const route = '#3a3027';
-  const edge = '#5b4938';
-  const routes: readonly Point[][] = [
-    [[.39,.91],[.40,.79],[.49,.69],[.58,.61],[.66,.50],[.72,.38],[.79,.18]],
-    [[.39,.91],[.34,.79],[.31,.65],[.26,.51],[.22,.36],[.21,.13]],
-    [[.39,.91],[.47,.77],[.48,.62],[.51,.49],[.58,.36],[.62,.21]],
-    [[.21,.13],[.34,.14],[.45,.19],[.56,.25],[.62,.21]],
-    [[.62,.21],[.72,.19],[.80,.16]],
-    [[.51,.49],[.62,.45],[.72,.38]],
-    [[.26,.51],[.38,.47],[.51,.49]]
-  ];
-  for (const points of routes) strokeRoute(context, points, .075, shadow);
-  for (const points of routes) strokeRoute(context, points, .052, route);
-  for (const points of routes) strokeRoute(context, points, .004, edge);
-  const zones = [
-    { x:.80, y:.16, radius:.075, label:'A', fill:'rgba(255, 183, 89, .18)' },
-    { x:.21, y:.13, radius:.075, label:'B', fill:'rgba(255, 183, 89, .18)' },
-    { x:.62, y:.21, radius:.052, label:'CT', fill:'rgba(86, 166, 255, .13)' },
-    { x:.39, y:.91, radius:.052, label:'T', fill:'rgba(255, 166, 74, .13)' }
-  ];
-  context.textAlign = 'center'; context.textBaseline = 'middle'; context.font = '700 .025px Inter, sans-serif';
-  for (const zone of zones) {
-    context.beginPath(); context.arc(zone.x, zone.y, zone.radius, 0, Math.PI * 2); context.fillStyle = zone.fill; context.fill();
-    context.strokeStyle = 'rgba(255,255,255,.16)'; context.lineWidth = .002; context.stroke();
-    context.fillStyle = 'rgba(255,240,220,.72)'; context.fillText(zone.label, zone.x, zone.y);
-  }
-  context.restore();
-}
-
-export function ReplayCanvas({ metadata, round, tick, selectedPlayerId, interpolate, label }: {
+export function ReplayCanvas({ metadata, calibration, layer, round, tick, selectedPlayerId, interpolate, label }: {
   metadata: ReplayMetadata;
+  calibration: ReplayRadarCalibration;
+  layer: ReplayRadarLayer;
   round: ReplayRoundArtifact;
   tick: number;
   selectedPlayerId: string | null;
   interpolate: boolean;
   label: string;
 }) {
+  const { t } = useTranslation('match');
+  const [attempt, setAttempt] = useState(0);
+  const [asset, setAsset] = useState<{ url: string; image: HTMLImageElement | null; failed: boolean } | null>(null);
+  const image = asset?.url === layer.imageUrl ? asset.image : null;
+  const failed = asset?.url === layer.imageUrl && asset.failed;
+  useEffect(() => {
+    let cancelled = false;
+    const bitmap = new Image();
+    setAsset(null);
+    bitmap.onload = () => {
+      if (cancelled) return;
+      const valid = bitmap.naturalWidth === bitmap.naturalHeight && [1024, 2048].includes(bitmap.naturalWidth);
+      setAsset({ url: layer.imageUrl, image: valid ? bitmap : null, failed: !valid });
+    };
+    bitmap.onerror = () => { if (!cancelled) setAsset({ url: layer.imageUrl, image: null, failed: true }); };
+    bitmap.src = layer.imageUrl;
+    return () => { cancelled = true; bitmap.onload = null; bitmap.onerror = null; };
+  }, [attempt, layer.imageUrl]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvasSize, setCanvasSize] = useState(0);
+  const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
+  const points = useMemo(() => replayStatesAtTick(round, tick, interpolate).flatMap(state => {
+    if (state.x === null || state.y === null || !isOnRadarLayer(state.z, layer, calibration.layers.length > 1)) return [];
+    const player = metadata.players[state.playerIndex];
+    if (!player) return [];
+    const point = worldToRadar(calibration, state.x, state.y);
+    if (point.x < -.05 || point.x > 1.05 || point.y < -.05 || point.y > 1.05) return [];
+    return [{ state, player, point }];
+  }), [calibration, interpolate, layer, metadata.players, round, tick]);
+  const hovered = pointer && image ? points.reduce<(typeof points)[number] | null>((nearest, candidate) => {
+    const distance = Math.hypot(candidate.point.x - pointer.x, candidate.point.y - pointer.y);
+    if (distance * (canvasSize || 280) > 16) return nearest;
+    return !nearest || distance < Math.hypot(nearest.point.x - pointer.x, nearest.point.y - pointer.y) ? candidate : nearest;
+  }, null) : null;
+  useEffect(() => { setPointer(null); }, [round, layer.id]);
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const update = () => setCanvasSize(Math.max(280, Math.floor(canvas.getBoundingClientRect().width)));
+    const update = () => setCanvasSize(Math.max(1, Math.floor(canvas.getBoundingClientRect().width)));
     update();
     const observer = new ResizeObserver(update);
     observer.observe(canvas);
     return () => observer.disconnect();
   }, []);
-  useEffect(() => {
+  // Paint fractional playback positions before the browser presents this frame.
+  useLayoutEffect(() => {
     const canvas = canvasRef.current;
-    const calibration = metadata.calibration;
-    if (!canvas || !calibration) return;
+    if (!canvas || !image) return;
     const context = canvas.getContext('2d');
     if (!context) return;
     const draw = () => {
@@ -86,18 +70,16 @@ export function ReplayCanvas({ metadata, round, tick, selectedPlayerId, interpol
       const pixels = Math.floor(cssSize * ratio);
       if (canvas.width !== pixels || canvas.height !== pixels) { canvas.width = pixels; canvas.height = pixels; }
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      drawTacticalDust2(context, cssSize);
-      const states = replayStatesAtTick(round, tick, interpolate);
+      context.fillStyle = '#100d0b';
+      context.fillRect(0, 0, cssSize, cssSize);
+      context.drawImage(image, 0, 0, cssSize, cssSize);
       const teamIndex = new Map(metadata.teams.map((team, index) => [team.id, index]));
-      for (const state of states) {
-        if (state.x === null || state.y === null) continue;
-        const player = metadata.players[state.playerIndex];
-        if (!player) continue;
-        const point = worldToRadar(calibration, state.x, state.y);
-        if (point.x < -.05 || point.x > 1.05 || point.y < -.05 || point.y > 1.05) continue;
+      const theme = getComputedStyle(canvas);
+      const teamColors = [theme.getPropertyValue('--team-a').trim(), theme.getPropertyValue('--team-b').trim()];
+      for (const { state, player, point } of points) {
         const x = point.x * cssSize; const y = point.y * cssSize;
         const selected = player.id === selectedPlayerId;
-        const color = teamIndex.get(player.teamId) === 0 ? '#ffb55e' : '#65aaff';
+        const color = teamColors[teamIndex.get(player.teamId) === 0 ? 0 : 1]!;
         if (state.yaw !== null && state.alive) {
           const angle = -state.yaw * Math.PI / 180;
           context.beginPath(); context.moveTo(x, y); context.lineTo(x + Math.cos(angle) * (selected ? 28 : 21), y + Math.sin(angle) * (selected ? 28 : 21));
@@ -115,14 +97,23 @@ export function ReplayCanvas({ metadata, round, tick, selectedPlayerId, interpol
         }
         if (selected) {
           context.font = '600 12px Inter, sans-serif'; context.textAlign = 'center'; context.textBaseline = 'bottom';
-          const width = context.measureText(player.displayName).width + 12;
-          context.fillStyle = 'rgba(10, 8, 7, .86)'; context.fillRect(x - width / 2, y - 31, width, 18);
-          context.fillStyle = '#fff4e6'; context.fillText(player.displayName, x, y - 16);
+          const width = Math.min(cssSize - 8, context.measureText(player.displayName).width + 12);
+          const labelX = Math.max(width / 2 + 4, Math.min(cssSize - width / 2 - 4, x));
+          const labelY = Math.max(20, y - 16);
+          context.fillStyle = 'rgba(10, 8, 7, .86)'; context.fillRect(labelX - width / 2, labelY - 15, width, 18);
+          context.fillStyle = '#fff4e6'; context.fillText(player.displayName, labelX, labelY, width - 12);
         }
       }
     };
     draw();
-  }, [canvasSize, interpolate, metadata, round, selectedPlayerId, tick]);
-  return <canvas ref={canvasRef} className="replay-canvas" role="img" aria-label={label}/>;
+  }, [canvasSize, image, metadata, points, selectedPlayerId]);
+  return <div className="replay-map-surface" aria-busy={!image && !failed}>
+    <canvas ref={canvasRef} className="replay-canvas" role="img" aria-label={label} style={{ visibility: image ? 'visible' : 'hidden' }} onPointerMove={event => {
+      const bounds = event.currentTarget.getBoundingClientRect();
+      setPointer({ x: (event.clientX - bounds.left) / bounds.width, y: (event.clientY - bounds.top) / bounds.height });
+    }} onPointerLeave={() => setPointer(null)} onPointerCancel={() => setPointer(null)}/>
+    {hovered && <div className="replay-player-tooltip" role="tooltip" style={{ left: `${Math.max(25, Math.min(75, hovered.point.x * 100))}%`, top: `${Math.max(2, Math.min(85, hovered.point.y * 100 + 4))}%` }}><bdi>{hovered.player.displayName}</bdi></div>}
+    {!image && <div className="replay-map-placeholder" role="status">{failed ? <><p>{t('replay-map-load-error', 'Could not load the map image.')}</p><button type="button" className="button secondary" onClick={() => setAttempt(value => value + 1)}>{t('retry', 'Try again')}</button></> : <><Skeleton className="replay-skeleton"/><span>{t('replay-loading', 'Loading 2D reconstruction…')}</span></>}</div>}
+  </div>;
 }
 

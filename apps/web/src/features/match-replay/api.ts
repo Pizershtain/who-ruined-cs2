@@ -2,7 +2,7 @@ import { replayMetadataSchema, replayRoundArtifactSchema, type ReplayMetadata, t
 import { ApiClientError, request } from '../../shared/api/transport.js';
 
 export async function getReplayMetadata(id: string, signal: AbortSignal): Promise<ReplayMetadata> {
-  const result = await request(`/api/v1/matches/${encodeURIComponent(id)}/replay`, { signal }, replayMetadataSchema);
+  const result = await request(`/api/v1/matches/${encodeURIComponent(id)}/replay?version=2`, { signal }, replayMetadataSchema);
   if (result.matchId !== id) throw new ApiClientError('INVALID_RESPONSE');
   return result;
 }

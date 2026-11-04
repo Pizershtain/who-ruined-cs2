@@ -39,7 +39,7 @@ Clients branch on `error.code`, not on the localized/backend diagnostic message.
 | POST | `/matches/:id/rescore` | 202; compatible scoring-report RESCORE job |
 | GET | `/matches/:id/experimental-participation-rating` | `m4.3-participation-rating@1` |
 | GET | `/matches/:id/experimental-participation-explanation` | `m4.6-participation-explanation@1` |
-| GET | `/matches/:id/replay` | `m4.7-replay-metadata@1` |
+| GET | `/matches/:id/replay` | `m4.7-replay-metadata@1`; `?version=2` opts into map images and altitude layers |
 | GET | `/matches/:id/replay/rounds/:roundId` | `m4.7-replay-round@1` |
 
 Exact input validation and HTTP response annotations live with the capability controllers in `apps/api/src/modules`.
@@ -59,6 +59,7 @@ The rating and explanation routes require `ENABLE_EXPERIMENTAL_PARTICIPATION_RAT
 | `m4.7-replay-index@1` | persisted replay index | private artifact |
 | `m4.7-replay-round@1` | persisted round reconstruction | public round read DTO |
 | `m4.7-replay-metadata@1` | replay availability/round metadata | public replay read DTO |
+| `m4.7-replay-metadata@2` | replay metadata with versioned radar images and layers | opt-in public replay read DTO; see [map compatibility](replay-maps.md#http-and-artifact-compatibility) |
 
 Historical persisted versions and policy IDs are compatibility identities. They must not be renamed even when internal TypeScript names improve.
 

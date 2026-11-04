@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
-import { replayIndexArtifactSchema, replayMetadataSchema, replayRoundArtifactSchema } from '../src/index.js';
+import { replayIndexArtifactSchema, replayMetadataSchema, replayMetadataV1Schema, replayRadarCalibrationSchema, replayRoundArtifactSchema } from '../src/index.js';
 
 function round() {
   return {
@@ -14,6 +14,17 @@ function round() {
 }
 
 describe('synthetic M4.7 replay contracts', () => {
+  it('accepts multi-map v2 metadata without widening the immutable v1 calibration contract', () => {
+    const imageUrl = `/maps/${'a'.repeat(40)}/de_nuke.png`;
+    const radar = { id: 'synthetic-nuke', map: 'de_nuke', imageWidth: 1024, imageHeight: 1024, posX: -3453, posY: 2887, scale: 7, rotate: 1, source: 'VALVE_OVERVIEW_METADATA', sourceVersion: 'synthetic', imageUrl,
+      layers: [{ id: 'default', imageUrl, minZ: -495, maxZ: 10000 }, { id: 'lower', imageUrl: imageUrl.replace('de_nuke.png', 'de_nuke_lower.png'), minZ: -10000, maxZ: -495 }] };
+    const metadata = { schemaVersion: 'm4.7-replay-metadata@2', matchId: 'synthetic', availability: 'AVAILABLE', reason: null, map: 'de_nuke', tickRate: 64, sampleRateHz: 4, calibration: radar, players: [], teams: [], rounds: [], totalFrames: 0, totalCompressedBytes: 0, warnings: [] };
+    expect(replayMetadataSchema.parse(metadata).calibration?.map).toBe('de_nuke');
+    expect(replayMetadataV1Schema.safeParse({ ...metadata, schemaVersion: 'm4.7-replay-metadata@1' }).success).toBe(false);
+    expect(replayMetadataSchema.safeParse({ ...metadata, map: 'de_mirage' }).success).toBe(false);
+    expect(replayRadarCalibrationSchema.safeParse({ ...radar, layers: [radar.layers[0], { ...radar.layers[1], maxZ: 0 }] }).success).toBe(false);
+    expect(replayRadarCalibrationSchema.safeParse({ ...radar, imageUrl: 'https://untrusted.example/radar.png' }).success).toBe(false);
+  });
   it('accepts signed coordinates and nullable parser values without inventing zero', () => {
     expect(replayRoundArtifactSchema.parse(round()).frames[0]?.states[0]).toEqual([0, -100, 200, 5, -45, 2, true]);
     const nullable = round(); nullable.frames[0]!.states = [[0, null, null, null, null, null, true] as never];

@@ -7,6 +7,7 @@ import {
 import { ApplicationError } from '../application-error.js';
 import { ReplayReaderPort } from '../ports.js';
 import { StoredMatchAccess } from '../stored-match-access.js';
+import { resolveReplayRadar } from '../replay-maps.js';
 
 @Injectable()
 export class ReplayQueries {
@@ -15,12 +16,12 @@ export class ReplayQueries {
     @Inject(ReplayReaderPort) private readonly replay: ReplayReaderPort,
   ) {}
 
-  async metadata(id: string): Promise<ReplayMetadata> {
+  async metadata(id: string, version: 1 | 2 = 1): Promise<ReplayMetadata> {
     const match = await this.storedMatches.match(id);
     const index = await this.replay.readIndex(match.matchId, match.fileSha256);
     if (!index) {
       return replayMetadataSchema.parse({
-        schemaVersion: 'm4.7-replay-metadata@1',
+        schemaVersion: version === 2 ? 'm4.7-replay-metadata@2' : 'm4.7-replay-metadata@1',
         matchId: match.matchId,
         availability: 'REPLAY_UNAVAILABLE',
         reason: 'REPLAY_UNAVAILABLE',
@@ -45,16 +46,18 @@ export class ReplayQueries {
         warnings: ['REPLAY_UNAVAILABLE'],
       });
     }
-    const supported = index.map === 'de_dust2' && index.calibration !== null;
+    if (index.map !== match.map) throw new ApplicationError('REPLAY_CORRUPT', 'Replay map does not match the stored match.', 409);
+    const calibration = version === 2 ? resolveReplayRadar(index.map, index.calibration) : index.calibration;
+    const supported = version === 2 ? calibration !== null : index.map === 'de_dust2' && calibration !== null;
     return replayMetadataSchema.parse({
-      schemaVersion: 'm4.7-replay-metadata@1',
+      schemaVersion: version === 2 ? 'm4.7-replay-metadata@2' : 'm4.7-replay-metadata@1',
       matchId: match.matchId,
       availability: supported ? 'AVAILABLE' : 'UNSUPPORTED_MAP',
       reason: supported ? null : 'UNSUPPORTED_MAP',
       map: index.map,
       tickRate: index.tickRate,
       sampleRateHz: index.sampleRateHz,
-      calibration: index.calibration,
+      calibration,
       players: index.players,
       teams: index.teams,
       rounds: index.rounds.map((round) => ({

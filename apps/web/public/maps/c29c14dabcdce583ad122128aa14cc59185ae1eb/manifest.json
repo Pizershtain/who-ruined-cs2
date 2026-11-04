@@ -1,0 +1,973 @@
+{
+  "revision": "c29c14dabcdce583ad122128aa14cc59185ae1eb",
+  "source": "https://github.com/MurkyYT/cs2-map-icons",
+  "attribution": "Radar images and overview data are property of Valve Corporation.",
+  "maps": {
+    "ar_baggage": {
+      "calibration": {
+        "id": "ar_baggage-radar@c29c14dabcdc",
+        "map": "ar_baggage",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -1316,
+        "posY": 1288,
+        "scale": 2.539062,
+        "rotate": 1,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_baggage.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_baggage.png",
+            "minZ": -5,
+            "maxZ": 10000
+          },
+          {
+            "id": "lower",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_baggage_lower.png",
+            "minZ": -10000,
+            "maxZ": -5
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/ar_baggage.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_baggage.png",
+          "minZ": -5,
+          "maxZ": 10000,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/ar_baggage_radar_psd.png",
+          "sha256": "2d830cc4c570ab3fcffd8d36a78e04f856aa885ffbdb99459d7740e5fc7b18e3",
+          "bytes": 99670,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "id": "lower",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_baggage_lower.png",
+          "minZ": -10000,
+          "maxZ": -5,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/ar_baggage_lower_radar_psd.png",
+          "sha256": "d473bc6866a4e7c25b69c03b3c467bfb981bc27f4bbba2e9cf24c222f137f225",
+          "bytes": 46299,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "ar_shoots": {
+      "calibration": {
+        "id": "ar_shoots-radar@c29c14dabcdc",
+        "map": "ar_shoots",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -1368,
+        "posY": 1952,
+        "scale": 2.6875,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_shoots.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_shoots.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/ar_shoots.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_shoots.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/ar_shoots_radar_psd.png",
+          "sha256": "bf40db341a0777e7c0fc929fe3ac02ec7bc0fe2528a58b65fbd4bc271b84adce",
+          "bytes": 239996,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "ar_shoots_night": {
+      "calibration": {
+        "id": "ar_shoots_night-radar@c29c14dabcdc",
+        "map": "ar_shoots_night",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -1368,
+        "posY": 1952,
+        "scale": 2.6875,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_shoots_night.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_shoots_night.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/ar_shoots_night.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/ar_shoots_night.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/ar_shoots_night_radar_psd.png",
+          "sha256": "a95bdbd9e4140b78866f6ccdb304c131411e41fbd905046323a71d6dc431cbba",
+          "bytes": 174232,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "cs_italy": {
+      "calibration": {
+        "id": "cs_italy-radar@c29c14dabcdc",
+        "map": "cs_italy",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2647,
+        "posY": 2592,
+        "scale": 4.6,
+        "rotate": 1,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/cs_italy.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/cs_italy.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/cs_italy.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/cs_italy.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/cs_italy_radar_psd.png",
+          "sha256": "292c0bbe85d64b78f2eb25fd6d5f1b3dddb60973c39d70fa88967b58079d40fb",
+          "bytes": 80981,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "cs_office": {
+      "calibration": {
+        "id": "cs_office-radar@c29c14dabcdc",
+        "map": "cs_office",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -1838,
+        "posY": 1858,
+        "scale": 4.1,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/cs_office.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/cs_office.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/cs_office.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/cs_office.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/cs_office_radar_psd.png",
+          "sha256": "917e1026cbe56727da45d9e2e6e829689fe1307143fc07a0f121bc66d6d38c6f",
+          "bytes": 160768,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "cs_shelter": {
+      "calibration": {
+        "id": "cs_shelter-radar@c29c14dabcdc",
+        "map": "cs_shelter",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -3448.7712,
+        "posY": 3805.3228,
+        "scale": 3.311857,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/cs_shelter.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/cs_shelter.png",
+            "minZ": -16384,
+            "maxZ": 16384
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/cs_shelter.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/cs_shelter.png",
+          "minZ": -16384,
+          "maxZ": 16384,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/cs_shelter_radar_tga.png",
+          "sha256": "2ca8ff94b2a3c1237a9cea286fd7155a78defcd0e88f61f8b96a3e369a306725",
+          "bytes": 539472,
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    "de_ancient": {
+      "calibration": {
+        "id": "de_ancient-radar@c29c14dabcdc",
+        "map": "de_ancient",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2953,
+        "posY": 2164,
+        "scale": 5,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_ancient.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_ancient.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_ancient.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_ancient.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_ancient_radar_psd.png",
+          "sha256": "88fe108f7cc54d89b9c6179155cc39f419aa02f79df1a3f36031049577fd1952",
+          "bytes": 63894,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_ancient_night": {
+      "calibration": {
+        "id": "de_ancient_night-radar@c29c14dabcdc",
+        "map": "de_ancient_night",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2953,
+        "posY": 2164,
+        "scale": 5,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_ancient_night.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_ancient_night.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_ancient_night.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_ancient_night.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_ancient_night_radar_psd.png",
+          "sha256": "27c6fa04feb40b70cc28e1b46e8bd30583a6f1d58495d14ca38c5f0d843c6c72",
+          "bytes": 54031,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_anubis": {
+      "calibration": {
+        "id": "de_anubis-radar@c29c14dabcdc",
+        "map": "de_anubis",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2796,
+        "posY": 3328,
+        "scale": 5.22,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_anubis.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_anubis.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_anubis.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_anubis.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_anubis_radar_psd.png",
+          "sha256": "7c9badbb4ecb655d3d789724ca9d615bb06abf721d776176018ee3263a8a7b94",
+          "bytes": 177532,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_boulder": {
+      "calibration": {
+        "id": "de_boulder-radar@c29c14dabcdc",
+        "map": "de_boulder",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -3273.4917,
+        "posY": 2930.2207,
+        "scale": 2.8491137,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_boulder.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_boulder.png",
+            "minZ": 62.757324,
+            "maxZ": 16384
+          },
+          {
+            "id": "higher1",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_boulder_higher1.png",
+            "minZ": -16384,
+            "maxZ": 62.757324
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_boulder.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_boulder.png",
+          "minZ": 62.757324,
+          "maxZ": 16384,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_boulder_radar_tga.png",
+          "sha256": "783ff97ce400a0786eac75d559da57bc99cd59dcd1108333b35414be9313ff02",
+          "bytes": 696927,
+          "width": 2048,
+          "height": 2048
+        },
+        {
+          "id": "higher1",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_boulder_higher1.png",
+          "minZ": -16384,
+          "maxZ": 62.757324,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_boulder_higher1_radar_tga.png",
+          "sha256": "ecde5e35eeab10f4bb0580cbec1fada66d9806d05a67e304b75124526084a2df",
+          "bytes": 703632,
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    "de_cache": {
+      "calibration": {
+        "id": "de_cache-radar@c29c14dabcdc",
+        "map": "de_cache",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2000,
+        "posY": 3250,
+        "scale": 5.5,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_cache.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_cache.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_cache.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_cache.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_cache_radar_psd.png",
+          "sha256": "afa47fd3111f007cedfbb580f740780427531e8ce6b9dcc55a13d9104e2ed6a6",
+          "bytes": 74557,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_debris": {
+      "calibration": {
+        "id": "de_debris-radar@c29c14dabcdc",
+        "map": "de_debris",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -3015.2393,
+        "posY": 2919.2393,
+        "scale": 1.9445695,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_debris.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_debris.png",
+            "minZ": -16384,
+            "maxZ": 16384
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_debris.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_debris.png",
+          "minZ": -16384,
+          "maxZ": 16384,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_debris_radar_tga.png",
+          "sha256": "10fa8612e562bb4027cbac61ad1b5d5d09165079918df37a8e3b3e3dca10eaaa",
+          "bytes": 903675,
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    "de_dust": {
+      "calibration": {
+        "id": "de_dust-radar@c29c14dabcdc",
+        "map": "de_dust",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2850,
+        "posY": 4073,
+        "scale": 6,
+        "rotate": 1,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_dust.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_dust.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_dust.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_dust.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_dust_radar.png",
+          "sha256": "67c17d0030910b4df7c0b64efad036255cbd8bfc67137bfb3fa1980c1fa9de15",
+          "bytes": 374982,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_dust2": {
+      "calibration": {
+        "id": "de_dust2-radar@c29c14dabcdc",
+        "map": "de_dust2",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2476,
+        "posY": 3239,
+        "scale": 4.4,
+        "rotate": 1,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_dust2.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_dust2.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_dust2.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_dust2.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_dust2_radar_psd.png",
+          "sha256": "3be20317d1383da6f390a5bb245cabb65857ef08b1e2c5b82b5938a8cb3167bb",
+          "bytes": 153557,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_eldorado": {
+      "calibration": {
+        "id": "de_eldorado-radar@c29c14dabcdc",
+        "map": "de_eldorado",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -3548.6814,
+        "posY": 2571.1816,
+        "scale": 2.0656068,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_eldorado.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_eldorado.png",
+            "minZ": -16384,
+            "maxZ": 16384
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_eldorado.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_eldorado.png",
+          "minZ": -16384,
+          "maxZ": 16384,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_eldorado_radar_tga.png",
+          "sha256": "da14d07d792e5cb46ef1bbe66055107f5bee6df84c6b81f97cd22e0dc6d26ff5",
+          "bytes": 406612,
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    "de_fachwerk": {
+      "calibration": {
+        "id": "de_fachwerk-radar@c29c14dabcdc",
+        "map": "de_fachwerk",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2311.0767,
+        "posY": 2874.6204,
+        "scale": 2.5537856,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_fachwerk.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_fachwerk.png",
+            "minZ": -16384,
+            "maxZ": 16384
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_fachwerk.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_fachwerk.png",
+          "minZ": -16384,
+          "maxZ": 16384,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_fachwerk_radar_tga.png",
+          "sha256": "70ece1801be82fa2f7e315f10e320490a8156d3f190150d465fa253b8a91981a",
+          "bytes": 903725,
+          "width": 2048,
+          "height": 2048
+        }
+      ]
+    },
+    "de_inferno": {
+      "calibration": {
+        "id": "de_inferno-radar@c29c14dabcdc",
+        "map": "de_inferno",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2087,
+        "posY": 3870,
+        "scale": 4.9,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_inferno.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_inferno.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_inferno.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_inferno.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_inferno_radar_psd.png",
+          "sha256": "e4929829f8475d2edcb44ee3537ffad094dc8008b4d6f5aa81e66e77ddb077ba",
+          "bytes": 109883,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_mirage": {
+      "calibration": {
+        "id": "de_mirage-radar@c29c14dabcdc",
+        "map": "de_mirage",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -3230,
+        "posY": 1713,
+        "scale": 5,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_mirage.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_mirage.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_mirage.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_mirage.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_mirage_radar_psd.png",
+          "sha256": "5de1cc16362e538dc5f4561a24661cb1fb1c15c77ec289e32b44c0fc07bfb85b",
+          "bytes": 111393,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_nuke": {
+      "calibration": {
+        "id": "de_nuke-radar@c29c14dabcdc",
+        "map": "de_nuke",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -3453,
+        "posY": 2887,
+        "scale": 7,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_nuke.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_nuke.png",
+            "minZ": -495,
+            "maxZ": 10000
+          },
+          {
+            "id": "lower",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_nuke_lower.png",
+            "minZ": -10000,
+            "maxZ": -495
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_nuke.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_nuke.png",
+          "minZ": -495,
+          "maxZ": 10000,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_nuke_radar_psd.png",
+          "sha256": "6230346d3ce969006062fbd02220b083245f621ef366ce26a42dc27a80120bd0",
+          "bytes": 80130,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "id": "lower",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_nuke_lower.png",
+          "minZ": -10000,
+          "maxZ": -495,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_nuke_lower_radar_psd.png",
+          "sha256": "040c958f141d0365ca9125388bc20228b0df0ac6abd1fe78d743ecfa1be4bb64",
+          "bytes": 80046,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_overpass": {
+      "calibration": {
+        "id": "de_overpass-radar@c29c14dabcdc",
+        "map": "de_overpass",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -4831,
+        "posY": 1781,
+        "scale": 5.2,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_overpass.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_overpass.png",
+            "minZ": null,
+            "maxZ": null
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_overpass.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_overpass.png",
+          "minZ": null,
+          "maxZ": null,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_overpass_radar_psd.png",
+          "sha256": "ab3bfff1c3cc8da47eda921511b3eb34028e24b718b85709ac080f123fd4c108",
+          "bytes": 231444,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_poseidon": {
+      "calibration": {
+        "id": "de_poseidon-radar@c29c14dabcdc",
+        "map": "de_poseidon",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -1046.3943,
+        "posY": 1166.3942,
+        "scale": 3.0124886,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_poseidon.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_poseidon.png",
+            "minZ": -16384,
+            "maxZ": 16384
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_poseidon.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_poseidon.png",
+          "minZ": -16384,
+          "maxZ": 16384,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_poseidon_radar_tga.png",
+          "sha256": "bad5ef5a65002325e35fa9a640c7f7266952adc1e5bd579c4281dab8e122aa0e",
+          "bytes": 293397,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_train": {
+      "calibration": {
+        "id": "de_train-radar@c29c14dabcdc",
+        "map": "de_train",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -2308,
+        "posY": 2078,
+        "scale": 4.082077,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_train.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_train.png",
+            "minZ": -50,
+            "maxZ": 20000
+          },
+          {
+            "id": "lower",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_train_lower.png",
+            "minZ": -5000,
+            "maxZ": -50
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_train.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_train.png",
+          "minZ": -50,
+          "maxZ": 20000,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_train_radar_psd.png",
+          "sha256": "26007eea00d58e722058b11b96b16e08d4b28bf5494a4df141463a7dbcb0648a",
+          "bytes": 114812,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "id": "lower",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_train_lower.png",
+          "minZ": -5000,
+          "maxZ": -50,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_train_lower_radar_psd.png",
+          "sha256": "c1852ca4d1f0ba7ccb426a853f57f203ab5431b32e59323b6bd5cd216d7b40ed",
+          "bytes": 103798,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    },
+    "de_vertigo": {
+      "calibration": {
+        "id": "de_vertigo-radar@c29c14dabcdc",
+        "map": "de_vertigo",
+        "imageWidth": 1024,
+        "imageHeight": 1024,
+        "posX": -3168,
+        "posY": 1762,
+        "scale": 4,
+        "rotate": 0,
+        "source": "VALVE_OVERVIEW_METADATA",
+        "sourceVersion": "CS2 radar catalogue c29c14dabcdce583ad122128aa14cc59185ae1eb",
+        "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_vertigo.png",
+        "layers": [
+          {
+            "id": "default",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_vertigo.png",
+            "minZ": 11700,
+            "maxZ": 20000
+          },
+          {
+            "id": "lower",
+            "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_vertigo_lower.png",
+            "minZ": -10000,
+            "maxZ": 11700
+          }
+        ]
+      },
+      "overview": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/data/radar_info/de_vertigo.txt",
+      "images": [
+        {
+          "id": "default",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_vertigo.png",
+          "minZ": 11700,
+          "maxZ": 20000,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_vertigo_radar_psd.png",
+          "sha256": "3cfa3f044ed5883098e78ab63939a3c9e39fc2c0c2100e59acf4e2c3fa09df43",
+          "bytes": 77009,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "id": "lower",
+          "imageUrl": "/maps/c29c14dabcdce583ad122128aa14cc59185ae1eb/de_vertigo_lower.png",
+          "minZ": -10000,
+          "maxZ": 11700,
+          "source": "https://raw.githubusercontent.com/MurkyYT/cs2-map-icons/c29c14dabcdce583ad122128aa14cc59185ae1eb/images/radars/de_vertigo_lower_radar_psd.png",
+          "sha256": "89ab966da946061906ab0d8876b9b45761291e8080149246611e12de526cd673",
+          "bytes": 98793,
+          "width": 1024,
+          "height": 1024
+        }
+      ]
+    }
+  },
+  "skipped": [
+    "ar_pool_day",
+    "cs_agency",
+    "cs_alpine",
+    "de_assembly",
+    "de_basalt",
+    "de_brewery",
+    "de_canals",
+    "de_cbble",
+    "de_dogtown",
+    "de_edin",
+    "de_golden",
+    "de_grail",
+    "de_jura",
+    "de_lake",
+    "de_memento",
+    "de_mills",
+    "de_palacio",
+    "de_palais",
+    "de_rooftop",
+    "de_sanctum",
+    "de_stronghold",
+    "de_sugarcane",
+    "de_thera",
+    "de_transit",
+    "de_warden",
+    "de_whistle",
+    "lobby_mapveto",
+    "rush_001"
+  ]
+}

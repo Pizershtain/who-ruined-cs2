@@ -33,7 +33,7 @@
 
 - Replay samples positions at 4 Hz; interpolation is a viewer aid, not additional parser evidence.
 - Frames can have partial coordinate/player coverage and report warnings.
-- Only `de_dust2` currently has calibrated overview metadata. The current artifact has no bundled Valve radar image, so other maps and the visual background cannot claim map-accurate geometry.
+- Replay metadata v2 uses a bundled, versioned catalogue of 23 maps with real radar images and altitude layers where available. Unknown maps remain unsupported. The catalogue revision is not proof of the demo's historical map version; stored conflicting transforms are rejected. Legacy v1 remains Dust2-only. See [map assets and Workshop scope](replay-maps.md).
 - Replay events currently expose kills, bomb plants and defuses; it is not a full GOTV playback.
 - Replay publication is independent. A match can be complete while replay is unavailable or corrupt.
 

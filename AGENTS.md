@@ -49,6 +49,7 @@ Use the smallest evidence set covering the changed package, its direct consumers
 - Rating, explanation, important moments and replay come only from their versioned backend DTOs. No fallback to legacy ratings and no invented events/positions.
 - Synthetic preview routes are development/demo-build fixtures and must remain labeled synthetic.
 - Current frontend details: `docs/frontend.md`. Native Vite default is `http://localhost:5174`; Docker web is 5173.
+- Replay radar assets: `docs/replay-maps.md`. Use `npm.cmd run maps:check`, stage with `maps:sync -- --revision <commit>`, then explicitly activate with `maps:activate -- <commit>`. Keep old asset revisions; never draw approximate geometry or fetch arbitrary map URLs during report GETs.
 
 ## Localization
 

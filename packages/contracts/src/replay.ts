@@ -38,6 +38,29 @@ export const replayMapCalibrationSchema = z.object({
 });
 export type ReplayMapCalibration = z.infer<typeof replayMapCalibrationSchema>;
 
+const radarImageUrl = z.string().regex(/^\/maps\/[a-f0-9]{40}\/[a-z0-9_]+\.png$/);
+export const replayRadarLayerSchema = z.object({
+  id: z.string().regex(/^[a-z0-9_]+$/).max(64),
+  imageUrl: radarImageUrl,
+  minZ: z.number().finite().nullable(),
+  maxZ: z.number().finite().nullable(),
+}).refine(layer => (layer.minZ === null && layer.maxZ === null) ||
+  (layer.minZ !== null && layer.maxZ !== null && layer.minZ < layer.maxZ), 'Invalid altitude interval');
+export type ReplayRadarLayer = z.infer<typeof replayRadarLayerSchema>;
+export const replayRadarCalibrationSchema = replayMapCalibrationSchema.extend({
+  map: z.string().regex(/^[a-z0-9][a-z0-9_-]{0,99}$/),
+  imageUrl: radarImageUrl,
+  layers: z.array(replayRadarLayerSchema).min(1).max(16),
+}).refine(value => {
+  if (new Set(value.layers.map(layer => layer.id)).size !== value.layers.length) return false;
+  if (!value.layers.some(layer => layer.id === 'default' && layer.imageUrl === value.imageUrl)) return false;
+  if (value.layers.length === 1) return true;
+  const sorted = [...value.layers].sort((a, b) => (a.minZ ?? 0) - (b.minZ ?? 0));
+  return sorted.every((layer, index) => layer.minZ !== null && layer.maxZ !== null &&
+    (index === 0 || sorted[index - 1]!.maxZ! <= layer.minZ));
+}, 'Invalid radar layers');
+export type ReplayRadarCalibration = z.infer<typeof replayRadarCalibrationSchema>;
+
 const replayBindingSchema = z.object({
   matchId: id,
   fileSha256: z.string().regex(/^[a-f0-9]{64}$/),
@@ -89,7 +112,7 @@ export const replayIndexArtifactSchema = z.object({
 });
 export type ReplayIndexArtifact = z.infer<typeof replayIndexArtifactSchema>;
 
-export const replayMetadataSchema = z.object({
+export const replayMetadataV1Schema = z.object({
   schemaVersion: z.literal('m4.7-replay-metadata@1'),
   matchId: id,
   availability: replayAvailabilitySchema,
@@ -113,6 +136,12 @@ export const replayMetadataSchema = z.object({
   totalCompressedBytes: z.number().int().nonnegative(),
   warnings: z.array(z.string().max(160)).max(100)
 });
+export const replayMetadataV2Schema = replayMetadataV1Schema.extend({
+  schemaVersion: z.literal('m4.7-replay-metadata@2'),
+  calibration: replayRadarCalibrationSchema.nullable(),
+}).refine(value => value.calibration === null || value.calibration.map === value.map, 'Radar map mismatch')
+  .refine(value => value.availability !== 'AVAILABLE' || (value.calibration !== null && value.reason === null), 'Available replay needs a radar');
+export const replayMetadataSchema = z.union([replayMetadataV1Schema, replayMetadataV2Schema]);
 export type ReplayMetadata = z.infer<typeof replayMetadataSchema>;
 export const replayMetadataOpenApiSchema = z.toJSONSchema(replayMetadataSchema, { target: 'openapi-3.0' });
 export const replayRoundOpenApiSchema = z.toJSONSchema(replayRoundArtifactSchema, { target: 'openapi-3.0' });
