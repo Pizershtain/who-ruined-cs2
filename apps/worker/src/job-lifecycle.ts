@@ -3,6 +3,7 @@ import {
   ACTIVE_JOB_STAGES,
   advanceJobStage,
   prisma,
+  type ActiveJobStage,
 } from '@who-ruined/database';
 import type { WorkerRuntimeConfig } from './runtime-config.js';
 import { assertNoSymlinkComponents, resolveDataPath } from './storage.js';
@@ -15,7 +16,7 @@ export interface JobFaultHooks {
 export async function reachOwnedStage(
   jobId: string,
   leaseToken: string,
-  stage: string,
+  stage: ActiveJobStage,
   config: WorkerRuntimeConfig,
   hooks?: JobFaultHooks,
 ): Promise<void> {

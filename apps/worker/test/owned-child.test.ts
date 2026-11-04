@@ -1,10 +1,13 @@
-import { access, mkdtemp, rm } from 'node:fs/promises';
+import { access, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { afterEach, describe, expect, it } from 'vitest';
 import { runOwnedChild } from '../src/owned-child.js';
-import { parseInKillableProcess } from '../src/parser-boundary.js';
+import {
+  parseInKillableProcess,
+  resolveParserChildLaunch,
+} from '../src/parser-boundary.js';
 import { resolveWorkerRuntimeConfig } from '../src/runtime-config.js';
 
 const fixture = (name: string) => fileURLToPath(new URL(`./fixtures/${name}.mjs`, import.meta.url));
@@ -12,6 +15,38 @@ const roots: string[] = [];
 afterEach(async () => Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true }))));
 
 describe('real OS child lifecycle', () => {
+  it('launches TypeScript child entrypoints through the explicit tsx hook', async () => {
+    const root = await mkdtemp(path.join(os.tmpdir(), 'wrc-ts-child-'));
+    roots.push(root);
+    const entrypoint = path.join(root, 'child.ts');
+    await writeFile(entrypoint, 'const exitCode: number = 0; process.exitCode = exitCode;\n');
+
+    const result = await runOwnedChild({
+      entrypoint,
+      nodeArguments: ['--import', 'tsx'],
+      timeoutMs: 2_000,
+      killGraceMs: 2_000,
+    });
+
+    expect(result).toMatchObject({ code: 0, timedOut: false, aborted: false });
+  });
+
+  it('selects TypeScript in dev and JavaScript in compiled worker builds', () => {
+    const source = resolveParserChildLaunch(pathToFileURL(path.join(
+      os.tmpdir(),
+      'apps/worker/src/parser-boundary.ts',
+    )).href);
+    const compiled = resolveParserChildLaunch(pathToFileURL(path.join(
+      os.tmpdir(),
+      'apps/worker/dist/parser-boundary.js',
+    )).href);
+
+    expect(source.entrypoint).toMatch(/[\\/]src[\\/]parser-child\.ts$/);
+    expect(source.nodeArguments).toEqual(['--import', 'tsx']);
+    expect(compiled.entrypoint).toMatch(/[\\/]dist[\\/]parser-child\.js$/);
+    expect(compiled.nodeArguments).toEqual([]);
+  });
+
   it('forcibly terminates a synchronously hung child within a bounded wall clock', async () => {
     const started = performance.now();
     const result = await runOwnedChild({ entrypoint: fixture('hang'), timeoutMs: 150, killGraceMs: 2_000 });

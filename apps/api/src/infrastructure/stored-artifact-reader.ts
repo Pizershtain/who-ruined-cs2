@@ -13,7 +13,7 @@ import {
 } from '@who-ruined/artifacts';
 import { H2_PARTICIPATION_RATING_POLICY } from '@who-ruined/scoring';
 import type { ArtifactReaderPort, StoredMatch } from '../application/ports.js';
-import { readBoundedGzipJson } from '../bounded-gzip.js';
+import { BoundedGzipError, readBoundedGzipJson } from '../bounded-gzip.js';
 import { readParticipationSidecarForApi } from '../participation-rating.js';
 import { ApplicationError } from '../application/application-error.js';
 
@@ -115,9 +115,18 @@ export class StoredArtifactReader implements ArtifactReaderPort {
     let decoded: unknown;
     try {
       decoded = await readBoundedGzipJson(relativePath);
-    } catch {
+    } catch (error) {
+      if (!(error instanceof BoundedGzipError)) throw error;
       throw new ApplicationError('REPORT_CORRUPT', 'Scoring-отчёт недоступен или повреждён.', 409);
     }
-    return scoringReportSchema.parse(decoded);
+    const report = scoringReportSchema.safeParse(decoded);
+    if (!report.success) {
+      throw new ApplicationError(
+        'REPORT_CORRUPT',
+        'Scoring-отчёт не соответствует поддерживаемой схеме.',
+        409,
+      );
+    }
+    return report.data;
   }
 }

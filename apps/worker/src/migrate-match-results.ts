@@ -1,7 +1,6 @@
 import path from 'node:path';
 import { access, stat } from 'node:fs/promises';
 import { prisma, ACTIVE_JOB_STAGES } from '@who-ruined/database';
-import { participationSidecarSchema } from '@who-ruined/contracts';
 import { buildCanonicalMatchResult, scoreMatch, SUCCESSOR_75_25_CONFIG, V1_CONFIG } from '@who-ruined/scoring';
 import { participationSidecarRelativePath, readParticipationSidecar } from './participation-sidecar.js';
 import { loadArtifactForMigration } from './migration-support.js';
@@ -33,7 +32,12 @@ for (const match of matches) {
     const active = await prisma.job.count({ where: { matchId: match.id, status: { in: [...ACTIVE_JOB_STAGES] } } });
     if (active) throw new Error('MATCH_ACTIVE');
     const artifact = await loadArtifactForMigration(dataRoot, match.normalizedFilePath);
-    const sidecar = participationSidecarSchema.parse(await readParticipationSidecar(dataRoot, sidecarRelative));
+    const sidecar = await readParticipationSidecar(dataRoot, sidecarRelative, {
+      matchId: match.id,
+      fileSha256: match.fileSha256,
+      parserVersion: match.parserVersion,
+      normalizerVersion: match.normalizerVersion,
+    });
     const reports = [scoreMatch(artifact, V1_CONFIG), scoreMatch(artifact, SUCCESSOR_75_25_CONFIG)];
     const legacyReports = await prisma.report.findMany({ where: { matchId: match.id } });
     inventory.reports = (await Promise.all(legacyReports.map((report) => bytes(report.jsonFilePath)))).reduce<number>((sum, value) => sum + (value ?? 0), 0);

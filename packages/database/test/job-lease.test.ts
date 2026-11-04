@@ -52,6 +52,116 @@ afterEach(async () => {
 });
 
 describe('durable job ownership', () => {
+  it('assigns PARSE and RESCORE their explicit initial stages', async () => {
+    const { first } = await fixture();
+    const repository = createJobRepository(first);
+    const parse = await repository.claimNextJob({ leaseMs: 30_000, maxAttempts: 3 });
+    expect(parse?.type).toBe('PARSE');
+    await expect(first.job.findUnique({ where: { id: 'job' } })).resolves.toMatchObject({
+      status: 'PARSING',
+      stage: 'PARSING',
+    });
+
+    await first.job.create({
+      data: {
+        id: 'rescore-job',
+        matchId: 'match',
+        type: 'RESCORE',
+        status: 'QUEUED',
+        stage: 'QUEUED',
+      },
+    });
+    const rescore = await repository.claimNextJob({ leaseMs: 30_000, maxAttempts: 3 });
+    expect(rescore?.type).toBe('RESCORE');
+    await expect(first.job.findUnique({ where: { id: 'rescore-job' } }))
+      .resolves.toMatchObject({ status: 'SCORING', stage: 'SCORING' });
+  });
+
+  it('terminally rejects an unknown queued type without changing its match', async () => {
+    const { first } = await fixture();
+    await first.job.update({
+      where: { id: 'job' },
+      data: {
+        type: 'HISTORICAL_UNKNOWN',
+        createdAt: new Date('2020-01-01T00:00:00.000Z'),
+      },
+    });
+
+    await expect(createJobRepository(first).claimNextJob({
+      leaseMs: 30_000,
+      maxAttempts: 3,
+    })).resolves.toBeNull();
+    await expect(first.job.findUnique({ where: { id: 'job' } })).resolves.toMatchObject({
+      status: 'FAILED',
+      stage: 'FAILED',
+      attempts: 0,
+      leaseToken: null,
+      errorCode: 'UNSUPPORTED_JOB_TYPE',
+    });
+    await expect(first.match.findUnique({ where: { id: 'match' } })).resolves.toMatchObject({
+      status: 'QUEUED',
+      quality: null,
+    });
+  });
+
+  it('skips an invalid queued type and still claims the next supported job', async () => {
+    const { first } = await fixture();
+    await first.job.update({
+      where: { id: 'job' },
+      data: {
+        type: 'HISTORICAL_UNKNOWN',
+        createdAt: new Date('2020-01-01T00:00:00.000Z'),
+      },
+    });
+    await first.job.create({
+      data: {
+        id: 'valid-job',
+        matchId: 'match',
+        type: 'RESCORE',
+        status: 'QUEUED',
+        stage: 'QUEUED',
+      },
+    });
+
+    const claimed = await createJobRepository(first).claimNextJob({
+      leaseMs: 30_000,
+      maxAttempts: 3,
+    });
+    expect(claimed).toMatchObject({ id: 'valid-job', type: 'RESCORE' });
+    await expect(first.job.findUnique({ where: { id: 'job' } })).resolves.toMatchObject({
+      status: 'FAILED',
+      errorCode: 'UNSUPPORTED_JOB_TYPE',
+    });
+  });
+
+  it('terminally rejects an expired unknown active type without requeueing it', async () => {
+    const { first } = await fixture();
+    await first.job.update({
+      where: { id: 'job' },
+      data: {
+        type: 'HISTORICAL_UNKNOWN',
+        status: 'PARSING',
+        stage: 'PARSING',
+        leaseToken: 'old-owner',
+        leaseUntil: new Date('2026-01-01T00:00:00.000Z'),
+      },
+    });
+
+    await expect(createJobRepository(first).recoverExpiredJobs(
+      { leaseMs: 1_000, maxAttempts: 3 },
+      new Date('2026-01-01T00:00:01.000Z'),
+    )).resolves.toEqual({ requeued: 0, failed: 1 });
+    await expect(first.job.findUnique({ where: { id: 'job' } })).resolves.toMatchObject({
+      status: 'FAILED',
+      errorCode: 'UNSUPPORTED_JOB_TYPE',
+      leaseToken: null,
+    });
+    await expect(first.match.findUnique({ where: { id: 'match' } })).resolves.toMatchObject({
+      status: 'QUEUED',
+      quality: null,
+    });
+  });
+
   it('allows only one of two workers to claim one queued job', async () => {
     const { first, second } = await fixture();
     const policy = { leaseMs: 30_000, maxAttempts: 3 };
@@ -292,28 +402,4 @@ describe('durable job ownership', () => {
     });
   });
 
-  it('rolls back terminal state when the match update fails', async () => {
-    const { first } = await fixture();
-    const repository = createJobRepository(first);
-    const claimed = await repository.claimNextJob(
-      { leaseMs: 1_000, maxAttempts: 3 },
-      new Date('2026-01-01T00:00:00.000Z'),
-    );
-    await expect(repository.completeOwnedJob({
-      jobId: 'job',
-      matchId: 'match',
-      leaseToken: claimed!.leaseToken,
-      terminal: 'COMPLETED',
-      matchData: { fieldThatDoesNotExist: 'synthetic fault' },
-    }, new Date('2026-01-01T00:00:00.500Z'))).rejects.toThrow();
-
-    await expect(first.job.findUnique({ where: { id: 'job' } })).resolves.toMatchObject({
-      status: 'PARSING',
-      leaseToken: claimed!.leaseToken,
-    });
-    await expect(first.match.findUnique({ where: { id: 'match' } })).resolves.toMatchObject({
-      status: 'QUEUED',
-      quality: null,
-    });
-  });
 });

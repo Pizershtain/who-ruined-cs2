@@ -1,6 +1,12 @@
 import { randomUUID } from 'node:crypto';
 import type { PrismaClient } from '../generated/client/index.js';
-import { ACTIVE_JOB_STAGES } from './job-status.js';
+import {
+  ACTIVE_JOB_STAGES,
+  initialJobStageFor,
+  isJobType,
+  type ActiveJobStage,
+  type JobType,
+} from './job-status.js';
 import { runSerializedJobWrite } from './serialized-job-write.js';
 
 export interface JobLeasePolicy {
@@ -11,7 +17,7 @@ export interface JobLeasePolicy {
 export interface ClaimedJob {
   id: string;
   matchId: string;
-  type: string;
+  type: JobType;
   leaseToken: string;
   attempt: number;
 }
@@ -21,7 +27,23 @@ export interface CompleteOwnedJobInput {
   matchId: string;
   leaseToken: string;
   terminal: 'COMPLETED' | 'PARTIAL';
-  matchData: Record<string, unknown>;
+  matchData: TerminalMatchUpdate;
+}
+
+export interface TerminalMatchUpdate {
+  status?: 'COMPLETED' | 'PARTIAL';
+  quality?: 'VALID' | 'PARTIAL' | 'UNSUPPORTED' | null;
+  map?: string | null;
+  normalizedFilePath?: string | null;
+  resultFilePath?: string | null;
+  resultSchemaVersion?: string | null;
+  resultSha256?: string | null;
+  resultPolicyId?: string | null;
+  resultPolicyDigest?: string | null;
+  winningTeamId?: string | null;
+  losingTeamId?: string | null;
+  parserVersion?: string;
+  normalizerVersion?: string;
 }
 
 export interface PersistOwnedReportInput {
@@ -44,10 +66,6 @@ export interface JobRepositoryHooks {
 
 type DatabaseClient = PrismaClient;
 
-function activeStageFor(type: string): string {
-  return type === 'RESCORE' ? 'SCORING' : 'PARSING';
-}
-
 export function createJobRepository(
   client: DatabaseClient,
   hooks: JobRepositoryHooks = {},
@@ -63,6 +81,26 @@ export function createJobRepository(
     let failed = 0;
     for (const job of expired) {
       if (!job.leaseToken) continue;
+      if (!isJobType(job.type)) {
+        const result = await client.job.updateMany({
+          where: {
+            id: job.id,
+            leaseToken: job.leaseToken,
+            status: { in: [...ACTIVE_JOB_STAGES] },
+            leaseUntil: { lt: now },
+          },
+          data: {
+            status: 'FAILED',
+            stage: 'FAILED',
+            leaseUntil: null,
+            leaseToken: null,
+            errorCode: 'UNSUPPORTED_JOB_TYPE',
+            errorMessage: 'Задача имеет неподдерживаемый тип.',
+          },
+        });
+        failed += result.count;
+        continue;
+      }
       if (job.attempts < policy.maxAttempts) {
         const result = await client.job.updateMany({
           where: { id: job.id, leaseToken: job.leaseToken, status: { in: [...ACTIVE_JOB_STAGES] }, leaseUntil: { lt: now } },
@@ -99,32 +137,65 @@ export function createJobRepository(
     });
     for (const job of exhausted) {
       await client.$transaction(async (transaction) => {
+        const validType = isJobType(job.type);
         const result = await transaction.job.updateMany({
           where: { id: job.id, status: 'QUEUED', attempts: { gte: policy.maxAttempts } },
-          data: { status: 'FAILED', stage: 'FAILED', errorCode: 'WORKER_RECOVERY_EXHAUSTED', errorMessage: 'Лимит безопасных попыток восстановления исчерпан.' }
+          data: {
+            status: 'FAILED',
+            stage: 'FAILED',
+            errorCode: validType ? 'WORKER_RECOVERY_EXHAUSTED' : 'UNSUPPORTED_JOB_TYPE',
+            errorMessage: validType
+              ? 'Лимит безопасных попыток восстановления исчерпан.'
+              : 'Задача имеет неподдерживаемый тип.',
+          },
         });
         if (result.count === 1 && job.type === 'PARSE') {
           await transaction.match.update({ where: { id: job.matchId }, data: { status: 'FAILED', quality: 'UNSUPPORTED' } });
         }
       });
     }
-    const candidate = await client.job.findFirst({
-      where: { status: 'QUEUED', attempts: { lt: policy.maxAttempts } },
-      orderBy: { createdAt: 'asc' }, select: { id: true, matchId: true, type: true, attempts: true }
-    });
-    if (!candidate) return null;
-    const leaseToken = randomUUID();
-    const stage = activeStageFor(candidate.type);
-    const claimed = await client.job.updateMany({
-      where: { id: candidate.id, status: 'QUEUED', leaseToken: null, attempts: candidate.attempts },
-      data: {
-        status: stage, stage, attempts: { increment: 1 }, leaseToken,
-        leaseUntil: new Date(now.getTime() + policy.leaseMs), errorCode: null, errorMessage: null
+    while (true) {
+      const candidate = await client.job.findFirst({
+        where: { status: 'QUEUED', attempts: { lt: policy.maxAttempts } },
+        orderBy: { createdAt: 'asc' }, select: { id: true, matchId: true, type: true, attempts: true }
+      });
+      if (!candidate) return null;
+      if (!isJobType(candidate.type)) {
+        await client.job.updateMany({
+          where: {
+            id: candidate.id,
+            status: 'QUEUED',
+            leaseToken: null,
+            attempts: candidate.attempts,
+          },
+          data: {
+            status: 'FAILED',
+            stage: 'FAILED',
+            errorCode: 'UNSUPPORTED_JOB_TYPE',
+            errorMessage: 'Задача имеет неподдерживаемый тип.',
+          },
+        });
+        continue;
       }
-    });
-    return claimed.count === 1
-      ? { id: candidate.id, matchId: candidate.matchId, type: candidate.type, leaseToken, attempt: candidate.attempts + 1 }
-      : null;
+      const leaseToken = randomUUID();
+      const stage = initialJobStageFor(candidate.type);
+      const claimed = await client.job.updateMany({
+        where: { id: candidate.id, status: 'QUEUED', leaseToken: null, attempts: candidate.attempts },
+        data: {
+          status: stage, stage, attempts: { increment: 1 }, leaseToken,
+          leaseUntil: new Date(now.getTime() + policy.leaseMs), errorCode: null, errorMessage: null
+        }
+      });
+      if (claimed.count === 1) {
+        return {
+          id: candidate.id,
+          matchId: candidate.matchId,
+          type: candidate.type,
+          leaseToken,
+          attempt: candidate.attempts + 1,
+        };
+      }
+    }
   }
 
   async function renewLease(jobId: string, leaseToken: string, leaseMs: number, now = new Date()): Promise<boolean> {
@@ -142,7 +213,7 @@ export function createJobRepository(
     if (owned !== 1) throw new Error('STALE_JOB_OWNER');
   }
 
-  async function advanceStage(jobId: string, leaseToken: string, stage: string, leaseMs: number, now = new Date()): Promise<void> {
+  async function advanceStage(jobId: string, leaseToken: string, stage: ActiveJobStage, leaseMs: number, now = new Date()): Promise<void> {
     const updated = await client.job.updateMany({
       where: { id: jobId, leaseToken, status: { in: [...ACTIVE_JOB_STAGES] }, leaseUntil: { gte: now } },
       data: { status: stage, stage, leaseUntil: new Date(now.getTime() + leaseMs) }

@@ -28,6 +28,7 @@ async function terminateAndWait(child: ChildProcess, graceMs: number): Promise<v
 
 export async function runOwnedChild(options: {
   entrypoint: string;
+  nodeArguments?: readonly string[];
   args?: string[];
   timeoutMs: number;
   killGraceMs: number;
@@ -35,7 +36,11 @@ export async function runOwnedChild(options: {
   environment?: NodeJS.ProcessEnv;
 }): Promise<OwnedChildResult> {
   const started = performance.now();
-  const child = spawn(process.execPath, [options.entrypoint, ...(options.args ?? [])], {
+  const child = spawn(process.execPath, [
+    ...(options.nodeArguments ?? []),
+    options.entrypoint,
+    ...(options.args ?? []),
+  ], {
     shell: false,
     windowsHide: true,
     stdio: ['ignore', 'ignore', 'ignore'],

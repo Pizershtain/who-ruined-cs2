@@ -4,6 +4,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { FileArtifactStore } from '@who-ruined/artifacts';
 
 let root = '';
 vi.mock('../src/storage.js', () => ({
@@ -62,6 +63,14 @@ describe('bounded gzip JSON reader', () => {
     process.env.MAX_RESULT_JSON_DEPTH = '4';
     const text = `${'['.repeat(5)}0${']'.repeat(5)}`;
     await expect(readBoundedGzipJson(await fixture('deep', gzipSync(Buffer.from(text))))).rejects.toMatchObject({ reason: 'DEPTH' });
+  });
+
+  it('does not relabel an unexpected infrastructure failure as corrupt input', async () => {
+    const failure = new Error('synthetic infrastructure failure');
+    vi.spyOn(FileArtifactStore.prototype, 'readGzipJson')
+      .mockRejectedValueOnce(failure);
+    await expect(readBoundedGzipJson('results/unreadable.json.gz'))
+      .rejects.toBe(failure);
   });
 });
 
