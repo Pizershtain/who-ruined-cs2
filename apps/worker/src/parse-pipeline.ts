@@ -1,7 +1,6 @@
 import {
   matchArtifactSchema,
   matchDataSchema,
-  participationSidecarSchema,
   type MatchArtifact,
   type ParticipationSidecar,
 } from '@who-ruined/contracts';
@@ -115,12 +114,10 @@ export async function runParsePipeline(options: {
     }
   }
 
-  const preparedSidecar = participationSidecarSchema.parse(
-    buildParticipationSidecar(
-      snapshot,
-      validated,
-      participation,
-    ),
+  const preparedSidecar = buildParticipationSidecar(
+    snapshot,
+    validated,
+    participation,
   );
   await options.assertOwned();
 

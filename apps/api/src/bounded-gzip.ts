@@ -8,8 +8,7 @@ export class BoundedGzipError extends Error {
   }
 }
 
-function compatibilityError(error: unknown): BoundedGzipError {
-  if (!(error instanceof ArtifactError)) return new BoundedGzipError('INVALID');
+function compatibilityError(error: ArtifactError): BoundedGzipError {
   switch (error.reason) {
     case 'MISSING':
     case 'NOT_FILE':
@@ -33,6 +32,7 @@ export async function readBoundedGzipJson(relativePath: string, expectedSha256?:
   try {
     return await store.readGzipJson(relativePath, expectedSha256);
   } catch (error) {
+    if (!(error instanceof ArtifactError)) throw error;
     throw compatibilityError(error);
   }
 }

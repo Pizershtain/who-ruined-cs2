@@ -14,7 +14,22 @@ import { resolveDataPath } from './storage.js';
 import type { WorkerRuntimeConfig } from './runtime-config.js';
 
 const unzip = promisify(gunzip);
-const parserChildEntrypoint = fileURLToPath(new URL('./parser-child.js', import.meta.url));
+
+export function resolveParserChildLaunch(moduleUrl: string): {
+  entrypoint: string;
+  nodeArguments: readonly string[];
+} {
+  const runsFromTypeScript = fileURLToPath(moduleUrl).endsWith('.ts');
+  return {
+    entrypoint: fileURLToPath(new URL(
+      runsFromTypeScript ? './parser-child.ts' : './parser-child.js',
+      moduleUrl,
+    )),
+    nodeArguments: runsFromTypeScript ? ['--import', 'tsx'] : [],
+  };
+}
+
+const parserChildLaunch = resolveParserChildLaunch(import.meta.url);
 
 type ParseChildRequest = {
   kind: 'PARSE' | 'REPLAY';
@@ -87,7 +102,10 @@ async function runParserChild(options: {
   }));
   try {
     const result = await runOwnedChild({
-      entrypoint: options.childEntrypoint ?? parserChildEntrypoint,
+      entrypoint: options.childEntrypoint ?? parserChildLaunch.entrypoint,
+      ...(!options.childEntrypoint && parserChildLaunch.nodeArguments.length > 0
+        ? { nodeArguments: parserChildLaunch.nodeArguments }
+        : {}),
       args: [encoded],
       timeoutMs: options.timeoutMs,
       killGraceMs: options.killGraceMs,

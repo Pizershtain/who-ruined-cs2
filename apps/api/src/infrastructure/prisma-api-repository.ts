@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { jobStatusSchema } from '@who-ruined/contracts';
 import {
   DatabaseConcurrentWriteError,
   prisma,
@@ -55,8 +56,13 @@ export class PrismaApiRepository implements MatchQueryPort, MatchCommandPort {
     return this.databaseClient().match.findUnique({ where: { id } });
   }
 
-  findJob(id: string): Promise<StoredJob | null> {
-    return this.databaseClient().job.findUnique({ where: { id } });
+  async findJob(id: string): Promise<StoredJob | null> {
+    const job = await this.databaseClient().job.findUnique({ where: { id } });
+    if (!job) return null;
+    const status = jobStatusSchema.safeParse(job.status);
+    const stage = jobStatusSchema.safeParse(job.stage);
+    if (!status.success || !stage.success) throw new Error('INVALID_STORED_JOB_STATE');
+    return { ...job, status: status.data, stage: stage.data };
   }
 
   listMatches(cursor: string | undefined, take: number): Promise<StoredMatch[]> {

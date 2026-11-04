@@ -6,7 +6,7 @@ export const jobStatusSchema = z.enum(jobStatuses);
 export type JobStatus = z.infer<typeof jobStatusSchema>;
 
 export const jobDtoSchema = z.object({
-  id, matchId: id, status: jobStatusSchema, stage: z.string(), createdAt: z.string(), updatedAt: z.string(),
+  id, matchId: id, status: jobStatusSchema, stage: jobStatusSchema, createdAt: z.string(), updatedAt: z.string(),
   errorCode: z.string().optional(), message: z.string().optional()
 });
 export type JobDto = z.infer<typeof jobDtoSchema>;

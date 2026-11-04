@@ -1,5 +1,6 @@
 import type {
   CanonicalMatchResult,
+  JobStatus,
   MatchAnalytics,
   MatchArtifact,
   MatchData,
@@ -29,8 +30,8 @@ export interface StoredMatch {
 export interface StoredJob {
   id: string;
   matchId: string;
-  status: string;
-  stage: string;
+  status: JobStatus;
+  stage: JobStatus;
   createdAt: Date;
   updatedAt: Date;
   errorCode: string | null;
