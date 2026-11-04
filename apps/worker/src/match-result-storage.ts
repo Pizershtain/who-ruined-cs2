@@ -12,7 +12,12 @@ import { resolveWorkerRuntimeConfig } from './runtime-config.js';
 export type PublishedMatchResult = { relativePath: string; sha256: string; bytes: number; publication: 'CREATED'|'REUSED' };
 
 export async function encodeCanonicalMatchResult(value: CanonicalMatchResult): Promise<{ bytes: Buffer; sha256: string }> {
-  return encodeArtifact(value);
+  const config = resolveWorkerRuntimeConfig();
+  return encodeArtifact(value, {
+    compressedBytes: config.maxResultCompressedBytes,
+    decompressedBytes: config.maxResultJsonBytes,
+    jsonDepth: config.maxResultJsonDepth,
+  });
 }
 
 export async function publishCanonicalMatchResult(

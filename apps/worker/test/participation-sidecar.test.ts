@@ -402,6 +402,21 @@ describe('safe participation sidecar codec', () => {
     })).rejects.toThrow('PARTICIPATION_SIDECAR_INVALID');
   });
 
+  it('rejects an over-depth sidecar before immutable publication', async () => {
+    const root = await temporaryRoot();
+    const value = fixture();
+    const relativePath = participationSidecarRelativePath(
+      value.binding.matchId,
+      value.binding.fileSha256,
+    );
+
+    await expect(persistParticipationSidecar(root, value, undefined, {
+      limits: { ...defaultLimits, jsonDepth: 1 },
+    })).rejects.toThrow('PARTICIPATION_SIDECAR_INVALID');
+    await expect(readFile(targetPath(root, relativePath)))
+      .rejects.toMatchObject({ code: 'ENOENT' });
+  });
+
   it('rejects a junction or symlink that escapes DATA_DIR', async () => {
     const root = await temporaryRoot();
     const outside = await temporaryRoot();

@@ -74,12 +74,24 @@ async function readChildJson(
   decompressedLimit: number,
 ): Promise<unknown> {
   try {
-    const compressed = await readBoundedFile(outputPath, compressedLimit);
-    const decoded = await unzip(compressed, { maxOutputLength: decompressedLimit });
+    const decoded = await readAndUnzipChildOutput(
+      outputPath,
+      compressedLimit,
+      decompressedLimit,
+    );
     return JSON.parse(decoded.toString('utf8')) as unknown;
   } catch (error) {
     throw new Error('PARSE_CHILD_OUTPUT_INVALID', { cause: error });
   }
+}
+
+async function readAndUnzipChildOutput(
+  outputPath: string,
+  compressedLimit: number,
+  decompressedLimit: number,
+): Promise<Buffer> {
+  const compressed = await readBoundedFile(outputPath, compressedLimit);
+  return unzip(compressed, { maxOutputLength: decompressedLimit });
 }
 
 async function runParserChild(options: {

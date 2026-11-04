@@ -1,4 +1,5 @@
 import { access, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { getEventListeners } from 'node:events';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -48,13 +49,15 @@ describe('real OS child lifecycle', () => {
   });
 
   it('forcibly terminates a synchronously hung child within a bounded wall clock', async () => {
+    const controller = new AbortController();
     const started = performance.now();
-    const result = await runOwnedChild({ entrypoint: fixture('hang'), timeoutMs: 150, killGraceMs: 2_000 });
+    const result = await runOwnedChild({ entrypoint: fixture('hang'), timeoutMs: 150, killGraceMs: 2_000, signal: controller.signal });
     const elapsed = performance.now() - started;
     expect(result.timedOut).toBe(true);
     expect(result.signal).not.toBeNull();
     expect(elapsed).toBeGreaterThanOrEqual(100);
     expect(elapsed).toBeLessThan(2_500);
+    expect(getEventListeners(controller.signal, 'abort')).toHaveLength(0);
     await expect(access(fixture('hang'))).resolves.toBeUndefined();
   });
 
@@ -72,10 +75,52 @@ describe('real OS child lifecycle', () => {
 
   it('kills its owned child when the owner aborts', async () => {
     const controller = new AbortController();
-    setTimeout(() => controller.abort(), 100);
-    const result = await runOwnedChild({ entrypoint: fixture('hang'), timeoutMs: 5_000, killGraceMs: 2_000, signal: controller.signal });
+    const pending = runOwnedChild({ entrypoint: fixture('hang'), timeoutMs: 5_000, killGraceMs: 2_000, signal: controller.signal });
+    queueMicrotask(() => controller.abort());
+    const result = await pending;
     expect(result.aborted).toBe(true);
     expect(result.timedOut).toBe(false);
+    expect(getEventListeners(controller.signal, 'abort')).toHaveLength(0);
+  });
+
+  it.each([
+    ['success', 'late-success', ['0']],
+    ['nonzero exit', 'exit-one', []],
+  ])('removes the owner abort listener after %s', async (_case, name, args) => {
+    const controller = new AbortController();
+    await runOwnedChild({
+      entrypoint: fixture(name),
+      args,
+      timeoutMs: 2_000,
+      killGraceMs: 2_000,
+      signal: controller.signal,
+    });
+    expect(getEventListeners(controller.signal, 'abort')).toHaveLength(0);
+  });
+
+  it('does not install lifecycle resources when spawn rejects synchronously', async () => {
+    const controller = new AbortController();
+    await expect(runOwnedChild({
+      entrypoint: '\0',
+      timeoutMs: 2_000,
+      killGraceMs: 2_000,
+      signal: controller.signal,
+    })).rejects.toThrow();
+    expect(getEventListeners(controller.signal, 'abort')).toHaveLength(0);
+  });
+
+  it('does not accumulate owner listeners across sequential runs', async () => {
+    const controller = new AbortController();
+    for (let index = 0; index < 10; index += 1) {
+      await runOwnedChild({
+        entrypoint: fixture('late-success'),
+        args: ['0'],
+        timeoutMs: 2_000,
+        killGraceMs: 2_000,
+        signal: controller.signal,
+      });
+      expect(getEventListeners(controller.signal, 'abort')).toHaveLength(0);
+    }
   });
 
   it('terminates the parser child when the parse timeout expires', async () => {

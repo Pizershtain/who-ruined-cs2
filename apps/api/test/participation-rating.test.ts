@@ -37,6 +37,7 @@ const { SafeExceptionFilter } = await import('../src/safe-exception.filter.js');
 
 const previousParticipationFlag = process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING;
 const previousPolicy = process.env.ACTIVE_RATING_POLICY;
+const previousResultJsonDepth = process.env.MAX_RESULT_JSON_DEPTH;
 
 function canonical(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(canonical).join(',')}]`;
@@ -154,6 +155,7 @@ describe('P7.2-F participation rating API', () => {
   afterEach(() => {
     if (previousParticipationFlag === undefined) delete process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING; else process.env.ENABLE_EXPERIMENTAL_PARTICIPATION_RATING = previousParticipationFlag;
     if (previousPolicy === undefined) delete process.env.ACTIVE_RATING_POLICY; else process.env.ACTIVE_RATING_POLICY = previousPolicy;
+    if (previousResultJsonDepth === undefined) delete process.env.MAX_RESULT_JSON_DEPTH; else process.env.MAX_RESULT_JSON_DEPTH = previousResultJsonDepth;
   });
 
   it('maps the legacy envelope from the same active rating result', () => {
@@ -376,6 +378,15 @@ describe('P7.2-F participation rating API', () => {
     });
     readFile.mockResolvedValue(compressed);
     await expect(createTestApiFacade().participationRating(data.match.matchId)).rejects.toMatchObject({ code: 'REPORT_CORRUPT', status: 409 });
+  });
+
+  it('fails closed when API depth limits are lower than the worker artifact requires', async () => {
+    const data = fixture();
+    mockCanonical(data);
+    process.env.MAX_RESULT_JSON_DEPTH = '1';
+
+    await expect(createTestApiFacade().participationRating(data.match.matchId))
+      .rejects.toMatchObject({ code: 'REPORT_CORRUPT', status: 409 });
   });
 
   it('maps shape-valid canonical Match relationship corruption to REPORT_CORRUPT', async () => {

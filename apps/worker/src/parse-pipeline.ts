@@ -79,6 +79,21 @@ export async function runParsePipeline(options: {
   assertMatchRelations(validated);
   await options.assertOwned();
 
+  const preparedSidecar = buildParticipationSidecar(
+    snapshot,
+    validated,
+    participation,
+  );
+  await options.assertOwned();
+
+  await reach('FEATURIZING');
+  const analytics = computeMatchAnalytics(validated);
+  const artifact = matchArtifactSchema.parse({
+    schemaVersion: 'm2-artifact-1',
+    match: validated,
+    analytics,
+  });
+
   let replaySnapshot: ParsedReplaySnapshot | null = null;
   if (validated.tickRate !== null && validated.rounds.length > 0) {
     try {
@@ -114,19 +129,5 @@ export async function runParsePipeline(options: {
     }
   }
 
-  const preparedSidecar = buildParticipationSidecar(
-    snapshot,
-    validated,
-    participation,
-  );
-  await options.assertOwned();
-
-  await reach('FEATURIZING');
-  const analytics = computeMatchAnalytics(validated);
-  const artifact = matchArtifactSchema.parse({
-    schemaVersion: 'm2-artifact-1',
-    match: validated,
-    analytics,
-  });
   return { artifact, preparedSidecar, replaySnapshot };
 }

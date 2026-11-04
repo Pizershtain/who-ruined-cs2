@@ -51,8 +51,8 @@ try {
   const snapshot = request.kind === 'REPLAY'
     ? parseDemoReplaySnapshot(rawPath, replay as ReplaySamplingRequest)
     : parseDemoMatchSnapshot(rawPath);
-  const serialized = JSON.stringify(snapshot);
-  if (Buffer.byteLength(serialized) > request.maxArtifactOutputBytes) {
+  const serialized = Buffer.from(JSON.stringify(snapshot));
+  if (serialized.byteLength > request.maxArtifactOutputBytes) {
     throw new Error('PARSE_ARTIFACT_OUTPUT_TOO_LARGE');
   }
   const compressed = await zip(serialized);

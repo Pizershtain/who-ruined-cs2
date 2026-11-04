@@ -3,16 +3,12 @@ import { access, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { matchArtifactSchema, type ParticipationSidecar } from '@who-ruined/contracts';
+import { matchArtifactSchema } from '@who-ruined/contracts';
 import { computeMatchAnalytics } from '@who-ruined/features';
-import {
-  buildCanonicalMatchResult,
-  C2S2_MODEL_VERSION,
-  C2S2_POLICY_DIGEST,
-  C2S2_REFERENCE_VERSION,
-} from '@who-ruined/scoring';
+import { buildCanonicalMatchResult } from '@who-ruined/scoring';
 import { syntheticValidMatch } from '@who-ruined/testkit';
 import { PrismaClient } from '../../../packages/database/generated/client/index.js';
+import { syntheticParticipationSidecar } from './fixtures/synthetic-participation-sidecar.js';
 
 const database = vi.hoisted(() => ({ client: null as unknown as PrismaClient | null }));
 
@@ -34,102 +30,23 @@ const { cleanupRawAfterPublication, runPostCommitCleanup } = await import(
 const { publishCanonicalMatchResult, readCanonicalMatchResult } = await import(
   '../src/match-result-storage.js'
 );
-const { PARTICIPATION_SIDECAR_POLICIES, PARTICIPATION_SIDECAR_SCHEMA_VERSION } = await import(
-  '../src/participation-model.js'
-);
 const { reconcilePublishedSourceCleanup } = await import('../src/reconcile.js');
 
 const roots: string[] = [];
 const clients: PrismaClient[] = [];
+const previousResultJsonBytes = process.env.MAX_RESULT_JSON_BYTES;
+const previousResultJsonDepth = process.env.MAX_RESULT_JSON_DEPTH;
 
 afterEach(async () => {
   vi.restoreAllMocks();
   database.client = null;
+  if (previousResultJsonBytes === undefined) delete process.env.MAX_RESULT_JSON_BYTES;
+  else process.env.MAX_RESULT_JSON_BYTES = previousResultJsonBytes;
+  if (previousResultJsonDepth === undefined) delete process.env.MAX_RESULT_JSON_DEPTH;
+  else process.env.MAX_RESULT_JSON_DEPTH = previousResultJsonDepth;
   await Promise.all(clients.splice(0).map((client) => client.$disconnect()));
   await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
 });
-
-function sidecarFixture(): ParticipationSidecar {
-  const match = syntheticValidMatch();
-  const profiles = match.players.map((player, index) => {
-    const tRounds = match.rounds.filter(
-      (round) => round.sideByTeamId[player.teamId] === 'T',
-    ).length;
-    const ctRounds = match.rounds.length - tRounds;
-    const calculated = {
-      status: 'CALCULATED_RESEARCH_ONLY' as const,
-      reason: null,
-      familyContributions: {
-        COMBAT: 0,
-        SUPPORT: 0,
-        DEATH_RELATED: 0,
-        DIRECT_HARM: 0,
-        CONTEXT: 0,
-        OBJECTIVES: 0,
-      },
-      episodeContributions: [],
-    };
-    const prepared = {
-      profileKey: `${match.matchId}:P${String(index + 1).padStart(2, '0')}`,
-      playerId: player.id,
-      teamId: player.teamId,
-      scenario: 'BOMB' as const,
-      rounds: match.rounds.length,
-      validRounds: match.rounds.length,
-      tRounds,
-      ctRounds,
-      requiredInputStatus: 'COMPLETE',
-      p4BPlus: calculated,
-      p4CPlus: {
-        ...calculated,
-        objectiveSignals: { 'objective:plants': 0, 'objective:defuses': 0 },
-      },
-    };
-    return {
-      profileKey: prepared.profileKey,
-      playerId: player.id,
-      teamId: player.teamId,
-      status: 'ELIGIBLE' as const,
-      reason: null,
-      verifiedRounds: match.rounds.length,
-      absentRounds: 0,
-      partialRounds: 0,
-      unknownRounds: 0,
-      globalExcludedRounds: 0,
-      tRounds,
-      ctRounds,
-      countedRoundIds: match.rounds.map((round) => round.id),
-      excludedRoundIds: [],
-      prepared,
-    };
-  });
-  return {
-    schemaVersion: PARTICIPATION_SIDECAR_SCHEMA_VERSION,
-    createdAt: '2026-11-03T00:00:00.000Z',
-    fingerprint: 'f'.repeat(64),
-    binding: {
-      matchId: match.matchId,
-      fileSha256: match.fileSha256,
-      parserVersion: 'synthetic-parser',
-      normalizerVersion: 'synthetic-normalizer',
-    },
-    model: {
-      preparedInputModel: C2S2_MODEL_VERSION,
-      preparedInputDigest: C2S2_POLICY_DIGEST,
-      referenceVersion: C2S2_REFERENCE_VERSION,
-      policies: PARTICIPATION_SIDECAR_POLICIES,
-    },
-    scenario: 'BOMB',
-    participation: [],
-    profiles,
-    provenance: {
-      source: 'RAW_DEMO_EVENTS_AND_TICKS',
-      lifecycleEvents: [],
-      contextTags: [],
-      s2AppliedBy: 'synthetic-test',
-    },
-  };
-}
 
 async function cleanupFixture(): Promise<{
   client: PrismaClient;
@@ -154,7 +71,7 @@ async function cleanupFixture(): Promise<{
   });
   const result = buildCanonicalMatchResult({
     artifact,
-    sidecar: sidecarFixture(),
+    sidecar: syntheticParticipationSidecar(),
     productionReports: [],
     sourceDemoRetained: true,
     createdAt: '2026-11-03T00:00:00.000Z',
@@ -215,6 +132,54 @@ async function cleanupFixture(): Promise<{
 }
 
 describe('post-commit cleanup', () => {
+  it('does not publish a canonical result that the configured reader cannot inflate', async () => {
+    const dataRoot = await mkdtemp(path.join(os.tmpdir(), 'wrc-result-limits-'));
+    roots.push(dataRoot);
+    const match = syntheticValidMatch();
+    const artifact = matchArtifactSchema.parse({
+      schemaVersion: 'm2-artifact-1',
+      match,
+      analytics: computeMatchAnalytics(match),
+    });
+    const result = buildCanonicalMatchResult({
+      artifact,
+      sidecar: syntheticParticipationSidecar(),
+      productionReports: [],
+      sourceDemoRetained: false,
+      createdAt: '2026-11-05T00:00:00.000Z',
+    });
+    process.env.MAX_RESULT_JSON_BYTES = '128';
+
+    await expect(publishCanonicalMatchResult(dataRoot, result))
+      .rejects.toMatchObject({ reason: 'DECOMPRESSED_LIMIT' });
+    await expect(access(path.join(dataRoot, 'results')))
+      .rejects.toMatchObject({ code: 'ENOENT' });
+  });
+
+  it('rejects a canonical result above the configured JSON depth before publication', async () => {
+    const dataRoot = await mkdtemp(path.join(os.tmpdir(), 'wrc-result-depth-'));
+    roots.push(dataRoot);
+    const match = syntheticValidMatch();
+    const artifact = matchArtifactSchema.parse({
+      schemaVersion: 'm2-artifact-1',
+      match,
+      analytics: computeMatchAnalytics(match),
+    });
+    const result = buildCanonicalMatchResult({
+      artifact,
+      sidecar: syntheticParticipationSidecar(),
+      productionReports: [],
+      sourceDemoRetained: false,
+      createdAt: '2026-11-05T00:00:00.000Z',
+    });
+    process.env.MAX_RESULT_JSON_DEPTH = '1';
+
+    await expect(publishCanonicalMatchResult(dataRoot, result))
+      .rejects.toMatchObject({ reason: 'DEPTH' });
+    await expect(access(path.join(dataRoot, 'results')))
+      .rejects.toMatchObject({ code: 'ENOENT' });
+  });
+
   it('logs an optional cleanup failure without rejecting the completed operation', async () => {
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
 
