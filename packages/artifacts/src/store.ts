@@ -59,22 +59,22 @@ export async function assertNoSymlinkPath(rootDirectory: string, targetPath: str
   }
 }
 
-function assertJsonDepth(text: string, maximum: number): void {
+function assertJsonDepth(bytes: Buffer, maximum: number): void {
   let depth = 0;
   let inString = false;
   let escaped = false;
-  for (const character of text) {
+  for (const byte of bytes) {
     if (inString) {
       if (escaped) escaped = false;
-      else if (character === '\\') escaped = true;
-      else if (character === '"') inString = false;
+      else if (byte === 0x5c) escaped = true;
+      else if (byte === 0x22) inString = false;
       continue;
     }
-    if (character === '"') inString = true;
-    else if (character === '{' || character === '[') {
+    if (byte === 0x22) inString = true;
+    else if (byte === 0x7b || byte === 0x5b) {
       depth += 1;
       if (depth > maximum) throw new ArtifactError('DEPTH');
-    } else if (character === '}' || character === ']') {
+    } else if (byte === 0x7d || byte === 0x5d) {
       depth -= 1;
     }
     if (depth < 0) throw new ArtifactError('INVALID_JSON');
@@ -136,15 +136,22 @@ export class FileArtifactStore {
   }
 
   async readGzipJson(relativePath: string, expectedSha256?: string): Promise<unknown> {
-    const compressed = await this.readCompressed(relativePath, expectedSha256);
-    const raw = await boundedGunzip(compressed, this.limits.decompressedBytes);
+    const raw = await this.readAndDecompress(relativePath, expectedSha256);
+    assertJsonDepth(raw, this.limits.jsonDepth);
     const text = raw.toString('utf8');
-    assertJsonDepth(text, this.limits.jsonDepth);
     try {
       return JSON.parse(text) as unknown;
     } catch (error) {
       throw new ArtifactError('INVALID_JSON', { cause: error });
     }
+  }
+
+  private async readAndDecompress(
+    relativePath: string,
+    expectedSha256?: string,
+  ): Promise<Buffer> {
+    const compressed = await this.readCompressed(relativePath, expectedSha256);
+    return boundedGunzip(compressed, this.limits.decompressedBytes);
   }
 
   async publishImmutable(
@@ -191,8 +198,20 @@ export class FileArtifactStore {
   }
 }
 
-export async function gzipJson(value: unknown): Promise<Buffer> {
-  return zip(serializeJson(value));
+export async function gzipJson(
+  value: unknown,
+  limits?: ArtifactLimits,
+): Promise<Buffer> {
+  const serialized = serializeJson(value);
+  if (limits && serialized.byteLength > limits.decompressedBytes) {
+    throw new ArtifactError('DECOMPRESSED_LIMIT');
+  }
+  if (limits) assertJsonDepth(serialized, limits.jsonDepth);
+  const compressed = await zip(serialized);
+  if (limits && compressed.byteLength > limits.compressedBytes) {
+    throw new ArtifactError('COMPRESSED_LIMIT');
+  }
+  return compressed;
 }
 
 export function parseArtifact<T>(schema: ArtifactSchema<T>, value: unknown): T {

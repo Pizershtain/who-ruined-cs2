@@ -77,7 +77,7 @@ describe('FileArtifactStore', () => {
 
   it('checks compressed SHA-256 and bounded decompression before parsing JSON', async () => {
     const { store } = await fixture();
-    const bytes = await gzipJson({ matchId: 'synthetic-match' });
+    const bytes = await gzipJson({ matchId: 'synthetic-match' }, limits);
     await store.publishImmutable('results/a.json.gz', bytes);
     await expect(store.readGzipJson('results/a.json.gz', '0'.repeat(64))).rejects.toMatchObject({
       reason: 'CHECKSUM',
@@ -103,5 +103,22 @@ describe('artifact primitives', () => {
     expect(() => parseArtifact(schema, {})).toThrowError(
       expect.objectContaining({ reason: 'SCHEMA_MISMATCH' }),
     );
+  });
+
+  it('rejects generated JSON that a configured reader could not consume', async () => {
+    await expect(gzipJson(
+      { value: 'x'.repeat(128) },
+      { compressedBytes: 1024, decompressedBytes: 64, jsonDepth: 8 },
+    )).rejects.toMatchObject({ reason: 'DECOMPRESSED_LIMIT' });
+
+    await expect(gzipJson(
+      { value: 'synthetic' },
+      { compressedBytes: 1, decompressedBytes: 1024, jsonDepth: 8 },
+    )).rejects.toMatchObject({ reason: 'COMPRESSED_LIMIT' });
+
+    await expect(gzipJson(
+      { outer: { inner: true } },
+      { compressedBytes: 1024, decompressedBytes: 1024, jsonDepth: 1 },
+    )).rejects.toMatchObject({ reason: 'DEPTH' });
   });
 });

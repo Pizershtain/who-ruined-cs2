@@ -7,7 +7,6 @@ import {
   gzipJson,
   parseParticipationSidecar,
   participationSidecarRelativePath as artifactParticipationSidecarRelativePath,
-  serializeJson,
   type ArtifactLimits,
 } from '@who-ruined/artifacts';
 import {
@@ -138,17 +137,21 @@ export async function persistParticipationSidecar(
     }
   }
 
-  const serialized = serializeJson(sidecar);
-  if (serialized.byteLength > limits.decompressedBytes) {
-    throw new Error('PARTICIPATION_SIDECAR_INVALID', {
-      cause: new ArtifactError('DECOMPRESSED_LIMIT'),
-    });
-  }
-  const compressed = await gzipJson(sidecar);
-  if (compressed.byteLength > limits.compressedBytes) {
-    throw new Error('PARTICIPATION_SIDECAR_INVALID', {
-      cause: new ArtifactError('COMPRESSED_LIMIT'),
-    });
+  let compressed: Buffer;
+  try {
+    compressed = await gzipJson(sidecar, limits);
+  } catch (error) {
+    if (
+      error instanceof ArtifactError
+      && (
+        error.reason === 'DECOMPRESSED_LIMIT'
+        || error.reason === 'COMPRESSED_LIMIT'
+        || error.reason === 'DEPTH'
+      )
+    ) {
+      throw new Error('PARTICIPATION_SIDECAR_INVALID', { cause: error });
+    }
+    throw error;
   }
 
   try {

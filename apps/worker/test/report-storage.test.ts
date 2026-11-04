@@ -19,9 +19,15 @@ vi.mock('@who-ruined/database', async (importOriginal) => ({
 const { persistScoringReport } = await import('../src/report-storage.js');
 
 const roots: string[] = [];
+const previousResultJsonBytes = process.env.MAX_RESULT_JSON_BYTES;
+const previousResultJsonDepth = process.env.MAX_RESULT_JSON_DEPTH;
 
 afterEach(async () => {
   vi.clearAllMocks();
+  if (previousResultJsonBytes === undefined) delete process.env.MAX_RESULT_JSON_BYTES;
+  else process.env.MAX_RESULT_JSON_BYTES = previousResultJsonBytes;
+  if (previousResultJsonDepth === undefined) delete process.env.MAX_RESULT_JSON_DEPTH;
+  else process.env.MAX_RESULT_JSON_DEPTH = previousResultJsonDepth;
   await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
 });
 
@@ -36,6 +42,44 @@ function reportFixture() {
 }
 
 describe('legacy scoring report persistence', () => {
+  it('does not publish a report that exceeds the configured reader output limit', async () => {
+    const dataRoot = await mkdtemp(path.join(os.tmpdir(), 'wrc-report-storage-'));
+    roots.push(dataRoot);
+    const report = reportFixture();
+    process.env.MAX_RESULT_JSON_BYTES = '128';
+
+    await expect(persistScoringReport({
+      dataRoot,
+      jobId: 'job',
+      matchId: report.matchId,
+      leaseToken: 'lease-token',
+      report,
+      assertOwned: vi.fn(async () => undefined),
+    })).rejects.toMatchObject({ reason: 'DECOMPRESSED_LIMIT' });
+    await expect(access(path.join(dataRoot, 'reports')))
+      .rejects.toMatchObject({ code: 'ENOENT' });
+    expect(database.persistOwnedReport).not.toHaveBeenCalled();
+  });
+
+  it('rejects a report above the configured JSON depth before publication', async () => {
+    const dataRoot = await mkdtemp(path.join(os.tmpdir(), 'wrc-report-depth-'));
+    roots.push(dataRoot);
+    const report = reportFixture();
+    process.env.MAX_RESULT_JSON_DEPTH = '1';
+
+    await expect(persistScoringReport({
+      dataRoot,
+      jobId: 'job',
+      matchId: report.matchId,
+      leaseToken: 'lease-token',
+      report,
+      assertOwned: vi.fn(async () => undefined),
+    })).rejects.toMatchObject({ reason: 'DEPTH' });
+    await expect(access(path.join(dataRoot, 'reports')))
+      .rejects.toMatchObject({ code: 'ENOENT' });
+    expect(database.persistOwnedReport).not.toHaveBeenCalled();
+  });
+
   it('passes Job ownership to fenced persistence and reuses immutable bytes', async () => {
     const dataRoot = await mkdtemp(path.join(os.tmpdir(), 'wrc-report-storage-'));
     roots.push(dataRoot);

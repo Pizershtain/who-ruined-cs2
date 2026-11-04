@@ -6,7 +6,11 @@ import {
   type MatchArtifact,
 } from '@who-ruined/contracts';
 import { ArtifactError } from './errors.js';
-import { gzipJson, type FileArtifactStore } from './store.js';
+import {
+  gzipJson,
+  type ArtifactLimits,
+  type FileArtifactStore,
+} from './store.js';
 import { sha256Bytes } from './canonical.js';
 
 function assertArtifactRelations(artifact: MatchArtifact): void {
@@ -36,11 +40,12 @@ export function canonicalMatchResultRelativePath(matchId: string, sha256: string
 
 export async function encodeCanonicalMatchResult(
   value: CanonicalMatchResult,
+  limits?: ArtifactLimits,
 ): Promise<{ bytes: Buffer; sha256: string }> {
   const parsed = canonicalMatchResultSchema.safeParse(value);
   if (!parsed.success) throw new ArtifactError('SCHEMA_MISMATCH');
   assertArtifactRelations(parsed.data.artifact);
-  const bytes = await gzipJson(parsed.data);
+  const bytes = await gzipJson(parsed.data, limits);
   return { bytes, sha256: sha256Bytes(bytes) };
 }
 

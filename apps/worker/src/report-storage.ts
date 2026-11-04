@@ -80,7 +80,7 @@ export async function persistScoringReport(options: {
     publication = 'REUSED';
   } catch (error) {
     if (!(error instanceof ArtifactError) || error.reason !== 'MISSING') throw error;
-    const bytes = await gzipJson(options.report);
+    const bytes = await gzipJson(options.report, artifacts.limits);
     await options.assertOwned();
     publication = (
       await artifacts.publishImmutable(relativePath, bytes, options.assertOwned)

@@ -12,11 +12,15 @@ export interface OwnedChildResult {
 async function terminateAndWait(child: ChildProcess, graceMs: number): Promise<void> {
   if (child.exitCode !== null || child.signalCode !== null) return;
   await new Promise<void>((resolve, reject) => {
-    const done = () => { clearTimeout(timer); resolve(); };
-    const failed = (error: Error) => { clearTimeout(timer); reject(error); };
-    const timer = setTimeout(() => {
+    const cleanup = () => {
+      clearTimeout(timer);
       child.removeListener('exit', done);
       child.removeListener('error', failed);
+    };
+    const done = () => { cleanup(); resolve(); };
+    const failed = (error: Error) => { cleanup(); reject(error); };
+    const timer = setTimeout(() => {
+      cleanup();
       reject(new Error('CHILD_TERMINATION_FAILED'));
     }, graceMs);
     timer.unref();
@@ -63,9 +67,18 @@ export async function runOwnedChild(options: {
   options.signal?.addEventListener('abort', abort, { once: true });
   try {
     const result = await new Promise<{ code: number | null; signal: NodeJS.Signals | null }>((resolve, reject) => {
-      rejectLifecycle = reject;
-      child.once('error', reject);
-      child.once('exit', (code, signal) => resolve({ code, signal }));
+      const cleanup = () => {
+        child.removeListener('error', failed);
+        child.removeListener('exit', exited);
+      };
+      const failed = (error: Error) => { cleanup(); reject(error); };
+      const exited = (code: number | null, signal: NodeJS.Signals | null) => {
+        cleanup();
+        resolve({ code, signal });
+      };
+      rejectLifecycle = failed;
+      child.once('error', failed);
+      child.once('exit', exited);
       if (options.signal?.aborted) terminate('abort');
     });
     if (termination) await termination;
