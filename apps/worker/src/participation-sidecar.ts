@@ -14,6 +14,7 @@ import {
 } from '@who-ruined/scoring';
 import {
   buildPreparedParticipationInput,
+  prepareObjectiveSignals,
   preparePhysicalFamilyContributions,
 } from './prepared-participation-input.js';
 import { classifyParticipation } from './participation-evidence.js';
@@ -109,7 +110,14 @@ function prepareProfile(
 
   let p4CPlus: C2S2PreparedProfileDto['p4CPlus'];
   if (base.scenario === 'UNKNOWN') {
-    p4CPlus = { ...p4BPlus, objectiveSignals: {} };
+    p4CPlus = {
+      ...p4BPlus,
+      objectiveSignals: prepareObjectiveSignals(
+        base.scenario,
+        { plants: 0, defuses: 0, hostageRescues: 0, hostageHurts: 0 },
+        { rounds: allowedRounds.size, tRounds, ctRounds },
+      ),
+    };
   } else if (!allowedRounds.size) {
     p4CPlus = insufficientExposure;
   } else {
@@ -128,22 +136,16 @@ function prepareProfile(
     const hurts = hostageActions
       .filter((action) => action.event === 'hostage_hurt')
       .length;
-    const objectiveSignals = base.scenario === 'BOMB'
-      ? {
-          'objective:plants': tRounds > 0 ? .05 * plants / .12355 / tRounds : 0,
-          'objective:defuses': ctRounds > 0
-            ? .05 * defuses / .07155950973368645 / ctRounds
-            : 0,
-        }
-      : {
-          'objective:hostageRescues': ctRounds > 0
-            ? .08 * rescues / .026835947523339676 / ctRounds
-            : 0,
-          'objective:hostageHurts': -.02
-            * hurts
-            / .22414985539395899
-            / allowedRounds.size,
-        };
+    const objectiveSignals = prepareObjectiveSignals(
+      base.scenario,
+      {
+        plants,
+        defuses,
+        hostageRescues: rescues,
+        hostageHurts: hurts,
+      },
+      { rounds: allowedRounds.size, tRounds, ctRounds },
+    );
     p4CPlus = { ...p4BPlus, objectiveSignals };
   }
 

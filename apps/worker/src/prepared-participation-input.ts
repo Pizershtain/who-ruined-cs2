@@ -682,6 +682,39 @@ type PhysicalAnchor = {
   tags: string[];
 };
 
+type ObjectiveCounts = {
+  plants: number;
+  defuses: number;
+  hostageRescues: number;
+  hostageHurts: number;
+};
+
+export function prepareObjectiveSignals(
+  scenario: Profile['scenario'],
+  objectives: ObjectiveCounts,
+  exposure: { rounds: number; tRounds: number; ctRounds: number },
+): Record<string, number> {
+  if (scenario === 'UNKNOWN') return {};
+  if (scenario === 'BOMB') {
+    return {
+      'objective:plants': exposure.tRounds > 0
+        ? .05 * objectives.plants / .12355 / exposure.tRounds
+        : 0,
+      'objective:defuses': exposure.ctRounds > 0
+        ? .05 * objectives.defuses / .07155950973368645 / exposure.ctRounds
+        : 0,
+    };
+  }
+  return {
+    'objective:hostageRescues': exposure.ctRounds > 0
+      ? .08 * objectives.hostageRescues / .026835947523339676 / exposure.ctRounds
+      : 0,
+    'objective:hostageHurts': exposure.rounds > 0
+      ? -.02 * objectives.hostageHurts / .22414985539395899 / exposure.rounds
+      : 0,
+  };
+}
+
 export function preparePhysicalFamilyContributions(
   anchors: readonly PhysicalAnchor[],
   rounds: number,
@@ -769,30 +802,18 @@ function prepareFamilyProfile(profile: Profile): C2S2PreparedProfileDto {
     reason: null,
     ...physical,
   };
-  let p4CPlus: C2S2PreparedProfileDto['p4CPlus'];
-  if (profile.scenario === 'UNKNOWN') {
-    p4CPlus = { ...p4BPlus, objectiveSignals: {} };
-  } else {
-    const objectiveSignals = profile.scenario === 'BOMB'
-      ? {
-          'objective:plants': profile.tRounds > 0
-            ? .05 * profile.objectives.plants / .12355 / profile.tRounds
-            : 0,
-          'objective:defuses': profile.ctRounds > 0
-            ? .05 * profile.objectives.defuses / .07155950973368645 / profile.ctRounds
-            : 0,
-        }
-      : {
-          'objective:hostageRescues': profile.ctRounds > 0
-            ? .08 * profile.objectives.hostageRescues / .026835947523339676 / profile.ctRounds
-            : 0,
-          'objective:hostageHurts': -.02
-            * profile.objectives.hostageHurts
-            / .22414985539395899
-            / profile.rounds,
-        };
-    p4CPlus = { ...p4BPlus, objectiveSignals };
-  }
+  const p4CPlus: C2S2PreparedProfileDto['p4CPlus'] = {
+    ...p4BPlus,
+    objectiveSignals: prepareObjectiveSignals(
+      profile.scenario,
+      profile.objectives,
+      {
+        rounds: profile.rounds,
+        tRounds: profile.tRounds,
+        ctRounds: profile.ctRounds,
+      },
+    ),
+  };
 
   return {
     profileKey: profile.profileKey,

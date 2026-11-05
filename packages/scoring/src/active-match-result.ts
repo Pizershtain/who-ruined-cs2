@@ -13,16 +13,15 @@ import {
   PARTICIPATION_MODEL_VERSION,
   PARTICIPATION_REFERENCE_VERSION,
   participationScenarioForMap,
-  type ParticipationFamily,
 } from './participation-family-kernel.js';
 import {
   PARTICIPATION_RATING_SCORER_VERSION,
   projectParticipationRatings,
   selectParticipationAwards,
   type CalculatedParticipationRating,
-  type ParticipationRatingPreparedProfile,
 } from './participation-rating.js';
 import { H2_PARTICIPATION_RATING_POLICY } from './participation-policy.js';
+import { toParticipationRatingPreparedProfiles } from './participation-profile-input.js';
 
 const tolerance = 1e-12;
 
@@ -36,11 +35,6 @@ function canonical(value: unknown): string {
 
 export function stableSha256(value: unknown): string {
   return createHash('sha256').update(canonical(value)).digest('hex');
-}
-
-function compactFamilies(value: { [K in ParticipationFamily]?: number | undefined } | null | undefined): Partial<Record<ParticipationFamily, number>> | null {
-  if (!value) return null;
-  return Object.fromEntries(Object.entries(value).filter((entry): entry is [string, number] => typeof entry[1] === 'number')) as Partial<Record<ParticipationFamily, number>>;
 }
 
 function causeCodes(
@@ -103,15 +97,7 @@ export function buildActiveParticipationRating(
   if (match.players.length !== 10 || match.teams.length !== 2 || match.teams.some((team) => team.playerIds.length !== 5)) throw new Error('UNSUPPORTED_ROSTER_SIZE');
   const profileByPlayer = new Map(sidecar.profiles.map((profile) => [profile.playerId, profile]));
   if (profileByPlayer.size !== 10 || match.players.some((player) => !profileByPlayer.has(player.id))) throw new Error('PARTICIPATION_SIDECAR_ROSTER_MISMATCH');
-  const preparedProfiles: ParticipationRatingPreparedProfile[] = sidecar.profiles.map((profile) => ({
-    profileKey: profile.profileKey, playerId: profile.playerId, teamId: profile.teamId,
-    status: profile.status, reason: profile.reason,
-    prepared: {
-      profileKey: profile.prepared.profileKey, scenario: profile.prepared.scenario,
-      p4BPlus: { status: profile.prepared.p4BPlus.status, reason: profile.prepared.p4BPlus.reason ?? null, familyContributions: compactFamilies(profile.prepared.p4BPlus.familyContributions), objectiveSignals: profile.prepared.p4BPlus.objectiveSignals ?? null, episodeContributions: profile.prepared.p4BPlus.episodeContributions ?? null },
-      p4CPlus: { status: profile.prepared.p4CPlus.status, reason: profile.prepared.p4CPlus.reason ?? null, familyContributions: compactFamilies(profile.prepared.p4CPlus.familyContributions), objectiveSignals: profile.prepared.p4CPlus.objectiveSignals ?? null, episodeContributions: profile.prepared.p4CPlus.episodeContributions ?? null }
-    }
-  }));
+  const preparedProfiles = toParticipationRatingPreparedProfiles(sidecar.profiles);
   const projected = projectParticipationRatings(preparedProfiles);
   const projectionByPlayer = new Map(projected.map((row) => [row.playerId, row]));
   const calculated = projected.filter((row): row is CalculatedParticipationRating => row.status === 'CALCULATED_RESEARCH_ONLY');

@@ -9,10 +9,10 @@ import { PARTICIPATION_FAMILY_POLICY, type ParticipationEpisodeContribution, typ
 import {
   projectParticipationRatings,
   type CalculatedParticipationRating,
-  type ParticipationRatingPreparedProfile
 } from './participation-rating.js';
 import { H2_PARTICIPATION_RATING_POLICY } from './participation-policy.js';
 import { buildImportantMoments } from './important-moments.js';
+import { toParticipationRatingPreparedProfiles } from './participation-profile-input.js';
 
 const EPSILON = 1e-12;
 const FAMILY_ORDER = ['COMBAT','SUPPORT','DEATH_RELATED','OBJECTIVES','CONTEXT','DIRECT_HARM'] as const;
@@ -29,11 +29,6 @@ function assertH2CanonicalResult(result: CanonicalMatchResult): void {
   ) {
     throw new Error('PARTICIPATION_EXPLANATION_REQUIRES_H2_RESULT');
   }
-}
-
-function compactFamilies(value: { [K in ParticipationFamily]?: number | undefined } | null | undefined): Partial<Record<ParticipationFamily, number>> | null {
-  if (!value) return null;
-  return Object.fromEntries(Object.entries(value).filter((entry): entry is [string, number] => typeof entry[1] === 'number')) as Partial<Record<ParticipationFamily, number>>;
 }
 
 function close(left: number, right: number, label: string): void {
@@ -230,31 +225,9 @@ function familyRows(result: CanonicalMatchResult, projection: Calculated): Parti
 
 export function buildParticipationExplanation(result: CanonicalMatchResult): ParticipationExplanationReport {
   assertH2CanonicalResult(result);
-  const profiles: ParticipationRatingPreparedProfile[] = result.internal.recomputeSeed.profiles.map((profile) => ({
-    profileKey: profile.profileKey,
-    playerId: profile.playerId,
-    teamId: profile.teamId,
-    status: profile.status,
-    reason: profile.reason,
-    prepared: {
-      profileKey: profile.prepared.profileKey,
-      scenario: profile.prepared.scenario,
-      p4BPlus: {
-        status: profile.prepared.p4BPlus.status,
-        reason: profile.prepared.p4BPlus.reason ?? null,
-        familyContributions: compactFamilies(profile.prepared.p4BPlus.familyContributions),
-        objectiveSignals: profile.prepared.p4BPlus.objectiveSignals ?? null,
-        episodeContributions: profile.prepared.p4BPlus.episodeContributions ?? null
-      },
-      p4CPlus: {
-        status: profile.prepared.p4CPlus.status,
-        reason: profile.prepared.p4CPlus.reason ?? null,
-        familyContributions: compactFamilies(profile.prepared.p4CPlus.familyContributions),
-        objectiveSignals: profile.prepared.p4CPlus.objectiveSignals ?? null,
-        episodeContributions: profile.prepared.p4CPlus.episodeContributions ?? null
-      }
-    }
-  }));
+  const profiles = toParticipationRatingPreparedProfiles(
+    result.internal.recomputeSeed.profiles,
+  );
   const projections = new Map(projectParticipationRatings(profiles)
     .map((projection) => [projection.playerId, projection]));
   const moments = buildImportantMoments(result.artifact);
