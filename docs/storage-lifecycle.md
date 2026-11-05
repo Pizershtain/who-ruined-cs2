@@ -4,7 +4,7 @@
 
 ## Storage roots
 
-SQLite stores metadata, state and relative pointers. Large/versioned payloads live below `DATA_DIR`.
+PostgreSQL 17 stores metadata, state and relative pointers. Large/versioned payloads remain below `DATA_DIR`; they are not database blobs.
 
 | Path shape | Payload |
 | --- | --- |
@@ -16,7 +16,7 @@ SQLite stores metadata, state and relative pointers. Large/versioned payloads li
 | `replays/<matchId>/<fileSha256>/rounds/<roundId>.m4.7-replay-round@1.json.gz` | replay rounds |
 | `tmp/parse/<leaseToken>.*.json.gz` | provisional parser child output |
 
-Paths stored in SQLite are relative to the configured root. Artifact code resolves them under that root, rejects escape paths and refuses symlink components.
+Paths stored in PostgreSQL are relative to the configured root. Artifact code resolves them under that root, rejects escape paths and refuses symlink components.
 
 ## Canonical result
 
@@ -67,12 +67,14 @@ For a new parse job:
 1. the worker validates that its lease is still current;
 2. it publishes the canonical result immutably;
 3. replay publication is attempted independently and may remain unavailable;
-4. one SQLite transaction verifies lease ownership, writes the match result path/SHA/policy fields and marks the job `COMPLETED` or `PARTIAL`;
+4. one PostgreSQL transaction verifies lease ownership, writes the match result path/SHA/policy fields and marks the job `COMPLETED` or `PARTIAL`;
 5. only after that transaction can raw-source cleanup run.
 
 A database pointer never intentionally targets a not-yet-published result. A published but unreferenced result can exist after a crash; reconciliation removes versions that are neither referenced nor protected by an active job.
 
-SQLite and the filesystem are not a single transaction. The protocol closes tested crash windows through immutable publication, checksums, lease-token fencing, conditional updates and reconciliation; it does not claim distributed transactional semantics.
+PostgreSQL and the filesystem are not a single transaction. The protocol closes tested crash windows through immutable publication, checksums, lease-token fencing, conditional updates and reconciliation; it does not claim distributed transactional semantics.
+
+API upload, rescore and delete admission use a `SERIALIZABLE` transaction plus one transaction-scoped PostgreSQL advisory lock. The lock serializes the small set of global queue/match admission decisions across independent API connections. PostgreSQL serialization failures (`P2034`) are retried a bounded three times; unrelated database errors are not retried. Worker claim, heartbeat, completion and report persistence continue to use conditional row updates and lease-token fencing rather than this global admission lock.
 
 ## Jobs, leases and recovery
 

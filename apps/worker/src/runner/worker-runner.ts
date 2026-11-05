@@ -56,16 +56,6 @@ function startJobAttempt(
 }
 
 export async function runWorker({ config, dataRoot, dependencies }: WorkerRunnerOptions): Promise<void> {
-  await dependencies.recoverExpiredJobs({ leaseMs: config.leaseMs, maxAttempts: config.maxJobAttempts });
-  const reconciliation = await dependencies.reconcileWorkerTemp(dataRoot);
-  if (reconciliation.removed > 0) console.log(JSON.stringify({ level: 'info', event: 'artifactDiscarded', count: reconciliation.removed }));
-  const orphanedResults = await dependencies.reconcileOrphanedMatchResults(dataRoot);
-  if (orphanedResults.removed > 0) console.log(JSON.stringify({ level: 'info', event: 'orphanedResultDiscarded', count: orphanedResults.removed }));
-  const deletedMatches = await dependencies.reconcileDeletingMatches(dataRoot);
-  if (deletedMatches > 0) console.log(JSON.stringify({ level: 'info', event: 'matchDeletionReconciled', count: deletedMatches }));
-  const sourceCleanup = await dependencies.reconcilePublishedSourceCleanup(dataRoot, config.retainSourceDemo);
-  if (sourceCleanup.removed > 0) console.log(JSON.stringify({ level: 'info', event: 'sourceCleanupReconciled', count: sourceCleanup.removed }));
-
   let stopping = false;
   let activeAttempt: ActiveJobAttempt | null = null;
 
@@ -77,6 +67,16 @@ export async function runWorker({ config, dataRoot, dependencies }: WorkerRunner
   process.once('SIGINT', stop);
 
   try {
+    await dependencies.recoverExpiredJobs({ leaseMs: config.leaseMs, maxAttempts: config.maxJobAttempts });
+    const reconciliation = await dependencies.reconcileWorkerTemp(dataRoot);
+    if (reconciliation.removed > 0) console.log(JSON.stringify({ level: 'info', event: 'artifactDiscarded', count: reconciliation.removed }));
+    const orphanedResults = await dependencies.reconcileOrphanedMatchResults(dataRoot);
+    if (orphanedResults.removed > 0) console.log(JSON.stringify({ level: 'info', event: 'orphanedResultDiscarded', count: orphanedResults.removed }));
+    const deletedMatches = await dependencies.reconcileDeletingMatches(dataRoot);
+    if (deletedMatches > 0) console.log(JSON.stringify({ level: 'info', event: 'matchDeletionReconciled', count: deletedMatches }));
+    const sourceCleanup = await dependencies.reconcilePublishedSourceCleanup(dataRoot, config.retainSourceDemo);
+    if (sourceCleanup.removed > 0) console.log(JSON.stringify({ level: 'info', event: 'sourceCleanupReconciled', count: sourceCleanup.removed }));
+
     while (!stopping) {
       const job = await dependencies.claimNextJob({ leaseMs: config.leaseMs, maxAttempts: config.maxJobAttempts });
       if (stopping) {

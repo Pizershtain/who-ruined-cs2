@@ -5,7 +5,7 @@
 - Never infer stable team identity from T/CT; team IDs are roster-based and side is round-specific.
 - Missing parser values stay `null`/unavailable. Never invent evidence, convert unknown to zero or call a synthetic fixture real-demo validation.
 - Ordinary deaths are facts, not tactical blame. H2 is experimental, uncalibrated and non-causal.
-- Do not run real `.dem`, golden real-demo tests, Docker, owner SQLite/data or mass archives without explicit owner permission.
+- Do not run real `.dem`, golden real-demo tests, Docker, an owner database/data root, SQLite migration or mass archives without explicit owner permission. When the owner explicitly authorizes a disposable development environment, use only the named test database, data root and demo paths; that authorization does not extend to production or unrelated owner data.
 
 ## Architecture
 
@@ -75,6 +75,7 @@ npm.cmd run i18n:check
 ## Local development
 
 - Windows setup: `npm.cmd run setup:windows`; use `npm.cmd`, not `npm.ps1`.
-- Each worktree uses a unique `DATA_DIR`, `DATABASE_URL` and ports. Never attach a refactor process to owner data.
+- Each worktree uses a unique `DATA_DIR`, PostgreSQL database/schema, `DATABASE_URL`, Compose project and ports. Never attach a refactor process to owner data.
+- An explicitly owner-authorized dev verification may recreate its named Compose containers/database, run migrations and process only the approved demo corpus. Keep production credentials, production volumes and unapproved demos out of that workflow.
 - Recommended isolated run: `scripts/dev-up.ps1`; full instructions and runtime variables are in `docs/development.md`.
 - Do not stage, commit, push, merge, reset, clean, checkout branches or modify another worktree unless the owner explicitly requests it.

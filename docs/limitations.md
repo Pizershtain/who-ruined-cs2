@@ -43,8 +43,8 @@
 - Upload preflight reads a bounded Source 2 magic prefix and validates the native header in a short, time-bounded child. Event, tick, participation and replay parsing happens in the worker child.
 - Gzip/JSON bounds limit artifact allocations but do not impose an OS-level native RSS ceiling. A container/job-object memory limit is still required for a hard memory guarantee against the native library.
 - Upload, parser, gzip, JSON depth, replay and queue bounds protect a local process. They do not provide multi-user quotas.
-- The upload semaphore is per API process; SQLite is the shared queue authority.
-- SQLite and filesystem publication cannot be one transaction. Immutable create/reuse/conflict, checksums, lease fencing, conditional pointer updates and reconciliation cover tested crash windows but are not distributed transactional storage.
+- The upload semaphore is per API process; PostgreSQL is the shared queue authority. Global upload/rescore/delete admission is serialized with a transaction-scoped advisory lock, so this remains a single-database design rather than a horizontally partitioned queue.
+- PostgreSQL and filesystem publication cannot be one transaction. Immutable create/reuse/conflict, checksums, lease fencing, conditional pointer updates and reconciliation cover tested crash windows but are not distributed transactional storage.
 - Recovery is finite. Jobs that exhaust `MAX_JOB_ATTEMPTS` fail instead of retrying forever.
 - With `RETAIN_SOURCE_DEMO=0`, the raw demo is removed after verified result binding and no competing job/reference. Historical artifacts are not bulk-deleted automatically.
 - A GET racing a result pointer replacement can observe the previous valid result or a typed conflict, but should not receive torn JSON.

@@ -45,7 +45,7 @@ The following compatibility identities also remain intentionally unchanged:
 - the active H2 ID/digest/arithmetic and tie/null/award behavior;
 - the historical H1 selector/ID/digest only in persisted schemas and old
   sidecar fingerprint metadata;
-- persisted artifact paths, fingerprints, bindings and SQLite pointers;
+- persisted artifact paths, fingerprints, bindings and database pointers;
 - the parser-adapter package `index.ts` public barrel and other package root
   barrels used as supported package entry points;
 - `normalizeSnapshot` as the parser-neutral match-domain entry point.

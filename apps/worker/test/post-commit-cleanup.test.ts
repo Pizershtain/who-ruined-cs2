@@ -1,4 +1,3 @@
-import { DatabaseSync } from 'node:sqlite';
 import { access, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -8,6 +7,11 @@ import { computeMatchAnalytics } from '@who-ruined/features';
 import { buildCanonicalMatchResult } from '@who-ruined/scoring';
 import { syntheticValidMatch } from '@who-ruined/testkit';
 import { PrismaClient } from '../../../packages/database/generated/client/index.js';
+import {
+  createPostgresTestDatabase,
+  postgresIntegrationAvailable,
+  type PostgresTestDatabase,
+} from '../../../packages/database/test/postgres-test-database.js';
 import { syntheticParticipationSidecar } from './fixtures/synthetic-participation-sidecar.js';
 
 const database = vi.hoisted(() => ({ client: null as unknown as PrismaClient | null }));
@@ -33,7 +37,7 @@ const { publishCanonicalMatchResult, readCanonicalMatchResult } = await import(
 const { reconcilePublishedSourceCleanup } = await import('../src/reconcile.js');
 
 const roots: string[] = [];
-const clients: PrismaClient[] = [];
+const databases: PostgresTestDatabase[] = [];
 const previousResultJsonBytes = process.env.MAX_RESULT_JSON_BYTES;
 const previousResultJsonDepth = process.env.MAX_RESULT_JSON_DEPTH;
 
@@ -44,7 +48,7 @@ afterEach(async () => {
   else process.env.MAX_RESULT_JSON_BYTES = previousResultJsonBytes;
   if (previousResultJsonDepth === undefined) delete process.env.MAX_RESULT_JSON_DEPTH;
   else process.env.MAX_RESULT_JSON_DEPTH = previousResultJsonDepth;
-  await Promise.all(clients.splice(0).map((client) => client.$disconnect()));
+  await Promise.all(databases.splice(0).map((database) => database.dispose()));
   await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
 });
 
@@ -78,48 +82,42 @@ async function cleanupFixture(): Promise<{
   });
   const published = await publishCanonicalMatchResult(dataRoot, result);
 
-  const databasePath = path.join(dataRoot, 'cleanup.db');
-  const sql = new DatabaseSync(databasePath);
-  sql.exec(`
-    CREATE TABLE Match (
-      id TEXT PRIMARY KEY, originalFileName TEXT NOT NULL, fileSha256 TEXT NOT NULL,
-      map TEXT, status TEXT NOT NULL, quality TEXT, createdAt DATETIME NOT NULL,
-      updatedAt DATETIME NOT NULL, parserVersion TEXT NOT NULL, normalizerVersion TEXT NOT NULL,
-      normalizedFilePath TEXT, rawFilePath TEXT, resultFilePath TEXT, resultSchemaVersion TEXT,
-      resultSha256 TEXT, resultPolicyId TEXT, resultPolicyDigest TEXT, sourceDeletedAt DATETIME,
-      deletionState TEXT, deletionRequestedAt DATETIME, winningTeamId TEXT, losingTeamId TEXT
-    );
-    CREATE TABLE Job (
-      id TEXT PRIMARY KEY, matchId TEXT NOT NULL, type TEXT NOT NULL, status TEXT NOT NULL,
-      stage TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0, leaseUntil DATETIME,
-      leaseToken TEXT, errorCode TEXT, errorMessage TEXT, requestedScoringVersion TEXT,
-      requestedConfigHash TEXT, createdAt DATETIME NOT NULL, updatedAt DATETIME NOT NULL,
-      FOREIGN KEY(matchId) REFERENCES Match(id) ON DELETE CASCADE
-    );
-  `);
-  const now = new Date('2026-11-03T00:00:00.000Z').toISOString();
-  sql.prepare(`
-    INSERT INTO Match (
-      id, originalFileName, fileSha256, map, status, quality, createdAt, updatedAt,
-      parserVersion, normalizerVersion, rawFilePath, resultFilePath, resultSchemaVersion,
-      resultSha256, resultPolicyId, resultPolicyDigest
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    match.matchId, 'synthetic.dem', match.fileSha256, match.map, 'COMPLETED', 'VALID',
-    now, now, 'synthetic-parser', 'synthetic-normalizer', rawFilePath,
-    published.relativePath, 'match-result@1', published.sha256,
-    result.internal.selectedPolicyId, result.internal.selectedPolicyDigest,
-  );
-  sql.prepare(`
-    INSERT INTO Job (id, matchId, type, status, stage, attempts, createdAt, updatedAt)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run('job', match.matchId, 'PARSE', 'COMPLETED', 'COMPLETED', 1, now, now);
-  sql.close();
-
-  const client = new PrismaClient({
-    datasourceUrl: `file:${databasePath.replaceAll('\\', '/')}`,
+  const postgres = await createPostgresTestDatabase();
+  databases.push(postgres);
+  const client = postgres.clients[0]!;
+  const now = new Date('2026-11-03T00:00:00.000Z');
+  await client.match.create({
+    data: {
+      id: match.matchId,
+      originalFileName: 'synthetic.dem',
+      fileSha256: match.fileSha256,
+      map: match.map,
+      status: 'COMPLETED',
+      quality: 'VALID',
+      createdAt: now,
+      updatedAt: now,
+      parserVersion: 'synthetic-parser',
+      normalizerVersion: 'synthetic-normalizer',
+      rawFilePath,
+      resultFilePath: published.relativePath,
+      resultSchemaVersion: 'match-result@1',
+      resultSha256: published.sha256,
+      resultPolicyId: result.internal.selectedPolicyId,
+      resultPolicyDigest: result.internal.selectedPolicyDigest,
+    },
   });
-  clients.push(client);
+  await client.job.create({
+    data: {
+      id: 'job',
+      matchId: match.matchId,
+      type: 'PARSE',
+      status: 'COMPLETED',
+      stage: 'COMPLETED',
+      attempts: 1,
+      createdAt: now,
+      updatedAt: now,
+    },
+  });
   database.client = client;
   return {
     client,
@@ -196,7 +194,7 @@ describe('post-commit cleanup', () => {
     });
   });
 
-  it('retries a real failed source cleanup through idempotent reconciliation', async () => {
+  it.skipIf(!postgresIntegrationAvailable)('retries a real failed source cleanup through idempotent reconciliation', async () => {
     const fixture = await cleanupFixture();
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
 

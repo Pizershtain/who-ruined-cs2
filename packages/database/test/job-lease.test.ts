@@ -1,57 +1,44 @@
-import { DatabaseSync } from 'node:sqlite';
-import { mkdtemp, rm } from 'node:fs/promises';
-import os from 'node:os';
-import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
-import { PrismaClient } from '../generated/client/index.js';
 import { createJobRepository } from '../src/index.js';
+import {
+  createPostgresTestDatabase,
+  postgresIntegrationAvailable,
+  type PostgresTestDatabase,
+} from './postgres-test-database.js';
 
-const roots: string[] = [];
-const clients: PrismaClient[] = [];
+const databases: PostgresTestDatabase[] = [];
 
 async function fixture() {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'wrc-m42-lease-'));
-  roots.push(root);
-  const databasePath = path.join(root, 'lease.db');
-  const sql = new DatabaseSync(databasePath);
-  sql.exec(`
-    CREATE TABLE Match (
-      id TEXT PRIMARY KEY, originalFileName TEXT NOT NULL, fileSha256 TEXT NOT NULL,
-      map TEXT, status TEXT NOT NULL, quality TEXT, createdAt DATETIME NOT NULL,
-      updatedAt DATETIME NOT NULL, parserVersion TEXT NOT NULL, normalizerVersion TEXT NOT NULL,
-      normalizedFilePath TEXT, rawFilePath TEXT, resultFilePath TEXT, resultSchemaVersion TEXT,
-      resultSha256 TEXT, resultPolicyId TEXT, resultPolicyDigest TEXT, sourceDeletedAt DATETIME,
-      deletionState TEXT, deletionRequestedAt DATETIME, winningTeamId TEXT, losingTeamId TEXT
-    );
-    CREATE TABLE Job (
-      id TEXT PRIMARY KEY, matchId TEXT NOT NULL, type TEXT NOT NULL, status TEXT NOT NULL,
-      stage TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0, leaseUntil DATETIME,
-      leaseToken TEXT, errorCode TEXT, errorMessage TEXT, requestedScoringVersion TEXT,
-      requestedConfigHash TEXT, createdAt DATETIME NOT NULL, updatedAt DATETIME NOT NULL,
-      FOREIGN KEY(matchId) REFERENCES Match(id) ON DELETE CASCADE
-    );
-    CREATE INDEX Job_status_createdAt_idx ON Job(status, createdAt);
-    CREATE INDEX Job_leaseUntil_idx ON Job(leaseUntil);
-  `);
-  const now = new Date().toISOString();
-  sql.prepare('INSERT INTO Match (id,originalFileName,fileSha256,status,createdAt,updatedAt,parserVersion,normalizerVersion) VALUES (?,?,?,?,?,?,?,?)')
-    .run('match', 'fixture.dem', 'a'.repeat(64), 'QUEUED', now, now, 'parser', 'normalizer');
-  sql.prepare('INSERT INTO Job (id,matchId,type,status,stage,attempts,createdAt,updatedAt) VALUES (?,?,?,?,?,?,?,?)')
-    .run('job', 'match', 'PARSE', 'QUEUED', 'QUEUED', 0, now, now);
-  sql.close();
-  const url = `file:${databasePath.replaceAll('\\', '/')}`;
-  const first = new PrismaClient({ datasourceUrl: url });
-  const second = new PrismaClient({ datasourceUrl: url });
-  clients.push(first, second);
+  const database = await createPostgresTestDatabase(2);
+  databases.push(database);
+  const [first, second] = database.clients;
+  await first!.match.create({
+    data: {
+      id: 'match',
+      originalFileName: 'fixture.dem',
+      fileSha256: 'a'.repeat(64),
+      status: 'QUEUED',
+      parserVersion: 'parser',
+      normalizerVersion: 'normalizer',
+    },
+  });
+  await first!.job.create({
+    data: {
+      id: 'job',
+      matchId: 'match',
+      type: 'PARSE',
+      status: 'QUEUED',
+      stage: 'QUEUED',
+    },
+  });
   return { first, second };
 }
 
 afterEach(async () => {
-  await Promise.all(clients.splice(0).map((client) => client.$disconnect()));
-  await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
+  await Promise.all(databases.splice(0).map((database) => database.dispose()));
 });
 
-describe('durable job ownership', () => {
+describe.skipIf(!postgresIntegrationAvailable)('durable job ownership on PostgreSQL', () => {
   it('assigns PARSE and RESCORE their explicit initial stages', async () => {
     const { first } = await fixture();
     const repository = createJobRepository(first);

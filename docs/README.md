@@ -11,6 +11,7 @@ This index separates the current system contract from milestone evidence. A docu
 | Development | [development guide](development.md) | Windows setup, isolated native/Docker runs, targeted checks and troubleshooting |
 | API | [API reference](api.md) | Routes, versioned DTOs and public error envelope |
 | Storage and jobs | [storage lifecycle](storage-lifecycle.md) | Artifacts, checksums, leases, publication, recovery and retention |
+| Owner data migration | [SQLite to PostgreSQL runbook](sqlite-to-postgresql-migration.md) | Offline snapshot, atomic import, verification, switch and rollback |
 | Frontend | [frontend architecture](frontend.md) | Feature modules, routes, data ownership, i18n and browser checks |
 | Replay maps | [radar assets](replay-maps.md) | Catalogue updates, rollback, map layers and future Workshop acquisition |
 | Rating and reports | [scoring](scoring.md) | H2 semantics, explanation, important moments and historical compatibility |

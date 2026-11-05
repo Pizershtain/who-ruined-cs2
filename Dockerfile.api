@@ -20,4 +20,4 @@ RUN corepack enable
 WORKDIR /app
 COPY --chown=node:node --from=build /app /app
 USER node
-CMD ["sh", "-c", "node node_modules/prisma/build/index.js db push --skip-generate && exec node apps/api/dist/main.js"]
+CMD ["sh", "-c", "node node_modules/prisma/build/index.js migrate deploy && exec node apps/api/dist/main.js"]

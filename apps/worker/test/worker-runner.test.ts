@@ -56,6 +56,19 @@ afterEach(() => {
 });
 
 describe('worker attempt heartbeat lifecycle', () => {
+  it('disconnects when PostgreSQL-backed startup recovery fails', async () => {
+    const failure = new Error('database unavailable');
+    const mocked = dependencies({
+      recoverExpiredJobs: vi.fn(async () => { throw failure; }),
+    });
+
+    await expect(runWorker({ config, dataRoot: 'synthetic', dependencies: mocked }))
+      .rejects.toBe(failure);
+
+    expect(mocked.disconnect).toHaveBeenCalledOnce();
+    expect(mocked.claimNextJob).not.toHaveBeenCalled();
+  });
+
   it('settles the previous heartbeat before starting the next attempt', async () => {
     vi.useFakeTimers();
     const firstWork = deferred<void>();

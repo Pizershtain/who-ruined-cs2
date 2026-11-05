@@ -16,7 +16,7 @@ At the initial 2026-10-15 milestone no demo was available, so synthetic tests we
 
 ## ADR-004: SQLite queue with fenced leases
 
-Prisma/SQLite stores job metadata. Workers claim jobs through conditional updates, receive lease tokens, heartbeat, and fence every stage/terminal mutation. Expired work is recovered only up to a finite attempt limit. Redis is not introduced for the trusted local topology.
+This was the original persistence choice and is superseded by ADR-012. Its lease-token fencing, conditional worker updates and finite recovery policy remain active under PostgreSQL.
 
 ## ADR-005: preflight before native parsing
 
@@ -32,7 +32,7 @@ A RESCORE job reads normalized analytics embedded in `match-result@1` (or a comp
 
 ## ADR-008: immutable artifacts before database pointers
 
-Large results live as bounded gzip artifacts; SQLite stores relative paths and SHA-256 bindings. Writers publish create/reuse/conflict immutably and verify lease ownership before final creation. The database pointer and terminal job state commit only after publication. Reconciliation handles orphaned publications because filesystem and SQLite cannot share a transaction. See [storage lifecycle](storage-lifecycle.md).
+Large results live as bounded gzip artifacts; the relational database stores relative paths and SHA-256 bindings. Writers publish create/reuse/conflict immutably and verify lease ownership before final creation. The database pointer and terminal job state commit only after publication. Reconciliation handles orphaned publications because the filesystem and database cannot share a transaction. See [storage lifecycle](storage-lifecycle.md).
 
 ## ADR-009: capability-first frontend
 
@@ -40,7 +40,7 @@ React routes are thin composition roots. Feature modules own endpoint/query/view
 
 ## ADR-010: local product and public deployment are different designs
 
-The implemented system assumes one trusted owner, loopback services, a shared local data root and SQLite. Resource bounds harden that environment but do not provide authentication, tenant isolation or public-service admission control. Public hosting requires a separate threat model, persistence/backup design and operations review; no `PUBLIC_MODE` flag can provide those guarantees.
+The implemented system assumes one trusted owner, loopback services, a shared local data root and one PostgreSQL database. Resource bounds harden that environment but do not provide authentication, tenant isolation or public-service admission control. Public hosting requires a separate threat model, persistence/backup design and operations review; no `PUBLIC_MODE` flag can provide those guarantees.
 
 ## ADR-011: H2 is the only executable participation policy
 
@@ -52,3 +52,7 @@ old sidecars retain both identity records because they are part of the
 fingerprint. API reads reject a historical H1 canonical result with
 `REPORT_POLICY_MISMATCH`; `rating:rebuild` transitions it to H2 from the
 stored recompute seed without reopening a demo.
+
+## ADR-012: PostgreSQL is the only active relational database
+
+Prisma targets PostgreSQL 17. API admission operations that make global queue/match decisions run in `SERIALIZABLE` transactions under one transaction-scoped advisory lock and retry only `P2034` a bounded number of times. Worker ownership remains row-conditional and lease-fenced across independent connections. The retired SQLite migration history is archived only to validate and import an offline owner snapshot; it is not an alternate runtime. Immutable artifacts stay on the filesystem and keep their existing formats and bindings.
