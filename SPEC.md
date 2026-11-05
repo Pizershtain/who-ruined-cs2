@@ -6,7 +6,7 @@
 
 ## 0. Executive decisions and hard constraints
 
-1. MVP runs locally via Docker Compose with a React/Vite/TypeScript frontend, NestJS/TypeScript HTTP API, standalone Node.js worker, Prisma + SQLite, shared packages, and `@laihoe/demoparser2` behind an adapter. Monorepo via pnpm workspaces + Turborepo. Do not introduce Redis, microservices, ML, Steam sign-in, match-link download, paid APIs or LLM-generated verdicts into MVP.
+1. MVP runs locally via Docker Compose with a React/Vite/TypeScript frontend, NestJS/TypeScript HTTP API, standalone Node.js worker, Prisma + PostgreSQL 17, shared packages, and `@laihoe/demoparser2` behind an adapter. Monorepo via pnpm workspaces + Turborepo. Do not introduce Redis, microservices, ML, Steam sign-in, match-link download, paid APIs or LLM-generated verdicts into MVP.
 2. Upload **only a local `.dem`**; do not claim to support direct CS2 match links, `.dem.bz2`, POV demos, incomplete demos, Source 1 demos or nonstandard modes. Reject unsupported input explicitly.
 3. Analyze a standard competitive-style 5v5 CS2 match with two stable squads, playable rounds and side swaps; any side/round uncertainty leads to `PARTIAL` or `UNSUPPORTED` instead of made-up results. Premier/Competitive/FACEIT are eligible if parsing and validation pass. Overtime may be supported if valid team identity survives side changes; otherwise partial analysis with no ranking.
 4. The app cannot establish intent, in-game voice communication, visibility/lines of sight, sophisticated tactical correctness, or causal responsibility solely from the basic event stream. **Never label an unsupported inference as a proven mistake**. In MVP, display verified facts with neutral phrasing; "ruiner" is explicitly a playful evidence-based index, not proof of fault.
@@ -47,7 +47,7 @@ who-ruined-cs2/
   apps/
     web/                  # Vite React Router TS, Tailwind, TanStack Query
     api/                  # NestJS REST, upload, job queue, reports
-    worker/               # Node process polls SQLite-backed jobs
+    worker/               # Node process polls PostgreSQL-backed jobs
   packages/
     contracts/            # shared Zod schemas and DTOs
     parser-adapter/       # @laihoe/demoparser2 pinned, conversion layer
@@ -79,7 +79,7 @@ who-ruined-cs2/
 
 Dependency direction: web→contracts; api→contracts/reports/database; worker→parser-adapter/match-domain/features/scoring/reports/database; scoring→contracts only; parser-adapter→external parser; **never** import parser in scoring or web. TypeScript strict mode everywhere, no `any` in domain/scoring, Zod parsing on IO.
 
-Use Node LTS supported by the pinned parser native binary (verify on development OS + Docker linux/amd64). Pin package versions and lockfile at first implementation; document installed versions. Use Prisma SQLite for persistence, filesystem for demos and large normalized JSON `.json.gz`; SQLite transactions for jobs/metadata. Do not use Prisma SQLite as a high-volume per-tick store.
+Use Node LTS supported by the pinned parser native binary (verify on development OS + Docker linux/amd64). Pin package versions and lockfile at first implementation; document installed versions. Use Prisma PostgreSQL 17 for persistence and the filesystem for demos and large normalized JSON `.json.gz`; PostgreSQL transactions own jobs/metadata. Do not use PostgreSQL as a high-volume per-tick store.
 
 ## 3. Ingestion pipeline and background jobs
 
@@ -92,7 +92,7 @@ Use Node LTS supported by the pinned parser native binary (verify on development
 
 ### 3.2 State machine
 `QUEUED → PARSING → NORMALIZING → VALIDATING → FEATURIZING → SCORING → COMPLETED`  
-Any state → `FAILED` with safe error code; `VALIDATING → PARTIAL` for insufficient quality (store obtainable stats, **no ranking**); `QUEUED → CANCELLED` optional after MVP. Idempotent jobs, retries up to 2 for explicitly transient failures, no retry for malformed/unsupported file. Job claim via atomic conditional update (`WHERE status='QUEUED'`) in SQLite transaction; heartbeat and stale lease recovery on worker restart. Single worker is default.
+Any state → `FAILED` with safe error code; `VALIDATING → PARTIAL` for insufficient quality (store obtainable stats, **no ranking**); `QUEUED → CANCELLED` optional after MVP. Idempotent jobs, retries up to 2 for explicitly transient failures, no retry for malformed/unsupported file. Job claim uses an atomic conditional PostgreSQL update (`WHERE status='QUEUED'`); heartbeat and stale lease recovery run on worker restart. Single worker is default.
 
 ### 3.3 Parser adapter capability probe (mandatory implementation gate)
 - Before implementing feature computation, make an executable `pnpm parser:probe path/to/demo.dem` diagnostic that calls `parseHeader`, `parsePlayerInfo`, `listGameEvents`, `parseEvents`, and selected `parseTicks` with *only fields known supported by installed parser*. Dump sanitized schema/column names and counts to `docs/compatibility.md` (no player PII in committed file).
@@ -288,7 +288,7 @@ Prisma entities (field specifics can be implemented from DTOs, but names/cardina
 - `Report(id, matchId, scoringVersion, configHash, jsonFilePath, createdAt, quality)` unique `(matchId, scoringVersion, configHash)`.
 - Optional `Feedback(id, reportId, playerId?, findingId?, vote, message?, createdAt)` for later, not required by UI v1.
 
-Use atomic rename on JSON compressed artifacts to avoid partially written result; validate JSON against Zod schema after decompression. Paths stored relative to `DATA_DIR`, canonicalized before access to prevent path traversal. SQLite WAL mode if supported. Job transactions must not hold locks across parsing. One worker processes jobs sequentially. No `eval`, unsafe shell invocation or executed content from demo.
+Publish compressed JSON artifacts immutably to avoid partially written results; validate JSON against Zod schema after decompression. Paths stored relative to `DATA_DIR` are canonicalized before access to prevent path traversal. Job transactions must not hold locks across parsing. One worker processes jobs sequentially by default. No `eval`, unsafe shell invocation or executed content from demo.
 
 Observability: structured logs `requestId/jobId/matchId`, phases/durations, file size, counted rounds/events, availability; do not log private SteamID/name by default. Worker errors include internal stack only in server logs. Metrics on parse time, failures and memory, with operational benchmark target of 120s timeout (not a promised normal processing speed).
 
@@ -368,7 +368,7 @@ For every milestone require `pnpm lint && pnpm typecheck && pnpm test && pnpm bu
 
 ## 14. Codex operating instructions (copy as initial task)
 
-> Read `SPEC.md` in full and treat it as normative. Implement milestone M0 first, then M1-M4 in order, obeying STOP conditions. Use a pnpm TypeScript monorepo, NestJS, Vite React, Prisma SQLite, `@laihoe/demoparser2` adapter, Docker Compose. Do not add LLM/ML or handwave absent demo fields. Create complete runnable code and tests, never pretend parser checks passed without a real .dem fixture. After each milestone run lint/typecheck/test/build and report actual commands/results; when a real demo is needed and none is available, stop at that gate with working mock fixtures and clear next step. Maintain `docs/compatibility.md`, `docs/decisions.md`, and update README. Keep all scoring deterministic, versioned and independently testable. Never infer tactical intent from mere death. The user will test locally before any public deployment.
+> Read `SPEC.md` in full and treat it as normative. Implement milestone M0 first, then M1-M4 in order, obeying STOP conditions. Use a pnpm TypeScript monorepo, NestJS, Vite React, Prisma PostgreSQL 17, `@laihoe/demoparser2` adapter, Docker Compose. Do not add LLM/ML or handwave absent demo fields. Create complete runnable code and tests, never pretend parser checks passed without a real .dem fixture. Use risk-scoped checks during implementation and the documented full gate at final verification; when a real demo is needed and none is available, stop at that gate with working mock fixtures and clear next step. Maintain `docs/compatibility.md`, `docs/decisions.md`, and update README. Keep all scoring deterministic, versioned and independently testable. Never infer tactical intent from mere death. The user will test locally before any public deployment.
 
 ## 15. References and boundaries of external evidence
 

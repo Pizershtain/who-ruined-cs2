@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, type OnApplicationShutdown } from '@nestjs/common';
 import { jobStatusSchema } from '@who-ruined/contracts';
 import {
   DatabaseConcurrentWriteError,
@@ -28,7 +28,13 @@ type TransactionCheckpoint =
   | 'AFTER_UPLOAD_MATCH_CREATED';
 
 @Injectable()
-export class PrismaApiRepository implements MatchQueryPort, MatchCommandPort {
+export class PrismaApiRepository
+  implements MatchQueryPort, MatchCommandPort, OnApplicationShutdown
+{
+  async onApplicationShutdown(): Promise<void> {
+    await prisma.$disconnect();
+  }
+
   protected databaseClient(): PrismaClient {
     return prisma;
   }

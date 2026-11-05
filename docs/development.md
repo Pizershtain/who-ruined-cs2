@@ -30,6 +30,8 @@ npm.cmd run db:generate
 
 Do not run `db:push` or migrations against an owner database merely to start a second worktree.
 
+For the one-time owner-data transition, follow the [SQLite to PostgreSQL migration runbook](sqlite-to-postgresql-migration.md). Do not invoke that tool against owner data without explicit permission.
+
 ## Recommended isolated full stack
 
 ~~~powershell
@@ -39,51 +41,55 @@ powershell -ExecutionPolicy Bypass -File .\scripts\dev-up.ps1
 The script:
 
 - creates `_local-dev/data`;
+- creates a random PostgreSQL password in ignored `_local-dev/postgres-password.txt` when absent;
 - refuses the repository's owner `data` path;
 - renders and verifies the effective Compose mounts;
 - verifies that published ports are loopback-only;
+- starts PostgreSQL 17 on `127.0.0.1:54329` with a named persistent volume and waits for its healthcheck;
 - enables the experimental participation endpoints; H2 is the only policy;
 - runs Prisma migrations inside the API container;
 - starts API, worker and web.
 
 Open `http://127.0.0.1:5173`. API and Swagger are at `http://127.0.0.1:3000/api/v1` and `http://127.0.0.1:3000/api/docs`.
 
-Choose a non-default API port without editing files:
+Choose non-default ports and a distinct Compose project without editing files:
 
 ~~~powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\dev-up.ps1 -ApiPort 3010
+powershell -ExecutionPolicy Bypass -File .\scripts\dev-up.ps1 `
+  -ApiPort 3010 -WebPort 5184 -PostgresPort 54330 -ProjectName wrc-other-worktree
 ~~~
 
-The Docker web port and Compose project name are intentionally fixed for this owner profile. Stop it before starting a second Compose copy:
+Stop the matching Compose project without deleting its PostgreSQL volume or artifact directory:
 
 ~~~powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\dev-down.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\dev-down.ps1 -ProjectName wrc-other-worktree
 ~~~
 
-The stop script preserves `_local-dev/data`. The resolved configuration is written to `_local-dev/compose.resolved.yml` for inspection.
+The stop script loads the ignored local password and preserves `_local-dev/data` and the named PostgreSQL volume. A password-redacted resolved configuration is written to `_local-dev/compose.resolved.yml` for inspection. Do not use `docker compose down -v` unless permanent deletion of that isolated database is intended.
 
 ## Native development with an isolated database
 
-Use native processes when hot reload or a second web/API port is required. The following creates a disposable worktree-local database; it never points at `data/app.db`.
+Use native processes when hot reload is required. Provision a PostgreSQL 17 database or schema dedicated to this worktree first. The Compose PostgreSQL can be reached through its loopback port, but do not start a second API/worker against the same schema while the Compose API/worker are running.
 
-Run this environment block in the API and worker terminals:
+For the default isolated Compose PostgreSQL, load its generated password and choose a schema unique to the native worktree. Run the same environment block in the API and worker terminals:
 
 ~~~powershell
 $devData = [IO.Path]::GetFullPath((Join-Path (Get-Location) '_local-dev\native-data'))
 New-Item -ItemType Directory -Force -Path $devData | Out-Null
-$sqlitePath = (Join-Path $devData 'app.db').Replace('\', '/')
+$postgresPassword = (Get-Content -LiteralPath '.\_local-dev\postgres-password.txt' -Raw).Trim()
+$escapedPassword = [Uri]::EscapeDataString($postgresPassword)
 
 $env:DATA_DIR = $devData
-$env:DATABASE_URL = "file:$sqlitePath"
+$env:DATABASE_URL = "postgresql://who_ruined_cs2:$escapedPassword@127.0.0.1:54329/who_ruined_cs2?schema=wrc_native_refactor"
 $env:ENABLE_EXPERIMENTAL_PARTICIPATION_RATING = '1'
 $env:RETAIN_SOURCE_DEMO = '1'
 ~~~
 
-Initialize only that new database:
+Initialize only that new schema with the reproducible migration history:
 
 ~~~powershell
 npm.cmd run db:generate
-.\node_modules\.bin\prisma.cmd migrate deploy --schema .\prisma\schema.prisma
+npm.cmd run db:migrate
 ~~~
 
 Then use three terminals.
@@ -122,7 +128,8 @@ A copied `.env` is input to Docker Compose; native Node processes do not load it
 | Variable | Consumer | Purpose/default |
 | --- | --- | --- |
 | `DATA_DIR` | API, worker | shared filesystem root; defaults to `./data` |
-| `DATABASE_URL` | Prisma | SQLite URL; must identify the same isolated database for API and worker |
+| `DATABASE_URL` | Prisma | explicit PostgreSQL URL; API and worker must use the same isolated database/schema |
+| `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_PORT` | Compose | PostgreSQL container identity/secret and loopback host port; `dev-up.ps1` supplies the secret |
 | `API_BIND_HOST`, `API_PORT` | API | bind address/port; `127.0.0.1:3000` default |
 | `API_CORS_ORIGINS` | API | comma-separated exact HTTP origins |
 | `API_URL` | Vite | development proxy target; `http://127.0.0.1:3000` default |
@@ -164,6 +171,15 @@ npm.cmd run architecture:check
 
 A contract change normally requires its package, the immediate API/worker/web consumers and compatibility fixtures. Additional checks require a concrete risk or observed regression.
 
+PostgreSQL integration tests require a separately provisioned, disposable PostgreSQL 17 database. The database named in `TEST_DATABASE_URL` must already exist before the command starts; the tests create and drop random schemas inside it, not the database itself. The configured role must be allowed to create and drop schemas. Multiple independent Prisma clients are used where concurrency matters:
+
+~~~powershell
+$env:TEST_DATABASE_URL = 'postgresql://USER:PASSWORD@127.0.0.1:54329/wrc_tests?schema=public'
+npm.cmd run test:postgres
+~~~
+
+Without `TEST_DATABASE_URL`, those tests are explicitly skipped and must be reported as blocked rather than passed. Never point this variable at the active application database or any owner database.
+
 ## P6 full gate
 
 P6 owns the repository-wide regression pass:
@@ -195,12 +211,13 @@ The development-only frontend preview routes render synthetic states without API
 Every worktree must use:
 
 - a unique absolute `DATA_DIR`;
-- a unique `DATABASE_URL`;
-- non-conflicting API and Vite ports;
+- a unique PostgreSQL database or schema and `DATABASE_URL`;
+- a unique Compose project name and named PostgreSQL volume when using Docker;
+- non-conflicting API, Vite and PostgreSQL host ports;
 - its own process terminals;
 - no shared mutable `data` directory.
 
-Never solve a port conflict by attaching a refactor worktree to an already-running owner's SQLite/data root.
+Never solve a port conflict by attaching a refactor worktree to an already-running owner's PostgreSQL schema or data root.
 
 ## Troubleshooting
 
@@ -212,9 +229,9 @@ The config uses `strictPort`. Stop the other process or pass a new port as shown
 
 Confirm the worker is running with the same `DATABASE_URL` and `DATA_DIR`. Check the experimental flag in the API terminal. Inspect the job DTO and worker log request/job IDs.
 
-### Prisma cannot open SQLite
+### Prisma cannot reach PostgreSQL
 
-Use an absolute `file:<forward-slash-path>` URL, ensure its parent exists and make sure API/worker do not disagree. Do not repair this by pointing at the owner database.
+Confirm PostgreSQL 17 is running, the URL credentials/database/schema are correct and the host port is loopback-reachable. Run `npm.cmd run db:migrate` only against the intended isolated destination. API and worker must use the exact same `DATABASE_URL`; do not repair connectivity by pointing either process at an owner database.
 
 ### Rating endpoint returns disabled or policy errors
 

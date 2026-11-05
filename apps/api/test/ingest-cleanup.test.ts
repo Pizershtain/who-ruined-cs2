@@ -8,7 +8,7 @@ const database = vi.hoisted(() => ({
   findUnique: vi.fn(),
   createMatch: vi.fn(),
   createJob: vi.fn(),
-  executeRaw: vi.fn(),
+  queryRaw: vi.fn(),
   transaction: vi.fn(),
   countJobs: vi.fn()
 }));
@@ -18,7 +18,8 @@ vi.mock('@who-ruined/database', async (importOriginal) => ({
   prisma: {
     match: { findUnique: database.findUnique, create: database.createMatch },
     job: { create: database.createJob, count: database.countJobs },
-    $transaction: database.transaction
+    $transaction: database.transaction,
+    $disconnect: vi.fn(),
   }
 }));
 
@@ -45,7 +46,7 @@ beforeEach(() => {
   database.findUnique.mockResolvedValue(null);
   database.countJobs.mockResolvedValue(0);
   database.transaction.mockImplementation(async (action) => action({
-    $executeRawUnsafe: database.executeRaw,
+    $queryRaw: database.queryRaw,
     match: { findUnique: database.findUnique, create: database.createMatch },
     job: { create: database.createJob, count: database.countJobs },
   }));
@@ -75,11 +76,11 @@ describe('ingest ownership and persistence cleanup', () => {
     expect(database.transaction).toHaveBeenCalledOnce();
   });
 
-  it('bounds SQLite write-conflict retries and maps exhaustion to a typed 503', async () => {
+  it('bounds PostgreSQL serialization retries and maps exhaustion to a typed 503', async () => {
     const upload = await validTemporaryUpload();
     database.transaction.mockRejectedValue(Object.assign(
-      new Error('database is locked'),
-      { code: 'P1008' },
+      new Error('transaction write conflict'),
+      { code: 'P2034' },
     ));
 
     await expect(createTestApiFacade().ingest(upload.file)).rejects.toMatchObject({

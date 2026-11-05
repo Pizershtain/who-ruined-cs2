@@ -1,12 +1,13 @@
-import { DatabaseSync } from 'node:sqlite';
-import { mkdtemp, rm } from 'node:fs/promises';
-import os from 'node:os';
-import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import {
   PrismaClient,
   UNFINISHED_JOB_STATUSES,
 } from '@who-ruined/database';
+import {
+  createPostgresTestDatabase,
+  postgresIntegrationAvailable,
+  type PostgresTestDatabase,
+} from '../../../packages/database/test/postgres-test-database.js';
 import { PrismaApiRepository } from '../src/infrastructure/prisma-api-repository.js';
 
 type AtomicOperation = 'UPLOAD' | 'RESCORE' | 'DELETE';
@@ -19,8 +20,7 @@ type CheckpointHook = (
   operation: AtomicOperation,
 ) => void | Promise<void>;
 
-const roots: string[] = [];
-const clients: PrismaClient[] = [];
+const databases: PostgresTestDatabase[] = [];
 const now = new Date('2026-11-04T00:00:00.000Z');
 
 function deferred(): {
@@ -56,55 +56,14 @@ async function fixture(): Promise<{
   first: PrismaClient;
   second: PrismaClient;
 }> {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'wrc-api-atomic-'));
-  roots.push(root);
-  const databasePath = path.join(root, 'api.db');
-  const sql = new DatabaseSync(databasePath);
-  sql.exec(`
-    PRAGMA foreign_keys = ON;
-    CREATE TABLE Match (
-      id TEXT PRIMARY KEY, originalFileName TEXT NOT NULL, fileSha256 TEXT NOT NULL,
-      map TEXT, status TEXT NOT NULL, quality TEXT,
-      createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      parserVersion TEXT NOT NULL, normalizerVersion TEXT NOT NULL,
-      normalizedFilePath TEXT, rawFilePath TEXT, resultFilePath TEXT,
-      resultSchemaVersion TEXT, resultSha256 TEXT, resultPolicyId TEXT,
-      resultPolicyDigest TEXT, sourceDeletedAt DATETIME, deletionState TEXT,
-      deletionRequestedAt DATETIME, winningTeamId TEXT, losingTeamId TEXT
-    );
-    CREATE UNIQUE INDEX Match_fileSha256_parserVersion_normalizerVersion_key
-      ON Match(fileSha256, parserVersion, normalizerVersion);
-    CREATE TABLE Job (
-      id TEXT PRIMARY KEY, matchId TEXT NOT NULL, type TEXT NOT NULL,
-      status TEXT NOT NULL, stage TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0,
-      leaseUntil DATETIME, leaseToken TEXT, errorCode TEXT, errorMessage TEXT,
-      requestedScoringVersion TEXT, requestedConfigHash TEXT,
-      createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY(matchId) REFERENCES Match(id) ON DELETE CASCADE
-    );
-    CREATE INDEX Job_status_createdAt_idx ON Job(status, createdAt);
-    CREATE TABLE Report (
-      id TEXT PRIMARY KEY, matchId TEXT NOT NULL, scoringVersion TEXT NOT NULL,
-      configHash TEXT NOT NULL, jsonFilePath TEXT NOT NULL,
-      createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, quality TEXT NOT NULL,
-      FOREIGN KEY(matchId) REFERENCES Match(id) ON DELETE CASCADE
-    );
-    CREATE UNIQUE INDEX Report_matchId_scoringVersion_configHash_key
-      ON Report(matchId, scoringVersion, configHash);
-  `);
-  sql.close();
-  const datasourceUrl = `file:${databasePath.replaceAll('\\', '/')}`;
-  const first = new PrismaClient({ datasourceUrl });
-  const second = new PrismaClient({ datasourceUrl });
-  clients.push(first, second);
+  const database = await createPostgresTestDatabase(2);
+  databases.push(database);
+  const [first, second] = database.clients as [PrismaClient, PrismaClient];
   return { first, second };
 }
 
 afterEach(async () => {
-  await Promise.all(clients.splice(0).map((client) => client.$disconnect()));
-  await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
+  await Promise.all(databases.splice(0).map((database) => database.dispose()));
 });
 
 async function seedMatch(
@@ -189,7 +148,7 @@ async function unfinishedJobCount(client: PrismaClient): Promise<number> {
   });
 }
 
-describe('atomic queue admission on shared SQLite', () => {
+describe.skipIf(!postgresIntegrationAvailable)('atomic queue admission on PostgreSQL', () => {
   it('admits only one of two concurrent uploads into one free slot', async () => {
     const { first: firstClient, second: secondClient } = await fixture();
     const coordination = coordinatedRepositories(firstClient, secondClient);
@@ -254,7 +213,7 @@ describe('atomic queue admission on shared SQLite', () => {
   });
 });
 
-describe('atomic match lifecycle on shared SQLite', () => {
+describe.skipIf(!postgresIntegrationAvailable)('atomic match lifecycle on PostgreSQL', () => {
   it('collapses concurrent identical uploads and keeps one Match and Job', async () => {
     const { first: firstClient, second: secondClient } = await fixture();
     const coordination = coordinatedRepositories(firstClient, secondClient);

@@ -8,7 +8,12 @@ const readFile = vi.fn();
 const stat = vi.fn();
 vi.mock('@who-ruined/database', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@who-ruined/database')>()),
-  prisma: { match: { findUnique }, report: { findUnique: vi.fn() }, job: { create: vi.fn() } },
+  prisma: {
+    match: { findUnique },
+    report: { findUnique: vi.fn() },
+    job: { create: vi.fn() },
+    $disconnect: vi.fn(),
+  },
 }));
 vi.mock('node:fs/promises', async (original) => ({ ...(await original<typeof import('node:fs/promises')>()), readFile, stat }));
 

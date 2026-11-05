@@ -91,7 +91,7 @@ export class StoredArtifactReader implements ArtifactReaderPort {
         policyDigest: stored.resultPolicyDigest,
       });
     } catch {
-      throw new ApplicationError('REPORT_CORRUPT', 'Policy binding канонического отчёта и SQLite не совпадает.', 409);
+      throw new ApplicationError('REPORT_CORRUPT', 'Policy binding канонического отчёта и БД не совпадает.', 409);
     }
 
     if (

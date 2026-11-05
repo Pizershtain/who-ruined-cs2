@@ -9,7 +9,7 @@ The repository is an active prototype, not a public service. The parser, rating 
 - Streams a CS2 `.dem` to local storage and processes it in a separate worker.
 - Normalizes players, roster-based teams, rounds and events without treating T/CT as stable team identity.
 - Computes availability-aware analytics: K/D/A, ADR, KAST, trades, openings, clutches, utility, economy and objective facts.
-- Publishes one immutable `match-result@1` artifact with a content checksum and a SQLite pointer.
+- Publishes one immutable `match-result@1` artifact with a content checksum and a PostgreSQL pointer.
 - Exposes the H2 participation rating, MVP/Who Ruined pools and per-player coverage.
 - Explains each rating through six families, typed evidence and transformations. The six final attributions plus the base value of 1 reconstruct the displayed score within `1e-12`.
 - Selects up to eight deterministic important moments per player: multikills and confirmed trades, including reliable fast-trade timing.
@@ -30,7 +30,7 @@ See [scoring and explanation](docs/scoring.md) and [known limitations](docs/limi
 browser
   -> Vite/React feature modules
   -> Nest API (/api/v1)
-  -> SQLite job + match metadata
+  -> PostgreSQL job + match metadata
   -> leased worker
   -> parser child process
   -> normalized match domain
@@ -88,13 +88,13 @@ Stop it without deleting its isolated data:
 powershell -ExecutionPolicy Bypass -File .\scripts\dev-down.ps1
 ~~~
 
-For a native three-process setup, a separate SQLite database, environment variables and the 5174 Vite port, follow the [development guide](docs/development.md). Do not point development commands at an owner database.
+For a native three-process setup, use an isolated PostgreSQL database/schema, environment variables and a non-conflicting Vite port as described in the [development guide](docs/development.md). Do not point development commands at an owner database.
 
 ## Configuration
 
 Copy `.env.example` only as a starting point. The important controls are:
 
-- `DATA_DIR` and `DATABASE_URL`: filesystem and SQLite roots; isolate both per worktree.
+- `DATA_DIR` and `DATABASE_URL`: filesystem artifact root and PostgreSQL connection; isolate both per worktree.
 - `ENABLE_EXPERIMENTAL_PARTICIPATION_RATING`: enables rating and explanation reads.
 - `RETAIN_SOURCE_DEMO`: defaults to false after verified canonical publication.
 - Upload, parser, artifact and replay size limits: bounded local resource controls.
@@ -127,6 +127,7 @@ Start with the [documentation index](docs/README.md). The canonical references a
 
 - [API routes, DTOs and errors](docs/api.md)
 - [Storage, jobs and artifact lifecycle](docs/storage-lifecycle.md)
+- [SQLite to PostgreSQL owner migration runbook](docs/sqlite-to-postgresql-migration.md)
 - [Frontend architecture](docs/frontend.md)
 - [Local development and troubleshooting](docs/development.md)
 - [Parser compatibility evidence](docs/compatibility.md)

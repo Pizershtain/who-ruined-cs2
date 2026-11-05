@@ -1,16 +1,16 @@
-import { DatabaseSync } from 'node:sqlite';
-import { mkdtemp, rm } from 'node:fs/promises';
-import os from 'node:os';
-import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 import { PrismaClient } from '../generated/client/index.js';
 import {
   createJobRepository,
   type PersistOwnedReportInput,
 } from '../src/index.js';
+import {
+  createPostgresTestDatabase,
+  postgresIntegrationAvailable,
+  type PostgresTestDatabase,
+} from './postgres-test-database.js';
 
-const roots: string[] = [];
-const clients: PrismaClient[] = [];
+const databases: PostgresTestDatabase[] = [];
 const leaseExpiresAt = new Date('2026-11-04T00:00:01.000Z');
 const whileOwned = new Date('2026-11-04T00:00:00.500Z');
 const afterExpiry = new Date('2026-11-04T00:00:02.000Z');
@@ -22,49 +22,9 @@ function deferred(): { promise: Promise<void>; resolve: () => void } {
 }
 
 async function fixture(): Promise<{ first: PrismaClient; second: PrismaClient }> {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'wrc-report-fencing-'));
-  roots.push(root);
-  const databasePath = path.join(root, 'reports.db');
-  const sql = new DatabaseSync(databasePath);
-  sql.exec(`
-    PRAGMA foreign_keys = ON;
-    CREATE TABLE Match (
-      id TEXT PRIMARY KEY, originalFileName TEXT NOT NULL, fileSha256 TEXT NOT NULL,
-      map TEXT, status TEXT NOT NULL, quality TEXT,
-      createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      parserVersion TEXT NOT NULL, normalizerVersion TEXT NOT NULL,
-      normalizedFilePath TEXT, rawFilePath TEXT, resultFilePath TEXT,
-      resultSchemaVersion TEXT, resultSha256 TEXT, resultPolicyId TEXT,
-      resultPolicyDigest TEXT, sourceDeletedAt DATETIME, deletionState TEXT,
-      deletionRequestedAt DATETIME, winningTeamId TEXT, losingTeamId TEXT
-    );
-    CREATE TABLE Job (
-      id TEXT PRIMARY KEY, matchId TEXT NOT NULL, type TEXT NOT NULL,
-      status TEXT NOT NULL, stage TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0,
-      leaseUntil DATETIME, leaseToken TEXT, errorCode TEXT, errorMessage TEXT,
-      requestedScoringVersion TEXT, requestedConfigHash TEXT,
-      createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY(matchId) REFERENCES Match(id) ON DELETE CASCADE
-    );
-    CREATE INDEX Job_status_createdAt_idx ON Job(status, createdAt);
-    CREATE INDEX Job_leaseUntil_idx ON Job(leaseUntil);
-    CREATE TABLE Report (
-      id TEXT PRIMARY KEY, matchId TEXT NOT NULL, scoringVersion TEXT NOT NULL,
-      configHash TEXT NOT NULL, jsonFilePath TEXT NOT NULL,
-      createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, quality TEXT NOT NULL,
-      FOREIGN KEY(matchId) REFERENCES Match(id) ON DELETE CASCADE
-    );
-    CREATE UNIQUE INDEX Report_matchId_scoringVersion_configHash_key
-      ON Report(matchId, scoringVersion, configHash);
-  `);
-  sql.close();
-
-  const datasourceUrl = `file:${databasePath.replaceAll('\\', '/')}`;
-  const first = new PrismaClient({ datasourceUrl });
-  const second = new PrismaClient({ datasourceUrl });
-  clients.push(first, second);
+  const database = await createPostgresTestDatabase(2);
+  databases.push(database);
+  const [first, second] = database.clients as [PrismaClient, PrismaClient];
   for (const id of ['match', 'other-match']) {
     await first.match.create({
       data: {
@@ -94,8 +54,7 @@ async function fixture(): Promise<{ first: PrismaClient; second: PrismaClient }>
 }
 
 afterEach(async () => {
-  await Promise.all(clients.splice(0).map((client) => client.$disconnect()));
-  await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
+  await Promise.all(databases.splice(0).map((database) => database.dispose()));
 });
 
 function reportInput(overrides: Partial<PersistOwnedReportInput> = {}): PersistOwnedReportInput {
@@ -112,7 +71,7 @@ function reportInput(overrides: Partial<PersistOwnedReportInput> = {}): PersistO
   };
 }
 
-describe('lease-fenced legacy Report persistence', () => {
+describe.skipIf(!postgresIntegrationAvailable)('lease-fenced legacy Report persistence on PostgreSQL', () => {
   it('creates a Report for the current unexpired owner', async () => {
     const { first } = await fixture();
     await createJobRepository(first, { now: () => whileOwned })

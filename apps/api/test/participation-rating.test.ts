@@ -26,7 +26,12 @@ const stat = vi.fn();
 const access = vi.fn();
 vi.mock('@who-ruined/database', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@who-ruined/database')>()),
-  prisma: { match: { findUnique }, report: { findUnique: vi.fn() }, job: { create: vi.fn() } },
+  prisma: {
+    match: { findUnique },
+    report: { findUnique: vi.fn() },
+    job: { create: vi.fn() },
+    $disconnect: vi.fn(),
+  },
 }));
 vi.mock('node:fs/promises', async (original) => ({ ...(await original<typeof import('node:fs/promises')>()), readFile, access, stat }));
 
@@ -366,7 +371,7 @@ describe('P7.2-F participation rating API', () => {
     expect(() => buildParticipationExplanation(historical)).toThrow('PARTICIPATION_EXPLANATION_REQUIRES_H2_RESULT');
   });
 
-  it('fails closed when the canonical result bytes do not match the SQLite checksum', async () => {
+  it('fails closed when the canonical result bytes do not match the database checksum', async () => {
     const data = fixture();
     const canonicalResult = buildCanonicalMatchResult({ artifact: data.artifact, sidecar: data.sidecar, productionReports: [], sourceDemoRetained: false, createdAt: '2026-10-26T00:00:00.000Z' });
     const compressed = gzipSync(Buffer.from(JSON.stringify(canonicalResult)));

@@ -93,7 +93,7 @@ POST .dem
   -> source demo is removed only after binding is verified and policy permits
 ~~~
 
-Filesystem and SQLite cannot share a transaction. Publication therefore uses immutable content, SHA-256 binding, lease fencing, intent state and startup reconciliation. The exact ordering is in [storage lifecycle](storage-lifecycle.md).
+Filesystem and PostgreSQL cannot share a transaction. Publication therefore uses immutable content, SHA-256 binding, lease fencing, intent state and startup reconciliation. The exact ordering is in [storage lifecycle](storage-lifecycle.md).
 
 ## Read flow
 
@@ -131,6 +131,6 @@ More precisely, domain packages may depend on contracts and lower-level pure pac
 
 ## Runtime topology
 
-The supported local topology is one API process, one or more lease-coordinated worker processes, one Vite/static web process, one SQLite database and one shared data root. Defaults bind HTTP services to loopback.
+The supported local topology is one API process, one or more lease-coordinated worker processes, one Vite/static web process, one PostgreSQL 17 database and one shared artifact data root. API and worker use independent Prisma connections to the same database. Defaults bind HTTP and PostgreSQL host ports to loopback.
 
 This is a trusted-owner architecture. Authentication, tenant isolation, cross-process admission control and public object storage are not implemented; see [limitations](limitations.md).

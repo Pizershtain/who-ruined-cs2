@@ -138,7 +138,7 @@ not treated as a draw. Pool sizes, incomplete-pool state and ties are explicit.
 | 422 | `INVALID_POLICY_SELECTOR` | Public policy selection is forbidden. |
 
 Legacy matches not yet migrated retain the older typed sidecar/backfill errors.
-No GET parses a demo, creates files, queues a backfill or modifies SQLite.
+No GET parses a demo, creates files, queues a backfill or modifies PostgreSQL.
 
 ## Owner rebuild
 

@@ -341,8 +341,8 @@ export function createJobRepository(
         },
       });
       await hooks.afterReportUpsert?.();
-      // Recheck expiry as close to commit as possible. The write reservation
-      // prevents another owner from changing this Job during the transaction.
+      // Recheck expiry as close to commit as possible. Lease-token fencing and
+      // rollback protect the report if another worker reclaimed the Job.
       await assertOwnership();
     });
   }
