@@ -14,11 +14,20 @@ $env:GOLDEN_DUST2_DEMO_PATH = 'C:\external\dust2.dem'
 $env:GOLDEN_DUST2_INFO_PATH = 'C:\external\dust2.dem.info'
 $env:GOLDEN_TRAIN_DEMO_PATH = 'C:\external\train.dem'
 $env:GOLDEN_TRAIN_INFO_PATH = 'C:\external\train.dem.info'
-pnpm test:golden
+npm.cmd run test:golden
 ```
 
-For repeatable local runs, the spec also loads `tests/golden/.env.local` when
-present. The file is Git-ignored and uses the same six variable names. Explicit
+That command is a partial diagnostic runner: every unconfigured fixture is reported as `SKIPPED`. For the permanent fail-closed gate, configure all six paths and run:
+
+```powershell
+npm.cmd run quality:golden
+```
+
+The strict gate verifies every demo SHA-256 before native parsing. A missing fixture exits with code 2 (`BLOCKED`); an empty info sidecar, wrong SHA or reconciliation failure exits non-zero (`FAIL`). It never rewrites the manifest.
+
+For repeatable local runs, both the diagnostic spec and strict gate load
+`tests/golden/.env.local` when present. The file is Git-ignored and uses the
+same six variable names. Explicit
 environment variables take precedence because Node does not overwrite values
 that already exist in `process.env`.
 

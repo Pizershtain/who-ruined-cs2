@@ -3,7 +3,28 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { PrismaClient } from '../generated/client/index.js';
 
+const allowedTestHosts = new Set(['127.0.0.1', 'localhost', '::1', 'postgres']);
+
+export function assertPostgresTestDatabaseUrl(value: string): void {
+  let url: URL;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error('TEST_DATABASE_URL_INVALID');
+  }
+  const database = decodeURIComponent(url.pathname.replace(/^\//u, ''));
+  if (!['postgres:', 'postgresql:'].includes(url.protocol)
+    || !allowedTestHosts.has(url.hostname)
+    || !/(?:^|[_-])test(?:$|[_-])/iu.test(database)) {
+    throw new Error('TEST_DATABASE_URL_MUST_TARGET_LOCAL_TEST_DATABASE');
+  }
+}
+
 export const postgresTestDatabaseUrl = process.env.TEST_DATABASE_URL;
+if (process.env.REQUIRE_POSTGRES_INTEGRATION === '1' && !postgresTestDatabaseUrl) {
+  throw new Error('POSTGRES_INTEGRATION_BLOCKED: TEST_DATABASE_URL_REQUIRED');
+}
+if (postgresTestDatabaseUrl) assertPostgresTestDatabaseUrl(postgresTestDatabaseUrl);
 export const postgresIntegrationAvailable = Boolean(postgresTestDatabaseUrl);
 
 function schemaUrl(databaseUrl: string, schema: string): string {

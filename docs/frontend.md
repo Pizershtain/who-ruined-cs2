@@ -160,6 +160,6 @@ npm.cmd run design:contrast
 
 Use browser checks for representative narrow/intermediate/wide widths, Arabic RTL, keyboard flow and reduced motion when the touched UI creates that risk.
 
-## Compatibility adapters
+## Removed compatibility paths
 
-Root-level `api.ts`, legacy component/hook/analytics/player/replay files and `shared/upload.ts` re-export the P4 feature-first modules. They are retained temporarily for source compatibility and are not the preferred import surface. See [compatibility adapter audit](compatibility-adapters.md) before removing any of them.
+The former root `api.ts`, component/hook/analytics/player/replay trees and `shared/upload.ts` were removed after their consumers migrated. Active code must continue to use `app/`, `features/`, `entities/` and `shared/`; the architecture gate rejects package-entrypoint bypasses and upper-layer imports. See the [compatibility adapter audit](compatibility-adapters.md) for the retained serialized and package-level compatibility surface.

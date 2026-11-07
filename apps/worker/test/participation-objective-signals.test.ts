@@ -35,4 +35,27 @@ describe('participation objective preparation', () => {
       ctRounds: 3,
     })).toEqual({});
   });
+
+  it('keeps absent objective evidence and zero exposure finite without inventing credit', () => {
+    expect(prepareObjectiveSignals('BOMB', {
+      plants: 0, defuses: 0, hostageRescues: 0, hostageHurts: 0,
+    }, {
+      rounds: 8, tRounds: 5, ctRounds: 3,
+    })).toEqual({
+      'objective:plants': 0,
+      'objective:defuses': 0,
+    });
+    expect(prepareObjectiveSignals('BOMB', objectives, {
+      rounds: 0, tRounds: 0, ctRounds: 0,
+    })).toEqual({
+      'objective:plants': 0,
+      'objective:defuses': 0,
+    });
+    expect(prepareObjectiveSignals('HOSTAGE', objectives, {
+      rounds: 0, tRounds: 0, ctRounds: 0,
+    })).toEqual({
+      'objective:hostageRescues': 0,
+      'objective:hostageHurts': 0,
+    });
+  });
 });
