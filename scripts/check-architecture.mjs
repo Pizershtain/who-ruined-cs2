@@ -87,6 +87,14 @@ function workspaceTarget(specifier, packageNames) {
   return packageNames.find((name) => specifier === name || specifier.startsWith(`${name}/`));
 }
 
+function relativeWorkspaceTarget(internalTarget, packages) {
+  if (internalTarget === null) return null;
+  return packages.find((workspacePackage) => {
+    const packagePath = toRepositoryPath(workspacePackage.directory);
+    return internalTarget === packagePath || internalTarget.startsWith(`${packagePath}/`);
+  })?.name ?? null;
+}
+
 function resolvedInternalTarget(file, specifier) {
   if (!specifier.startsWith('.')) return null;
   return toRepositoryPath(resolve(dirname(file), specifier));
@@ -216,7 +224,17 @@ for (const workspacePackage of packages) {
           violations.push(`${repositoryPath}: scoring imports filesystem API ${specifier}; configs and scoring inputs must be explicit`);
         }
       }
-      const target = workspaceTarget(specifier, packageNames);
+      const packageSpecifierTarget = workspaceTarget(specifier, packageNames);
+      if (packageSpecifierTarget && specifier !== packageSpecifierTarget) {
+        violations.push(`${repositoryPath}: workspace deep import bypasses the public package entry point via ${specifier}`);
+      }
+      const relativeTarget = relativeWorkspaceTarget(internalTarget, packages);
+      if (!isTestOnly && relativeTarget && relativeTarget !== workspacePackage.name) {
+        violations.push(`${repositoryPath}: relative import crosses a workspace boundary via ${specifier}; use ${relativeTarget}`);
+      }
+      // Cross-workspace test fixtures may deliberately exercise a concrete
+      // implementation. Production code must always use the package entrypoint.
+      const target = packageSpecifierTarget ?? (isTestOnly ? null : relativeTarget);
       if (!target || target === workspacePackage.name) continue;
       imports.push({ from: workspacePackage.name, to: target, repositoryPath, specifier, isTestOnly });
     }

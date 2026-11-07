@@ -377,6 +377,33 @@ describe('synthetic stage 3 participation preparation baseline', () => {
     }).toMatchSnapshot();
   });
 
+  it('rebuilds a participation-filtered profile from counted rounds instead of reusing the full profile', () => {
+    const fixture = makeFixture({ complexEvents: true });
+    const affectedPlayerId = TEAM_A_PLAYERS[0]!;
+    const full = observe(fixture);
+    const fullProfile = full.prepared.preparedProfiles.find(
+      (profile) => profile.playerId === affectedPlayerId,
+    );
+
+    fixture.evidence.ticks = fixture.evidence.ticks.filter((row) => !(
+      row.steamId === affectedPlayerId
+      && row.tick === fixture.match.rounds[1]!.freezeEndTick
+    ));
+    const filtered = observe(fixture);
+    const filteredProfile = filtered.sidecar.profiles.find(
+      (profile) => profile.playerId === affectedPlayerId,
+    );
+
+    expect(fullProfile?.rounds).toBe(2);
+    expect(filteredProfile?.prepared.rounds).toBe(1);
+    expect(filteredProfile?.countedRoundIds).toEqual(['round-1']);
+    expect(filteredProfile?.excludedRoundIds).toEqual(['round-2']);
+    expect(filteredProfile?.prepared.p4CPlus.objectiveSignals)
+      .not.toEqual(fullProfile?.p4CPlus.objectiveSignals);
+    expect(filteredProfile?.prepared.p4CPlus.familyContributions)
+      .not.toEqual(fullProfile?.p4CPlus.familyContributions);
+  });
+
   it('keeps three verified full-round absences outside eligibility', () => {
     const fixture = makeFixture({ rounds: 3 });
     const affectedPlayerId = TEAM_A_PLAYERS[0]!;

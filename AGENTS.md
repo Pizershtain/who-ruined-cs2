@@ -37,8 +37,11 @@ Use the smallest evidence set covering the changed package, its direct consumers
 - Shared contracts, database, parser, scoring, worker or artifact lifecycle: check the changed package, immediate consumers and exact version/compatibility fixtures.
 - Frontend: relevant Vitest/typecheck; add `i18n:check` for user strings/keys/locales and `design:contrast` for colors/tokens. Layout/interaction changes require representative narrow/wide, RTL, keyboard and `prefers-reduced-motion` checks.
 - Persisted DTO/artifact changes require old/new fixtures and a migration/version plan.
-- Full repository `lint/typecheck/test/build` is the P6 gate. Extra cross-repository checks before P6 require an observed regression or specific cross-layer risk.
-- Root `npm.cmd run test` includes the external real-demo golden suite; never run it without permission.
+- `npm.cmd run quality:fast` is the fresh, infrastructure-free repository gate: architecture guardrails and their negative tests, lint, typecheck, package/frontend tests, build, i18n and contrast. Use narrower package checks while iterating, then this gate for a repository-wide handoff.
+- `npm.cmd run quality:integration` is fail-closed and requires `TEST_DATABASE_URL` to name a local PostgreSQL 17 test database with a standalone `test` segment. It applies/checks migrations and runs required database/API/worker integration tests with no availability SKIP. Never point it at production or an owner database.
+- `npm.cmd run quality:golden` is the strict external-corpus gate. All manifest demo/info paths and exact demo SHA-256 values must be present; missing fixtures are `BLOCKED` (exit 2), not PASS. `npm.cmd run test:golden` remains the diagnostic partial runner that may report individual SKIP.
+- `npm.cmd run quality:real-demo -- --demo=<approved.dem>` is a real API/worker/replay/H2/RESCORE smoke, not golden verification. It requires an already authorized running dev stack. `--match=<id>` rechecks persisted results after a restart without uploading or rescoring.
+- Root `npm.cmd run test` runs workspace tests only. Real demos, golden fixtures, Docker and PostgreSQL remain separate explicit gates.
 
 ## Frontend structure
 

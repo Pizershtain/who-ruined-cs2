@@ -12,6 +12,40 @@
 
 The repository pins `pnpm@11.25.0` in `package.json` and Prisma/`@prisma/client@6.17.1` in the lockfile.
 
+## Quality gates
+
+Use the pinned pnpm launcher after setup. The routine repository gate needs no Docker, database or external demo corpus:
+
+~~~powershell
+npm.cmd run quality:fast
+~~~
+
+It performs fresh architecture (including guardrail negative tests), lint, typecheck, workspace/frontend tests, build, i18n and contrast checks. A non-zero nested command is propagated.
+
+PostgreSQL integration is intentionally separate and fail-closed. Create a disposable local PostgreSQL 17 database whose name contains a standalone `test` segment, then set its URL explicitly:
+
+~~~powershell
+$env:TEST_DATABASE_URL = 'postgresql://wrc_test:password@127.0.0.1:54329/wrc_test?schema=public'
+npm.cmd run quality:integration
+~~~
+
+The gate rejects remote or production-like targets, applies and checks Prisma migrations, and requires all PostgreSQL database/API/worker tests to execute. An absent database is `BLOCKED`, never a successful integration run.
+
+External native-parser verification has two distinct entry points:
+
+~~~powershell
+# Strict pinned reconciliation: every manifest fixture and exact SHA is required.
+npm.cmd run quality:golden
+
+# End-to-end smoke of one separately approved real demo against a running dev stack.
+npm.cmd run quality:real-demo -- --demo='F:\approved\match.dem'
+
+# After restarting API/worker, re-read the already persisted result.
+npm.cmd run quality:real-demo -- --match='<match-id>'
+~~~
+
+The smoke covers upload, PARSE, normalized match, H2 rating/explanation, important moments, replay, RESCORE and repeated reads. It does not turn an arbitrary demo into a golden fixture. `npm.cmd run test:golden` remains useful for an explicitly partial diagnostic run because it reports missing configured fixtures as SKIP.
+
 ## Install
 
 From the repository root:

@@ -75,4 +75,41 @@ describe('persisted participation profile input', () => {
       },
     });
   });
+
+  it.each([
+    ['WITHHELD_REQUIRED_INPUT', 'REQUIRED_INPUT_MISSING'],
+    ['UNKNOWN_APPLICABILITY', 'SCENARIO_UNKNOWN'],
+  ] as const)('preserves %s instead of inventing contributions', (status, reason) => {
+    const source = persistedProfile();
+    source.status = status === 'UNKNOWN_APPLICABILITY'
+      ? 'UNKNOWN_APPLICABILITY'
+      : 'WITHHELD_INSUFFICIENT_VERIFIED_EXPOSURE';
+    source.reason = reason;
+    source.prepared.p4BPlus = { status, reason };
+    source.prepared.p4CPlus = { status, reason };
+
+    const [profile] = toParticipationRatingPreparedProfiles([source]);
+
+    expect(profile?.prepared.p4BPlus).toEqual({
+      status,
+      reason,
+      familyContributions: null,
+      objectiveSignals: null,
+      episodeContributions: null,
+    });
+    expect(profile?.prepared.p4CPlus).toEqual(profile?.prepared.p4BPlus);
+  });
+
+  it('omits an unexpected persisted null contribution without converting it to zero', () => {
+    const source = persistedProfile();
+    const contributions = source.prepared.p4CPlus.familyContributions as Record<string, number | null>;
+    contributions.COMBAT = null;
+
+    const [profile] = toParticipationRatingPreparedProfiles([source]);
+
+    expect(profile?.prepared.p4CPlus.familyContributions).toEqual({
+      DIRECT_HARM: -.02,
+    });
+    expect(profile?.prepared.p4CPlus.familyContributions).not.toHaveProperty('COMBAT');
+  });
 });
