@@ -25,6 +25,8 @@
   "error-validation": "Kampdataene kunne ikke valideres.",
   "evidence-disclaimer": "Kampfakta er dokumentation, ikke bevis for taktisk skyld eller hensigt.",
   "expand-section": "Åbn i fuld visning",
+  "impact-postplant": "Efter bombeplantning",
+  "impact-recovery": "Comeback fra undertal",
   "language": "Sprog",
   "language-change-error": "Kunne ikke skifte sprog. Prøv igen.",
   "language-close": "Luk sprogmenuen",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analysér en kamp",
   "nav-method": "Sådan fungerer det",
   "navigation": "Hovednavigation",
+  "neutralized-death": "Dødsfald udlignet med et tradedrab",
   "offline": "Du er offline. Opdateringer genoptages, når forbindelsen er tilbage.",
   "page-not-found": "Siden blev ikke fundet",
   "page-not-found-note": "Dette link fører ikke til en rapport. Gå tilbage, og vælg en kamp.",
@@ -67,5 +70,6 @@
   "status-queued": "I kø",
   "status-scoring": "Forbereder analysen",
   "status-validating": "Kontrollerer runder og stillinger",
-  "unavailable": "Endnu ikke tilgængelig"
+  "unavailable": "Endnu ikke tilgængelig",
+  "verified-utility": "Bekræftet brug af granater"
 }

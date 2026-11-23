@@ -25,6 +25,8 @@
   "error-validation": "Data pertandingan tidak dapat divalidasi.",
   "evidence-disclaimer": "Fakta pertandingan adalah bukti pendukung, bukan pembuktian kesalahan taktik atau niat.",
   "expand-section": "Buka selengkapnya",
+  "impact-postplant": "Setelah bom dipasang",
+  "impact-recovery": "Bangkit dari ketertinggalan",
   "language": "Bahasa",
   "language-change-error": "Tidak dapat mengganti bahasa. Coba lagi.",
   "language-close": "Tutup menu bahasa",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analisis pertandingan",
   "nav-method": "Cara kerjanya",
   "navigation": "Navigasi utama",
+  "neutralized-death": "Dampak kematian yang dibalas dinetralkan",
   "offline": "Anda sedang luring. Pembaruan dilanjutkan saat koneksi kembali.",
   "page-not-found": "Halaman tidak ditemukan",
   "page-not-found-note": "Tautan ini tidak mengarah ke laporan. Kembali dan pilih pertandingan.",
@@ -67,5 +70,6 @@
   "status-queued": "Dalam antrean",
   "status-scoring": "Menyiapkan analisis",
   "status-validating": "Memeriksa ronde dan skor",
-  "unavailable": "Belum tersedia"
+  "unavailable": "Belum tersedia",
+  "verified-utility": "Penggunaan granat terverifikasi"
 }

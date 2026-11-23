@@ -702,7 +702,7 @@ td { color: var(--muted); }
 .bar-row > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: .8rem; }
 .bar-row strong { text-align: end; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
 .bar-track { height: 8px; border-radius: 99px; background: rgb(var(--glass) / .08); overflow: hidden; }
-.bar-track > span { display: block; height: 100%; border-radius: 99px; transform-origin: left center; animation: bar-grow var(--dur-slow) var(--ease-out) both; transition: width var(--dur-slow) var(--ease-out); }
+.bar-track > span { display: block; height: 100%; border-radius: 99px; transform-origin: left center; animation: bar-grow var(--dur-slow) var(--ease-out) both;  }
 [dir="rtl"] .bar-track > span { transform-origin: right center; }
 .impact-chart { display: flex; align-items: end; gap: 6px; padding-top: 24px; overflow-x: auto; }
 .impact-column { display: flex; flex-direction: column; align-items: center; flex: 1 0 18px; gap: 6px; color: var(--muted); font-size: .7rem; font-variant-numeric: tabular-nums; }
@@ -1452,3 +1452,20 @@ td { color: var(--muted); }
   .details-skeleton { grid-template-columns: 1fr; }
   .skeleton-match-hero > .skeleton-score { height: 20rem; }
 }
+
+.stored-awards, .radar-panel { padding: clamp(1rem, 3vw, 2rem); margin-block: 1rem; }
+.stored-awards ol, .radar-axes { padding-inline-start: 1.8rem; }
+.radar-layout { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(16rem, 2fr); align-items: center; gap: 1.5rem; }
+.radar-layout svg { width: 100%; max-width: 24rem; justify-self: center; }
+.radar-grid { fill: none; stroke: var(--line-strong); }
+.radar-edge { stroke: var(--accent); stroke-width: 2; }
+.radar-point { fill: var(--accent); }
+.radar-mvp { fill: var(--positive); stroke: var(--text); }
+.radar-evp { fill: var(--team-a); stroke: var(--text); }
+.radar-axes summary { cursor: pointer; }
+.radar-axes dl > div { display: flex; justify-content: space-between; gap: .75rem; }
+.radar-layout text { fill: var(--text); font-size: 9px; }
+.radar-axes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: .85rem 2rem; }
+.radar-axes li { overflow-wrap: anywhere; }
+.radar-axes small { display: block; color: var(--text-2); }
+@media (max-width: 680px) { .radar-layout { grid-template-columns: minmax(0, 1fr); } }

@@ -25,6 +25,8 @@
   "error-validation": "Podatkov tekme ni bilo mogoče preveriti.",
   "evidence-disclaimer": "Dejstva iz tekme so podlaga, ne dokaz taktične krivde ali namena.",
   "expand-section": "Odpri v celoti",
+  "impact-postplant": "Po postavitvi bombe",
+  "impact-recovery": "Preobrat iz zaostanka",
   "language": "Jezik",
   "language-change-error": "Jezika ni bilo mogoče zamenjati. Poskusite znova.",
   "language-close": "Zapri meni jezikov",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analiziraj tekmo",
   "nav-method": "Kako deluje",
   "navigation": "Glavna navigacija",
+  "neutralized-death": "Vpliv smrti izničen z izmenjavo",
   "offline": "Ste brez povezave. Posodobitve se bodo nadaljevale, ko se povezava povrne.",
   "page-not-found": "Strani ni mogoče najti",
   "page-not-found-note": "Ta povezava ne vodi do poročila. Vrnite se in izberite tekmo.",
@@ -67,5 +70,6 @@
   "status-queued": "V čakalni vrsti",
   "status-scoring": "Priprava analize",
   "status-validating": "Preverjanje rund in rezultatov",
-  "unavailable": "Še ni na voljo"
+  "unavailable": "Še ni na voljo",
+  "verified-utility": "Potrjena uporaba granat"
 }

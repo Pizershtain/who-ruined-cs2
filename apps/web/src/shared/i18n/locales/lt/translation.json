@@ -25,6 +25,8 @@
   "error-validation": "Nepavyko patikrinti mačo duomenų.",
   "evidence-disclaimer": "Mačo faktai yra duomenys analizei, o ne taktinės kaltės ar ketinimo įrodymas.",
   "expand-section": "Atidaryti visą",
+  "impact-postplant": "Padėjus bombą",
+  "impact-recovery": "Atsitiesimas po atsilikimo",
   "language": "Kalba",
   "language-change-error": "Nepavyko pakeisti kalbos. Bandykite dar kartą.",
   "language-close": "Užverti kalbų meniu",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analizuoti mačą",
   "nav-method": "Kaip tai veikia",
   "navigation": "Pagrindinė navigacija",
+  "neutralized-death": "Atkeršytos žūties poveikis panaikintas",
   "offline": "Nėra ryšio. Atnaujinimai tęsis, kai ryšys atsiras.",
   "page-not-found": "Puslapis nerastas",
   "page-not-found-note": "Ši nuoroda neveda į ataskaitą. Grįžkite ir pasirinkite mačą.",
@@ -67,5 +70,6 @@
   "status-queued": "Eilėje",
   "status-scoring": "Analizės paruošimas",
   "status-validating": "Raundų ir rezultatų tikrinimas",
-  "unavailable": "Dar nepasiekiama"
+  "unavailable": "Dar nepasiekiama",
+  "verified-utility": "Patvirtintas granatų naudojimas"
 }

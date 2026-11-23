@@ -25,6 +25,8 @@
   "error-validation": "Mänguandmeid ei saanud valideerida.",
   "evidence-disclaimer": "Mängu faktid on tõendid sündmuste kohta, mitte tõestus taktikalisest süüst või kavatsusest.",
   "expand-section": "Ava täisvaates",
+  "impact-postplant": "Pärast pommi paigaldamist",
+  "impact-recovery": "Väljatulek arvulisest kaotusseisust",
   "language": "Keel",
   "language-change-error": "Keelt ei saanud vahetada. Proovi uuesti.",
   "language-close": "Sulge keelemenüü",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analüüsi mängu",
   "nav-method": "Kuidas see toimib",
   "navigation": "Põhinavigatsioon",
+  "neutralized-death": "Vastutapmisega korvatud surm",
   "offline": "Võrguühendus puudub. Värskendamine jätkub, kui ühendus taastub.",
   "page-not-found": "Lehte ei leitud",
   "page-not-found-note": "See link ei vii raportini. Mine tagasi ja vali mäng.",
@@ -67,5 +70,6 @@
   "status-queued": "Järjekorras",
   "status-scoring": "Analüüsi ettevalmistamine",
   "status-validating": "Voorude ja skooride kontrollimine",
-  "unavailable": "Pole veel saadaval"
+  "unavailable": "Pole veel saadaval",
+  "verified-utility": "Kinnitatud granaadikasutus"
 }

@@ -25,6 +25,8 @@
   "error-validation": "无法验证比赛数据。",
   "evidence-disclaimer": "比赛事实可作为证据，但不能直接证明战术责任或主观意图。",
   "expand-section": "展开查看",
+  "impact-postplant": "下包后",
+  "impact-recovery": "挽回劣势",
   "language": "语言",
   "language-change-error": "无法切换语言，请重试。",
   "language-close": "关闭语言菜单",
@@ -37,6 +39,7 @@
   "nav-analyze": "分析比赛",
   "nav-method": "工作原理",
   "navigation": "主导航",
+  "neutralized-death": "补枪抵消了阵亡影响",
   "offline": "你已离线。网络恢复后将继续更新。",
   "page-not-found": "页面未找到",
   "page-not-found-note": "此链接未指向报告。请返回并选择一场比赛。",
@@ -67,5 +70,6 @@
   "status-queued": "排队中",
   "status-scoring": "正在准备分析",
   "status-validating": "正在检查回合与比分",
-  "unavailable": "暂不可用"
+  "unavailable": "暂不可用",
+  "verified-utility": "已确认的道具使用"
 }

@@ -25,6 +25,8 @@
   "error-validation": "تعذر التحقق من بيانات المباراة.",
   "evidence-disclaimer": "حقائق المباراة أدلة، وليست إثباتًا للوم التكتيكي أو النية.",
   "expand-section": "فتح بالكامل",
+  "impact-postplant": "ما بعد زرع القنبلة",
+  "impact-recovery": "تدارك النقص العددي",
   "language": "اللغة",
   "language-change-error": "تعذّر تغيير اللغة. حاول مرة أخرى.",
   "language-close": "إغلاق قائمة اللغات",
@@ -37,6 +39,7 @@
   "nav-analyze": "تحليل مباراة",
   "nav-method": "كيف يعمل",
   "navigation": "التنقل الرئيسي",
+  "neutralized-death": "تحييد أثر الموت بالردّ على القتل",
   "offline": "أنت غير متصل. تُستأنف التحديثات عند عودة الاتصال.",
   "page-not-found": "الصفحة غير موجودة",
   "page-not-found-note": "لا يؤدي هذا الرابط إلى تقرير. ارجع واختر مباراة.",
@@ -67,5 +70,6 @@
   "status-queued": "في الانتظار",
   "status-scoring": "إعداد التحليل",
   "status-validating": "التحقق من الجولات والنتائج",
-  "unavailable": "غير متاح بعد"
+  "unavailable": "غير متاح بعد",
+  "verified-utility": "استخدام القنابل المؤكّد"
 }

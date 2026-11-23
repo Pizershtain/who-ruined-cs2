@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import type { MatchData, MatchEvent, ParticipationExplanationReport } from '@who-ruined/contracts';
+import type { MatchData, MatchEvent, StoredParticipationExplanation } from '@who-ruined/contracts';
 import type { TFunction } from 'i18next';
 import type { MatchAnalytics } from '../../entities/match/types.js';
 import { playerEvents, teamOutcome, timeAtTick } from '../../entities/match/presentation.js';
@@ -32,7 +33,7 @@ function eventLabel(event: MatchEvent, playerId: string, t: TFunction): string {
     default: return t('recorded-event', 'Recorded event');
   }
 }
-export function PlayerReport({ match, playerId, base, analytics, explanation, analyticsLoading = false, momentsLoading = false, momentsError, momentsRetry }: { match: MatchData; playerId: string; base: string; analytics?: MatchAnalytics; explanation?: ParticipationExplanationReport; analyticsLoading?: boolean; momentsLoading?: boolean; momentsError?: unknown; momentsRetry?: () => void }) {
+export function PlayerReport({ radarPanel, match, playerId, base, analytics, explanation, analyticsLoading = false, momentsLoading = false, momentsError, momentsRetry }: { radarPanel?: ReactNode; match: MatchData; playerId: string; base: string; analytics?: MatchAnalytics; explanation?: StoredParticipationExplanation; analyticsLoading?: boolean; momentsLoading?: boolean; momentsError?: unknown; momentsRetry?: () => void }) {
   const { t, i18n } = useTranslation('player');
   const { t: tm } = useTranslation('match');
   const [factCategory, setFactCategory] = useState('');
@@ -82,6 +83,7 @@ export function PlayerReport({ match, playerId, base, analytics, explanation, an
       </div>
       <RatingExplanation match={match} base={base} loading={momentsLoading} error={momentsError} {...(explanationPlayer ? { player: explanationPlayer } : {})} {...(momentsRetry ? { retry: momentsRetry } : {})}/>
     </section>
+    {radarPanel}
     <ImportantMoments match={match} base={base} playerId={playerId} loading={momentsLoading} error={momentsError} {...(momentsRetry ? { retry: momentsRetry } : {})} {...(explanation ? { report: explanation } : {})}/>
     <PlayerMetrics metrics={metrics} loading={pending}/>
     <Charts match={{ ...match, players: [player] }} loading={analyticsLoading} {...(analytics ? { analytics } : {})}/>

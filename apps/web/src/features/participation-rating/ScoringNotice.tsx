@@ -1,4 +1,4 @@
-import type { ActiveParticipationRatingReport } from '@who-ruined/contracts';
+import type { StoredParticipationRating } from '@who-ruined/contracts';
 import { useTranslation } from 'react-i18next';
 import { ApiClientError } from '../../shared/api/transport.js';
 import { errorMessage } from '../../shared/messages.js';
@@ -7,7 +7,7 @@ import { Icon } from '../../shared/ui/Icon.js';
 import { Skeleton } from '../../shared/ui/Skeleton.js';
 import { Disclosure } from '../../shared/ui/Disclosure.js';
 
-export function ScoringNotice({ loading, error, report, retry }: { loading: boolean; error: unknown; report?: ActiveParticipationRatingReport; retry: () => void }) {
+export function ScoringNotice({ loading, error, report, retry }: { loading: boolean; error: unknown; report?: StoredParticipationRating; retry: () => void }) {
   const { t, i18n } = useTranslation('match');
   const common = useTranslation().t;
   const integer = (value: number) => new Intl.NumberFormat(i18n.resolvedLanguage).format(value);

@@ -25,6 +25,8 @@
   "error-validation": "Impossibile validare i dati della partita.",
   "evidence-disclaimer": "I fatti della partita sono indizi, non prove di colpa tattica o intenzione.",
   "expand-section": "Apri per intero",
+  "impact-postplant": "Dopo il piazzamento della bomba",
+  "impact-recovery": "Recupero da uno svantaggio",
   "language": "Lingua",
   "language-change-error": "Impossibile cambiare lingua. Riprova.",
   "language-close": "Chiudi il menu delle lingue",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analizza una partita",
   "nav-method": "Come funziona",
   "navigation": "Navigazione principale",
+  "neutralized-death": "Impatto della morte vendicata neutralizzato",
   "offline": "Sei offline. Gli aggiornamenti riprenderanno quando la connessione sarà ripristinata.",
   "page-not-found": "Pagina non trovata",
   "page-not-found-note": "Questo link non porta a un resoconto. Torna indietro e scegli una partita.",
@@ -67,5 +70,6 @@
   "status-queued": "In coda",
   "status-scoring": "Preparazione dell'analisi",
   "status-validating": "Verifica di round e punteggi",
-  "unavailable": "Non ancora disponibile"
+  "unavailable": "Non ancora disponibile",
+  "verified-utility": "Uso verificato delle granate"
 }

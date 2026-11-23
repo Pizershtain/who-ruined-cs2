@@ -25,6 +25,8 @@
   "error-validation": "Maç verileri doğrulanamadı.",
   "evidence-disclaimer": "Maç bilgileri kanıttır; taktiksel suçlama veya niyetin ispatı değildir.",
   "expand-section": "Tam görünümde aç",
+  "impact-postplant": "Bomba kurulduktan sonra",
+  "impact-recovery": "Dezavantajdan geri dönüş",
   "language": "Dil",
   "language-change-error": "Dil değiştirilemedi. Tekrar deneyin.",
   "language-close": "Dil menüsünü kapat",
@@ -37,6 +39,7 @@
   "nav-analyze": "Maç analiz et",
   "nav-method": "Nasıl çalışır?",
   "navigation": "Ana gezinme",
+  "neutralized-death": "Takasla telafi edilen ölüm",
   "offline": "Çevrimdışısınız. Bağlantınız geri geldiğinde güncellemeler devam edecek.",
   "page-not-found": "Sayfa bulunamadı",
   "page-not-found-note": "Bu bağlantı bir rapora gitmiyor. Geri dönüp bir maç seçin.",
@@ -67,5 +70,6 @@
   "status-queued": "Sırada",
   "status-scoring": "Analiz hazırlanıyor",
   "status-validating": "Raundlar ve skorlar kontrol ediliyor",
-  "unavailable": "Henüz kullanılamıyor"
+  "unavailable": "Henüz kullanılamıyor",
+  "verified-utility": "Doğrulanmış bomba kullanımı"
 }

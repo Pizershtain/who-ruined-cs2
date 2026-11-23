@@ -25,6 +25,8 @@
   "error-validation": "Podatke meča nije bilo moguće provjeriti.",
   "evidence-disclaimer": "Činjenice iz meča služe kao podaci, a ne dokaz taktičke krivnje ili namjere.",
   "expand-section": "Otvori u cijelosti",
+  "impact-postplant": "Nakon postavljanja bombe",
+  "impact-recovery": "Preokret iz nepovoljnog položaja",
   "language": "Jezik",
   "language-change-error": "Jezik nije bilo moguće promijeniti. Pokušajte ponovno.",
   "language-close": "Zatvori izbornik jezika",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analiziraj meč",
   "nav-method": "Kako radi",
   "navigation": "Glavna navigacija",
+  "neutralized-death": "Učinak osvećene smrti poništen",
   "offline": "Niste povezani. Ažuriranja će se nastaviti kad se veza uspostavi.",
   "page-not-found": "Stranica nije pronađena",
   "page-not-found-note": "Ova poveznica ne vodi do izvještaja. Vratite se i odaberite meč.",
@@ -67,5 +70,6 @@
   "status-queued": "U redu čekanja",
   "status-scoring": "Priprema analize",
   "status-validating": "Provjera rundi i rezultata",
-  "unavailable": "Još nije dostupno"
+  "unavailable": "Još nije dostupno",
+  "verified-utility": "Potvrđena uporaba granata"
 }

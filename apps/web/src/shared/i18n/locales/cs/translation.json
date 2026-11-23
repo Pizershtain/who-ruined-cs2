@@ -25,6 +25,8 @@
   "error-validation": "Data zápasu se nepodařilo ověřit.",
   "evidence-disclaimer": "Fakta ze zápasu jsou podklady, nikoli důkaz taktické viny nebo záměru.",
   "expand-section": "Otevřít celé",
+  "impact-postplant": "Po položení bomby",
+  "impact-recovery": "Obrat z početní nevýhody",
   "language": "Jazyk",
   "language-change-error": "Jazyk se nepodařilo změnit. Zkuste to znovu.",
   "language-close": "Zavřít nabídku jazyků",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analyzovat zápas",
   "nav-method": "Jak to funguje",
   "navigation": "Hlavní navigace",
+  "neutralized-death": "Dopad smrti vyrovnaný výměnou",
   "offline": "Jste bez připojení. Aktualizace budou pokračovat po obnovení připojení.",
   "page-not-found": "Stránka nenalezena",
   "page-not-found-note": "Tento odkaz nevede k přehledu. Vraťte se a vyberte zápas.",
@@ -67,5 +70,6 @@
   "status-queued": "Ve frontě",
   "status-scoring": "Příprava analýzy",
   "status-validating": "Kontrola kol a skóre",
-  "unavailable": "Zatím nedostupné"
+  "unavailable": "Zatím nedostupné",
+  "verified-utility": "Ověřené použití granátů"
 }

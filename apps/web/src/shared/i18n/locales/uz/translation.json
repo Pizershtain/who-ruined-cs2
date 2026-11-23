@@ -25,6 +25,8 @@
   "error-validation": "O‘yin ma’lumotlarini tasdiqlab bo‘lmadi.",
   "evidence-disclaimer": "O‘yin faktlari dalildir, lekin taktik ayb yoki niyatning qat’iy isboti emas.",
   "expand-section": "To‘liq ochish",
+  "impact-postplant": "Bomba o‘rnatilgandan keyin",
+  "impact-recovery": "Ustunlikni qaytarish",
   "language": "Til",
   "language-change-error": "Tilni almashtirib bo‘lmadi. Qayta urinib ko‘ring.",
   "language-close": "Til menyusini yopish",
@@ -37,6 +39,7 @@
   "nav-analyze": "O‘yinni tahlil qilish",
   "nav-method": "Qanday ishlaydi?",
   "navigation": "Asosiy navigatsiya",
+  "neutralized-death": "Javob zarbasi o‘lim ta’sirini qopladi",
   "offline": "Tarmoqdan uzilgansiz. Ulanish tiklanganda yangilanishlar davom etadi.",
   "page-not-found": "Sahifa topilmadi",
   "page-not-found-note": "Bu havola hisobotga olib bormaydi. Orqaga qaytib, o‘yinni tanlang.",
@@ -67,5 +70,6 @@
   "status-queued": "Navbatda",
   "status-scoring": "Tahlil tayyorlanmoqda",
   "status-validating": "Raundlar va hisob tekshirilmoqda",
-  "unavailable": "Hali mavjud emas"
+  "unavailable": "Hali mavjud emas",
+  "verified-utility": "Granatadan foydalanish tasdiqlangan"
 }

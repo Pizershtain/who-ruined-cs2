@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { h3PolicyDigest, h3PolicyId, h3RatingReportSchema } from '@who-ruined/contracts';
 import { activeParticipationRatingReportSchema, matchDataSchema, scoringReportSchema, type ActiveParticipationRatingReport, type MatchData, type ScoringReport } from '@who-ruined/contracts';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -241,6 +242,29 @@ describe('active M4 participation rating boundary', () => {
     vi.stubGlobal('fetch', fetchMock);
     await expect(getActiveParticipationRating(report.matchId, new AbortController().signal)).resolves.toEqual(report);
     expect(fetchMock).toHaveBeenCalledWith('/api/v1/matches/synthetic-m4-web-match/experimental-participation-rating', expect.anything());
+  });
+
+  it('preserves unavailable and measured zero round impact from a synthetic H3 response', async () => {
+    const historical = makeReport();
+    const report = h3RatingReportSchema.parse({
+      ...historical,
+      schemaVersion: 'm4.3-participation-rating@2', reportVersion: 'match-result@2',
+      scorerVersion: h3PolicyId, policy: { id: h3PolicyId, digest: h3PolicyDigest },
+      players: historical.players.map((player, index) => ({
+        ...player,
+        rating: player.rating && {
+          ...player.rating,
+          rawFamilyInputs: { ...player.rating.rawFamilyInputs, ROUND_IMPACT: index ? 0 : null },
+          finalAttribution: { ...player.rating.finalAttribution, ROUND_IMPACT: index ? 0 : null },
+        },
+      })),
+    });
+    vi.stubGlobal('fetch', vi.fn(async () => Response.json(report)));
+    const stored = await getActiveParticipationRating(match.matchId, new AbortController().signal);
+    const view = presentParticipationRating(match, undefined, stored);
+    expect(view.players[report.players[0]!.playerId]?.rating?.finalAttribution).toHaveProperty('ROUND_IMPACT', null);
+    expect(view.players[report.players[1]!.playerId]?.rating?.finalAttribution).toHaveProperty('ROUND_IMPACT', 0);
+    expect(view.players[report.players[8]!.playerId]?.rating).toBeNull();
   });
 
   it.each([

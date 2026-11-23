@@ -1,6 +1,6 @@
 # H3 frontend handoff
 
-Read the existing routes under `/api/v1/matches/:id` and discriminate on the response's `schemaVersion`. The shipped frontend's H2-only validators need this handoff applied before it can render H3. The backend serves both versions on the same routes.
+Read the existing routes under `/api/v1/matches/:id` and discriminate on the response's `schemaVersion`. The backend serves both versions on the same routes.
 
 | Route suffix | Production H3 | Historical H2 | Contract export |
 | --- | --- | --- | --- |

@@ -25,6 +25,8 @@
   "error-validation": "Ottelutietoja ei voitu validoida.",
   "evidence-disclaimer": "Ottelun faktat ovat näyttöä, eivät todisteita taktisesta syyllisyydestä tai tarkoituksesta.",
   "expand-section": "Avaa kokonaan",
+  "impact-postplant": "Pommin asettamisen jälkeen",
+  "impact-recovery": "Tappioaseman kurominen kiinni",
   "language": "Kieli",
   "language-change-error": "Kielen vaihtaminen epäonnistui. Yritä uudelleen.",
   "language-close": "Sulje kielivalikko",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analysoi ottelu",
   "nav-method": "Näin se toimii",
   "navigation": "Päänavigointi",
+  "neutralized-death": "Kostettu kuolema neutraloitu",
   "offline": "Verkkoyhteys puuttuu. Päivitykset jatkuvat, kun yhteys palautuu.",
   "page-not-found": "Sivua ei löytynyt",
   "page-not-found-note": "Tämä linkki ei johda raporttiin. Palaa takaisin ja valitse ottelu.",
@@ -67,5 +70,6 @@
   "status-queued": "Jonossa",
   "status-scoring": "Valmistellaan analyysiä",
   "status-validating": "Tarkistetaan kierroksia ja pisteitä",
-  "unavailable": "Ei vielä saatavilla"
+  "unavailable": "Ei vielä saatavilla",
+  "verified-utility": "Vahvistettu kranaattien käyttö"
 }

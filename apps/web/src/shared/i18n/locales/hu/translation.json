@@ -25,6 +25,8 @@
   "error-validation": "A meccsadatokat nem sikerült ellenőrizni.",
   "evidence-disclaimer": "A meccs tényei bizonyítékul szolgálnak, de nem bizonyítanak taktikai felelősséget vagy szándékot.",
   "expand-section": "Megnyitás teljes nézetben",
+  "impact-postplant": "Bombaélesítés után",
+  "impact-recovery": "Fordítás hátrányból",
   "language": "Nyelv",
   "language-change-error": "Nem sikerült nyelvet váltani. Próbáld újra.",
   "language-close": "Nyelvválasztó bezárása",
@@ -37,6 +39,7 @@
   "nav-analyze": "Meccs elemzése",
   "nav-method": "Így működik",
   "navigation": "Fő navigáció",
+  "neutralized-death": "A megbosszult halál hatása semlegesítve",
   "offline": "Nincs hálózati kapcsolatod. A frissítések a kapcsolat helyreállásakor folytatódnak.",
   "page-not-found": "Az oldal nem található",
   "page-not-found-note": "Ez a hivatkozás nem vezet jelentéshez. Lépj vissza, és válassz egy meccset.",
@@ -67,5 +70,6 @@
   "status-queued": "Várólistán",
   "status-scoring": "Elemzés előkészítése",
   "status-validating": "Körök és eredmények ellenőrzése",
-  "unavailable": "Még nem érhető el"
+  "unavailable": "Még nem érhető el",
+  "verified-utility": "Igazolt gránáthasználat"
 }

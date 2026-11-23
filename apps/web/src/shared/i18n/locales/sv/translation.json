@@ -25,6 +25,8 @@
   "error-validation": "Matchdata kunde inte valideras.",
   "evidence-disclaimer": "Matchfakta är belägg, inte bevis för taktisk skuld eller avsikt.",
   "expand-section": "Öppna i helhet",
+  "impact-postplant": "Efter bombplantering",
+  "impact-recovery": "Upphämtning från underläge",
   "language": "Språk",
   "language-change-error": "Kunde inte byta språk. Försök igen.",
   "language-close": "Stäng språkmenyn",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analysera en match",
   "nav-method": "Så fungerar det",
   "navigation": "Huvudnavigering",
+  "neutralized-death": "Dödsfallet neutraliserat genom byte",
   "offline": "Du är offline. Uppdateringar återupptas när anslutningen är tillbaka.",
   "page-not-found": "Sidan hittades inte",
   "page-not-found-note": "Den här länken leder inte till en rapport. Gå tillbaka och välj en match.",
@@ -67,5 +70,6 @@
   "status-queued": "I kö",
   "status-scoring": "Förbereder analysen",
   "status-validating": "Kontrollerar rundor och resultat",
-  "unavailable": "Inte tillgängligt än"
+  "unavailable": "Inte tillgängligt än",
+  "verified-utility": "Verifierad granatanvändning"
 }

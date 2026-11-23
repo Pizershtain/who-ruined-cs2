@@ -25,6 +25,8 @@
   "error-validation": "Die Matchdaten konnten nicht validiert werden.",
   "evidence-disclaimer": "Matchfakten sind Belege, kein Nachweis für taktische Schuld oder Absicht.",
   "expand-section": "Vollständig öffnen",
+  "impact-postplant": "Nach der Bombenplatzierung",
+  "impact-recovery": "Aufholjagd aus der Unterzahl",
   "language": "Sprache",
   "language-change-error": "Sprache konnte nicht gewechselt werden. Versuche es erneut.",
   "language-close": "Sprachauswahl schließen",
@@ -37,6 +39,7 @@
   "nav-analyze": "Match analysieren",
   "nav-method": "So funktioniert es",
   "navigation": "Hauptnavigation",
+  "neutralized-death": "Durch einen Trade ausgeglichener Tod",
   "offline": "Du bist offline. Aktualisierungen werden fortgesetzt, sobald die Verbindung wiederhergestellt ist.",
   "page-not-found": "Seite nicht gefunden",
   "page-not-found-note": "Dieser Link führt zu keinem Bericht. Gehe zurück und wähle ein Match.",
@@ -67,5 +70,6 @@
   "status-queued": "In der Warteschlange",
   "status-scoring": "Analyse wird vorbereitet",
   "status-validating": "Runden und Spielstände werden geprüft",
-  "unavailable": "Noch nicht verfügbar"
+  "unavailable": "Noch nicht verfügbar",
+  "verified-utility": "Bestätigter Granateneinsatz"
 }

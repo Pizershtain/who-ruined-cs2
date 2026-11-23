@@ -1,6 +1,6 @@
 # Player radar projection
 
-**Status:** backend contract `player-radar@1`; frontend integration is a later stage.
+The player report supports historical Radar v1 and the H3 Radar v2 projection.
 
 `GET /api/v1/matches/:id/radar` projects stored M2 facts and, when present, the validated `evp-report@1`. It returns `player-radar@2` for H3 `match-result@2` and retains `player-radar@1` for historical H2. Both versions use the same eight axes and normalization. [H3 fields and award highlights](h3-frontend-handoff.md#radar-and-evp).
 
@@ -43,7 +43,7 @@ All six H2 families remain available in every calculated player's `h2Explanation
 
 A historical match with no EVP pointer returns a radar with `evpReportSchemaVersion: null` and no EVP highlighting. A partial, stale, missing or corrupt EVP pointer remains a typed report error rather than being ignored. Partial M2 data can produce a mixed response with available and unavailable axes.
 
-The future UI should:
+The player report uses these presentation rules.
 
 1. draw geometry only when `geometryValue` is non-null;
 2. place `rawValue` and its unit outside each point;

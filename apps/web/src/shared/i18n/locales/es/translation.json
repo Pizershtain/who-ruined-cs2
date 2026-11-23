@@ -25,6 +25,8 @@
   "error-validation": "No se pudieron validar los datos de la partida.",
   "evidence-disclaimer": "Los hechos de la partida son indicios, no pruebas de culpa táctica ni de intención.",
   "expand-section": "Abrir completo",
+  "impact-postplant": "Tras plantar la bomba",
+  "impact-recovery": "Remontada en inferioridad",
   "language": "Idioma",
   "language-change-error": "No se pudo cambiar el idioma. Inténtalo de nuevo.",
   "language-close": "Cerrar el menú de idiomas",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analizar una partida",
   "nav-method": "Cómo funciona",
   "navigation": "Navegación principal",
+  "neutralized-death": "Muerte compensada por una baja de intercambio",
   "offline": "No tienes conexión. Las actualizaciones se reanudarán cuando se restablezca.",
   "page-not-found": "Página no encontrada",
   "page-not-found-note": "Este enlace no lleva a un informe. Vuelve atrás y elige una partida.",
@@ -67,5 +70,6 @@
   "status-queued": "En cola",
   "status-scoring": "Preparando el análisis",
   "status-validating": "Comprobando rondas y marcadores",
-  "unavailable": "Aún no disponible"
+  "unavailable": "Aún no disponible",
+  "verified-utility": "Uso de granadas verificado"
 }

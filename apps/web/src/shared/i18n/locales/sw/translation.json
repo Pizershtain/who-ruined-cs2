@@ -25,6 +25,8 @@
   "error-validation": "Data za mechi hazikuweza kuthibitishwa.",
   "evidence-disclaimer": "Ukweli wa mechi ni ushahidi, lakini si uthibitisho wa kosa la kimkakati au nia.",
   "expand-section": "Fungua kamili",
+  "impact-postplant": "Baada ya kutega bomu",
+  "impact-recovery": "Kurejea kutoka hali ya kuzidiwa",
   "language": "Lugha",
   "language-change-error": "Haikuwezekana kubadilisha lugha. Jaribu tena.",
   "language-close": "Funga menyu ya lugha",
@@ -37,6 +39,7 @@
   "nav-analyze": "Changanua mechi",
   "nav-method": "Jinsi inavyofanya kazi",
   "navigation": "Urambazaji mkuu",
+  "neutralized-death": "Athari ya kifo imebatilishwa kwa kumuondoa mpinzani aliyemuua mchezaji",
   "offline": "Hujaunganishwa na mtandao. Masasisho yataendelea muunganisho ukirudi.",
   "page-not-found": "Ukurasa haukupatikana",
   "page-not-found-note": "Kiungo hiki hakielekezi kwenye ripoti. Rudi na uchague mechi.",
@@ -67,5 +70,6 @@
   "status-queued": "Kwenye foleni",
   "status-scoring": "Inaandaa uchambuzi",
   "status-validating": "Inakagua raundi na alama",
-  "unavailable": "Bado haipatikani"
+  "unavailable": "Bado haipatikani",
+  "verified-utility": "Matumizi ya maguruneti yaliyothibitishwa"
 }

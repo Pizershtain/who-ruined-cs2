@@ -64,12 +64,16 @@ export function MatchReplay({ match, initialRoundId = null, focusTick = null, hi
   }, [playing, round, speed]);
 
   const playerNames = useMemo(() => new Map(metadata?.players.map((player) => [player.id, player.displayName]) ?? []), [metadata]);
+  const clockFormat = useMemo(() => ({
+    minutes: new Intl.NumberFormat(i18n.resolvedLanguage, { minimumIntegerDigits: 2 }),
+    seconds: new Intl.NumberFormat(i18n.resolvedLanguage, { minimumIntegerDigits: 2, maximumFractionDigits: 1 }),
+  }), [i18n.resolvedLanguage]);
   const time = (value: number) => {
     if (!round) return '—';
     const seconds = Math.max(0, (value - round.round.startTick) / round.tickRate);
     const minutes = Math.floor(seconds / 60);
     const rest = seconds - minutes * 60;
-    return `${new Intl.NumberFormat(i18n.resolvedLanguage, { minimumIntegerDigits: 2 }).format(minutes)}:${new Intl.NumberFormat(i18n.resolvedLanguage, { minimumIntegerDigits: 2, maximumFractionDigits: 1 }).format(rest)}`;
+    return `${clockFormat.minutes.format(minutes)}:${clockFormat.seconds.format(rest)}`;
   };
 
   if (metadataQuery.isPending) return <div className="panel replay-shell replay-loading" role="status"><Skeleton className="replay-skeleton"/><span>{t('replay-loading', 'Loading 2D reconstruction…')}</span></div>;

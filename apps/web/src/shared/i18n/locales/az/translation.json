@@ -25,6 +25,8 @@
   "error-validation": "Matç məlumatları yoxlanıla bilmədi.",
   "evidence-disclaimer": "Matç faktları dəlildir, taktiki günahın və ya niyyətin qəti sübutu deyil.",
   "expand-section": "Tam aç",
+  "impact-postplant": "Bomba qurulduqdan sonra",
+  "impact-recovery": "Say azlığının aradan qaldırılması",
   "language": "Dil",
   "language-change-error": "Dili dəyişmək mümkün olmadı. Yenidən cəhd edin.",
   "language-close": "Dil menyusunu bağla",
@@ -37,6 +39,7 @@
   "nav-analyze": "Matçı təhlil et",
   "nav-method": "Necə işləyir?",
   "navigation": "Əsas naviqasiya",
+  "neutralized-death": "Cavab öldürməsi ilə təsiri aradan qaldırılmış ölüm",
   "offline": "Oflaynsınız. Bağlantı bərpa olunanda yeniləmələr davam edəcək.",
   "page-not-found": "Səhifə tapılmadı",
   "page-not-found-note": "Bu keçid hesabata aparmır. Geri qayıdıb matç seçin.",
@@ -67,5 +70,6 @@
   "status-queued": "Növbədədir",
   "status-scoring": "Təhlil hazırlanır",
   "status-validating": "Raundlar və hesablar yoxlanılır",
-  "unavailable": "Hələ əlçatan deyil"
+  "unavailable": "Hələ əlçatan deyil",
+  "verified-utility": "Qumbara istifadəsi təsdiqlənib"
 }

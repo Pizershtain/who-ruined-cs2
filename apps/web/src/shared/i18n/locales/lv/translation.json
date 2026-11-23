@@ -25,6 +25,8 @@
   "error-validation": "Spēles datus neizdevās pārbaudīt.",
   "evidence-disclaimer": "Spēles fakti ir pierādījumu materiāls, nevis taktiskas vainas vai nodoma pierādījums.",
   "expand-section": "Atvērt pilnībā",
+  "impact-postplant": "Pēc bumbas uzstādīšanas",
+  "impact-recovery": "Atspēlēšanās no nelabvēlīgas situācijas",
   "language": "Valoda",
   "language-change-error": "Neizdevās nomainīt valodu. Mēģiniet vēlreiz.",
   "language-close": "Aizvērt valodu izvēlni",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analizēt spēli",
   "nav-method": "Kā tas darbojas",
   "navigation": "Galvenā navigācija",
+  "neutralized-death": "Atriebtas nāves ietekme neitralizēta",
   "offline": "Nav savienojuma. Atjauninājumi atsāksies, kad savienojums būs atjaunots.",
   "page-not-found": "Lapa nav atrasta",
   "page-not-found-note": "Šī saite neved uz pārskatu. Atgriezieties un izvēlieties spēli.",
@@ -67,5 +70,6 @@
   "status-queued": "Rindā",
   "status-scoring": "Analīzes sagatavošana",
   "status-validating": "Raundu un rezultātu pārbaude",
-  "unavailable": "Vēl nav pieejams"
+  "unavailable": "Vēl nav pieejams",
+  "verified-utility": "Apstiprināta granātu izmantošana"
 }

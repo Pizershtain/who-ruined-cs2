@@ -1,6 +1,7 @@
+import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import type { MatchData, ParticipationExplanationReport } from '@who-ruined/contracts';
+import type { MatchData, StoredParticipationExplanation } from '@who-ruined/contracts';
 import type { MatchAnalytics } from '../../entities/match/types.js';
 import { finalScore } from '../../entities/match/presentation.js';
 import { Awards } from '../participation-rating/index.js';
@@ -12,7 +13,7 @@ import { Icon } from '../../shared/ui/Icon.js';
 import { ReportNav } from './ReportNav.js';
 import { Story } from '../../shared/ui/Story.js';
 
-export function MatchReport({ match, analytics, explanation, base, analyticsLoading = false, momentsLoading = false, momentsError, momentsRetry }: { match: MatchData; analytics?: MatchAnalytics; explanation?: ParticipationExplanationReport; base: string; analyticsLoading?: boolean; momentsLoading?: boolean; momentsError?: unknown; momentsRetry?: () => void }) {
+export function MatchReport({ awardsPanel, match, analytics, explanation, base, analyticsLoading = false, momentsLoading = false, momentsError, momentsRetry }: { awardsPanel?: ReactNode; match: MatchData; analytics?: MatchAnalytics; explanation?: StoredParticipationExplanation; base: string; analyticsLoading?: boolean; momentsLoading?: boolean; momentsError?: unknown; momentsRetry?: () => void }) {
   const { t } = useTranslation('match');
   return <>
     <div className="breadcrumb"><Link to="/analyze">{t('home', 'Workspace')}</Link><span>/</span><span>{t('report', 'Match report')}</span></div>
@@ -21,7 +22,7 @@ export function MatchReport({ match, analytics, explanation, base, analyticsLoad
     </Story>
     {match.quality !== 'VALID' && <div className="inline-alert" role="alert"><Icon name="warning"/><p>{t('analytics-partial', 'Some metrics have limited source data')}</p></div>}
     <ReportNav score={{ map: match.map ?? t('unknown-map', 'Unknown map'), parts: match.teams.map((team, index) => ({ value: String(finalScore(match, team.id) ?? '—'), team: index })) }}/>
-    <Story alt label={t('awards-label', 'Match results')} title={t('awards-title', 'Who shaped the result')}><Awards match={match} {...(analytics ? { analytics } : {})} base={base}/></Story>
+    <Story alt label={t('awards-label', 'Match results')} title={t('awards-title', 'Who shaped the result')}><Awards match={match} {...(analytics ? { analytics } : {})} base={base}/>{awardsPanel}</Story>
     <Story id="scoreboard" band label={t('rosters', 'The full picture')} title={t('scoreboard', 'Player scoreboard')} lead={t('scoreboard-help', 'Select a player to explore their match')}><Scoreboard match={match} loading={analyticsLoading} {...(analytics ? { analytics } : {})} base={base}/></Story>
     <Story id="rounds" alt label={t('momentum', 'Round by round')} title={t('round-history', 'How the match unfolded')}><RoundHistory match={match}/></Story>
     <Story id="statistics" label={t('statistics', 'Statistics')} title={t('comparison', 'Player comparison')} lead={t('comparison-note', 'Compare the same metric across players. Missing values are excluded.')}><Charts match={match} loading={analyticsLoading} {...(analytics ? { analytics } : {})}/></Story>

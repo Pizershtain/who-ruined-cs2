@@ -1,13 +1,16 @@
+import { useFamilyLabels } from '../../entities/match/family-labels.js';
 import { useId, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { EvidenceLinks } from '../../entities/match/EvidenceLinks.js';
 import { useTranslation } from 'react-i18next';
-import type { MatchData, ParticipationExplanationFamilyRow, ParticipationExplanationPlayer } from '@who-ruined/contracts';
+import type { MatchData, StoredParticipationExplanation } from '@who-ruined/contracts';
 import { ApiClientError } from '../../shared/api/transport.js';
 import { errorMessage } from '../../shared/messages.js';
 import { Icon } from '../../shared/ui/Icon.js';
 import { Disclosure } from '../../shared/ui/Disclosure.js';
 import { DetailsSkeleton, Skeleton } from '../../shared/ui/Skeleton.js';
 
+type ParticipationExplanationPlayer = StoredParticipationExplanation['players'][number];
+type ParticipationExplanationFamilyRow = NonNullable<ParticipationExplanationPlayer['rating']>['families'][number];
 type ExplanationSource = ParticipationExplanationFamilyRow['sources'][number];
 
 function sourceEvents(match: MatchData, source: ExplanationSource) {
@@ -58,21 +61,25 @@ export function RatingExplanation({ match, player, base, loading = false, error,
   const eventColumnLabel = t('evidence-event-round', 'Event / round');
   const participantsColumnLabel = t('evidence-participants', 'Participants');
   const family = player?.rating?.families.find(row => row.family === selectedFamily) ?? player?.rating?.families[0];
-  const familyLabels: Record<ParticipationExplanationFamilyRow['family'], string> = {
-    COMBAT: t('family-combat', { ns: 'player', defaultValue: 'Combat' }),
-    SUPPORT: t('family-support', { ns: 'player', defaultValue: 'Support' }),
-    DEATH_RELATED: t('family-death-related', { ns: 'player', defaultValue: 'Death-related' }),
-    OBJECTIVES: t('family-objectives', { ns: 'player', defaultValue: 'Objectives' }),
-    CONTEXT: t('family-context', { ns: 'player', defaultValue: 'Context' }),
-    DIRECT_HARM: t('family-direct-harm', { ns: 'player', defaultValue: 'Direct harm' })
-  };
+  const familyLabels = useFamilyLabels();
   const familyDescriptions: Record<ParticipationExplanationFamilyRow['family'], string> = {
+    ROUND_IMPACT: '',
     COMBAT: t('explain-combat', { ns: 'player', defaultValue: 'Verified combat outcomes, including eliminations and their recorded match context.' }),
     SUPPORT: t('explain-support', { ns: 'player', defaultValue: 'Verified assists, flashes and other recorded support for teammates.' }),
     DEATH_RELATED: t('explain-death-related', { ns: 'player', defaultValue: 'Recorded death exposure. A death is a fact, not an automatic tactical mistake.' }),
     OBJECTIVES: t('explain-objectives', { ns: 'player', defaultValue: 'Verified bomb or hostage objective actions, with model limits applied when needed.' }),
     CONTEXT: t('explain-context', { ns: 'player', defaultValue: 'Match-context modifiers and model centering. A negative value may come from centering, not a bad action.' }),
-    DIRECT_HARM: t('explain-direct-harm', { ns: 'player', defaultValue: 'Verified harm to teammates, softened before the active H2 influence is applied.' })
+    DIRECT_HARM: player?.rating?.families.some(row => row.family === 'ROUND_IMPACT') ? '' : t('explain-direct-harm', { ns: 'player', defaultValue: 'Verified harm to teammates, softened before the active H2 influence is applied.' })
+  };
+  const reasonLabel = (source: ExplanationSource) => {
+    switch (source.reason) {
+      case 'ROUND_IMPACT_CLUTCH': return t('impact-clutch', { ns: 'player', defaultValue: 'Clutch' });
+      case 'ROUND_IMPACT_RECOVERY': return t('impact-recovery', { ns: 'translation', defaultValue: 'Deficit recovery' });
+      case 'ROUND_IMPACT_POSTPLANT': return t('impact-postplant', { ns: 'translation', defaultValue: 'Post-plant' });
+      case 'VERIFIED_UTILITY_USE': return t('verified-utility', { ns: 'translation', defaultValue: 'Verified utility use' });
+      case 'TRADED_DEATH_NEUTRALIZED': return t('neutralized-death', { ns: 'translation', defaultValue: 'Traded death neutralized' });
+    }
+    return null;
   };
   const sourceLabels: Record<ParticipationExplanationFamilyRow['sources'][number]['kind'], string> = {
     EVENT: t('explain-source-event', { ns: 'player', defaultValue: 'Confirmed event evidence' }),
@@ -86,9 +93,10 @@ export function RatingExplanation({ match, player, base, loading = false, error,
     DIRECT_HARM_MULTIPLIER: t('final-attribution', 'Final attribution'),
     CONTEXT_CENTERING: t('explain-transform-context-center', { ns: 'player', defaultValue: 'Context centering against the model baseline' }),
     CONTEXT_SATURATION: t('explain-transform-limit', 'Model contribution limit'),
+    ROUND_IMPACT_CAP: t('explain-transform-limit', 'Model contribution limit'),
     OBJECTIVE_CAP: t('explain-transform-limit', 'Model contribution limit')
   };
-  const number = (value: number) => new Intl.NumberFormat(i18n.resolvedLanguage, { maximumFractionDigits: 6, signDisplay: 'exceptZero' }).format(value);
+  const number = (value: number | null) => value === null ? t('source-unavailable', { ns: 'match', defaultValue: 'Unavailable' }) : new Intl.NumberFormat(i18n.resolvedLanguage, { maximumFractionDigits: 6, signDisplay: 'exceptZero' }).format(value);
   const unsigned = (value: number) => new Intl.NumberFormat(i18n.resolvedLanguage, { maximumFractionDigits: 6 }).format(value);
   const roundOrdinal = new Map(match.rounds.map((round) => [round.id, round.ordinal]));
   // Only sources linked to a round or event belong in the match evidence table.
@@ -105,13 +113,17 @@ export function RatingExplanation({ match, player, base, loading = false, error,
       !player && error ? <div className="inline-alert" role="status"><Icon name="warning"/><p>{errorMessage(error, t)}</p>{retry && <button className="button secondary" onClick={retry}>{t('retry', 'Try again')}</button>}</div> :
       !player?.rating ? <p className="data-note">{t('rating-unavailable', 'The active rating is unavailable.')}</p> : <>
         {family && <>
-          <div className="family-selector" role="group" aria-label={t('six-families', 'Six rating families')}>
-            {player.rating.families.map(row => <button type="button" id={`${detailId}-${row.family}`} key={row.family} data-contribution={row.finalAttribution < 0 ? 'negative' : row.finalAttribution > 0 ? 'positive' : 'neutral'} aria-pressed={family.family === row.family} aria-controls={detailId} onClick={() => { if (row.family !== family.family) { setSelectedFamily(row.family); setVisibleSources(5); } }}>
-              <span>{familyLabels[row.family]}</span><strong className={row.finalAttribution < 0 ? 'negative-value' : row.finalAttribution > 0 ? 'positive-value' : ''}>{number(row.finalAttribution)}</strong>
+          <div className="family-selector" role="group" aria-label={t('rating-explanation-title', 'How the rating was formed')}>
+            {player.rating.families.map(row => <button type="button" id={`${detailId}-${row.family}`} key={row.family} data-contribution={row.finalAttribution !== null && row.finalAttribution < 0 ? 'negative' : row.finalAttribution !== null && row.finalAttribution > 0 ? 'positive' : 'neutral'} aria-pressed={family.family === row.family} aria-controls={detailId} onClick={() => { if (row.family !== family.family) { setSelectedFamily(row.family); setVisibleSources(5); } }}>
+              <span>{familyLabels[row.family]}</span><strong className={row.finalAttribution !== null && row.finalAttribution < 0 ? 'negative-value' : row.finalAttribution !== null && row.finalAttribution > 0 ? 'positive-value' : ''}>{number(row.finalAttribution)}</strong>
             </button>)}
           </div>
           <section className="family-detail content-reveal" key={family.family} id={detailId} role="region" aria-labelledby={`${detailId}-${family.family}`}>
-            <div className="family-detail-heading"><div><h3>{familyLabels[family.family]}</h3><p>{familyDescriptions[family.family]}</p></div><dl className="family-total"><dt>{t('final-attribution', 'Final attribution')}</dt><dd className={family.finalAttribution < 0 ? 'negative-value' : family.finalAttribution > 0 ? 'positive-value' : ''}><bdi>{number(family.finalAttribution)}</bdi></dd></dl></div>
+            <div className="family-detail-heading"><div><h3>{familyLabels[family.family]}</h3>{familyDescriptions[family.family] && <p>{familyDescriptions[family.family]}</p>}</div><dl className="family-total"><dt>{t('final-attribution', 'Final attribution')}</dt><dd className={family.finalAttribution !== null && family.finalAttribution < 0 ? 'negative-value' : family.finalAttribution !== null && family.finalAttribution > 0 ? 'positive-value' : ''}><bdi>{number(family.finalAttribution)}</bdi></dd></dl></div>
+            {'coverage' in family && family.coverage && <div className="data-note">
+              <strong>{family.coverage.availability === 'PARTIAL' ? t('source-partial', { ns: 'match', defaultValue: 'Partial' }) : family.coverage.availability === 'AVAILABLE' ? t('source-available', { ns: 'match', defaultValue: 'Available' }) : t('source-unavailable', { ns: 'match', defaultValue: 'Unavailable' })}</strong>
+              {([[t('verified-rounds', 'Verified rounds'), family.coverage.observedRoundIds], [t('withheld-rounds', 'Withheld rounds'), family.coverage.withheldRoundIds]] as const).map(([label, ids]) => <p key={String(label)}>{label} · {ids.map(id => roundOrdinal.get(id)).join(', ') || '—'}</p>)}
+            </div>}
             <div className="family-evidence">
               {sources.length === 0 && <p className="data-note">{t('no-events', 'No recorded events match this selection.')}</p>}
               {sources.length > 0 && <table className="evidence-table" role="table">
@@ -119,10 +131,10 @@ export function RatingExplanation({ match, player, base, loading = false, error,
                 <colgroup><col className="evidence-event-column"/><col className="evidence-participants-column"/><col/><col/></colgroup>
                 <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">{eventColumnLabel}</th><th scope="col" role="columnheader">{participantsColumnLabel}</th><th scope="col" role="columnheader">{t('raw-input', 'Raw input')}</th><th scope="col" role="columnheader">{t('final-attribution', 'Final attribution')}</th></tr></thead>
                 <tbody role="rowgroup">{sources.slice(0, visibleSources).map((source, index) => {
-                const eventLabel = eventSourceLabel(match, source, player.playerId, t);
+                const eventLabel = reasonLabel(source) ?? eventSourceLabel(match, source, player.playerId, t);
                 const participantNames = eventParticipantNames(match, source, player.playerId);
                 return <tr role="row" key={`${source.kind}-${index}`}>
-                  <th scope="row" role="rowheader"><span className="evidence-mobile-label" aria-hidden="true">{eventColumnLabel}</span><strong>{eventLabel ?? sourceLabels[source.kind]}</strong>{source.roundIds.length > 0 && <div className="evidence-rounds">{source.roundIds.map(roundId => <Link key={roundId} to={`${base}#rounds`}>{t('moment-round', 'Round {{round}}', { round: roundOrdinal.get(roundId) ?? '—' })}</Link>)}</div>}</th>
+                  <th scope="row" role="rowheader"><span className="evidence-mobile-label" aria-hidden="true">{eventColumnLabel}</span><strong>{eventLabel ?? sourceLabels[source.kind]}</strong><EvidenceLinks match={match} base={base} roundIds={source.roundIds} eventIds={source.evidenceEventIds}/></th>
                   <td role="cell" className="evidence-participants"><span className="evidence-mobile-label" aria-hidden="true">{participantsColumnLabel}</span>{participantNames.join(', ') || '—'}</td>
                   <td role="cell" className="evidence-value"><span className="evidence-mobile-label" aria-hidden="true">{t('raw-input', 'Raw input')}</span><bdi>{number(source.rawContribution)}</bdi></td>
                   <td role="cell" className="evidence-value"><span className="evidence-mobile-label" aria-hidden="true">{t('final-attribution', 'Final attribution')}</span><bdi>{source.finalContribution === null ? '—' : number(source.finalContribution)}</bdi></td>
@@ -133,9 +145,9 @@ export function RatingExplanation({ match, player, base, loading = false, error,
             <Disclosure className="family-calculation" variant="quiet" level={3} title={t('calculation-details', 'How this is calculated')}>
               <dl className="explanation-values"><div><dt>{t('raw-input', 'Raw input')}</dt><dd>{number(family.rawInput)}</dd></div><div><dt>{t('final-attribution', 'Final attribution')}</dt><dd>{number(family.finalAttribution)}</dd></div></dl>
               {family.sources.some(source => source.finalContribution === null) && <p className="data-note">{t('explain-final-family-only', 'Final influence is available only at family level.')}</p>}
-              {calculationSources.length > 0 && <div className="explanation-block calculation-sources"><h3>{t('rating-explanation-evidence', 'Evidence and base adjustments')}</h3><p className="data-note">{t('raw-input', 'Raw input')} → {t('final-attribution', 'Final attribution')}</p><ul>{calculationSources.map((source, index) => <li key={`${source.kind}-${index}`}><strong>{sourceLabels[source.kind]}</strong><span><bdi>{number(source.rawContribution)}</bdi> → <bdi>{source.finalContribution === null ? '—' : number(source.finalContribution)}</bdi></span></li>)}</ul></div>}
+              {calculationSources.length > 0 && <div className="explanation-block calculation-sources"><h3>{t('rating-explanation-evidence', 'Evidence and base adjustments')}</h3><p className="data-note">{t('raw-input', 'Raw input')} → {t('final-attribution', 'Final attribution')}</p><ul>{calculationSources.map((source, index) => <li key={`${source.kind}-${index}`}><strong>{reasonLabel(source) ?? sourceLabels[source.kind]}</strong><span><bdi>{number(source.rawContribution)}</bdi> → <bdi>{source.finalContribution === null ? '—' : number(source.finalContribution)}</bdi></span></li>)}</ul></div>}
               <div className="explanation-block"><h3>{t('rating-explanation-transformations', 'Model transformations')}</h3><ul>{family.transformations.map(transform => <li key={transform.code}><span><strong>{transformLabels[transform.code]}</strong>{transform.scope === 'CROSS_FAMILY' && <small>{t('explain-cross-family', 'Applied jointly across negative families; not assigned to individual events.')}</small>}</span><span>{transform.input === null ? '—' : number(transform.input)} → {transform.output === null ? '—' : number(transform.output)}</span></li>)}</ul></div>
-              <p className="explanation-equation">{t('rating-explanation-equation', 'Base 1 + six final family contributions = {{value}}.', { value: unsigned(player.rating.arithmetic.reconstructed) })}</p>
+              <p className="explanation-equation">{player.rating.families.length === 7 ? <>{t('active-rating', 'Active participation rating')} · {unsigned(player.rating.arithmetic.reconstructed)}</> : t('rating-explanation-equation', 'Base 1 + six final family contributions = {{value}}.', { value: unsigned(player.rating.arithmetic.reconstructed) })}</p>
               <p className="data-note">{t('rating-explanation-note', 'Confirmed events explain only the evidence that can be linked safely. Baselines and nonlinear transformations remain separate and are not redistributed across events.')}</p>
             </Disclosure>
           </section>

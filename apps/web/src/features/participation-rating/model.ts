@@ -1,12 +1,12 @@
-import type { ActiveParticipationRatingReport, MatchData } from '@who-ruined/contracts';
+import type { StoredParticipationRating, MatchData } from '@who-ruined/contracts';
 import { ApiClientError } from '../../shared/api/transport.js';
 import { emptyMetrics } from '../../entities/match/adapter.js';
 import type { Award, MatchAnalytics } from '../../entities/match/types.js';
 
 function presentAward(
   match: MatchData,
-  report: ActiveParticipationRatingReport,
-  award: ActiveParticipationRatingReport['awards']['mvp'] | ActiveParticipationRatingReport['awards']['whoRuined'],
+  report: StoredParticipationRating,
+  award: StoredParticipationRating['awards']['mvp'] | StoredParticipationRating['awards']['whoRuined'],
 ): Award {
   const scope = 'scope' in award ? award.scope : undefined;
   if (award.playerId === null) return {
@@ -24,7 +24,7 @@ function presentAward(
 }
 
 /** Adds the sole active backend rating while preserving nulls and roster identities. */
-export function presentParticipationRating(match: MatchData, base: MatchAnalytics | undefined, report: ActiveParticipationRatingReport): MatchAnalytics {
+export function presentParticipationRating(match: MatchData, base: MatchAnalytics | undefined, report: StoredParticipationRating): MatchAnalytics {
   if (report.matchId !== match.matchId || report.players.length !== match.players.length) throw new ApiClientError('INVALID_RESPONSE');
   const roster = new Map(match.players.map((player) => [player.id, player.teamId]));
   const teams = new Set(match.teams.map((team) => team.id));

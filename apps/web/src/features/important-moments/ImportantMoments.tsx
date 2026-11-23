@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import type { MatchData, ParticipationExplanationReport } from '@who-ruined/contracts';
+import type { MatchData, StoredParticipationExplanation } from '@who-ruined/contracts';
 import { playerPath, timeAtTick } from '../../entities/match/presentation.js';
 import { Icon } from '../../shared/ui/Icon.js';
 import { DetailsSkeleton, Skeleton } from '../../shared/ui/Skeleton.js';
@@ -11,7 +11,7 @@ import { MatchReplay } from '../match-replay/index.js';
 
 export function ImportantMoments({ match, report, base, playerId, loading = false, error, retry }: {
   match: MatchData;
-  report?: ParticipationExplanationReport;
+  report?: StoredParticipationExplanation;
   base: string;
   playerId?: string;
   loading?: boolean;

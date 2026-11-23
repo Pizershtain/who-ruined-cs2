@@ -25,6 +25,8 @@
   "error-validation": "Les données du match n’ont pas pu être validées.",
   "evidence-disclaimer": "Les faits du match ne prouvent ni faute tactique ni intention.",
   "expand-section": "Ouvrir en grand",
+  "impact-postplant": "Après la pose de la bombe",
+  "impact-recovery": "Retour après un désavantage",
   "language": "Langue",
   "language-change-error": "Impossible de changer de langue. Réessayez.",
   "language-close": "Fermer le menu des langues",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analyser un match",
   "nav-method": "Comment ça marche",
   "navigation": "Navigation principale",
+  "neutralized-death": "Impact neutralisé après une mort vengée",
   "offline": "Vous êtes hors ligne. Les mises à jour reprendront au retour de la connexion.",
   "page-not-found": "Page introuvable",
   "page-not-found-note": "Ce lien ne mène à aucun rapport. Revenez en arrière et choisissez un match.",
@@ -67,5 +70,6 @@
   "status-queued": "En attente",
   "status-scoring": "Préparation de l’analyse",
   "status-validating": "Vérification des manches et scores",
-  "unavailable": "Pas encore disponible"
+  "unavailable": "Pas encore disponible",
+  "verified-utility": "Utilisation confirmée des grenades"
 }

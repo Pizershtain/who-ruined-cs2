@@ -25,6 +25,8 @@
   "error-validation": "Datele meciului nu au putut fi validate.",
   "evidence-disclaimer": "Faptele din meci sunt indicii, nu dovezi de vină tactică sau intenție.",
   "expand-section": "Deschide complet",
+  "impact-postplant": "După plantarea bombei",
+  "impact-recovery": "Recuperarea dezavantajului",
   "language": "Limbă",
   "language-change-error": "Limba nu a putut fi schimbată. Încearcă din nou.",
   "language-close": "Închide meniul de limbi",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analizează un meci",
   "nav-method": "Cum funcționează",
   "navigation": "Navigare principală",
+  "neutralized-death": "Impactul morții neutralizat prin schimb",
   "offline": "Nu ai conexiune. Actualizările se vor relua când conexiunea revine.",
   "page-not-found": "Pagina nu a fost găsită",
   "page-not-found-note": "Acest link nu duce la un raport. Revino și alege un meci.",
@@ -67,5 +70,6 @@
   "status-queued": "În așteptare",
   "status-scoring": "Pregătirea analizei",
   "status-validating": "Verificarea rundelor și scorurilor",
-  "unavailable": "Încă indisponibil"
+  "unavailable": "Încă indisponibil",
+  "verified-utility": "Utilizare confirmată a grenadelor"
 }

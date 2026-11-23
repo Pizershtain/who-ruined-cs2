@@ -25,6 +25,8 @@
   "error-validation": "The match data could not be validated.",
   "evidence-disclaimer": "Match facts are evidence, not proof of tactical blame or intent.",
   "expand-section": "Open in full",
+  "impact-postplant": "Post-plant",
+  "impact-recovery": "Deficit recovery",
   "language": "Language",
   "language-change-error": "Could not switch language. Try again.",
   "language-close": "Close language menu",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analyze a match",
   "nav-method": "How it works",
   "navigation": "Main navigation",
+  "neutralized-death": "Traded death neutralized",
   "offline": "You are offline. Updates will resume when your connection returns.",
   "page-not-found": "Page not found",
   "page-not-found-note": "This link does not lead to a report. Head back and choose a match.",
@@ -67,5 +70,6 @@
   "status-queued": "Queued",
   "status-scoring": "Preparing the analysis",
   "status-validating": "Checking rounds and scores",
-  "unavailable": "Not available yet"
+  "unavailable": "Not available yet",
+  "verified-utility": "Verified utility use"
 }

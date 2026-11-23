@@ -1,15 +1,9 @@
-import type { PlayerAnalytics, ActiveParticipationRatingReport } from '@who-ruined/contracts';
+import type { H3ExplanationFamily, PlayerAnalytics, StoredParticipationRating } from '@who-ruined/contracts';
 
-export type RatingFamily = 'COMBAT' | 'SUPPORT' | 'DEATH_RELATED' | 'OBJECTIVES' | 'CONTEXT' | 'DIRECT_HARM';
-export type RatingFamilies = Record<RatingFamily, number>;
-
-export interface PlayerRating {
-  value: number;
-  rank: number;
-  losingTeamRank: number | null;
-  rawFamilyInputs: RatingFamilies;
-  finalAttribution: RatingFamilies;
-}
+type StoredRatingValue = NonNullable<StoredParticipationRating['players'][number]['rating']>;
+export type PlayerRating = Pick<StoredRatingValue, 'value' | 'rank' | 'losingTeamRank' | 'rawFamilyInputs' | 'finalAttribution'>;
+export type RatingFamilies = PlayerRating['finalAttribution'];
+export type RatingFamily = H3ExplanationFamily['family'];
 
 export type Award =
   | { state: 'available'; playerId: string; value: number; poolSize: number; close: boolean; tied: boolean; scoreGap: number | null; tiedPlayerIds: string[]; scope?: 'LOSING_TEAM_ELIGIBLE' | 'DRAW_ALL_ELIGIBLE' | 'UNAVAILABLE' }
@@ -18,7 +12,7 @@ export type Award =
 export interface PlayerMetrics {
   /** Original factual DTO, preserved without recomputing or filling missing values. */
   analytics?: PlayerAnalytics;
-  participation?: ActiveParticipationRatingReport['players'][number]['coverage'];
+  participation?: StoredParticipationRating['players'][number]['coverage'];
   kills: number | null;
   deaths: number | null;
   assists: number | null;

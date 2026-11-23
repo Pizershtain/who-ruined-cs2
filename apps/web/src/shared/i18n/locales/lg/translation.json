@@ -25,6 +25,8 @@
   "error-validation": "Ebikwata ku muzannyo tebikakasiddwa.",
   "evidence-disclaimer": "Ebimanyiddwa mu muzannyo bujulizi, naye si kukakasa musango gwa bukodyo oba kigendererwa.",
   "expand-section": "Ggulawo mu bujjuvu",
+  "impact-postplant": "Oluvannyuma lw’okuteeka bbomu",
+  "impact-recovery": "Okudda mu mpaka ng’obadde emabega",
   "language": "Olulimi",
   "language-change-error": "Tekisobose kukyusa lulimi. Ddamu ogezeeko.",
   "language-close": "Ggalawo olukalala lw'ennimi",
@@ -37,6 +39,7 @@
   "nav-analyze": "Weekenneenye omuzannyo",
   "nav-method": "Engeri gye kikolamu",
   "navigation": "Okutambula okukulu",
+  "neutralized-death": "Enkizo y’okufa yasanguddwa munne bwe yawoolera eggwanga",
   "offline": "Toyungiddwa. Okuleeta ebipya kujja kuddamu ng'okuyungibwa kwo kukomyewo.",
   "page-not-found": "Olupapula teruzuuliddwa",
   "page-not-found-note": "Enkolagana eno tetwala ku lipoota. Ddayo olonde omuzannyo.",
@@ -67,5 +70,6 @@
   "status-queued": "Mu lunyiriri",
   "status-scoring": "Etegeka okwekenneenya",
   "status-validating": "Ekebera lawundi n'obubonero",
-  "unavailable": "Tekinnabaawo"
+  "unavailable": "Tekinnabaawo",
+  "verified-utility": "Enkozesa ya gerenedi ekakasiddwa"
 }

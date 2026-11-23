@@ -71,8 +71,6 @@ export function AsciiField({ className = '', quiet = false, progress }: { classN
       context.font = `500 13px ui-monospace, "SF Mono", Menlo, Consolas, monospace`;
       context.textAlign = 'center'; context.textBaseline = 'middle';
     };
-    const observer = new ResizeObserver(resize);
-    observer.observe(canvas);
     resize();
 
     // The spotlight eases towards the pointer; without one it drifts gently on its own.
@@ -111,9 +109,16 @@ export function AsciiField({ className = '', quiet = false, progress }: { classN
     document.documentElement.addEventListener('pointerleave', leave);
 
     let frame = 0;
+    let inView = true;
     let last = performance.now();
     let time = 0;
     const draw = (now: number) => {
+      frame = 0;
+      if (!inView || document.hidden) return;
+      if (!reduceMotion.matches && now - last < 1000 / 30) {
+        frame = requestAnimationFrame(draw);
+        return;
+      }
       const delta = Math.min(0.05, (now - last) / 1000);
       last = now;
       const still = reduceMotion.matches;
@@ -154,16 +159,26 @@ export function AsciiField({ className = '', quiet = false, progress }: { classN
           context.fillText(glyph, x, y);
         }
       }
-      frame = requestAnimationFrame(draw);
+      if (!still) frame = requestAnimationFrame(draw);
     };
     const start = () => { if (!frame) { last = performance.now(); frame = requestAnimationFrame(draw); } };
     const stop = () => { cancelAnimationFrame(frame); frame = 0; };
-    const visibility = () => { if (document.hidden) stop(); else start(); };
+    const visibility = () => { if (document.hidden || !inView) stop(); else start(); };
+    const observer = new ResizeObserver(() => { resize(); visibility(); });
+    observer.observe(canvas);
+    const intersection = new IntersectionObserver(entries => {
+      inView = entries.some(entry => entry.isIntersecting);
+      visibility();
+    });
+    intersection.observe(canvas);
+    reduceMotion.addEventListener('change', visibility);
     document.addEventListener('visibilitychange', visibility);
     start();
     return () => {
       stop();
       observer.disconnect();
+      intersection.disconnect();
+      reduceMotion.removeEventListener('change', visibility);
       document.removeEventListener('visibilitychange', visibility);
       window.removeEventListener('pointermove', move);
       window.removeEventListener('pointerdown', move);

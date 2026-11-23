@@ -36,7 +36,7 @@ Feature public APIs are their `index.ts` files. Cross-feature imports should use
 Thin pages compose capabilities:
 
 - `MatchPage`: match report, active rating/awards and replay.
-- `PlayerPage`: player report, six-family explanation, important moments and replay links.
+- `PlayerPage`: player report, rating explanation, important moments and replay links.
 - `HomePage`/`JobPage`: upload and processing state.
 
 ## Routes
@@ -68,15 +68,9 @@ Vite proxies same-origin `/api` requests to `API_URL` and removes the developmen
 
 ## Rating and explanation
 
-`participation-rating` consumes only `m4.3-participation-rating@1`. It renders:
+The match and player pages accept the stored H2 and H3 rating and explanation contracts. H2 reports contain six families. H3 adds round impact with independent coverage. The player page displays the supplied reconstruction, observed and withheld rounds, and links to the recorded rounds and events. A missing contribution displays as unavailable, and a measured zero displays as zero.
 
-- the real backend-calculated H2 value;
-- `null` and typed unavailability without a legacy fallback;
-- coverage and incomplete award pools;
-- deterministic ties, draw scope and roster-based teams;
-- six raw family inputs and final attribution values already calculated by the backend.
-
-`rating-explanation` consumes `m4.6-participation-explanation@1`. It renders human-readable family descriptions, confirmed evidence, rounds, aggregate/base adjustments and nonlinear transformations. It never distributes an aggregate transform across events on its own.
+The match report lists persisted EVP awards. The player radar displays eight stored axes, their raw values, comparison pools and evidence. Geometry comes from the radar DTO. Award highlights use the supplied attributions. See [H3 response formats](h3-frontend-handoff.md).
 
 `important-moments` renders the backend's deterministic multikill/trade selection. Internal event codes, anchor IDs and diagnostic field names are not user-facing labels.
 

@@ -25,6 +25,8 @@
   "error-validation": "Nie udało się zweryfikować danych meczu.",
   "evidence-disclaimer": "Fakty z meczu stanowią materiał dowodowy, ale nie dowodzą winy taktycznej ani zamiaru.",
   "expand-section": "Otwórz w całości",
+  "impact-postplant": "Po podłożeniu bomby",
+  "impact-recovery": "Odrobienie straty",
   "language": "Język",
   "language-change-error": "Nie udało się zmienić języka. Spróbuj ponownie.",
   "language-close": "Zamknij menu języków",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analizuj mecz",
   "nav-method": "Jak to działa",
   "navigation": "Nawigacja główna",
+  "neutralized-death": "Zneutralizowany wpływ śmierci po wymianie",
   "offline": "Brak połączenia. Aktualizacje zostaną wznowione po jego przywróceniu.",
   "page-not-found": "Nie znaleziono strony",
   "page-not-found-note": "Ten link nie prowadzi do raportu. Wróć i wybierz mecz.",
@@ -67,5 +70,6 @@
   "status-queued": "W kolejce",
   "status-scoring": "Przygotowywanie analizy",
   "status-validating": "Sprawdzanie rund i wyników",
-  "unavailable": "Jeszcze niedostępne"
+  "unavailable": "Jeszcze niedostępne",
+  "verified-utility": "Potwierdzone użycie granatów"
 }

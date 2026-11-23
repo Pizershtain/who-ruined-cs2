@@ -25,6 +25,8 @@
   "error-validation": "De wedstrijdgegevens konden niet worden gevalideerd.",
   "evidence-disclaimer": "Wedstrijdfeiten zijn aanwijzingen, geen bewijs voor tactische schuld of opzet.",
   "expand-section": "Volledig openen",
+  "impact-postplant": "Na het plaatsen van de bom",
+  "impact-recovery": "Herstel van een achterstand",
   "language": "Taal",
   "language-change-error": "De taal kon niet worden gewijzigd. Probeer het opnieuw.",
   "language-close": "Taalmenu sluiten",
@@ -37,6 +39,7 @@
   "nav-analyze": "Analyseer een wedstrijd",
   "nav-method": "Zo werkt het",
   "navigation": "Hoofdnavigatie",
+  "neutralized-death": "Geruilde dood geneutraliseerd",
   "offline": "Je bent offline. Updates worden hervat zodra je verbinding terug is.",
   "page-not-found": "Pagina niet gevonden",
   "page-not-found-note": "Deze link leidt niet naar een rapport. Ga terug en kies een wedstrijd.",
@@ -67,5 +70,6 @@
   "status-queued": "In wachtrij",
   "status-scoring": "Analyse voorbereiden",
   "status-validating": "Rondes en scores controleren",
-  "unavailable": "Nog niet beschikbaar"
+  "unavailable": "Nog niet beschikbaar",
+  "verified-utility": "Bevestigd granaatgebruik"
 }
