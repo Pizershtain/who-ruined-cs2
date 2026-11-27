@@ -3,3 +3,4 @@ export { ScoringNotice } from './ScoringNotice.js';
 export { presentParticipationRating } from './model.js';
 export { participationRatingKey, useParticipationRating } from './queries.js';
 export { EvpAwards, PlayerRadar } from './ReportPanels.js';
+export { useEvpReport } from './stored-reports.js';

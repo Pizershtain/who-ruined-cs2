@@ -2,7 +2,7 @@
 
 The player report supports historical Radar v1 and the H3 Radar v2 projection.
 
-`GET /api/v1/matches/:id/radar` projects stored M2 facts and, when present, the validated `evp-report@1`. It returns `player-radar@2` for H3 `match-result@2` and retains `player-radar@1` for historical H2. Both versions use the same eight axes and normalization. [H3 fields and award highlights](h3-frontend-handoff.md#radar-and-evp).
+`GET /api/v1/matches/:id/radar` projects stored M2 facts and, when present, the validated `evp-report@1`. It returns `player-radar@2` for H3 `match-result@2` and retains `player-radar@1` for historical H2. Both versions use the same eight axes and normalization. The player page draws seven axes, omitting bomb objectives. [H3 fields and award highlights](h3-frontend-handoff.md#radar-and-evp).
 
 ## Axis registry and normalization
 
@@ -56,7 +56,7 @@ Stable IDs and reason codes are backend data. Localized user-facing labels belon
 
 ### Response fields
 
-The endpoint is `GET /api/v1/matches/:id/radar`; it accepts no query parameters and returns `player-radar@1` with normalization identity `radar-normalization@1`.
+The optional query `?include=confirmed` adds `confirmedEvidence` with schema version `radar-confirmed-evidence@1` to either historical or current responses. It reports positive lower bounds for unavailable FLASH and UTILITY axes only when there are individually confirmed events in counted rounds. The denominator remains the verified round count. Evidence links show up to 512 contributing events and 128 contributing rounds. These figures remain outside the comparison pool and do not change award attribution. Omitting the query preserves the original strict response.
 
 - `axisDefinitions` is the stable registry in this exact order: `MULTIKILL`, `ASSISTS`, `FLASH`, `TRADES`, `CLUTCH`, `ENTRY`, `UTILITY`, `OBJECTIVES`.
 - `players[].axes[].rawValue` is the display value in the definition's unit. It is never replaced by geometry or rounded by the backend.

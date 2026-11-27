@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 const require = createRequire(import.meta.url);
 
-export const PARSER_LIBRARY_VERSION = '0.42.0';
+export const PARSER_LIBRARY_VERSION = '0.42.3';
 
 export type UnknownRow = Record<string, unknown>;
 

@@ -9,7 +9,9 @@ import { steamProfileUrl } from '../../entities/match/player.js';
 import { Skeleton } from '../../shared/ui/Skeleton.js';
 import { metricGroups, compareMetricValues, type MetricColumn } from '../../entities/match/metric-groups.js';
 
-export function Scoreboard({ match, analytics, base, loading = false }: { match: MatchData; analytics?: MatchAnalytics; base: string; loading?: boolean }) {
+export type ScoreboardAwards = { mvpPlayerId: string | null; evpPlayerIds: readonly string[] };
+
+export function Scoreboard({ match, analytics, base, awards, loading = false }: { match: MatchData; analytics?: MatchAnalytics; base: string; awards?: ScoreboardAwards; loading?: boolean }) {
   const { t, i18n } = useTranslation('match');
   const [groupId, setGroupId] = useState('combat');
   const [sort, setSort] = useState({ id: 'rating', direction: 'desc' as 'asc' | 'desc' });
@@ -46,7 +48,17 @@ export function Scoreboard({ match, analytics, base, loading = false }: { match:
   const playerIdentity = (id: string, teamIndex: number, ordinal: number) => {
     const player = match.players.find(item => item.id === id);
     const steam = steamProfileUrl(player?.steamId ?? null);
-    return <div className="player-cell"><span className={`player-avatar team-${teamIndex}`} aria-hidden="true">{String(ordinal + 1).padStart(2, '0')}</span><span className="player-identity">{player ? <Link to={playerPath(base, id)}>{player.displayName || t('unnamed-player', 'Unnamed player')}</Link> : <span>{t('unknown-player', 'Unknown player')}</span>}{steam && <a className="steam-link" href={steam} target="_blank" rel="noreferrer" aria-label={t('steam-profile', 'Steam profile: {{name}}', { name: player?.displayName })}>Steam ↗</a>}</span></div>;
+    const award = awards?.mvpPlayerId === id ? 'MVP' : awards?.evpPlayerIds.includes(id) ? 'EVP' : null;
+    return <div className="player-cell">
+      <span className={`player-avatar team-${teamIndex}`} aria-hidden="true">{String(ordinal + 1).padStart(2, '0')}</span>
+      <span className="player-identity">
+        <span className="player-name-row">
+          {player ? <Link to={playerPath(base, id)}><bdi>{player.displayName || t('unnamed-player', 'Unnamed player')}</bdi></Link> : <span>{t('unknown-player', 'Unknown player')}</span>}
+          {award && <b className={`report-award ${award.toLowerCase()}`}>{award}</b>}
+        </span>
+        {steam && <a className="steam-link" href={steam} target="_blank" rel="noreferrer" aria-label={t('steam-profile', 'Steam profile: {{name}}', { name: player?.displayName })}>Steam ↗</a>}
+      </span>
+    </div>;
   };
   const metricValue = (id: string, column: MetricColumn) => {
     const metrics = analytics?.players[id];

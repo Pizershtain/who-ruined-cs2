@@ -302,11 +302,6 @@
         "targetHash": "319126fa7188b71b0d400d547f861e4a596b56be6f82b2e80058817b5cb7e6a0",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "58725773c94193daff9b11966119e99cd7f9f83638d45138c2b5bdad6ca5b97d",
-        "stale": false
-      },
       "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "9e3420b848f21365a2d91c3e68635190d47b48daeaae24d2d83c2acb54e765e4",
@@ -315,6 +310,11 @@
       "award-pool-size_many": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "fc3349189fc5e8fad10b077ad55982e39fc7067ab866728a4166a19c2fcde3ff",
+        "stale": false
+      },
+      "award-pool-size_one": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "58725773c94193daff9b11966119e99cd7f9f83638d45138c2b5bdad6ca5b97d",
         "stale": false
       },
       "award-pool-size_other": {
@@ -782,11 +782,6 @@
         "targetHash": "f54f58cf08dfb9d1933f938463135c89a9d801989f1576ae94ec1dc876632050",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "c0c75dea2b254458a7e8355b02793734dff0a04a215e4575a3dc9d18356baaed",
-        "stale": false
-      },
       "player-count_few": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "0ad556c517b1a1f22f0ddc0b68675ada013a3c0bba533a0627a1613291ed6a64",
@@ -795,6 +790,11 @@
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "633e1248bdc48c17a2e395865a73562b52259fbbce9f852ed283d716d186364f",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "c0c75dea2b254458a7e8355b02793734dff0a04a215e4575a3dc9d18356baaed",
         "stale": false
       },
       "player-count_other": {
@@ -992,11 +992,6 @@
         "targetHash": "5e6d6bd43a23d149d2eae272b5c234ee5b0925a3196f075c5afc1e8826bd7803",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "ec9ffaa45405a98618c9ff1ae063f848e657e6d86d46f84840233f7a896366a5",
-        "stale": false
-      },
       "round-count_few": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "b9932a11b5066f1e3cf0f8b8dfb75de8d44be9741da1c06ae0fd883a0fee4503",
@@ -1005,6 +1000,11 @@
       "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "8675caa1e5a590bea9bd0fcbaa7d84105cd06df1d79d1f83d3f8db9736e7f5b9",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "ec9ffaa45405a98618c9ff1ae063f848e657e6d86d46f84840233f7a896366a5",
         "stale": false
       },
       "round-count_other": {
@@ -1484,9 +1484,19 @@
         "targetHash": "d2729f4094b4b5f409d5545fa6dd8e87abcb044b51823512a6a91154487264e0",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "138dfed591469e33345e83926e6c9ed6836b3e9a6f2ab9e402bf247540cdfdc6",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "28d052095f52e9aa9689b6e33f2d9e85d6e601f4e750c407fa3e066653bd3158",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "cc8a8f1ef303dcc0eecba4ff95e83742eceede6a76a4bf0e72d89d052b09f505",
         "stale": false
       },
       "radar-damage": {
@@ -1497,6 +1507,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "142432081e73460e699a5c83cc729644ae1400a910659ec932b4319746e94d17",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "b7dbcf854465569505e4dc5ce5158efc3f8776c3373cd44b1d53271b546cb114",
         "stale": false
       },
       "radar-multikill": {
@@ -2428,11 +2443,6 @@
         "targetHash": "4997a5143d9fa486a41469797af0b15f59e231a3d1c3a3aff8d141e29bf0cc81",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "6c3b2798304cdadd3da155533c70a6abc849be32ef31395b35ee459a4a84637d",
-        "stale": false
-      },
       "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "589c7a8e16864b681222ccc026c626814d93e7c38d531e80118f3aa095f5135b",
@@ -2441,6 +2451,11 @@
       "award-pool-size_many": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "a9be63b1f2f7d6285a4b784c32cf2617d8821705784b91c373f6fffc64649521",
+        "stale": false
+      },
+      "award-pool-size_one": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "6c3b2798304cdadd3da155533c70a6abc849be32ef31395b35ee459a4a84637d",
         "stale": false
       },
       "award-pool-size_other": {
@@ -2908,11 +2923,6 @@
         "targetHash": "13cc134eac5eb644388b78975add483b073ba2ac837663424a9abb0312c40ab5",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "713e0fd5b72929801d8a1cd197c2ad59143e3a9b161f23dd90d6bee7593bb8ab",
-        "stale": false
-      },
       "player-count_few": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "df066172f7577465ef772d64acd88e72c08208fece93bc7eed4859ec2465301b",
@@ -2921,6 +2931,11 @@
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "54da191a666f1336cf8715aff485a4ff94ecd73e92a43ccc4582cb8dbab5ed42",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "713e0fd5b72929801d8a1cd197c2ad59143e3a9b161f23dd90d6bee7593bb8ab",
         "stale": false
       },
       "player-count_other": {
@@ -3118,11 +3133,6 @@
         "targetHash": "1e37229b9a6a1c0d3884515866a0b41c398102a229a1a683a8fe15f9842f885c",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "ec9ffaa45405a98618c9ff1ae063f848e657e6d86d46f84840233f7a896366a5",
-        "stale": false
-      },
       "round-count_few": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "334ad05a4a46eceec8222d1ec6023a4552814f49a415607a487eb1d67174177d",
@@ -3131,6 +3141,11 @@
       "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "a8718de36c9096d2061a9b547de13f399048e2c7096c9b70d77a813a489115c7",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "ec9ffaa45405a98618c9ff1ae063f848e657e6d86d46f84840233f7a896366a5",
         "stale": false
       },
       "round-count_other": {
@@ -3610,9 +3625,19 @@
         "targetHash": "cab8b47ae275834a984d5253f0a62f0f96c75e5c03a1001bf06ea0eaca71b75e",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "29e6485199ea0b96f953405f99008e1a2098e9b0c675832f1ac7f7912cb4e13d",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "413971b730ce9004d325327037e87abbae2f04dd80950a7d7791f05464389058",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "e722ee8209e8c71a4f40f4702a36603501b963b4da775845d20bc8a8dfe79aec",
         "stale": false
       },
       "radar-damage": {
@@ -3623,6 +3648,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "6f4b1c054ee2f6e45988235d4c854ad864193a979624770d06a85f162d6e07bd",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "124ec22e9ccd49fae91dee3dfc338dec6d9bf8f7486debc3e707d79dd5913487",
         "stale": false
       },
       "radar-multikill": {
@@ -4554,14 +4584,14 @@
         "targetHash": "f1ed9999c72bae393868a6ff125c929dcde019fb16b765eeaaac2237523a280c",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "167d5f8e8b787c59b7def262a4eb6c0b429d3d728ccd6f30f101f0f837e866f5",
-        "stale": false
-      },
       "award-pool-size_many": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "26da309a1e88dd1dfef7ec82186a8e8835a78a49245a85a6df1febee13255968",
+        "stale": false
+      },
+      "award-pool-size_one": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "167d5f8e8b787c59b7def262a4eb6c0b429d3d728ccd6f30f101f0f837e866f5",
         "stale": false
       },
       "award-pool-size_other": {
@@ -5029,14 +5059,14 @@
         "targetHash": "b80431a4642aebef8122398fd54f9482c5ca82d0477ed39f4c6f45bbbb762e98",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "759bf35256b0bd38b93765a7979169d5a88dd84b7f0971f66fc42b24ee15488d",
-        "stale": false
-      },
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "e9ed5c977c2a30a4b633a1a5806f6783ebdfddc19116571aa582439e763c348e",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "759bf35256b0bd38b93765a7979169d5a88dd84b7f0971f66fc42b24ee15488d",
         "stale": false
       },
       "player-count_other": {
@@ -5234,14 +5264,14 @@
         "targetHash": "e238e3cdfeac410ab0f1344dad2c1493271a1f59ee09ec6a92dff017f560905d",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "de9af4a13bd072faba68a21bcb41266fb4e802e310a3e84c85ac432f5519ba3d",
-        "stale": false
-      },
       "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "40836a59c7ac37af1848abe4b3a42183729d2680831716b99d871f0ad59d8cf4",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "de9af4a13bd072faba68a21bcb41266fb4e802e310a3e84c85ac432f5519ba3d",
         "stale": false
       },
       "round-count_other": {
@@ -5721,9 +5751,19 @@
         "targetHash": "3a53ee1ed22f4785c66221f424aba201c5895c9400ad333ef0be27b5386182ff",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "d9720c0030b1d3942edbed6468c8949cfaf24ca87cc5bc797748f51f1348f66e",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "32f4d19c108f5176b2988125c2cedc0f358464c8a26ba756e3de40c0b035ee7e",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "78c0b3e0d802d96b84cb6fae9a2e964dfea1433975d6d347a7de7a560d194193",
         "stale": false
       },
       "radar-damage": {
@@ -5734,6 +5774,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "654a412bf3a915f7eef161b2d047540b273af18a30a86fe09b936ac1cb4213ad",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "6f5f864561c79a943d410452e09b5a984a888eb363447f5828bdb6f62c2653fb",
         "stale": false
       },
       "radar-multikill": {
@@ -7817,9 +7862,19 @@
         "targetHash": "82f033d89e830480c66aa6c55edc97262f6855bb8334c6300c8e1d4bfd1ea998",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "6f4d7b49685ba7f2ca189b128034253a41aea5b4957509f4efcf288fa2ec354f",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "e20a0c9c3974ead39a133be5636dde9e2fc381a586e74694222611cbbdbdd6db",
         "stale": false
       },
       "radar-damage": {
@@ -7830,6 +7885,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "f7ede7a2ae5d1c73caff5f60144c9239a1fef24256120b5d270bd010850a3520",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "8f85afab33931fcbdb688cf2050433056c58423b94e25ed950fa7a6c2bfae8c6",
         "stale": false
       },
       "radar-multikill": {
@@ -8761,14 +8821,14 @@
         "targetHash": "a71bc39fe3f33e42d1164472c83a9a340c52da9718ce3b8114c488647338fdf5",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "ac97d32ef0de325340c137f10aa08da58142337caa229859c82d20aa0b6a3d99",
-        "stale": false
-      },
       "award-pool-size_many": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "d4da9ce2ae64408cf74412aeec9ae0feba883ec879dd4228b48f5d4792fb0ed6",
+        "stale": false
+      },
+      "award-pool-size_one": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "ac97d32ef0de325340c137f10aa08da58142337caa229859c82d20aa0b6a3d99",
         "stale": false
       },
       "award-pool-size_other": {
@@ -9236,14 +9296,14 @@
         "targetHash": "e47ce2a916e0ca71fc8299a4400dcd2ecf7df61057e34f6d71fd5453a75f263f",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "a863607df1aca9995def5acc31ad7dfda36d7a9ab0d420bd34139db9f3b3ec7f",
-        "stale": false
-      },
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "91874e636a61950ae50909846012269b1456446dcdbfabb21f720dc9b322745f",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "a863607df1aca9995def5acc31ad7dfda36d7a9ab0d420bd34139db9f3b3ec7f",
         "stale": false
       },
       "player-count_other": {
@@ -9441,14 +9501,14 @@
         "targetHash": "4bafd7255126f568afa8927cef3d7600db519c4e25f69ffdc682238b9200cd86",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "0baf0f10e28eef0bc1d7367c95f08b939d4ed07809f0af97ebcefa20c932554f",
-        "stale": false
-      },
       "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "6761554e81df6cd864e7b5124924e4e7a4c23e7e9c1e840b31c85c6b8000020e",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "0baf0f10e28eef0bc1d7367c95f08b939d4ed07809f0af97ebcefa20c932554f",
         "stale": false
       },
       "round-count_other": {
@@ -9928,9 +9988,19 @@
         "targetHash": "3eb18b6900b6bc4ff0b44f5b0c372b9bf80eba467959f673e196695df48acbde",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "b085932ec7e3943c8ec4da11201516e7a82055a5afc6cf57f7f0e04111841a0a",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "31605f0c145c0bdf2c3d0e715227ae5872f655c96e2cc9a7fd87d6245de10a37",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "bb4b0838d8fc720abd29268aed83bc62746b447b2e9da24e985969365bf85eca",
         "stale": false
       },
       "radar-damage": {
@@ -9941,6 +10011,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "dbb89aba2a2340fadc72be1d352123fbad5868d361ec36ea943eb1189bffe01b",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "67da3a61427881cc07698ccdbef088c7900ad1ed1f9afad3ab76670141bef0cf",
         "stale": false
       },
       "radar-multikill": {
@@ -10872,14 +10947,14 @@
         "targetHash": "a71bc39fe3f33e42d1164472c83a9a340c52da9718ce3b8114c488647338fdf5",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "e2f2cbbc9b4cd7d00726009027562318aee42e1a60c17d90eade836d71a602f6",
-        "stale": false
-      },
       "award-pool-size_many": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "8f5f0bf795720da96bef275d8797df644b5daf3e92776ab63d2fcc4b80630a7f",
+        "stale": false
+      },
+      "award-pool-size_one": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "e2f2cbbc9b4cd7d00726009027562318aee42e1a60c17d90eade836d71a602f6",
         "stale": false
       },
       "award-pool-size_other": {
@@ -11347,14 +11422,14 @@
         "targetHash": "93ff8e69892ebea9471e0870b5853418b0ff873447c620c94e4e5633ea17b02d",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "afe20d878c85195b7f18649bdc400414e05022a9090fcf1af77fc47ed56821c6",
-        "stale": false
-      },
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "2053e39564afbec03ee5fbe814bba652135e211f4f7ff6489b3c7e2d5d8a6e2e",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "afe20d878c85195b7f18649bdc400414e05022a9090fcf1af77fc47ed56821c6",
         "stale": false
       },
       "player-count_other": {
@@ -11552,14 +11627,14 @@
         "targetHash": "e7425ef49083c30f757c0d16aa201528f46f444ac30de4fda77369632cfd2a58",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "0baf0f10e28eef0bc1d7367c95f08b939d4ed07809f0af97ebcefa20c932554f",
-        "stale": false
-      },
       "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "6761554e81df6cd864e7b5124924e4e7a4c23e7e9c1e840b31c85c6b8000020e",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "0baf0f10e28eef0bc1d7367c95f08b939d4ed07809f0af97ebcefa20c932554f",
         "stale": false
       },
       "round-count_other": {
@@ -12039,9 +12114,19 @@
         "targetHash": "87e548943e1881c040d5f7ccafed4c8929cc475bdf686fe9505642edf510a15c",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "0ef52cc4e1f022c63fcaaf68d926137288d07d3f4465d556a46d5afdbcce3dbe",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "a8fa0982478435f297dbba7ea7427f124a7d91c8aaecdcdf888f568cb0d41779",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "d51830fc1dd789903874b899492e0728abb0dce3f325f83e5cb7ccaa0c909efc",
         "stale": false
       },
       "radar-damage": {
@@ -12052,6 +12137,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "7acff5df1932fa8d9f5b1dc87ac35f8c862035ca0d77a613c068e2a9e4d17625",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "07527a09e151f76193c0eb1829a1450e02554bc04ad73e362a1940838cbda4e6",
         "stale": false
       },
       "radar-multikill": {
@@ -14135,9 +14225,19 @@
         "targetHash": "ddc850cba5478f60a1a3251af6746fb5e6e718c2287aa1a93b75099b58c0e4cb",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "6c8350b7d523425298d27e3a30002e8fd8c0f3dd18fd67f544d49a3ed0b52f80",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "9cfcb8a00dab79dd69f236a7ebea97256fcca50cf80a7564af7fec767a2e9e8a",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "c519dae8dbcaa338e99a296bdbcb9d66c54b957c6fa5a7a086793543142e95a2",
         "stale": false
       },
       "radar-damage": {
@@ -14148,6 +14248,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "c616e2daab15736164a9c1d5dfcdf77ff7d0f411578693b87feaa5a459a72d09",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "72d2d254501ec637ae0a60729a678aa6a2ae5724b68b16afa0f6bd7cb2473285",
         "stale": false
       },
       "radar-multikill": {
@@ -16231,9 +16336,19 @@
         "targetHash": "d5a232fb115b6a5420b4a94149e0b180b904daa50b2f1d60e7929fbbfc5d4216",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "cad95f5996dc3f8d2b6ce789322988cb817018e9aee54d617c64d9cae2409d63",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "d20d2e42ead03778a8b25fff6d51d0d617c5b94cb00e780aa1363f252e01392c",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "e4ec106ab6ae9d020867ee79424355b5388fc307191f659b7a2502d8b538d828",
         "stale": false
       },
       "radar-damage": {
@@ -16244,6 +16359,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "50a14a3f7e71312d52447e1008ce719908aa9bf50eaac2e6e3558ade93227559",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "8787c1a461133d6438019ff52620ad4b5545a09da32bf65e34f7cb43b5b0f79e",
         "stale": false
       },
       "radar-multikill": {
@@ -18327,9 +18447,19 @@
         "targetHash": "0c047625daaa60f8b3470eeb7c9ca11cb2d1f0607b85e5842c29156028617443",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "97e7844d7b9ff9d344c7a16bfc49ee646c6da16a01dce17da8c0cd3b754d3a14",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "68aeb85167d3478fad79ab5a7d11c6ab42ce76d0ada9f4ece1d7afcc5968c5f1",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "5ef3f7bb089cc210c55d0453293a1d98e3af5b56f6387b1bdf221e0ee46ee2d0",
         "stale": false
       },
       "radar-damage": {
@@ -18340,6 +18470,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "42d4d4912f372f05f9bc72d5f318a3a3ec9c52a645e285ba096cdb0c4b5f013c",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "b04d04d8a1439d7c74c5dff4ce203a42deadeb2893f157ffeae0ee6f06a4df63",
         "stale": false
       },
       "radar-multikill": {
@@ -20423,9 +20558,19 @@
         "targetHash": "fbbf30a87fbfd5287451be62ec912558b71986ab2dc22f172ea5bd692bdc02fc",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "258921ed745ae89990a9f319e3119f0d085af99c803635d55640ba35bdf1ff64",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "fe304c42a83b28757c0f7e5beea0bd8f13c63e3abe1f4959f75b9dbecea3b4e1",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "eb87396c64c41f03eda5a0e9feb6a668be55287694c68df8366c49ea634535e1",
         "stale": false
       },
       "radar-damage": {
@@ -20436,6 +20581,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "12dac34c8059f5d6b46b4013aa490456cda3b4c84b95b29ac56e09e770b26fee",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "3cb380512899991ac61a2a51884f9f4b41389a2360448a757dfbf12222721617",
         "stale": false
       },
       "radar-multikill": {
@@ -22504,9 +22654,19 @@
         "targetHash": "1893e8a27e20bd5b40c69d3f607c78b8ca5ab4f1f12907ba44a08af27adf82c6",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "cf717af921b8c4a213acb159fc2c88f10f6662998c18f0a2a0ae4960a9110e94",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "2a7faae7cd8e3d83c8aec3704e0312c82dd5fe1b79f438109280afc3d2102568",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "eb2a60749dfb9894be920db00fbecf327f74f2c57dff6987868896e55a38c3a1",
         "stale": false
       },
       "radar-damage": {
@@ -22517,6 +22677,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "5f06a0622a096d4cf68559f7ec0ae607d4d769099963e516bbd81a8d9e4613cd",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "04b3b6c525aeeb4aa362319fb4caba796c595fded87221525063880d126d28e9",
         "stale": false
       },
       "radar-multikill": {
@@ -24585,9 +24750,19 @@
         "targetHash": "bf60efcd42784f2c421cf604154a594a2843a54edf68ff4f1413a3632241da7e",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "c82da5b5a03ec1bc7cb433d3b51f01a263d51b5bd729b93eeadb6617209f6af0",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "a1d2d62eb32b564f5320b8a8d11f27215fff2576e0bcd821c854025088b2212a",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "9d99c137473a37f38faa1aac175a8942a0eb4da2be6c895b798317000885103b",
         "stale": false
       },
       "radar-damage": {
@@ -24598,6 +24773,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "bf89dd69505a0efe047382e036c08f111afec51317a8ae8e7e3fedf3a834735d",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "786fbecf29f20774c147d3de230a9889be9f955cb6e6f21a1df478f4a3d26341",
         "stale": false
       },
       "radar-multikill": {
@@ -26681,9 +26861,19 @@
         "targetHash": "2cbb1b2dd801c3bf7ce1b3dc767743245bd60ebf59012a9092e915139896dae9",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "0d5cbd2ba3d8241b40be7743684e1f73423b1d8178ea5b60edd6711257264ce0",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "d448982d49108be6dbe539fcf065ad711845231b3eb523c342b19d76599f1173",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "206b799ed36addb7ae7716c31ba9080b58f7bb72eb9fb28f588047257ed15b9d",
         "stale": false
       },
       "radar-damage": {
@@ -26694,6 +26884,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "7d42acc711dc2f49b52b4f4a14da060c414b8358210f3ac033a9700d12ba295c",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "5504d1a5b9b13f0325cdcdc932c97622ab76cccc7b758bb8c866de757e1a595d",
         "stale": false
       },
       "radar-multikill": {
@@ -28777,9 +28972,19 @@
         "targetHash": "ea4d51f3f6051095a5c0fba2c56f396b20a2c7a6162d822ab3eadc788da50cd6",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "0d5cbd2ba3d8241b40be7743684e1f73423b1d8178ea5b60edd6711257264ce0",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "03eb16cefeb1fe5f52fffb646948f55c8e2bc28bc8c73a3cb94087da46feba02",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "80be9bb964e9d42d2c4b920ee6d023b38cd552e842470c3cbdc89ca31860810b",
         "stale": false
       },
       "radar-damage": {
@@ -28790,6 +28995,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "b9412b7c391aa950b178690294770ced494bcf02304a9b265363a45be80348d1",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "84d4b1deca3247121554fd5673496952b226dfcb251f23efe47d6ea636a0ad19",
         "stale": false
       },
       "radar-multikill": {
@@ -29721,12 +29931,12 @@
         "targetHash": "01482f4cec9bf67eb0c5b764d41a6014708e792c24e795ea4ecb4bb3fe608e5e",
         "stale": false
       },
-      "award-pool-size_one": {
+      "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "f139aeecdda5538aad125d5c96a2b00b9164ff4dabacbe8a9f6e5e46fdf3b126",
         "stale": false
       },
-      "award-pool-size_few": {
+      "award-pool-size_one": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "f139aeecdda5538aad125d5c96a2b00b9164ff4dabacbe8a9f6e5e46fdf3b126",
         "stale": false
@@ -30196,14 +30406,14 @@
         "targetHash": "fde1abe244024fb8596c76e40975a65de64005b183dde52fd2f0b4a257e2b312",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "c0399194530045e88fa33b76c38b0c436048b79942f87e6c39cb2c343768f45f",
-        "stale": false
-      },
       "player-count_few": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "c009344c8e192527c411cb8c5a433942edd421c6908262f4e63ea835d11e6208",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "c0399194530045e88fa33b76c38b0c436048b79942f87e6c39cb2c343768f45f",
         "stale": false
       },
       "player-count_other": {
@@ -30401,14 +30611,14 @@
         "targetHash": "30a48708b3e2a5a350db850b8a752165f98af3c227d555493765d631096c0c6c",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "b8c29a261fe837f3c9a9d63641bf2ee58724a9fa3a19b72e4aae7ec420be62b7",
-        "stale": false
-      },
       "round-count_few": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "62170234581b6d49a4aa13823116405a948b01a25948aa938d9e82c736bc72ab",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "b8c29a261fe837f3c9a9d63641bf2ee58724a9fa3a19b72e4aae7ec420be62b7",
         "stale": false
       },
       "round-count_other": {
@@ -30888,9 +31098,19 @@
         "targetHash": "03b7ee765ac9815f2c00243d39b1c0b759b97f5a355fbf4b970165dcfd7747db",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "1658ed8769287c4e07260c95560cde8a7f6a196325fa4131bfd52242737f3b24",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "d3463a9633f6450b96d0562d03494807baee9c28e1067133814f9aa929ffb6c0",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "ed9bb3bd286efdb5dcfadd6753ccb887394e46c1d98b436d74055c50f3fb78bf",
         "stale": false
       },
       "radar-damage": {
@@ -30901,6 +31121,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "973ef76ac54c0bd4fdfe222e0baf9a3e79b01b0c8329b122bd8cd5d1e89d9f98",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "37e95020bf3a15aec6ac38c66ee49f4eab0e1b58800f20a059e36679d643434b",
         "stale": false
       },
       "radar-multikill": {
@@ -32984,9 +33209,19 @@
         "targetHash": "7944af244135b1f429576e589abe4a10d51521a0cc34f08cf781e8a51ca78a9e",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "fa37b0dbe9d76faeefaf90f8413f2ca81ce5401c6b49567f4d5643cd0d7e1a16",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "b14dbaab4a54134091bc341a18dcc533f097a1244fecb595da385d5d60e6eb36",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "6bbca06e6356e347db96ee5c6769be56ed86c7e2ab4c6e43cf26e625171a2f09",
         "stale": false
       },
       "radar-damage": {
@@ -32997,6 +33232,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "358aa5ae2ee57972f046b99c2021b7fac7470ed6770a1ef7f9d53b910c062e95",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "4111b758ce2a8c61a89773b033279cd739ae55bf09415073d7c29fbb08af99d2",
         "stale": false
       },
       "radar-multikill": {
@@ -33928,11 +34168,6 @@
         "targetHash": "931647da0d5b88f23c40aa81838efbdf3cf203ae29c3a11a14d2286592fe688e",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "3630650bd4978138dc7fa401c3fac5cbe060875f86c8df5e6adfd66491866f56",
-        "stale": false
-      },
       "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "0c372ebe3d67db37bab0dd3b1b2fbac8fc151e0e1b616d708cf2d7d2ab9a799a",
@@ -33941,6 +34176,11 @@
       "award-pool-size_many": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "0c372ebe3d67db37bab0dd3b1b2fbac8fc151e0e1b616d708cf2d7d2ab9a799a",
+        "stale": false
+      },
+      "award-pool-size_one": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "3630650bd4978138dc7fa401c3fac5cbe060875f86c8df5e6adfd66491866f56",
         "stale": false
       },
       "award-pool-size_other": {
@@ -34408,11 +34648,6 @@
         "targetHash": "c7ada00045c9db8d6f43fe78b02d8504cc64d22aa8f670873c670cd86c25fd8d",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "ad8a0f0a168458c77f18ccd242a70ee30038f42139dc040531279175c76ec53d",
-        "stale": false
-      },
       "player-count_few": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "85fbd315a80bc23027464d816bf78a7d62ffc96abe9d99619ec7452cc79090c1",
@@ -34421,6 +34656,11 @@
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "85fbd315a80bc23027464d816bf78a7d62ffc96abe9d99619ec7452cc79090c1",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "ad8a0f0a168458c77f18ccd242a70ee30038f42139dc040531279175c76ec53d",
         "stale": false
       },
       "player-count_other": {
@@ -34618,11 +34858,6 @@
         "targetHash": "f111c4e86f54fb3b1fb15d8fd6ee0752a79385f61c68f8e026d49e023557ca14",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "afcfdd649fdc3ce829f8f841e3641a3b2e1d0b98d15d7a0a7a8dde4e5063b1fd",
-        "stale": false
-      },
       "round-count_few": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "c338455657e80a237227bf9596328d9a5860bc3189aaea3d00a26cd98c71bb55",
@@ -34631,6 +34866,11 @@
       "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "97609ce2a3f9b6badb4f00af48abf46b9871cd3de8c0e512d36eeb9b3c84518c",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "afcfdd649fdc3ce829f8f841e3641a3b2e1d0b98d15d7a0a7a8dde4e5063b1fd",
         "stale": false
       },
       "round-count_other": {
@@ -35110,9 +35350,19 @@
         "targetHash": "78b585575fee31748e80b0a99bc0a71b67b9089429e258ce9a36fb6542d86a06",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "21772caaecf3f6bda6d4de5b9dbd74c442c3ec8730f087e03a09702a252c4806",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "cad94636a5210ad85f3f24e16d6efbdf19bde67155d5c5939c16de1ad067b528",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "f576029020323d8045e431e74aef40dd8b829fffcc6df3df4586ffaff95a9b73",
         "stale": false
       },
       "radar-damage": {
@@ -35123,6 +35373,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "7f30c5b43efe07c07a0ce1bf078686afd45e8b2b581b9899d4bf5db75e34bcbf",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "8d00e316959b19fbc0427b6c1e7124582065e49bfd4b0c52c04e7d7286dfce39",
         "stale": false
       },
       "radar-multikill": {
@@ -36054,17 +36309,17 @@
         "targetHash": "0b5e29e87629b68c563d938b411c0183f4d0c67e1333c223ae53b391f989727f",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "caa0a716f04704d66af61f9f34a6b1c7c02b05fde180f5f0106b1aa3b9759344",
-        "stale": false
-      },
       "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "caa0a716f04704d66af61f9f34a6b1c7c02b05fde180f5f0106b1aa3b9759344",
         "stale": false
       },
       "award-pool-size_many": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "caa0a716f04704d66af61f9f34a6b1c7c02b05fde180f5f0106b1aa3b9759344",
+        "stale": false
+      },
+      "award-pool-size_one": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "caa0a716f04704d66af61f9f34a6b1c7c02b05fde180f5f0106b1aa3b9759344",
         "stale": false
@@ -36534,11 +36789,6 @@
         "targetHash": "f91ecfd21a83e667966a303c46183584d5e0ec2e73723c31ea9863c20d02ee2f",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "d62a7971d28e010220c451703a902f139c483f2964a86d24c5ebe9dbc7a305f5",
-        "stale": false
-      },
       "player-count_few": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "5d6091348c538b1db8566f0e3bfc1b3c051fc6adbaced09f0634c3d399a23284",
@@ -36547,6 +36797,11 @@
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "9bcb5bd61b5afe5ef1ac90615ff905044179db56d7cc0c2b27076bb37b7bc5a6",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "d62a7971d28e010220c451703a902f139c483f2964a86d24c5ebe9dbc7a305f5",
         "stale": false
       },
       "player-count_other": {
@@ -36744,11 +36999,6 @@
         "targetHash": "f89c4b11298a43813358518f1d67e56e927b4fe1f8e8057020ff176f7018cb47",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "88f8dc8f3423c4f441eb8a29e2b9dd13219504cfec2123ee6f062300d5236c0c",
-        "stale": false
-      },
       "round-count_few": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "37a011cc239d4b752c9f2eae73c97e56a0970ecf022bb86351116c10f31b241c",
@@ -36757,6 +37007,11 @@
       "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "37a011cc239d4b752c9f2eae73c97e56a0970ecf022bb86351116c10f31b241c",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "88f8dc8f3423c4f441eb8a29e2b9dd13219504cfec2123ee6f062300d5236c0c",
         "stale": false
       },
       "round-count_other": {
@@ -37236,9 +37491,19 @@
         "targetHash": "0ae85091bc46213191eef8f7c2396149fd935fa04607b93f553621a62257fa8b",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "ead4a3c4e170e124d6aea50d03d8cc1488037bd03768acc9bc81fba0b0b9ed8b",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "d69395ba6eb807bcfd2501d0cbab8da53477ab31f2a21c906faf4c84124363f5",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "7e300c3428b49ec1addbcbcba649ff0804fd9603c40ef67e163a9e20bd29227d",
         "stale": false
       },
       "radar-damage": {
@@ -37249,6 +37514,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "6ed7bb91ce5b7c06f0ceeaf8c16d43f2c85911a7f58d6a1a1bb41786b40a3f1e",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "87f4aec607c8e2b9ec7f81914c298804c011eda6ea539c1d4bb8da58099bb7e6",
         "stale": false
       },
       "radar-multikill": {
@@ -38180,17 +38450,17 @@
         "targetHash": "78f98756e58930b06af883dafe59cfe7932fa667036087e85a9206137d7b4c6c",
         "stale": false
       },
+      "award-pool-size_few": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "765b20a117a47002d77a6415bd01c0c2dece3f41da6af86669943623f38294b2",
+        "stale": false
+      },
       "award-pool-size_one": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "765b20a117a47002d77a6415bd01c0c2dece3f41da6af86669943623f38294b2",
         "stale": false
       },
       "award-pool-size_two": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "765b20a117a47002d77a6415bd01c0c2dece3f41da6af86669943623f38294b2",
-        "stale": false
-      },
-      "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "765b20a117a47002d77a6415bd01c0c2dece3f41da6af86669943623f38294b2",
         "stale": false
@@ -38660,6 +38930,11 @@
         "targetHash": "6972f7bc215f22b1b90af4f9b7d7ebac3b35cf0463bc54fa10f56ae7de23a760",
         "stale": false
       },
+      "player-count_few": {
+        "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
+        "targetHash": "d9fbd04bc032528745690bc9ccdb5ec45702ef89e50bdfe92aab51b065ffbaf8",
+        "stale": false
+      },
       "player-count_one": {
         "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
         "targetHash": "9b2c9e90dc70bc78d98cbb2d434a6788eb147bad5af01a2ab4365fb67f505ade",
@@ -38668,11 +38943,6 @@
       "player-count_two": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "b5642a87a71bbc5fab4df8001ae45ceff79c818e618fe8a732da7c0954309f23",
-        "stale": false
-      },
-      "player-count_few": {
-        "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
-        "targetHash": "d9fbd04bc032528745690bc9ccdb5ec45702ef89e50bdfe92aab51b065ffbaf8",
         "stale": false
       },
       "player-count_other": {
@@ -38870,6 +39140,11 @@
         "targetHash": "b30e6435daedd7940932fdf5b17f28c6e5cb23b71f3808c029ecc786af226c23",
         "stale": false
       },
+      "round-count_few": {
+        "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
+        "targetHash": "62170234581b6d49a4aa13823116405a948b01a25948aa938d9e82c736bc72ab",
+        "stale": false
+      },
       "round-count_one": {
         "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
         "targetHash": "afcfdd649fdc3ce829f8f841e3641a3b2e1d0b98d15d7a0a7a8dde4e5063b1fd",
@@ -38878,11 +39153,6 @@
       "round-count_two": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "94ed629bab52fec97686e26c89ebb8de05ef31aa062b691005f6040c4bfb0a29",
-        "stale": false
-      },
-      "round-count_few": {
-        "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
-        "targetHash": "62170234581b6d49a4aa13823116405a948b01a25948aa938d9e82c736bc72ab",
         "stale": false
       },
       "round-count_other": {
@@ -39362,9 +39632,19 @@
         "targetHash": "dbcc150a06500beaa5435bcd62d5827341128ceef7c9f8d8d93e6e13c0dea6b9",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "ead4a3c4e170e124d6aea50d03d8cc1488037bd03768acc9bc81fba0b0b9ed8b",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "e8c552b2d120f8d5317bd8f5ec53753e46ee19a1efdbb1d4f5c0a7cac5bad146",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "872825ec93d4bc78259f2616d2846dd6b28edc24736c450d40db312206138daf",
         "stale": false
       },
       "radar-damage": {
@@ -39375,6 +39655,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "90e1a411cde863cb05841cca5fb76468fa39c6de52a2e3bba1deb1875045183a",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "b22a35bd85bd8df3da8df4d67f4cde7f65ff81fe818d6ee7b65cff0f55f6d8ff",
         "stale": false
       },
       "radar-multikill": {
@@ -41458,9 +41743,19 @@
         "targetHash": "ed978faee586ce8b9ab0f5b84df1c6061d011fad5b1aa10bb4817f82502e5c43",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "70f99e6697cf8a5813aa90bc5553fb52aeeae84c2744b3a0cd611b3c5a6d3e86",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "f2d70d74fbda59c7a17053efd3b17d453da863caa2c0f985b2c85b31f630995f",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "bd0bc8ec2ed7c904397f93d9164829e3d2f8da60d9ea09f43065bb360509dc19",
         "stale": false
       },
       "radar-damage": {
@@ -41471,6 +41766,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "34ab5a464c2220cefbfbd185d5c26d388ec71a3a056aa6f4ab39ad2ab5b2b6ac",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "bd04e1a389be892a380926bd7bd50c308621b1e1a6920c86bda4135be6294a08",
         "stale": false
       },
       "radar-multikill": {
@@ -43554,9 +43854,19 @@
         "targetHash": "6d067e1864ee02110586468ba1aaf0e693c2ae0270e4f02015d9e5c85e4fb4d8",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "7a3c02661c6d87f0146b2a3907bde7163b4930085bba66b240c47f31848766af",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "1233770186fce57c1435505ee1ba9b4b55ba67223cd2c0e35add503d055c141b",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "df4429d51b0d81884b14422cb3f5735c2ea9b4af501a55acbc342daa784bb1ca",
         "stale": false
       },
       "radar-damage": {
@@ -43567,6 +43877,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "f32bb2334c4515013abfc9a3a13249d31d3827d095a9cffb78bf06c42d36094b",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "09d2565947f6b02dbfb17b6ca6d6d6c60b655bb99e52d0a73b503c46a4c9d454",
         "stale": false
       },
       "radar-multikill": {
@@ -44498,17 +44813,17 @@
         "targetHash": "2e9ab068af4afdcc973f147a1a9b5dfea8b480e5bfa4cc15b285243611735961",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "caa0a716f04704d66af61f9f34a6b1c7c02b05fde180f5f0106b1aa3b9759344",
-        "stale": false
-      },
       "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "caa0a716f04704d66af61f9f34a6b1c7c02b05fde180f5f0106b1aa3b9759344",
         "stale": false
       },
       "award-pool-size_many": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "caa0a716f04704d66af61f9f34a6b1c7c02b05fde180f5f0106b1aa3b9759344",
+        "stale": false
+      },
+      "award-pool-size_one": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "caa0a716f04704d66af61f9f34a6b1c7c02b05fde180f5f0106b1aa3b9759344",
         "stale": false
@@ -44978,11 +45293,6 @@
         "targetHash": "f91ecfd21a83e667966a303c46183584d5e0ec2e73723c31ea9863c20d02ee2f",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "d62a7971d28e010220c451703a902f139c483f2964a86d24c5ebe9dbc7a305f5",
-        "stale": false
-      },
       "player-count_few": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "5d6091348c538b1db8566f0e3bfc1b3c051fc6adbaced09f0634c3d399a23284",
@@ -44991,6 +45301,11 @@
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "1a0e8316fabd4b5c908b962ff988b77d2e32e157bee0fe5d5fe5e497ad94fcb8",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "d62a7971d28e010220c451703a902f139c483f2964a86d24c5ebe9dbc7a305f5",
         "stale": false
       },
       "player-count_other": {
@@ -45188,11 +45503,6 @@
         "targetHash": "38f026474feab6a4e7991da33f477cab22694b843bc8194f70f142dfd6bda345",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "88f8dc8f3423c4f441eb8a29e2b9dd13219504cfec2123ee6f062300d5236c0c",
-        "stale": false
-      },
       "round-count_few": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "66c3acee4cda3f90e72046a3179a24fe17a8631a3dab85fe9e95e1354742763c",
@@ -45201,6 +45511,11 @@
       "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "37a011cc239d4b752c9f2eae73c97e56a0970ecf022bb86351116c10f31b241c",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "88f8dc8f3423c4f441eb8a29e2b9dd13219504cfec2123ee6f062300d5236c0c",
         "stale": false
       },
       "round-count_other": {
@@ -45680,9 +45995,19 @@
         "targetHash": "0f03f2c5bbf09adbfe1e009019fbfe407a80597f747a8a98b00541ac222e137a",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "ddebaedd6edffcee54ffe584382f696f4974483a662f4fd212c8bc09275f72e5",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "cac80ab6725cde7608a285e1ebca128ed7bd85f562fc1092f7f4ca9a07356dde",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "677c00bef1b31373e13938c580a6706f75f5aacffda2dee00b6f32e6481b7242",
         "stale": false
       },
       "radar-damage": {
@@ -45693,6 +46018,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "bc34a34fd6782810a9ce18a5f6b3b95e19fa94bb3a59117acd74a0a756eeb77d",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "8cbb1f91760ab409844797f0cd108e0e9ff6acc58b81dae030b80e1544ef188f",
         "stale": false
       },
       "radar-multikill": {
@@ -46624,9 +46954,14 @@
         "targetHash": "3c64ba0afab6c4a808228a7d356321f40b866accb1413af51e204dacdc625e10",
         "stale": false
       },
-      "award-pool-size_zero": {
+      "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "5a2de768909c1476fe10455ff120c75e678a73d0d795bfeb0cd29b784bc00589",
+        "targetHash": "e4a12f36c89a663b7b9d0b26304e4832569c1d7da8a221e1978bd1aa7e646d93",
+        "stale": false
+      },
+      "award-pool-size_many": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "fda47d3f21346cb748b656a67b6ded7a23ea3d8ddf20f2c16afe9b71615d34ad",
         "stale": false
       },
       "award-pool-size_one": {
@@ -46639,14 +46974,9 @@
         "targetHash": "bc1a305955998640823bfb890caa83a3a50f37a19fb08a2cd47e26ae7e57d01b",
         "stale": false
       },
-      "award-pool-size_few": {
+      "award-pool-size_zero": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "e4a12f36c89a663b7b9d0b26304e4832569c1d7da8a221e1978bd1aa7e646d93",
-        "stale": false
-      },
-      "award-pool-size_many": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "fda47d3f21346cb748b656a67b6ded7a23ea3d8ddf20f2c16afe9b71615d34ad",
+        "targetHash": "5a2de768909c1476fe10455ff120c75e678a73d0d795bfeb0cd29b784bc00589",
         "stale": false
       },
       "award-pool-size_other": {
@@ -47114,9 +47444,14 @@
         "targetHash": "f61653ec4dac26963a22db387aadcd49fa0363f59336c5d6ead92e45dd579a76",
         "stale": false
       },
-      "player-count_zero": {
+      "player-count_few": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
-        "targetHash": "2f37c48ddf3b325646f8c94b4b963bd59e557654a7af1c0642277baa886b3e15",
+        "targetHash": "9a54ae80d9db9ea4d9c128abc7f8a2cb8b2bb9d1fd60871cedbbfa1d70752459",
+        "stale": false
+      },
+      "player-count_many": {
+        "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
+        "targetHash": "f3268620bbd42c8e258837328231b3929da15ded4b19671a08996029ab115396",
         "stale": false
       },
       "player-count_one": {
@@ -47129,14 +47464,9 @@
         "targetHash": "3b479b698a879f633e250917986dfac5e09eba7ee85c49fb083f79f11f216136",
         "stale": false
       },
-      "player-count_few": {
+      "player-count_zero": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
-        "targetHash": "9a54ae80d9db9ea4d9c128abc7f8a2cb8b2bb9d1fd60871cedbbfa1d70752459",
-        "stale": false
-      },
-      "player-count_many": {
-        "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
-        "targetHash": "f3268620bbd42c8e258837328231b3929da15ded4b19671a08996029ab115396",
+        "targetHash": "2f37c48ddf3b325646f8c94b4b963bd59e557654a7af1c0642277baa886b3e15",
         "stale": false
       },
       "player-count_other": {
@@ -47334,7 +47664,12 @@
         "targetHash": "7bbe573942d665ef2fa2ac7b99bcb9c83d973b6f51204eeb01cb8c9b6d9b58bf",
         "stale": false
       },
-      "round-count_zero": {
+      "round-count_few": {
+        "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
+        "targetHash": "6f3cee8785ebe34d2b48df6d66e91c661152d65183990f65e50a8a8b32ff34e6",
+        "stale": false
+      },
+      "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "0570d708fe4a23a0666dc858029ea63637f0e22c374fada2f0b21e4fbc34c286",
         "stale": false
@@ -47349,12 +47684,7 @@
         "targetHash": "1257d292d458ec1517f3913f066b875972ddfaa446fbdee7cd41d5e04e7889f9",
         "stale": false
       },
-      "round-count_few": {
-        "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
-        "targetHash": "6f3cee8785ebe34d2b48df6d66e91c661152d65183990f65e50a8a8b32ff34e6",
-        "stale": false
-      },
-      "round-count_many": {
+      "round-count_zero": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "0570d708fe4a23a0666dc858029ea63637f0e22c374fada2f0b21e4fbc34c286",
         "stale": false
@@ -47836,9 +48166,19 @@
         "targetHash": "3ade761b81ba4407de9108f8bbad2a1364b0e11b746ea3e29a8ac90fa8cc16d4",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "cc29c820d50976874f300e1dd861192b898496f2b0a5a9053aa12b5a6f0a5854",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "e46d1d665939d99f3bca3ca7a4d6e6efb92f624eb1fac5fdf657634523a5a681",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "cc9acf2842aa53b3b0d75fd13f0ffc1f93d6ea1d719624fd15491e34c8a7fe5f",
         "stale": false
       },
       "radar-damage": {
@@ -47849,6 +48189,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "5d610fbf153145f81abd0d107f2a7959cb8a9cddfc0eeb10ac44a75b9ecbdbbc",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "060b31803d749ad304e9ce3c32b7f3ad5d4c9490a04ab75a2feceec0ba5c96c3",
         "stale": false
       },
       "radar-multikill": {
@@ -49932,9 +50277,19 @@
         "targetHash": "1545540fb7ac7a6941708175fb35c001ab1a8da64f40e4ab046020a7fabce3ed",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "6a2991df8242df399e9b949ad406da80a4fc997ae1e7ed3706b9871e6fa3202e",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "afa96715f1a2a85fa03ba0978f6990def2f3e7e73cf18a9382261afacaa79e16",
         "stale": false
       },
       "radar-damage": {
@@ -49945,6 +50300,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "cfa2d21017e57c8d99c3e79023528db98db80df0f3f20cf00bcdd731b116d818",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "e522cccee585836e5bb3a5352731a29a14cce2a79b8ab9ede9a4b031764ead8e",
         "stale": false
       },
       "radar-multikill": {
@@ -50876,14 +51236,14 @@
         "targetHash": "1b12f29b62e9ebfb724552c0368e9ff7f78817509ef97a0831d2974ea9039344",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "d290ed3f5a64b1a7b132bcc769c8e94c94cb054231377a30bc22f993b513c8a3",
-        "stale": false
-      },
       "award-pool-size_many": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "f727f9fe617b763a628b1d6c10915bb8dbd061a48c2d0c46e47279cd8b25998d",
+        "stale": false
+      },
+      "award-pool-size_one": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "d290ed3f5a64b1a7b132bcc769c8e94c94cb054231377a30bc22f993b513c8a3",
         "stale": false
       },
       "award-pool-size_other": {
@@ -51351,14 +51711,14 @@
         "targetHash": "f537c6bd038e0c9bdd3d4bdf5ae4633fc09ce3cb2735c866f8b289be32002da5",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "c7300df7737ed59650629c3322b13d753e66cfacc15aca989e00eeac82252dfa",
-        "stale": false
-      },
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "37d367533bc8352a51da62758874dcd5a6838f129194d7f96d47aaa6483712c9",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "c7300df7737ed59650629c3322b13d753e66cfacc15aca989e00eeac82252dfa",
         "stale": false
       },
       "player-count_other": {
@@ -51556,13 +51916,13 @@
         "targetHash": "e0baf2d1d92e6d99c79d06417c0ebf137d36c29ce87316dec95f3047ade24ed5",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+      "round-count_many": {
+        "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
         "stale": false
       },
-      "round-count_many": {
-        "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
         "targetHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
         "stale": false
       },
@@ -52043,9 +52403,19 @@
         "targetHash": "89d6a368ad196fa9a6d3bac646e35051d4e560e1d96bb569028f22629ae8a1bf",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "ac9e2cacfba09524c9ce8f3c7ed4a567ddf99881b99e412423ed7d38a2dfc181",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "f90673868d39b51d8cb6a66876f61cc84b8e917fa958a38d20c7874a9381dcd1",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "49e20c5fe81f8280fbd7a15cca894e4e5f4c2954a896b2f66debb92dfc3ab2c8",
         "stale": false
       },
       "radar-damage": {
@@ -52056,6 +52426,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "18a3c85f2317755942ec7426afb19a4aff81e1753ab8d1c2abd93fac5974f16f",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "e756fbf5c31dc2fad1c6064aa6ca823c3225586295ac8f7d172597f30127a243",
         "stale": false
       },
       "radar-multikill": {
@@ -52987,12 +53362,12 @@
         "targetHash": "9f7cea165832a0d53219197d340812a391d364d36e3f290db5b3802234558237",
         "stale": false
       },
-      "award-pool-size_zero": {
+      "award-pool-size_one": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "87e2471d37489798198b7b78ceb99d83273eb4a3df48ffbfa275b50567427061",
         "stale": false
       },
-      "award-pool-size_one": {
+      "award-pool-size_zero": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "87e2471d37489798198b7b78ceb99d83273eb4a3df48ffbfa275b50567427061",
         "stale": false
@@ -53462,14 +53837,14 @@
         "targetHash": "a047d763dcb3f94ffd4f33dee78379100f5da08418023bd897694b77656cf360",
         "stale": false
       },
-      "player-count_zero": {
-        "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
-        "targetHash": "3f2d28a0b1b7e061fbcb8735ab900cb177d549191a28649a97b5d8266ce3e238",
-        "stale": false
-      },
       "player-count_one": {
         "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
         "targetHash": "94d2fe0fa3958950db4037f20ee090c57abce2f470da37ca764cac23c0e7e7a1",
+        "stale": false
+      },
+      "player-count_zero": {
+        "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
+        "targetHash": "3f2d28a0b1b7e061fbcb8735ab900cb177d549191a28649a97b5d8266ce3e238",
         "stale": false
       },
       "player-count_other": {
@@ -53667,14 +54042,14 @@
         "targetHash": "fb38f8d3dc2cd504bc4122919630e2deafb8f06dfafc4f449ddb2284231c6fc0",
         "stale": false
       },
-      "round-count_zero": {
-        "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
-        "targetHash": "95113fb52f921e75ee03a93e16d9feba4a5e8107b4737f987b03c37d1ade9510",
-        "stale": false
-      },
       "round-count_one": {
         "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
         "targetHash": "5aaa035fc52d7ab819a509f3a35739f0fff99ce3872efd8bb915e5fd08d618f7",
+        "stale": false
+      },
+      "round-count_zero": {
+        "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
+        "targetHash": "95113fb52f921e75ee03a93e16d9feba4a5e8107b4737f987b03c37d1ade9510",
         "stale": false
       },
       "round-count_other": {
@@ -54154,9 +54529,19 @@
         "targetHash": "9afe11d61bc87a4b4c05076de6db6fa3f0682487d5efd98a16863d5fb3614fad",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "2314021a4345e3e5c8c1662f53e0b89d5cbc68b2f40f2ca5d0fe6bd2cee913b6",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "758772cc12a765a8207b9309fa9a6726896f6f8e8ff37ebda5162e2ad5deabf1",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "75ee2d9d7d4bb21b50f01fc72220b39301046c361c7600b0742c9f5d4dfd5769",
         "stale": false
       },
       "radar-damage": {
@@ -54167,6 +54552,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "f74739fc3b165202dbe64d4ccaefe1884b330532f52348bf4593a0fd8d86167a",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "57ee83dd84dffb0537dbc0fa9c31636aa57e16776879a2f9faf7edbdad05c5d8",
         "stale": false
       },
       "radar-multikill": {
@@ -55098,17 +55488,17 @@
         "targetHash": "9681a5c6e577eb3af3682aec37ad1c9c1212263c6f2edc930ce028351ad02392",
         "stale": false
       },
-      "award-pool-size_one": {
-        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
-        "targetHash": "6f9955d1efcf7d11c579ec4be7ed458fe424cbdca74526ed2a292eeb29b385f1",
-        "stale": false
-      },
       "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "6f9955d1efcf7d11c579ec4be7ed458fe424cbdca74526ed2a292eeb29b385f1",
         "stale": false
       },
       "award-pool-size_many": {
+        "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
+        "targetHash": "6f9955d1efcf7d11c579ec4be7ed458fe424cbdca74526ed2a292eeb29b385f1",
+        "stale": false
+      },
+      "award-pool-size_one": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "6f9955d1efcf7d11c579ec4be7ed458fe424cbdca74526ed2a292eeb29b385f1",
         "stale": false
@@ -55578,11 +55968,6 @@
         "targetHash": "63be1f92e7c1b1323df71d2577130c8c939d483f2497ca053f1e5ac945c8aa0b",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "33e838e1851cb97edbd47e936dec33d11ccc4a6de64c689018fe3d6218e21752",
-        "stale": false
-      },
       "player-count_few": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "4a930be3033056f2c405102648c1de361cd1809d2c9e33fabb17d7c58b3b7fc5",
@@ -55591,6 +55976,11 @@
       "player-count_many": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "cdf84235ca43049839652232712e6e8f66bd1f6b1c6d60b172a2061a99ec3ef7",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "33e838e1851cb97edbd47e936dec33d11ccc4a6de64c689018fe3d6218e21752",
         "stale": false
       },
       "player-count_other": {
@@ -55788,11 +56178,6 @@
         "targetHash": "e95ee41f9581f1f578f91e17b2083a7a85e746bd76b601d79fded15cfe8dbed9",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "3059b38a091dca9614f56f70729828e32ba400a51e931f99e9650efffa6fbd8f",
-        "stale": false
-      },
       "round-count_few": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "dbaf87b5a357c4825edb3dd7fe9230d59625609bba581a34a7889f8e7cf9fac4",
@@ -55801,6 +56186,11 @@
       "round-count_many": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "12cfb8f2c8e1cb548f6ddd8f6fe858fdb18abfdd622e2ec96cdfed82e2bb8da9",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "3059b38a091dca9614f56f70729828e32ba400a51e931f99e9650efffa6fbd8f",
         "stale": false
       },
       "round-count_other": {
@@ -56280,9 +56670,19 @@
         "targetHash": "7477ef3f65ef8aa1768990a2a35370d5a3dfdeb1a8a15775b666a61bb3a11cec",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "efc78a50fb76bdbe2ffa30f01d7680a3ae9bfdcdebe6e65e178d8a6f577f1b2d",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "9f124753bcc88744b8f0180b390505107680670e5534f5b6a320aee9802cec7e",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "8ebf3ddf3683539cb2b4b8865bca4b2fdc80dd90baf5e1822929aafcb238e180",
         "stale": false
       },
       "radar-damage": {
@@ -56293,6 +56693,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "27510b3aa5f5cf853021401757338b335f634cd083c4edafb87d143114173afd",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "ff69e76d192992aace51e5ee26fa3680dbf9f6dfd4df8761a6d3b26d6df25c8a",
         "stale": false
       },
       "radar-multikill": {
@@ -58376,9 +58781,19 @@
         "targetHash": "88846dcafa135474f90d4c0844603139d8ab1e3b37a956a4e2eacd9dce1cf772",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "fbe18434bdcd16f2b55297efcaf5acf5072ecd0e6319a6ee0feb9e880960c025",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "537b6f348c26e57c7251088ff851bee3cd21d130fbb42ea8bcb1ae780fecb087",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "b3a17c86f71482f43715a6f835242767f64644f27fe5345601846ea028fae9b5",
         "stale": false
       },
       "radar-damage": {
@@ -58389,6 +58804,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "5aa6253e42c9436fb226eba4bf4fb82586d1ec67221e2263fdd62974593185b5",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "30005ee4d4d30b32bda6b27aed151e8a9a4ccba7726dcc0e72dae860b76203a1",
         "stale": false
       },
       "radar-multikill": {
@@ -60472,9 +60892,19 @@
         "targetHash": "9265f69ac35ead3bcb5f044fb0b6e23abf14697587fb8b13c3a4368ea5e4654f",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "baad9bd9327b9ea16b9b20bf9cea3c7689f2981df7f1a125ae985dc2f4c684be",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "5d3f838525d0411ef064764040c111fe2e89c33b2e5083c161be79e48def15e7",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "2e3ecfc0c80fe9b71b1ae88839bb8ec97ecba7d9dcaf044bf512dbd62240b9b9",
         "stale": false
       },
       "radar-damage": {
@@ -60485,6 +60915,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "ba1799e6db16b872c2ff0de1e4691debec0f0f1bd8d76b88b9ff278078a3fe24",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "28b53b207f720c8edd2431124a1720380912838a23b6e1ca7d4a21b0b06a083f",
         "stale": false
       },
       "radar-multikill": {
@@ -62568,9 +63003,19 @@
         "targetHash": "1545540fb7ac7a6941708175fb35c001ab1a8da64f40e4ab046020a7fabce3ed",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "07f7a92ece389c19cd19cd1221a3970d9a9d3f2ac4e019ff45420887871a3c7d",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "549b88d31ba87a37f3e687827c2f50cd8d1f00830eed67c2db350442656c2a90",
         "stale": false
       },
       "radar-damage": {
@@ -62581,6 +63026,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "0560fa61f4dea180802a9cf820f6e748bfe8db71ea943f61d05275685e2550df",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "06e7cc6ef3452ca4e5d50dc8a03c5ec3a4e6c565850c2f3ea485989fe424723f",
         "stale": false
       },
       "radar-multikill": {
@@ -64664,9 +65114,19 @@
         "targetHash": "29b291a268da0e0a7113a34cc688f353fb3cb837762a27dedd2c4fae25198976",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "1150e27bf02bdbde46c1c96fb6eb3c20021f48df5f8f9598808b677eee82ff42",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "c2b40c21e79f03943068a7f557bb18f3c0363181a75cd78b2dc5c1fc93076645",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "3600e6b11754c113d6f79e10e76cce4f72af8888e6457b42047204ada0658b94",
         "stale": false
       },
       "radar-damage": {
@@ -64677,6 +65137,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "a282c41c7e1413158c512a863c43b8b2bae7046fe81f656efb0bfa500ba23a37",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "139451a04b86a5f6354e8526ad94ce814060b47dbe058ea3d17ae0e6d594e4bf",
         "stale": false
       },
       "radar-multikill": {
@@ -65608,12 +66073,12 @@
         "targetHash": "ea22a1213a9ca9381190500b0c71a31dc60ee987b994a67f7da42984b03110f2",
         "stale": false
       },
-      "award-pool-size_one": {
+      "award-pool-size_few": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "f6803b2a094f4a8533d9a95a6aca31164cfa25009cd2fa5b4e76ad532b267dfb",
         "stale": false
       },
-      "award-pool-size_few": {
+      "award-pool-size_one": {
         "sourceHash": "4af3720c9e659a35685aaf0ec2ef61ee2f803c55731a42567ae5f2ca089addd4",
         "targetHash": "f6803b2a094f4a8533d9a95a6aca31164cfa25009cd2fa5b4e76ad532b267dfb",
         "stale": false
@@ -66083,14 +66548,14 @@
         "targetHash": "19e11d67db0638d170430a40a401d63df40b9f49f641495325b0f512f03b2dc3",
         "stale": false
       },
-      "player-count_one": {
-        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
-        "targetHash": "8e6beaf530fd2d79c5bc42cafefe4ce3ceb3e72d50415645396e1eb5459c4e48",
-        "stale": false
-      },
       "player-count_few": {
         "sourceHash": "0e94c16dbbd792c12e18a1519b269b74f8e8b4dbeb16f692da921e3b6f7d0f77",
         "targetHash": "e5c43e0eac491402669535dcdc0dc936990195452e1129fdd01dc2a54c490868",
+        "stale": false
+      },
+      "player-count_one": {
+        "sourceHash": "48db48835fa3cd1f11d8d8c68b9d411e0044c5052444e9c168400195ff8c0647",
+        "targetHash": "8e6beaf530fd2d79c5bc42cafefe4ce3ceb3e72d50415645396e1eb5459c4e48",
         "stale": false
       },
       "player-count_other": {
@@ -66288,14 +66753,14 @@
         "targetHash": "83e312b5c5f1f0146efa642fb3307cc1434d4aae555a95d7a55cbdcfcea39c9e",
         "stale": false
       },
-      "round-count_one": {
-        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
-        "targetHash": "afcfdd649fdc3ce829f8f841e3641a3b2e1d0b98d15d7a0a7a8dde4e5063b1fd",
-        "stale": false
-      },
       "round-count_few": {
         "sourceHash": "d79adfc5b1120d2cc417e5e5d226f83d658367ace37a0c44c3d65a354f6644bc",
         "targetHash": "62170234581b6d49a4aa13823116405a948b01a25948aa938d9e82c736bc72ab",
+        "stale": false
+      },
+      "round-count_one": {
+        "sourceHash": "4c1d0d4297d477a57686dc1dbdc9ccb29d505a6fc7f1ca678fcd6dee2c75d156",
+        "targetHash": "afcfdd649fdc3ce829f8f841e3641a3b2e1d0b98d15d7a0a7a8dde4e5063b1fd",
         "stale": false
       },
       "round-count_other": {
@@ -66775,9 +67240,19 @@
         "targetHash": "f91e158236a9b431d7e5a04527a4571ea0dbb52fee13ffe56d0cbe9d2e441fe9",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "369efa6545cc8ccc094808485e022066c2c2470a3bb19504218ace02cc82e9fc",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "42fccb9e362c25f21fca68753b234a6e25a77de6d3f1cc89a01cbe2b4893c32b",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "8dc2be7cf5063f4cb7375c2153801b85c5eff763b52c9df3ec8aad4540ae3355",
         "stale": false
       },
       "radar-damage": {
@@ -66788,6 +67263,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "6a75140ab9b0ee65860a96bb331a9bab1effb241371f0e3f45bfcac787166020",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "b7cb675d05a1dd5aaae184a8767375a6d9e0670906d8808c5573fbefaa9c5d10",
         "stale": false
       },
       "radar-multikill": {
@@ -68871,9 +69351,19 @@
         "targetHash": "13403fee1953f263fabaa21d427bccb52ca6add44dce1d57e85c52bcb5b4c741",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "2cd85197170688d70bbbff6dff0d8885542e29c289ee54cb76e2f09a3ee8a521",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "2d195c4355845524fe7a6b92ac32f977e8b3562902626238c780f0cbca310537",
         "stale": false
       },
       "radar-damage": {
@@ -68884,6 +69374,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "cca46008d29da5c07e10e8be37ca217ddc3adfada11d76bd0ee0b95bd9224c68",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "890f8266a14f79a586f4a737c95ba9dc98354adc1bf79a93395653685760ac92",
         "stale": false
       },
       "radar-multikill": {
@@ -70967,9 +71462,19 @@
         "targetHash": "d8789b02c1dcd646fd42b40a78f61676164d7c1444cffa954059368025c77411",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "54e3224e52052192dd578b271de2ee5e146ca256a5a21fc71f1a0bf166943445",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "62d08994b8547467f053fed30745831adea65ddec8d37b4cfe7b40c946147720",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "78d1445a4dc2ef8d4bee1c039cda076564baa5fc56195c344fa556d3d46c55bb",
         "stale": false
       },
       "radar-damage": {
@@ -70980,6 +71485,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "67d9526087ded6a6f5dcfa5362fc1d665248355fd752fed56d1e790eb895e5bb",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "c9dd70b5abdf2cf250e2eed0086de73c52cbf4bb541b073212cc1bda7b1a01a9",
         "stale": false
       },
       "radar-multikill": {
@@ -73063,9 +73573,19 @@
         "targetHash": "4cdfd46d39920f8a8890b1868c0171b93efb0a323dd4b31ffd93c1d4dc3d5549",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "265877c0af47a0789ff5c86c8ca6b0f704bb2fadd9ae274422ee09f6d128bbeb",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "a91c2c2499818818686b06ae086b19777fc34fbd3bfc32a1ed6a9e98ae66fab4",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "f83ac19e061d7983a4a6392a4f505c6464ce11118d5fa9401c124f9358cef014",
         "stale": false
       },
       "radar-damage": {
@@ -73076,6 +73596,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "3846f52f32bbbe9e7d71d1d6431d7df5d6a5a02dd5887caa8d944c34201dac54",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "1a74a5013972c508d4266173cbc39dab53b0dddaf768dabb66627909644881b2",
         "stale": false
       },
       "radar-multikill": {
@@ -75159,9 +75684,19 @@
         "targetHash": "2ed8d8b46408738e4b9c3ff0041635bad577b2e4c2e25e2be1fcc9fc72797887",
         "stale": false
       },
+      "radar-assists-caption": {
+        "sourceHash": "ccccbbe9d0f6ae155e0f8b9aa3e310ded1c84a1c7a9b7fb7e99e294181f5481b",
+        "targetHash": "3a0677393bbbb6193c6c1e801a538a5fc90712e69f30c3f0fddd6489f31848f1",
+        "stale": false
+      },
       "radar-average": {
         "sourceHash": "ce48805bebff192ff058a0469b77c97955f8ea9c056726acc3a051be1be464b1",
         "targetHash": "b10fbdfb0f88197e85d1a90d58fa2c12b6e481e64065867fb65c28bb29063f5d",
+        "stale": false
+      },
+      "radar-confirmed-data": {
+        "sourceHash": "9ff69e9547d045238996d7a163ba47ed6562fee022ccd7ac517743e3d2bdf311",
+        "targetHash": "0a46103c6490b630645d9b473c320ea45af011d1fc4de15386090bda105551d8",
         "stale": false
       },
       "radar-damage": {
@@ -75172,6 +75707,11 @@
       "radar-entry": {
         "sourceHash": "214bf7bbb71b170532d0b17259e819f634dc0886a8abb5f0431a02e1ce6790e2",
         "targetHash": "9a6d560dd3d86f7eee5a601a65c61520143b9ef3864a1cbda3eb6c6b80013712",
+        "stale": false
+      },
+      "radar-insufficient-data": {
+        "sourceHash": "428b75dc52c0954e7e490571dbe0c59afb4e19be641e7071a6690957e294d8dc",
+        "targetHash": "ff91fe97598d459b9e34f44660dfbfde6b6f8475da24af7bc9b6a0a4db7147a5",
         "stale": false
       },
       "radar-multikill": {

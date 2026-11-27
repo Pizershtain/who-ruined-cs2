@@ -393,9 +393,9 @@ select option { background: var(--surface-solid); color: var(--text); }
 .verdict.whoRuined span { color: var(--danger); }
 .award-result .button { margin-top: 10px; }
 /* Rows that lead somewhere say so on hover. */
-tbody tr:hover .player-identity > a:first-child { color: var(--accent); }
-.player-identity > a:first-child:after { content: '\2192'; display: inline-block; margin-inline-start: 6px; opacity: 0; transform: translateX(-4px); transition: opacity var(--dur-fast), transform var(--dur-fast) var(--ease-out); }
-tbody tr:hover .player-identity > a:first-child:after { opacity: 1; transform: none; }
+tbody tr:hover .player-name-row > a { color: var(--accent); }
+.player-name-row > a:after { content: '\2192'; display: inline-block; margin-inline-start: 6px; opacity: 0; transform: translateX(-4px); transition: opacity var(--dur-fast), transform var(--dur-fast) var(--ease-out); }
+tbody tr:hover .player-name-row > a:after { opacity: 1; transform: none; }
 /* Tab content slides in from the side of the tab that was chosen. */
 .slide-from-start { animation: slide-start var(--dur) var(--ease-out) both; }
 .slide-from-end { animation: slide-end var(--dur) var(--ease-out) both; }
@@ -660,8 +660,9 @@ td { color: var(--muted); }
 .player-cell { display: flex; gap: 10px; align-items: center; }
 .player-avatar { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; font-size: .7rem; color: var(--on-accent); font-weight: 700; font-variant-numeric: tabular-nums; }
 .player-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; max-width: 190px; }
-.player-identity > a:first-child { overflow: hidden; text-overflow: ellipsis; max-width: 190px; font-weight: 600; color: var(--text); }
-.player-identity > a:first-child:hover { color: var(--accent); }
+.player-name-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .45rem; min-width: 0; max-width: 100%; }
+.player-name-row > a { overflow: hidden; text-overflow: ellipsis; max-width: 100%; font-weight: 600; color: var(--text); }
+.player-name-row > a:hover { color: var(--accent); }
 .steam-link { font-size: .75rem; color: var(--muted); }
 
 .round-panel { padding: 0; }
@@ -1149,7 +1150,7 @@ td { color: var(--muted); }
   .recent-row { flex-wrap: wrap; }
   .recent-row .pill { margin-inline-start: 54px; max-width: calc(100% - 54px); }
   .table-scroll th:first-child { min-width: 140px; max-width: 140px; }
-  .player-identity, .player-identity > a:first-child { max-width: 90px; }
+  .player-identity { max-width: 90px; }
 }
 
 /* Motion stays meaningful but never essential: keep only quick fades. */
@@ -1422,7 +1423,7 @@ td { color: var(--muted); }
   .mobile-team-list > li { min-width: 0; padding: .85rem; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); }
   .mobile-team-list .player-cell, .mobile-team-list .player-identity { min-width: 0; max-width: 100%; }
   .mobile-team-list .player-avatar { flex-shrink: 0; }
-  .mobile-team-list .player-identity > a:first-child { max-width: 100%; white-space: normal; overflow: visible; overflow-wrap: anywhere; text-overflow: clip; }
+  .mobile-team-list .player-name-row > a { max-width: 100%; white-space: normal; overflow: visible; overflow-wrap: anywhere; text-overflow: clip; }
   .mobile-player-summary { display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr)); gap: .5rem; margin: .75rem 0 0; }
   .mobile-player-summary > div { min-width: 0; overflow-wrap: anywhere; }
   .mobile-player-summary dt { color: var(--muted); font-size: .8rem; line-height: 1.4; }
@@ -1454,18 +1455,25 @@ td { color: var(--muted); }
 }
 
 .stored-awards, .radar-panel { padding: clamp(1rem, 3vw, 2rem); margin-block: 1rem; }
-.stored-awards ol, .radar-axes { padding-inline-start: 1.8rem; }
-.radar-layout { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(16rem, 2fr); align-items: center; gap: 1.5rem; }
-.radar-layout svg { width: 100%; max-width: 24rem; justify-self: center; }
+.stored-awards ol { padding-inline-start: 1.8rem; }
+.report-award { display: inline-block; color: var(--accent); font-size: .75em; font-weight: 800; letter-spacing: .08em; direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
+.report-award.evp { color: var(--team-a); }
+.radar-chart { position: relative; width: min(100%, 38rem); margin: .75rem auto 1rem; }
+.radar-chart svg { display: block; width: 100%; }
+.radar-axis-label { position: absolute; display: grid; justify-items: center; gap: .12rem; width: max-content; max-width: 24%; transform: translate(-50%, -50%); color: var(--text); font-size: clamp(.75rem, 2.3vw, 1rem); line-height: 1.15; text-align: center; overflow-wrap: anywhere; }
+.radar-axis-label:first-of-type { max-width: 52%; }
 .radar-grid { fill: none; stroke: var(--line-strong); }
+.radar-area { fill: var(--accent); fill-opacity: .19; }
 .radar-edge { stroke: var(--accent); stroke-width: 2; }
+.radar-partial-edge { stroke-dasharray: 5 4; }
 .radar-point { fill: var(--accent); }
+.radar-partial-point { fill: var(--bg); stroke: var(--accent); stroke-width: 2; }
 .radar-mvp { fill: var(--positive); stroke: var(--text); }
 .radar-evp { fill: var(--team-a); stroke: var(--text); }
 .radar-axes summary { cursor: pointer; }
 .radar-axes dl > div { display: flex; justify-content: space-between; gap: .75rem; }
-.radar-layout text { fill: var(--text); font-size: 9px; }
-.radar-axes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: .85rem 2rem; }
+.radar-axes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem 2rem; padding: 1rem 0 0; border-block-start: 1px solid var(--line); list-style: none; }
 .radar-axes li { overflow-wrap: anywhere; }
 .radar-axes small { display: block; color: var(--text-2); }
-@media (max-width: 680px) { .radar-layout { grid-template-columns: minmax(0, 1fr); } }
+.radar-axes summary .report-award, .radar-value { margin-inline-start: .6rem; }
+.radar-note { margin-inline-start: 1rem; margin-block-start: .25rem; }

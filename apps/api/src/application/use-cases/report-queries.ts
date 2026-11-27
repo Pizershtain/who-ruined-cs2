@@ -5,6 +5,7 @@ import {
   type MatchArtifact,
   type StoredParticipationExplanation,
   type StoredPlayerRadarReport,
+  type PlayerRadarWithConfirmedEvidence,
   type ScoringReport,
 } from '@who-ruined/contracts';
 import { buildActiveParticipationRating, buildParticipationExplanation, buildPlayerRadar, scoringConfigHash } from '@who-ruined/scoring';
@@ -98,7 +99,7 @@ export class ReportQueries {
     return this.artifacts.readEvpReport(databaseMatch, canonical);
   }
 
-  async radar(id: string): Promise<StoredPlayerRadarReport> {
+  async radar(id: string, includeConfirmed = false): Promise<StoredPlayerRadarReport | PlayerRadarWithConfirmedEvidence> {
     const databaseMatch = await this.storedMatches.requireRecord(id);
     if (!databaseMatch.resultFilePath) {
       throw new ApplicationError('REPORT_NOT_READY', 'Канонический результат матча ещё не готов.', 409);
@@ -115,7 +116,7 @@ export class ReportQueries {
       ? null
       : await this.artifacts.readEvpReport(databaseMatch, canonical);
     try {
-      return buildPlayerRadar(canonical, evp);
+      return includeConfirmed ? buildPlayerRadar(canonical, evp, true) : buildPlayerRadar(canonical, evp);
     } catch {
       throw new ApplicationError('REPORT_CORRUPT', 'Сохранённые данные не позволяют достоверно построить радар игрока.', 409, { resource: 'RADAR', reason: 'PROJECTION_FAILED' });
     }

@@ -258,9 +258,50 @@ export const playerRadarReportSchema = historicalRadar.superRefine(checkRadar);
 export const h3RadarReportSchema = h3Radar.superRefine(checkRadar);
 export const storedPlayerRadarReportSchema = z.discriminatedUnion('schemaVersion', [playerRadarReportSchema, h3RadarReportSchema]);
 
+const confirmedRadarValueSchema = z.object({
+  axisId: z.enum(['FLASH', 'UTILITY']),
+  rawValue: finiteNumberSchema.positive(),
+  geometryValue: finiteNumberSchema.positive().max(1),
+  evidenceEventIds: z.array(idSchema).min(1).max(512),
+  evidenceRoundIds: z.array(idSchema).min(1).max(128),
+}).strict();
+
+const radarConfirmedEvidenceSchema = z.object({
+  schemaVersion: z.literal('radar-confirmed-evidence@1'),
+  players: z.array(z.object({
+    playerId: idSchema,
+    axes: z.array(confirmedRadarValueSchema).min(1).max(2),
+  }).strict()).max(64),
+}).strict();
+
+export const playerRadarWithConfirmedEvidenceSchema = z.discriminatedUnion('schemaVersion', [
+  historicalRadar.extend({ confirmedEvidence: radarConfirmedEvidenceSchema }),
+  h3Radar.extend({ confirmedEvidence: radarConfirmedEvidenceSchema }),
+]).superRefine((report, context) => {
+  checkRadar(report, context);
+  const players = new Map(report.players.map((player) => [player.playerId, player.axes]));
+  for (const [index, player] of report.confirmedEvidence.players.entries()) {
+    const axes = players.get(player.playerId);
+    const ids = new Set<PlayerRadarAxisId>();
+    for (const value of player.axes) {
+      const axis = axes?.find((row) => row.axisId === value.axisId);
+      const definition = report.axisDefinitions.find((row) => row.axisId === value.axisId);
+      if (ids.has(value.axisId) || axis?.availability !== 'UNAVAILABLE' || axis.verifiedRounds === 0
+        || !definition || value.geometryValue !== Math.min(1, value.rawValue / definition.normalization.maximum)) {
+        context.addIssue({ code: 'custom', path: ['confirmedEvidence', 'players', index, 'axes'], message: 'confirmed evidence must bind to an unavailable axis with verified rounds' });
+      }
+      ids.add(value.axisId);
+    }
+    players.delete(player.playerId);
+  }
+});
+
 export const playerRadarOpenApiSchema = z.toJSONSchema(playerRadarReportSchema, { target: 'openapi-3.0' });
 export const storedPlayerRadarOpenApiSchema = z.toJSONSchema(storedPlayerRadarReportSchema, { target: 'openapi-3.0' });
+export const playerRadarWithConfirmedEvidenceOpenApiSchema = z.toJSONSchema(playerRadarWithConfirmedEvidenceSchema, { target: 'openapi-3.0' });
 export type PlayerRadarAxisId = z.infer<typeof playerRadarAxisIdSchema>;
 export type PlayerRadarReport = z.infer<typeof playerRadarReportSchema>;
 export type StoredPlayerRadarReport = z.infer<typeof storedPlayerRadarReportSchema>;
 export type PlayerRadarAxis = z.infer<typeof playerRadarAxisSchema>;
+export type PlayerRadarWithConfirmedEvidence = z.infer<typeof playerRadarWithConfirmedEvidenceSchema>;
+export type RadarConfirmedValue = z.infer<typeof confirmedRadarValueSchema>;

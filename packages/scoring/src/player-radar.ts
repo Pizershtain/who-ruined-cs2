@@ -2,6 +2,7 @@ import {
   playerRadarAxisIds,
   playerRadarReportSchema,
   h3RadarReportSchema,
+  playerRadarWithConfirmedEvidenceSchema,
   radarNormalizationVersion,
   type CanonicalMatchResult,
   type HistoricalMatchResult,
@@ -15,6 +16,8 @@ import {
   type PlayerRadarAxis,
   type PlayerRadarAxisId,
   type PlayerRadarReport,
+  type PlayerRadarWithConfirmedEvidence,
+  type RadarConfirmedValue,
 } from '@who-ruined/contracts';
 import { H2_PARTICIPATION_RATING_POLICY } from './participation-policy.js';
 import { buildStoredParticipationExplanation } from './participation-explanation.js';
@@ -139,6 +142,23 @@ function available(
     evidenceRoundIds: sortedUnique(evidenceRoundIds),
     relatedH2Families: [...RELATED_H2_FAMILIES[axisId]],
   };
+}
+
+function addConfirmedValue(
+  confirmed: RadarConfirmedValue[] | undefined,
+  axisId: RadarConfirmedValue['axisId'],
+  rawValue: number,
+  events: readonly MatchEvent[],
+): void {
+  if (!confirmed || !Number.isFinite(rawValue) || rawValue <= 0 || events.length === 0) return;
+  const maximum = AXIS_DEFINITIONS.find((row) => row.axisId === axisId)!.normalization.maximum;
+  const geometryValue = Math.min(1, rawValue / maximum);
+  if (geometryValue === 0) return;
+  confirmed.push({
+    axisId, rawValue, geometryValue,
+    evidenceEventIds: sortedUnique(events.map((event) => event.id)).slice(0, 512),
+    evidenceRoundIds: sortedUnique(events.map((event) => event.roundId)).slice(0, 128),
+  });
 }
 
 function facts(
@@ -326,8 +346,8 @@ function enemyBlinds(
   playerId: string,
   teamByPlayer: ReadonlyMap<string, string>,
   roundIds?: ReadonlySet<string>,
-): { seconds: number; events: MatchEvent[]; complete: boolean } {
-  const result = { seconds: 0, events: [] as MatchEvent[], complete: true };
+): { seconds: number; events: MatchEvent[]; confirmedEvents: MatchEvent[]; complete: boolean } {
+  const result = { seconds: 0, events: [] as MatchEvent[], confirmedEvents: [] as MatchEvent[], complete: true };
   for (const event of canonical.artifact.match.events) {
     if (!isLive(event) || event.kind !== 'PLAYER_BLIND' || event.actorId !== playerId
       || (roundIds !== undefined && !roundIds.has(event.roundId))) continue;
@@ -344,6 +364,7 @@ function enemyBlinds(
       continue;
     }
     result.seconds += duration.value;
+    result.confirmedEvents.push(event);
   }
   return result;
 }
@@ -367,6 +388,7 @@ function axisDrafts(
   analytics: PlayerAnalytics | undefined,
   playerId: string,
   verifiedRounds: number,
+  confirmed: RadarConfirmedValue[] | undefined,
 ): AxisDraft[] {
   if (!analytics) return playerRadarAxisIds.map((axisId) => unavailable(axisId, verifiedRounds, 'ANALYTICS_MISSING'));
   const verifiedRoundIds = countedRounds(canonical, playerId, verifiedRounds);
@@ -419,10 +441,13 @@ function axisDrafts(
     && closeMetric(allEnemyBlinds.seconds, analytics.grenades.enemyBlindSeconds)
     && allEnemyBlinds.events.length === analytics.grenades.enemiesFlashed
     && (allEnemyBlinds.complete || canonical.artifact.analytics.availability.flashes === 'PARTIAL');
-  result.set('FLASH', canonical.artifact.analytics.availability.flashes === 'UNAVAILABLE'
-      || !flashSourceConsistent || !scopedEnemyBlinds.complete
+  const flashUnavailable = canonical.artifact.analytics.availability.flashes === 'UNAVAILABLE'
+    || !flashSourceConsistent || !scopedEnemyBlinds.complete;
+  const flashPerRound = scopedEnemyBlinds.seconds / verifiedRounds;
+  if (flashUnavailable) addConfirmedValue(confirmed, 'FLASH', flashPerRound, scopedEnemyBlinds.confirmedEvents);
+  result.set('FLASH', flashUnavailable
     ? unavailable('FLASH', verifiedRounds, 'FLASH_DATA_UNAVAILABLE')
-    : available('FLASH', verifiedRounds, scopedEnemyBlinds.seconds / verifiedRounds, [
+    : available('FLASH', verifiedRounds, flashPerRound, [
       { metricId: 'ENEMY_BLIND_SECONDS', value: scopedEnemyBlinds.seconds, unit: 'SECONDS' },
       { metricId: 'ENEMIES_FLASHED', value: scopedEnemyBlinds.events.length, unit: 'COUNT' },
       { metricId: 'FLASH_ASSISTS', value: flashAssists, unit: 'COUNT' },
@@ -472,10 +497,13 @@ function axisDrafts(
       ? closeMetric(allUtility.he, analytics.grenades.heEnemyDamage)
         && closeMetric(allUtility.inferno, analytics.grenades.infernoEnemyDamage)
       : canonical.artifact.analytics.availability.damage === 'PARTIAL');
-  result.set('UTILITY', canonical.artifact.analytics.availability.damage === 'UNAVAILABLE'
-      || !utilitySourceConsistent || !scopedUtility.complete
+  const utilityUnavailable = canonical.artifact.analytics.availability.damage === 'UNAVAILABLE'
+    || !utilitySourceConsistent || !scopedUtility.complete;
+  const utilityPerRound = (scopedUtility.he + scopedUtility.inferno) / verifiedRounds;
+  if (utilityUnavailable) addConfirmedValue(confirmed, 'UTILITY', utilityPerRound, scopedUtility.events);
+  result.set('UTILITY', utilityUnavailable
     ? unavailable('UTILITY', verifiedRounds, 'DAMAGE_DATA_UNAVAILABLE')
-    : available('UTILITY', verifiedRounds, (scopedUtility.he + scopedUtility.inferno) / verifiedRounds, [
+    : available('UTILITY', verifiedRounds, utilityPerRound, [
       { metricId: 'HE_ENEMY_DAMAGE', value: scopedUtility.he, unit: 'DAMAGE' },
       { metricId: 'INFERNO_ENEMY_DAMAGE', value: scopedUtility.inferno, unit: 'DAMAGE' },
     ], scopedUtility.events.map((event) => event.id), scopedUtility.events.map((event) => event.roundId)));
@@ -646,7 +674,8 @@ function hasActiveH2(canonical: CanonicalMatchResult): boolean {
 /** Read-only projection of stored M2/H2/EVP data. It never evaluates either award policy. */
 export function buildPlayerRadar(canonical: HistoricalMatchResult, evpReport: EvpReport | null): PlayerRadarReport;
 export function buildPlayerRadar(canonical: CanonicalMatchResult, evpReport: EvpReport | null): StoredPlayerRadarReport;
-export function buildPlayerRadar(canonical: CanonicalMatchResult, evpReport: EvpReport | null): StoredPlayerRadarReport {
+export function buildPlayerRadar(canonical: CanonicalMatchResult, evpReport: EvpReport | null, includeConfirmed: true): PlayerRadarWithConfirmedEvidence;
+export function buildPlayerRadar(canonical: CanonicalMatchResult, evpReport: EvpReport | null, includeConfirmed = false): StoredPlayerRadarReport | PlayerRadarWithConfirmedEvidence {
   const ratingAvailable = canonical.schemaVersion === 'match-result@2' || hasActiveH2(canonical);
   const explanation = ratingAvailable ? buildStoredParticipationExplanation(canonical) : null;
   const explanationByPlayer = new Map(explanation?.players.map((player) => [player.playerId, player]) ?? []);
@@ -655,11 +684,13 @@ export function buildPlayerRadar(canonical: CanonicalMatchResult, evpReport: Evp
   const mvpPlayerId = ratingAvailable ? canonical.activeRating.awards.mvp.playerId : null;
   const drafts = canonical.artifact.match.players.map((identity) => {
     const rating = ratingByPlayer.get(identity.id);
-    const axes = axisDrafts(canonical, analyticsByPlayer.get(identity.id), identity.id, rating?.coverage.verifiedRounds ?? 0);
+    const confirmed: RadarConfirmedValue[] | undefined = includeConfirmed ? [] : undefined;
+    const axes = axisDrafts(canonical, analyticsByPlayer.get(identity.id), identity.id, rating?.coverage.verifiedRounds ?? 0, confirmed);
     const h2 = explanationByPlayer.get(identity.id);
     const mvp = identity.id === mvpPlayerId && h2?.rating ? mvpAttributions(canonical, identity.id, h2.rating.families) : new Map();
     return {
       identity,
+      confirmed,
       h2,
       axes: axes.map((axis) => {
         const evidence = evpAxisEvidence(evpReport, identity.id, axis.axisId);
@@ -728,8 +759,12 @@ export function buildPlayerRadar(canonical: CanonicalMatchResult, evpReport: Evp
   const evpBinding = {
     evpReportSchemaVersion: evpReport?.schemaVersion ?? null, evpInputDigest: evpReport?.binding.inputDigest ?? null,
   };
+  const confirmedEvidence = {
+    schemaVersion: 'radar-confirmed-evidence@1',
+    players: drafts.flatMap(({ identity, confirmed }) => confirmed?.length ? [{ playerId: identity.id, axes: confirmed }] : []),
+  };
   if (canonical.schemaVersion === 'match-result@2') {
-    return h3RadarReportSchema.parse({
+    const report = {
       ...reportFields, schemaVersion: 'player-radar@2',
       sourceBinding: {
         ...evpBinding, matchResultSchemaVersion: canonical.schemaVersion,
@@ -747,9 +782,10 @@ export function buildPlayerRadar(canonical: CanonicalMatchResult, evpReport: Evp
           },
         })),
       })),
-    });
+    };
+    return includeConfirmed ? playerRadarWithConfirmedEvidenceSchema.parse({ ...report, confirmedEvidence }) : h3RadarReportSchema.parse(report);
   }
-  return playerRadarReportSchema.parse({
+  const report = {
     ...reportFields, schemaVersion: 'player-radar@1',
     sourceBinding: {
       ...evpBinding,
@@ -762,7 +798,8 @@ export function buildPlayerRadar(canonical: CanonicalMatchResult, evpReport: Evp
         ...mvpAttribution, reasonCode: 'CONFIRMED_POSITIVE_H2_EVIDENCE', terminologyCode: 'POSITIVE_H2_FACTOR_NOT_DECISIVE_CAUSE',
       } })),
     })),
-  });
+  };
+  return includeConfirmed ? playerRadarWithConfirmedEvidenceSchema.parse({ ...report, confirmedEvidence }) : playerRadarReportSchema.parse(report);
 }
 
 export { AXIS_DEFINITIONS as PLAYER_RADAR_AXIS_DEFINITIONS };

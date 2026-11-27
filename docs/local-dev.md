@@ -53,6 +53,24 @@ powershell -ExecutionPolicy Bypass -File .\scripts\dev-down.ps1
 
 This stops containers and preserves `_local-dev\data`, the generated local secret and the named PostgreSQL volume. It does not remove volumes, images or owner data.
 
+## Optional home-LAN access
+
+The normal command remains loopback-only. To start the same isolated stack and expose only its web port to devices on the current private subnet, run PowerShell as administrator:
+
+~~~powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\dev-up-lan.ps1
+~~~
+
+The script keeps Docker web bound to `127.0.0.1`, creates a Windows `portproxy` for the detected private IPv4 address and adds a firewall rule limited to `LocalSubnet`. API requests continue through the existing web proxy; API and PostgreSQL ports are not exposed separately.
+
+To remove the LAN rule and stop the stack:
+
+~~~powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\dev-down-lan.ps1
+~~~
+
+To close LAN access without stopping Docker, add `-KeepStackRunning`. If automatic address detection is ambiguous, pass `-LanAddress 192.168.x.x` to `dev-up-lan.ps1`.
+
 ## Isolation rules
 
 - Give simultaneous worktrees distinct `ProjectName`, API/web/PostgreSQL ports, artifact roots and database volumes/schemas.

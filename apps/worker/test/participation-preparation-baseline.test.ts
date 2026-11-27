@@ -19,6 +19,12 @@ import {
 import { buildPreparedParticipationInput } from '../src/prepared-participation-input.js';
 import { buildParticipationSidecar } from '../src/participation-sidecar.js';
 
+// These synthetic rows and their exact bindings were recorded with parser version 0.42.0.
+vi.mock('@who-ruined/parser-adapter', async () => ({
+  ...await vi.importActual<typeof import('@who-ruined/parser-adapter')>('@who-ruined/parser-adapter'),
+  PARSER_LIBRARY_VERSION: '0.42.0',
+}));
+
 const GENERATED_AT = '2026-11-03T09:00:00.000Z';
 const TEAM_A = 'team-synthetic-a';
 const TEAM_B = 'team-synthetic-b';

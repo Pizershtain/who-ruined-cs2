@@ -1,8 +1,8 @@
 import { Body, Controller, Get, HttpCode, Inject, Param, Post, Req } from '@nestjs/common';
 import type { Request } from 'express';
-import { ApiAcceptedResponse, ApiBody, ApiConflictResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import { ApiAcceptedResponse, ApiBody, ApiConflictResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiQuery, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface.js';
-import { storedParticipationRatingOpenApiSchema, evpReportOpenApiSchema, storedParticipationExplanationOpenApiSchema, storedPlayerRadarOpenApiSchema, rescoreRequestSchema } from '@who-ruined/contracts';
+import { storedParticipationRatingOpenApiSchema, evpReportOpenApiSchema, storedParticipationExplanationOpenApiSchema, storedPlayerRadarOpenApiSchema, playerRadarWithConfirmedEvidenceOpenApiSchema, rescoreRequestSchema } from '@who-ruined/contracts';
 import { ReportQueries } from '../../application/use-cases/report-queries.js';
 import { RescoreMatch, type RescoreMatchRequest } from '../../application/use-cases/rescore-match.js';
 import { assertExactQuery, assertNoPolicySelector, assertOpaqueId, assertPlainObjectWithKeys } from '../../http-validation.js';
@@ -76,15 +76,17 @@ export class ReportsController {
 
   @Get('matches/:id/radar')
   @ApiOperation({ operationId: 'MatchesController_radar', summary: 'Read-only eight-axis player radar projection for every match participant' })
+  @ApiQuery({ name: 'include', required: false, enum: ['confirmed'] })
   @ApiOkResponse({
-    description: 'player-radar@2 for H3 or player-radar@1 for historical results',
-    schema: storedPlayerRadarOpenApiSchema as unknown as SchemaObject,
+    description: 'player-radar@2 for H3 or player-radar@1 for historical results. Include confirmed evidence with include=confirmed.',
+    schema: { oneOf: [storedPlayerRadarOpenApiSchema, playerRadarWithConfirmedEvidenceOpenApiSchema] as unknown as SchemaObject[] },
   })
   @ApiNotFoundResponse({ description: 'MATCH_NOT_FOUND' })
   @ApiConflictResponse({ description: 'REPORT_NOT_READY, REPORT_CORRUPT or REPORT_POLICY_MISMATCH' })
   radar(@Param('id') id: string, @Req() request: Request) {
-    assertExactQuery(request, []);
-    return this.queries.radar(assertOpaqueId(id, 'MATCH_NOT_FOUND'));
+    const { include } = assertExactQuery(request, ['include']);
+    if (include !== undefined && include !== 'confirmed') throw new ApiError('INVALID_QUERY', 'Некорректные параметры запроса.', 422);
+    return this.queries.radar(assertOpaqueId(id, 'MATCH_NOT_FOUND'), include === 'confirmed');
   }
 
   @Get('matches/:id/report')
