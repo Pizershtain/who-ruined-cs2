@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   playerRadarAxisIds,
   playerRadarReportSchema,
+  playerRadarWithConfirmedEvidenceSchema,
   radarNormalizationVersion,
 } from '../src/player-radar.js';
 
@@ -84,5 +85,28 @@ describe('player-radar@1 contract', () => {
     const inconsistent = report();
     inconsistent.players[0]!.axes[0]!.matchAverage = 2;
     expect(playerRadarReportSchema.safeParse(inconsistent).success).toBe(false);
+  });
+
+  it('binds partial evidence to one unavailable axis without changing the historical response', () => {
+    const base = report();
+    const player = base.players[0]!;
+    const value = {
+      ...base,
+      players: [{ ...player, axes: player.axes.map(axis => axis.axisId === 'FLASH' ? {
+        ...axis, availability: 'UNAVAILABLE', reasonIfUnavailable: 'FLASH_DATA_UNAVAILABLE', rawValue: null, geometryValue: null,
+      } : axis) }],
+      confirmedEvidence: {
+        schemaVersion: 'radar-confirmed-evidence@1',
+        players: [{ playerId: player.playerId, axes: [{
+          axisId: 'FLASH', rawValue: 2, geometryValue: .4, evidenceEventIds: ['blind'], evidenceRoundIds: ['round'],
+        }] }],
+      },
+    };
+    expect(playerRadarReportSchema.safeParse(base).success).toBe(true);
+    expect(playerRadarReportSchema.safeParse(value).success).toBe(false);
+    expect(playerRadarWithConfirmedEvidenceSchema.parse(value)).toEqual(value);
+    expect(playerRadarWithConfirmedEvidenceSchema.safeParse({ ...value, players: base.players }).success).toBe(false);
+    value.confirmedEvidence.players[0]!.axes[0]!.geometryValue = .9;
+    expect(playerRadarWithConfirmedEvidenceSchema.safeParse(value).success).toBe(false);
   });
 });

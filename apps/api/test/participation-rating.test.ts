@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import request from 'supertest';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { NORMALIZER_VERSION } from '@who-ruined/parser-adapter';
-import { historicalMatchResultSchema, h3ExplanationReportSchema, h3RadarReportSchema, h3RatingReportSchema, evpReportSchema, participationExplanationReportSchema, playerRadarAxisIds, playerRadarReportSchema, type MatchAnalytics, type MatchArtifact, type MatchData, type ParticipationSidecar } from '@who-ruined/contracts';
+import { historicalMatchResultSchema, h3ExplanationReportSchema, h3RadarReportSchema, h3RatingReportSchema, evpReportSchema, participationExplanationReportSchema, playerRadarAxisIds, playerRadarReportSchema, playerRadarWithConfirmedEvidenceSchema, type MatchAnalytics, type MatchArtifact, type MatchData, type ParticipationSidecar } from '@who-ruined/contracts';
 import { buildH3MatchResult } from '@who-ruined/scoring/h3';
 import { evpReportBinding } from '@who-ruined/artifacts';
 import { computeMatchAnalytics } from '@who-ruined/features';
@@ -709,6 +709,11 @@ describe('P7.2-F participation rating API', () => {
       expect(evp.mvpPlayerId).toBe(rating.awards.mvp.playerId);
       expect(evp.awards.every((award) => award.playerId !== evp.mvpPlayerId)).toBe(true);
       expect(radar.players.find((player) => player.awardState === 'MVP')?.playerId).toBe(evp.mvpPlayerId);
+      const enrichedResponse = await request(app.getHttpServer()).get(base + '/radar?include=confirmed').expect(200);
+      const { confirmedEvidence, ...regular } = playerRadarWithConfirmedEvidenceSchema.parse(enrichedResponse.body);
+      expect(regular).toEqual(radar);
+      expect(confirmedEvidence.schemaVersion).toBe('radar-confirmed-evidence@1');
+      await request(app.getHttpServer()).get(base + '/radar?include=unknown').expect(422);
       const first = explanation.players[0]!.rating!;
       expect(first.families).toHaveLength(7);
       expect(first.families.find((family) => family.family === 'ROUND_IMPACT')).toMatchObject({
@@ -884,11 +889,13 @@ describe('P7.2-F participation rating API', () => {
     const friendlyId = 'flash-friendly';
     const incompleteId = 'flash-duration-missing';
     const otherCompleteId = 'flash-other-complete';
+    const verifiedPartId = 'flash-verified-part';
     data.match.events = [
       blind(completeId, 0, teamA.playerIds[0]!, teamB.playerIds[0]!, 2),
       blind(friendlyId, 1, teamA.playerIds[1]!, teamA.playerIds[4]!, 3),
       blind(incompleteId, 2, teamA.playerIds[2]!, teamB.playerIds[1]!, null),
       blind(otherCompleteId, 3, teamA.playerIds[3]!, teamB.playerIds[2]!, 4),
+      blind(verifiedPartId, 4, teamA.playerIds[2]!, teamB.playerIds[2]!, 3),
     ];
     data.analytics = computeMatchAnalytics(data.match, '2026-10-24T00:00:00.000Z');
     data.artifact.analytics = data.analytics;
@@ -903,6 +910,11 @@ describe('P7.2-F participation rating API', () => {
     expect(flash(teamA.playerIds[1]!).evidenceEventIds).not.toContain(friendlyId);
     const comparison = radar.matchComparisons.find((row) => row.axisId === 'FLASH')!;
     expect(comparison).toMatchObject({ availability: 'AVAILABLE', comparisonPoolSize: 9, average: 6 / 9, incompleteCoverage: true });
+    const { confirmedEvidence, ...regular } = buildPlayerRadar(canonicalResult, null, true);
+    expect(regular).toEqual(radar);
+    expect(confirmedEvidence.players).toEqual([{ playerId: teamA.playerIds[2], axes: [{
+      axisId: 'FLASH', rawValue: 3, geometryValue: .75, evidenceEventIds: [verifiedPartId], evidenceRoundIds: ['round-1'],
+    }] }]);
   });
 
   it('fails UTILITY closed per affected player while preserving independent damage, zero and the comparison pool', () => {
@@ -940,6 +952,7 @@ describe('P7.2-F participation rating API', () => {
       hurt('utility-invalid-health-after', 5, teamA.playerIds[3]!, teamB.playerIds[4]!, 'hegrenade', 10, 150),
       hurt('utility-corrupt-ledger-followup', 6, teamA.playerIds[4]!, teamB.playerIds[4]!, 'hegrenade', 10, 90),
       hurt('utility-unknown-relation', 7, teamB.playerIds[0]!, 'unknown-player', 'hegrenade', 10, 90),
+      hurt('utility-verified-part', 8, teamA.playerIds[1]!, teamB.playerIds[0]!, 'hegrenade', 10, 65),
     ];
     data.analytics = computeMatchAnalytics(data.match, '2026-10-24T00:00:00.000Z');
     data.artifact.analytics = data.analytics;
@@ -963,6 +976,11 @@ describe('P7.2-F participation rating API', () => {
     expect(utility(teamB.playerIds[1]!)).toMatchObject({ availability: 'AVAILABLE', rawValue: 0 });
     const comparison = radar.matchComparisons.find((row) => row.axisId === 'UTILITY')!;
     expect(comparison).toMatchObject({ availability: 'AVAILABLE', comparisonPoolSize: 5, average: 6, incompleteCoverage: true });
+    expect(buildPlayerRadar(canonicalResult, null, true).confirmedEvidence.players).toEqual([{
+      playerId: teamA.playerIds[1], axes: [{ axisId: 'UTILITY', rawValue: 10, geometryValue: .5,
+        evidenceEventIds: ['utility-verified-part'], evidenceRoundIds: ['round-1'],
+      }],
+    }]);
     expect(radar.axisDefinitions.map((row) => row.axisId)).toEqual(playerRadarAxisIds);
     expect(canonicalResult.activeRating).toEqual(activeRatingBefore);
   });

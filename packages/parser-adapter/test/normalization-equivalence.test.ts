@@ -1,9 +1,14 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 import { normalizeSnapshot } from '@who-ruined/match-domain';
-import { toNormalizationInput } from '../src/index.js';
+import { PARSER_LIBRARY_VERSION, toNormalizationInput } from '../src/index.js';
 
-const digest = (value: unknown): string => createHash('sha256').update(JSON.stringify(value)).digest('hex');
+function digest(match: ReturnType<typeof normalizeSnapshot>): string {
+  expect(match.provenance.parserVersion).toBe(PARSER_LIBRARY_VERSION);
+  // Keep the exact synthetic baseline comparable to the original 0.42.0 run.
+  const fixture = { ...match, provenance: { ...match.provenance, parserVersion: '0.42.0' } };
+  return createHash('sha256').update(JSON.stringify(fixture)).digest('hex');
+}
 
 describe('synthetic parser-to-domain normalization equivalence', () => {
   it('does not guess absent rosters or rounds', () => {

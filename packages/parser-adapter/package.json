@@ -13,7 +13,7 @@
     "probe": "tsx src/probe-cli.ts"
   },
   "dependencies": {
-    "@laihoe/demoparser2": "0.42.0",
+    "@laihoe/demoparser2": "0.42.3",
     "@who-ruined/match-domain": "workspace:*",
     "zod": "4.1.11"
   },

@@ -2,8 +2,22 @@
 
 **Status:** current evidence record. The parser/domain boundary is summarized in [the architecture map](backend-map.md).
 
-> Real-demo validation for `@laihoe/demoparser2@0.42.0`. Only maps,
-> versions, counts, field names and anonymous aggregates are committed.
+## Current parser
+
+`@laihoe/demoparser2@0.42.3` successfully reads the primary snapshot,
+participation supplement and replay ticks for two `de_vertigo` demos from CS2
+build 14200. The worker's in-memory pipeline validated 16 and 17 rounds and
+produced H3 ratings for all ten players in each match. Version 0.42.0 read
+their headers and rosters but failed to decode events and ticks with
+`EntityNotFound`.
+
+Upload deduplication includes the parser version. Once API and worker both
+run 0.42.3, reuploading a failed 0.42.0 demo starts a new analysis. Stored
+reports retain their original parser version. Historical upgrades and exact
+comparison baselines still require their recorded parser version.
+
+The fixture tables below record the separate 0.42.0 run. Only maps, versions,
+counts, field names and anonymous aggregates are committed.
 
 ## Real fixtures
 

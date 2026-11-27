@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { evpReportSchema, storedPlayerRadarReportSchema, type MatchData } from '@who-ruined/contracts';
+import { evpReportSchema, playerRadarWithConfirmedEvidenceSchema, storedPlayerRadarReportSchema, type MatchData } from '@who-ruined/contracts';
 import { ApiClientError, request } from '../../shared/api/transport.js';
 
 function verifyRoster(match: MatchData, report: { matchId: string; players: { playerId: string; teamId: string }[] }, hash: string) {
@@ -13,7 +13,11 @@ export function useRadarReport(match: MatchData) {
   return useQuery({
     queryKey: ['player-radar', match.matchId, match.fileSha256],
     queryFn: async ({ signal }) => {
-      const report = await request(`/api/v1/matches/${encodeURIComponent(match.matchId)}/radar`, { signal }, storedPlayerRadarReportSchema);
+      const path = `/api/v1/matches/${encodeURIComponent(match.matchId)}/radar`;
+      const report = await request(`${path}?include=confirmed`, { signal }, playerRadarWithConfirmedEvidenceSchema).catch((error: unknown) => {
+        if (error instanceof ApiClientError && error.code === 'INVALID_QUERY') return request(path, { signal }, storedPlayerRadarReportSchema);
+        throw error;
+      });
       verifyRoster(match, report, report.sourceBinding.matchFileSha256);
       return report;
     },
@@ -21,11 +25,12 @@ export function useRadarReport(match: MatchData) {
   });
 }
 
-export function useEvpReport(match: MatchData, enabled = true) {
+export function useEvpReport(match: MatchData | undefined, enabled = true) {
   return useQuery({
-    enabled,
-    queryKey: ['evp', match.matchId, match.fileSha256],
+    enabled: enabled && !!match,
+    queryKey: ['evp', match?.matchId, match?.fileSha256],
     queryFn: async ({ signal }) => {
+      if (!match) throw new ApiClientError('MATCH_NOT_FOUND');
       const report = await request(`/api/v1/matches/${encodeURIComponent(match.matchId)}/evp`, { signal }, evpReportSchema);
       verifyRoster(match, report, report.binding.fileSha256);
       return report;

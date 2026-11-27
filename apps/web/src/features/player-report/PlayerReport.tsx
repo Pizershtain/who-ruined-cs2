@@ -12,7 +12,6 @@ import { Charts } from '../match-report/index.js';
 import { Icon } from '../../shared/ui/Icon.js';
 import { ErrorState, Unavailable } from '../../shared/ui/States.js';
 import { Skeleton } from '../../shared/ui/Skeleton.js';
-import { RatingExplanation } from '../rating-explanation/index.js';
 import { PlayerMetrics } from './PlayerMetrics.js';
 import { ParticipationCoverage } from './ParticipationCoverage.js';
 import { EventDetails } from './EventDetails.js';
@@ -56,7 +55,6 @@ export function PlayerReport({ radarPanel, match, playerId, base, analytics, exp
     { title: t('trades', 'Successful trades'), value: number(metrics?.trades), pending },
   ];
   const rating = metrics?.rating;
-  const explanationPlayer = explanation?.players.find((item) => item.playerId === playerId);
   const availabilityLabel = () => {
     switch (metrics?.ratingAvailability) {
       case 'PARTICIPATION_ABSENT_GT_2_ROUNDS': return t('rating-absent', 'Player was absent for too many verified rounds.');
@@ -81,9 +79,8 @@ export function PlayerReport({ radarPanel, match, playerId, base, analytics, exp
         </article>
         <article className="panel rating-coverage-card"><h2>{t('rating-coverage', 'Verified coverage')}</h2>{metrics?.ratingCoverage ? <dl className="detail-stats"><div><dt>{t('verified-rounds', 'Verified rounds')}</dt><dd>{number(metrics.ratingCoverage.verifiedRounds, 0)}</dd></div><div><dt>{t('partial-rounds', 'Partial rounds')}</dt><dd>{number(metrics.ratingCoverage.partialRounds, 0)}</dd></div><div><dt>{t('unknown-rounds', 'Unknown rounds')}</dt><dd>{number(metrics.ratingCoverage.unknownRounds, 0)}</dd></div><div><dt>{t('absent-rounds', 'Absent full rounds')}</dt><dd>{number(metrics.ratingCoverage.absentFullRounds, 0)}</dd></div></dl> : <Unavailable/>}<ParticipationCoverage metrics={metrics}/></article>
       </div>
-      <RatingExplanation match={match} base={base} loading={momentsLoading} error={momentsError} {...(explanationPlayer ? { player: explanationPlayer } : {})} {...(momentsRetry ? { retry: momentsRetry } : {})}/>
+      {radarPanel}
     </section>
-    {radarPanel}
     <ImportantMoments match={match} base={base} playerId={playerId} loading={momentsLoading} error={momentsError} {...(momentsRetry ? { retry: momentsRetry } : {})} {...(explanation ? { report: explanation } : {})}/>
     <PlayerMetrics metrics={metrics} loading={pending}/>
     <Charts match={{ ...match, players: [player] }} loading={analyticsLoading} {...(analytics ? { analytics } : {})}/>

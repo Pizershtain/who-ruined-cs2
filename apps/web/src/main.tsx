@@ -6,7 +6,7 @@ import { i18nReady } from './shared/i18n/client.js';
 // Bundled fallback for platforms without San Francisco; served with the app, no CDN.
 import '@fontsource-variable/inter';
 // Tabular monospace for every figure, so numbers scan as a column anywhere on the page.
-import '@fontsource-variable/jetbrains-mono';
+import '@fontsource-variable/jetbrains-mono/index.css';
 import './index.css';
 
 await i18nReady;

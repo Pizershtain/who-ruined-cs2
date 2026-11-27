@@ -5,7 +5,7 @@ import type { MatchData, StoredParticipationExplanation } from '@who-ruined/cont
 import type { MatchAnalytics } from '../../entities/match/types.js';
 import { finalScore } from '../../entities/match/presentation.js';
 import { Awards } from '../participation-rating/index.js';
-import { Scoreboard } from './Scoreboard.js';
+import { Scoreboard, type ScoreboardAwards } from './Scoreboard.js';
 import { RoundHistory } from './RoundHistory.js';
 import { Charts } from './Charts.js';
 import { ImportantMoments } from '../important-moments/index.js';
@@ -13,7 +13,7 @@ import { Icon } from '../../shared/ui/Icon.js';
 import { ReportNav } from './ReportNav.js';
 import { Story } from '../../shared/ui/Story.js';
 
-export function MatchReport({ awardsPanel, match, analytics, explanation, base, analyticsLoading = false, momentsLoading = false, momentsError, momentsRetry }: { awardsPanel?: ReactNode; match: MatchData; analytics?: MatchAnalytics; explanation?: StoredParticipationExplanation; base: string; analyticsLoading?: boolean; momentsLoading?: boolean; momentsError?: unknown; momentsRetry?: () => void }) {
+export function MatchReport({ awardsPanel, scoreboardAwards, match, analytics, explanation, base, analyticsLoading = false, momentsLoading = false, momentsError, momentsRetry }: { awardsPanel?: ReactNode; scoreboardAwards?: ScoreboardAwards; match: MatchData; analytics?: MatchAnalytics; explanation?: StoredParticipationExplanation; base: string; analyticsLoading?: boolean; momentsLoading?: boolean; momentsError?: unknown; momentsRetry?: () => void }) {
   const { t } = useTranslation('match');
   return <>
     <div className="breadcrumb"><Link to="/analyze">{t('home', 'Workspace')}</Link><span>/</span><span>{t('report', 'Match report')}</span></div>
@@ -23,7 +23,7 @@ export function MatchReport({ awardsPanel, match, analytics, explanation, base, 
     {match.quality !== 'VALID' && <div className="inline-alert" role="alert"><Icon name="warning"/><p>{t('analytics-partial', 'Some metrics have limited source data')}</p></div>}
     <ReportNav score={{ map: match.map ?? t('unknown-map', 'Unknown map'), parts: match.teams.map((team, index) => ({ value: String(finalScore(match, team.id) ?? '—'), team: index })) }}/>
     <Story alt label={t('awards-label', 'Match results')} title={t('awards-title', 'Who shaped the result')}><Awards match={match} {...(analytics ? { analytics } : {})} base={base}/>{awardsPanel}</Story>
-    <Story id="scoreboard" band label={t('rosters', 'The full picture')} title={t('scoreboard', 'Player scoreboard')} lead={t('scoreboard-help', 'Select a player to explore their match')}><Scoreboard match={match} loading={analyticsLoading} {...(analytics ? { analytics } : {})} base={base}/></Story>
+    <Story id="scoreboard" band label={t('rosters', 'The full picture')} title={t('scoreboard', 'Player scoreboard')} lead={t('scoreboard-help', 'Select a player to explore their match')}><Scoreboard match={match} loading={analyticsLoading} {...(analytics ? { analytics } : {})} {...(scoreboardAwards ? { awards: scoreboardAwards } : {})} base={base}/></Story>
     <Story id="rounds" alt label={t('momentum', 'Round by round')} title={t('round-history', 'How the match unfolded')}><RoundHistory match={match}/></Story>
     <Story id="statistics" label={t('statistics', 'Statistics')} title={t('comparison', 'Player comparison')} lead={t('comparison-note', 'Compare the same metric across players. Missing values are excluded.')}><Charts match={match} loading={analyticsLoading} {...(analytics ? { analytics } : {})}/></Story>
     <Story id="moments" alt band label={t('moments-eyebrow', 'The turning points')} title={t('match-moments', 'Highlights and recorded facts')} lead={t('moments-rating-note', 'No episode is presented as a decomposition of the active rating.')}><ImportantMoments match={match} {...(explanation ? { report: explanation } : {})} base={base} loading={momentsLoading} error={momentsError} {...(momentsRetry ? { retry: momentsRetry } : {})}/></Story>
