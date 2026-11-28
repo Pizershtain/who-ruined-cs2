@@ -24,6 +24,10 @@
   "synthetic": "Exempeldata",
   "upload-cancelled": "Uppladdningen har stoppats. Servern kan redan ha tagit emot demon.",
   "upload-confirming": "Filen har skickats. Väntar på servern…",
+  "upload-deleting": "Den matchande demon tas bort. Försök igen när den har tagits bort.",
+  "upload-existing-match": "Öppna den befintliga matchen",
+  "upload-job-reused": "Demon analyseras redan. Det pågående jobbet följs.",
+  "upload-report-reused": "Demon har redan analyserats. Den sparade rapporten öppnas.",
   "upload-wait": "Låt sidan vara öppen tills uppladdningen är klar.",
   "uploading": "Laddar upp din demo…",
   "workflow": "Så fungerar analysen"

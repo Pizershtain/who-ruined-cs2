@@ -24,6 +24,10 @@
   "synthetic": "Mintaadatok",
   "upload-cancelled": "A feltöltés leállt. Lehet, hogy a szerver már megkapta a demót.",
   "upload-confirming": "Fájl elküldve. Várakozás a szerverre…",
+  "upload-deleting": "Az egyező demót éppen töröljük. Próbáld újra, amikor kész.",
+  "upload-existing-match": "Meglévő meccs megnyitása",
+  "upload-job-reused": "A demó elemzése már folyamatban van. A meglévő feladatot követjük.",
+  "upload-report-reused": "Ezt a demót már elemeztük. Megnyitjuk a mentett jelentést.",
   "upload-wait": "Hagyd nyitva az oldalt a feltöltés befejezéséig.",
   "uploading": "Demód feltöltése…",
   "workflow": "Így működik az elemzés"

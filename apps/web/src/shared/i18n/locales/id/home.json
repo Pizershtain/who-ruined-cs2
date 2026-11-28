@@ -24,6 +24,10 @@
   "synthetic": "Data contoh",
   "upload-cancelled": "Unggahan dihentikan. Server mungkin sudah menerima demo.",
   "upload-confirming": "Unggahan terkirim. Menunggu server…",
+  "upload-deleting": "Demo yang sama sedang dihapus. Coba lagi setelah penghapusan selesai.",
+  "upload-existing-match": "Buka pertandingan yang sudah ada",
+  "upload-job-reused": "Demo ini sedang dianalisis. Menampilkan proses yang sedang berjalan.",
+  "upload-report-reused": "Demo ini sudah dianalisis. Membuka laporan yang tersimpan.",
   "upload-wait": "Biarkan halaman ini terbuka hingga unggahan selesai.",
   "uploading": "Mengunggah demo…",
   "workflow": "Cara kerja analisis"

@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../packages/database/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Match {
+  id                 String   @id
+  originalFileName   String
+  fileSha256         String
+  map                String?
+  status             String
+  quality            String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  parserVersion      String
+  normalizerVersion  String
+  normalizedFilePath String?
+  rawFilePath        String?
+  resultFilePath     String?
+  resultSchemaVersion String?
+  resultSha256       String?
+  resultPolicyId     String?
+  resultPolicyDigest String?
+  evpFilePath        String?
+  evpSchemaVersion   String?
+  evpSha256          String?
+  evpPolicyId        String?
+  evpBindingDigest   String?
+  sourceDeletedAt    DateTime?
+  deletionState      String?
+  deletionRequestedAt DateTime?
+  winningTeamId      String?
+  losingTeamId       String?
+  jobs               Job[]
+  reports            Report[]
+
+  @@unique([fileSha256, parserVersion, normalizerVersion])
+  @@index([createdAt])
+  @@index([deletionState])
+}
+
+model Job {
+  id           String   @id
+  matchId      String
+  type         String
+  status       String
+  stage        String
+  attempts     Int      @default(0)
+  leaseUntil   DateTime?
+  leaseToken   String?
+  errorCode    String?
+  errorMessage String?
+  requestedScoringVersion String?
+  requestedConfigHash     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  match        Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@index([leaseUntil])
+}
+
+model Report {
+  id             String   @id
+  matchId        String
+  scoringVersion String
+  configHash     String
+  jsonFilePath   String
+  createdAt      DateTime @default(now())
+  quality        String
+  match          Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@unique([matchId, scoringVersion, configHash])
+}
+
+// No foreign key: deletion events must survive deletion of their source match.
+model MatchPublication {
+  revision BigInt @id @default(autoincrement())
+  matchId  String
+  kind     String
+
+  @@index([matchId, revision])
+}

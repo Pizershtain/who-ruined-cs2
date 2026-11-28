@@ -24,6 +24,10 @@
   "synthetic": "Dados de exemplo",
   "upload-cancelled": "Envio interrompido. O servidor pode já ter recebido a demo.",
   "upload-confirming": "Ficheiro enviado. A aguardar o servidor…",
+  "upload-deleting": "A demo correspondente está a ser eliminada. Tenta novamente quando terminar.",
+  "upload-existing-match": "Abrir a partida existente",
+  "upload-job-reused": "Esta demo já está a ser analisada. A acompanhar a tarefa em curso.",
+  "upload-report-reused": "Esta demo já foi analisada. A abrir o relatório guardado.",
   "upload-wait": "Mantém esta página aberta até o envio terminar.",
   "uploading": "A enviar a tua demo…",
   "workflow": "Como funciona a análise"

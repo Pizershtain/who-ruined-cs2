@@ -24,6 +24,10 @@
   "synthetic": "Nümunə məlumatlar",
   "upload-cancelled": "Yükləmə dayandırıldı. Server demonu artıq qəbul etmiş ola bilər.",
   "upload-confirming": "Yükləmə göndərildi. Server gözlənilir…",
+  "upload-deleting": "Uyğun demo silinir. Silinmə bitdikdən sonra yenidən yoxlayın.",
+  "upload-existing-match": "Mövcud matçı aç",
+  "upload-job-reused": "Bu demo artıq təhlil olunur. Cari tapşırıq izlənilir.",
+  "upload-report-reused": "Bu demo əvvəl təhlil edilib. Saxlanmış hesabat açılır.",
   "upload-wait": "Yükləmə bitənədək bu səhifəni açıq saxlayın.",
   "uploading": "Demonuz yüklənir…",
   "workflow": "Təhlil necə işləyir?"

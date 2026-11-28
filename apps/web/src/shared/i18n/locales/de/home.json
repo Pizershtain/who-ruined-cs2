@@ -24,6 +24,10 @@
   "synthetic": "Beispieldaten",
   "upload-cancelled": "Upload gestoppt. Der Server hat die Demo möglicherweise bereits erhalten.",
   "upload-confirming": "Upload gesendet. Warten auf den Server…",
+  "upload-deleting": "Die passende Demo wird gelöscht. Versuche es nach Abschluss erneut.",
+  "upload-existing-match": "Vorhandenes Match öffnen",
+  "upload-job-reused": "Diese Demo wird bereits analysiert. Der laufende Auftrag wird geöffnet.",
+  "upload-report-reused": "Diese Demo wurde bereits analysiert. Der gespeicherte Bericht wird geöffnet.",
   "upload-wait": "Lass diese Seite geöffnet, bis der Upload abgeschlossen ist.",
   "uploading": "Deine Demo wird hochgeladen…",
   "workflow": "So funktioniert die Analyse"

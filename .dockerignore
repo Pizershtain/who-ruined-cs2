@@ -1,9 +1,14 @@
 node_modules
 **/node_modules
 **/dist
+**/generated
 **/.turbo
 .pnpm-store
 .git
+.env
+.env.*
+!.env.example
+debug.log
 data
 _local-dev
 _local-archive

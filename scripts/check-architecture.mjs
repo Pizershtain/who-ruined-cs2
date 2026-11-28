@@ -1,15 +1,16 @@
 import { readFile, readdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
+import { workspaceDirectories } from './workspace-directories.mjs';
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const sourceRoots = ['apps', 'packages'];
 const ignoredDirectories = new Set(['dist', 'generated', 'node_modules', '.turbo', 'coverage']);
 const sourceFilePattern = /\.(?:[cm]?[jt]s|tsx)$/u;
 const testFilePattern = /(?:^|\/)(?:test|tests|__tests__)(?:\/|$)|\.(?:test|spec)\.[cm]?[jt]sx?$/u;
 const h3WorkerConsumers = new Set([
-  'apps/worker/src/parse-pipeline.ts', 'apps/worker/src/process-job.ts', 'apps/worker/src/rebuild-rating-policy.ts',
+  'apps/core/worker/src/parse-pipeline.ts', 'apps/core/worker/src/process-job.ts', 'apps/core/worker/src/rebuild-rating-policy.ts',
 ]);
 
 const allowedProductionDependencies = new Map([
@@ -34,8 +35,10 @@ const allowedProductionDependencies = new Map([
   ['@who-ruined/web', new Set(['@who-ruined/contracts'])],
   [
     '@who-ruined/api',
-    new Set(['@who-ruined/artifacts', '@who-ruined/contracts', '@who-ruined/database', '@who-ruined/parser-adapter', '@who-ruined/scoring']),
+    new Set(['@who-ruined/artifacts', '@who-ruined/contracts', '@who-ruined/database', '@who-ruined/features', '@who-ruined/parser-adapter', '@who-ruined/scoring']),
   ],
+  ['@who-ruined/profiles', new Set(['@who-ruined/contracts'])],
+  ['@who-ruined/auth', new Set(['@who-ruined/contracts'])],
   [
     '@who-ruined/worker',
     new Set([
@@ -57,18 +60,11 @@ function toRepositoryPath(path) {
 }
 
 async function discoverPackages() {
-  const packages = [];
-  for (const sourceRoot of sourceRoots) {
-    const root = join(repositoryRoot, sourceRoot);
-    for (const entry of await readdir(root, { withFileTypes: true })) {
-      if (!entry.isDirectory()) continue;
-      const directory = join(root, entry.name);
-      const manifestPath = join(directory, 'package.json');
-      const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-      packages.push({ name: manifest.name, directory, manifest, manifestPath });
-    }
-  }
-  return packages;
+  return Promise.all(workspaceDirectories(repositoryRoot).map(async (directory) => {
+    const manifestPath = join(directory, 'package.json');
+    const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+    return { name: manifest.name, directory, manifest, manifestPath };
+  }));
 }
 
 async function collectSourceFiles(directory) {
@@ -142,6 +138,25 @@ const packageByName = new Map(packages.map((workspacePackage) => [workspacePacka
 const packageNames = [...packageByName.keys()].sort((left, right) => right.length - left.length);
 const violations = [];
 const imports = [];
+const gatewayDirectory = join(repositoryRoot, 'apps/gateway');
+if (existsSync(gatewayDirectory)) {
+  for (const file of await collectSourceFiles(gatewayDirectory)) {
+    violations.push(`${toRepositoryPath(file)}: Gateway is HTTP infrastructure; keep application code out of it`);
+  }
+}
+
+function verifyBrowserOrigins(file, source) {
+  const tree = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true);
+  function visit(node) {
+    if ((ts.isStringLiteralLike(node) || ts.isTemplateLiteralToken(node))
+      && /(?:^|\s)(?:https?:)?\/\/[^/\s]+(?:\/api(?:\/|$)|:(?:3000|3001|3002)(?:\/|$))/iu.test(node.text)) {
+      const { line } = tree.getLineAndCharacterOfPosition(node.getStart(tree));
+      violations.push(`${file}:${line + 1}: browser API requests must use a relative path through Gateway`);
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(tree);
+}
 
 for (const workspacePackage of packages) {
   if (!allowedProductionDependencies.has(workspacePackage.name)) {
@@ -151,12 +166,14 @@ for (const workspacePackage of packages) {
   for (const file of await collectSourceFiles(workspacePackage.directory)) {
     const repositoryPath = toRepositoryPath(file);
     const isTestOnly = testFilePattern.test(repositoryPath);
-    const preprocessed = ts.preProcessFile(await readFile(file, 'utf8'), true, true);
+    const source = await readFile(file, 'utf8');
+    if (!isTestOnly && repositoryPath.startsWith('apps/web/src/')) verifyBrowserOrigins(repositoryPath, source);
+    const preprocessed = ts.preProcessFile(source, true, true);
     for (const importedFile of preprocessed.importedFiles) {
       const specifier = importedFile.fileName;
       const internalTarget = resolvedInternalTarget(file, specifier);
-      const isComparison = repositoryPath.startsWith('apps/worker/src/rating-comparison/');
-      const comparisonTarget = internalTarget?.startsWith('apps/worker/src/rating-comparison/');
+      const isComparison = repositoryPath.startsWith('apps/core/worker/src/rating-comparison/');
+      const comparisonTarget = internalTarget?.startsWith('apps/core/worker/src/rating-comparison/');
       const h3Target = specifier === '@who-ruined/scoring/h3' || internalTarget?.startsWith('packages/scoring/src/h3/');
       if (!isTestOnly && internalTarget && testFilePattern.test(internalTarget)) {
         violations.push(`${repositoryPath}: runtime code depends on test implementation via ${specifier}; move shared code under src`);
@@ -193,12 +210,12 @@ for (const workspacePackage of packages) {
           violations.push(`${repositoryPath}: frontend feature imports route/composition code via ${specifier}`);
         }
       }
-      if (repositoryPath.startsWith('apps/api/src/application/')) {
+      if (repositoryPath.startsWith('apps/core/api/src/application/')) {
         const forbiddenWorkspaceImport = specifier === '@who-ruined/database' || specifier === '@who-ruined/parser-adapter';
         const forbiddenNodeIo = specifier === 'node:fs' || specifier.startsWith('node:fs/');
         const concreteApiDependency = internalTarget !== null && (
-          internalTarget.startsWith('apps/api/src/infrastructure/')
-          || internalTarget.startsWith('apps/api/src/modules/')
+          internalTarget.startsWith('apps/core/api/src/infrastructure/')
+          || internalTarget.startsWith('apps/core/api/src/modules/')
           || internalTarget.includes('/safe-exception.filter.')
           || internalTarget.includes('/bounded-gzip.')
           || internalTarget.includes('/match-result-storage.')
@@ -210,10 +227,10 @@ for (const workspacePackage of packages) {
           violations.push(`${repositoryPath}: API application code imports concrete infrastructure ${specifier}`);
         }
       }
-      if (repositoryPath.startsWith('apps/api/src/modules/') && repositoryPath.endsWith('.controller.ts')) {
+      if (repositoryPath.startsWith('apps/core/api/src/modules/') && repositoryPath.endsWith('.controller.ts')) {
         const controllerInfrastructureImport = specifier === '@who-ruined/database'
           || specifier === '@who-ruined/parser-adapter'
-          || (internalTarget?.startsWith('apps/api/src/infrastructure/') ?? false);
+          || (internalTarget?.startsWith('apps/core/api/src/infrastructure/') ?? false);
         if (controllerInfrastructureImport) {
           violations.push(`${repositoryPath}: controller imports infrastructure directly via ${specifier}`);
         }
@@ -238,6 +255,15 @@ for (const workspacePackage of packages) {
         }
       }
       const packageSpecifierTarget = workspaceTarget(specifier, packageNames);
+      if (workspacePackage.name === '@who-ruined/profiles'
+        && (packageSpecifierTarget === '@who-ruined/database' || internalTarget?.startsWith('packages/database/'))) {
+        violations.push(`${repositoryPath}: Profiles must only access its own PostgreSQL client and schema`);
+      }
+      if (workspacePackage.name === '@who-ruined/auth'
+        && (packageSpecifierTarget === '@who-ruined/database' || internalTarget?.startsWith('packages/database/')
+          || internalTarget?.startsWith('apps/core/prisma/'))) {
+        violations.push(`${repositoryPath}: Auth must only access its own PostgreSQL client and schema`);
+      }
       const isDeclaredH3Entry = specifier === '@who-ruined/scoring/h3'
         && Object.hasOwn(packageByName.get('@who-ruined/scoring')?.manifest.exports ?? {}, './h3');
       if (packageSpecifierTarget && specifier !== packageSpecifierTarget && !isDeclaredH3Entry) {

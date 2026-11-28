@@ -7,7 +7,7 @@ The replay uses real CS2 radar textures, not a hand-drawn approximation. Images 
 - `scripts/radar-catalog.json` pins the active source commit.
 - `scripts/sync-radar-assets.mjs` downloads the catalogue, radar images and overview files from [CS2 Map Icons](https://github.com/MurkyYT/cs2-map-icons). Images and overview data belong to Valve Corporation.
 - `apps/web/public/maps/<revision>/manifest.json` records each image's source URL, SHA-256, dimensions, byte length, calibration and floor intervals. The directory is immutable: changing bytes under the same revision fails.
-- `apps/api/src/application/replay-map-catalog.generated.ts` is the activated registry. `replay-maps.ts` resolves exact map names and rejects conflicts with a stored calibration. Unknown names are not matched by substring or guessed Workshop basenames.
+- `apps/core/api/src/application/replay-map-catalog.generated.ts` is the activated registry. `replay-maps.ts` resolves exact map names and rejects conflicts with a stored calibration. Unknown names are not matched by substring or guessed Workshop basenames.
 - The initial snapshot has 23 maps and 28 radar images. Maps without a usable image/overview pair and segmented training maps remain unsupported; the manifest lists exclusions. This is not a claim to support every Workshop map.
 
 Valve overview scale is measured against a 1024-unit square even when the exported texture is 2048 pixels. The UI displays the entire image without cropping and projects coordinates with the supplied origin and scale. `rotate` is overview metadata, not a request to rotate this north-up texture. Multi-level maps use half-open altitude ranges `[minZ, maxZ)`; unknown height is never assigned to a floor. Floors are numbered from bottom to top.

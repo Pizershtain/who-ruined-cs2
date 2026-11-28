@@ -3,12 +3,14 @@ import react from '@vitejs/plugin-react';
 
 function apiProxy(): ProxyOptions {
   return {
-    target: process.env.API_URL ?? 'http://127.0.0.1:3000',
+    target: process.env.API_URL ?? 'http://127.0.0.1:5173',
     changeOrigin: true,
     configure(proxy) {
-      // The browser talks to Vite as a same-origin client. Do not forward Vite's
-      // development origin to the API, whose CORS allow-list belongs to direct clients.
-      proxy.on('proxyReq', (request) => request.removeHeader('origin'));
+      proxy.on('proxyReq', (request, incoming) => {
+        // Vite is the browser's origin in development. Preserve any other
+        // Origin for the upstream to validate.
+        if (incoming.headers.origin === `http://${incoming.headers.host}`) request.removeHeader('origin');
+      });
     },
   };
 }

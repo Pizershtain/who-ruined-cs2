@@ -17,7 +17,16 @@ function readSide(value: number | null): 'T' | 'CT' | null {
 
 export function parseDemoEquipmentTicks(path: string, ticks: readonly number[], parser?: DemoParserPort) {
   if (ticks.length === 0) return [];
-  const rows = toRows((parser ?? loadNativeParser()).parseTicks(path, [...TICK_PROPERTIES], [...ticks]));
+  let raw: unknown;
+  try {
+    raw = (parser ?? loadNativeParser()).parseTicks(path, [...TICK_PROPERTIES], [...ticks]);
+  } catch (error) {
+    if (error instanceof Error && /^(?:UnknownPropName\(|EntityNotFound$|IllegalPathOp$)/u.test(error.message)) {
+      throw new Error('EQUIPMENT_SOURCE_UNAVAILABLE', { cause: error });
+    }
+    throw error;
+  }
+  const rows = toRows(raw);
   return rows.map((row, rowIndex) => ({
     rowIndex,
     tick: asInteger(row, ['tick']),

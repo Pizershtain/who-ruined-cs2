@@ -26,6 +26,6 @@ Show a missing axis value as unavailable. Use `rawValue` for numbers and the sto
 
 ## Fixtures for frontend tests
 
-- The HTTP test named **serves bound synthetic H3 rating, explanation, Radar and EVP** builds a complete 10-player synthetic case. It includes all four response shapes, a valid MVP/EVP binding and an unavailable `ROUND_IMPACT`. The historical H2 HTTP tests in the same file cover the six-family DTOs and Radar v1. [HTTP fixture source](../apps/api/test/participation-rating.test.ts).
-- Use the synthetic sequence fixtures for positive clutch, deficit recovery and post-plant contributions. They also cover rejected events and no qualifying awards. [H3 scoring fixtures](../apps/worker/test/h2-e8-policy.test.ts).
+- The HTTP test named **serves bound synthetic H3 rating, explanation, Radar and EVP** builds a complete 10-player synthetic case. It includes all four response shapes, a valid MVP/EVP binding and an unavailable `ROUND_IMPACT`. The historical H2 HTTP tests in the same file cover the six-family DTOs and Radar v1. [HTTP fixture source](../apps/core/api/test/participation-rating.test.ts).
+- Use the synthetic sequence fixtures for positive clutch, deficit recovery and post-plant contributions. They also cover rejected events and no qualifying awards. [H3 scoring fixtures](../apps/core/worker/test/h2-e8-policy.test.ts).
 - Exercise a rated H3 player with unavailable impact, a rated H3 player with available zero or positive impact, a player with `rating: null`, and a historical H2 player. Include Radar cases with a valid MVP highlight and with all MVP highlights absent. Keep these fixtures labelled synthetic.

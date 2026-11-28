@@ -38,11 +38,15 @@ test('fast gate removes PostgreSQL integration opt-in while integration preserve
   const inherited = {
     PATH: process.env.PATH,
     TEST_DATABASE_URL: testUrl,
+    TEST_PROFILES_DATABASE_URL: testUrl,
+    TEST_AUTH_DATABASE_URL: testUrl,
     REQUIRE_POSTGRES_INTEGRATION: '1',
   };
 
   const fast = environmentForGate('fast', inherited);
   assert.equal(fast.TEST_DATABASE_URL, undefined);
+  assert.equal(fast.TEST_PROFILES_DATABASE_URL, undefined);
+  assert.equal(fast.TEST_AUTH_DATABASE_URL, undefined);
   assert.equal(fast.REQUIRE_POSTGRES_INTEGRATION, undefined);
   assert.equal(fast.PATH, inherited.PATH);
 

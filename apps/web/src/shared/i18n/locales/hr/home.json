@@ -24,6 +24,10 @@
   "synthetic": "Primjeri podataka",
   "upload-cancelled": "Učitavanje je zaustavljeno. Poslužitelj je možda već primio snimku.",
   "upload-confirming": "Datoteka je poslana. Čekanje poslužitelja…",
+  "upload-deleting": "Podudarajući demo se briše. Pokušaj ponovno nakon brisanja.",
+  "upload-existing-match": "Otvori postojeći meč",
+  "upload-job-reused": "Ovaj se demo već analizira. Prati se postojeći zadatak.",
+  "upload-report-reused": "Ovaj je demo već analiziran. Otvara se spremljeni izvještaj.",
   "upload-wait": "Ostavite stranicu otvorenu do završetka učitavanja.",
   "uploading": "Učitavanje snimke…",
   "workflow": "Kako radi analiza"

@@ -8,5 +8,8 @@ export * from './participation.js';
 export * from './h3.js';
 export * from './evp.js';
 export * from './player-radar.js';
+export * from './player-profiles.js';
 export * from './scoring.js';
 export * from './jobs.js';
+export * from './uploads.js';
+export * from './auth.js';

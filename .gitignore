@@ -19,6 +19,7 @@ tests/golden/*.dem
 tests/golden/.env.local
 apps/web/.vite/
 packages/database/generated/
+apps/services/auth/generated/
 .pnpm-store/
 
 **/*.dem
@@ -36,3 +37,15 @@ _local-archive/
 
 # Isolated localhost development data and resolved configuration.
 _local-dev/
+Who-Ruined-CS2_H2-E1_Evidence-Baseline.zip
+Who-Ruined-CS2_H2-E2_Canonical-Trade-and-Death-Neutralization.zip
+Who-Ruined-CS2_H2-E3_Utility-Contribution-Research.zip
+Who-Ruined-CS2_H2-E4_Round-Timeline-and-Game-State-Reconstruction.zip
+Who-Ruined-CS2_H2-E5_Round-Impact-Clutch-Survival-Research.zip
+Who-Ruined-CS2_H2-E6_Economy-Equipment-Research.zip
+Who-Ruined-CS2_H2-E7_Joint-Evaluation-and-Calibration.zip
+Who-Ruined-CS2_H2-E8_Finalization-and-Repository-Closure.zip
+Who-Ruined-CS2_H2-E8_Full-Scoring-Coverage-and-H3.zip
+Who-Ruined-CS2_TypeScript-6.0-Migration.zip
+scripts/dev-up-lan.ps1
+scripts/dev-down-lan.ps1

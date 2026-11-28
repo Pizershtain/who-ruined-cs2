@@ -22,6 +22,8 @@ npm.cmd run quality:fast
 
 It performs fresh architecture (including guardrail negative tests), workspace and tooling lint, source and test typecheck, workspace/frontend tests, build, i18n and contrast checks. A non-zero nested command is propagated. Use `npm.cmd run typecheck:tests` after building the affected workspace dependencies to check only the standalone test projects.
 
+`npm.cmd run test:gateway` exercises the same Nginx image and routes in Docker with synthetic HTTP upstreams. It does not use either application database.
+
 PostgreSQL integration is intentionally separate and fail-closed. Create a disposable local PostgreSQL 17 database whose name contains a standalone `test` segment, then set its URL explicitly:
 
 ~~~powershell
@@ -29,7 +31,7 @@ $env:TEST_DATABASE_URL = 'postgresql://wrc_test:password@127.0.0.1:54329/wrc_tes
 npm.cmd run quality:integration
 ~~~
 
-The gate rejects remote or production-like targets, applies and checks Prisma migrations, and requires all PostgreSQL database/API/worker tests to execute. An absent database is `BLOCKED`, never a successful integration run.
+The gate rejects remote or production-like targets, applies and checks Core Prisma migrations, and runs the PostgreSQL database, Core API, worker, Profiles and Auth tests. Profiles and Auth apply their migrations in separate temporary schemas. Set `TEST_PROFILES_DATABASE_URL` or `TEST_AUTH_DATABASE_URL` to use separately provisioned disposable local test databases. An absent required database is `BLOCKED`, never a successful integration run.
 
 External native-parser verification has two distinct entry points:
 
@@ -38,13 +40,13 @@ External native-parser verification has two distinct entry points:
 npm.cmd run quality:golden
 
 # End-to-end smoke of one separately approved real demo against a running dev stack.
-npm.cmd run quality:real-demo -- --demo='F:\approved\match.dem'
+npm.cmd run quality:real-demo -- --api=http://127.0.0.1:5173/api/v1 --demo='F:\approved\match.dem'
 
 # After restarting API/worker, re-read the already persisted result.
-npm.cmd run quality:real-demo -- --match='<match-id>'
+npm.cmd run quality:real-demo -- --api=http://127.0.0.1:5173/api/v1 --match='<match-id>'
 ~~~
 
-The smoke covers upload, PARSE, normalized match, H2 rating/explanation, important moments, replay, RESCORE and repeated reads. It does not turn an arbitrary demo into a golden fixture. `npm.cmd run test:golden` remains useful for an explicitly partial diagnostic run because it reports missing configured fixtures as SKIP.
+The smoke covers upload, PARSE, normalized match, active rating/explanation, important moments, replay, RESCORE and repeated reads. It does not turn an arbitrary demo into a golden fixture. `npm.cmd run test:golden` remains useful for an explicitly partial diagnostic run because it reports missing configured fixtures as SKIP.
 
 ## Install
 
@@ -56,7 +58,7 @@ npm.cmd run setup:windows
 
 The script runs Corepack with the pinned pnpm version, installs with `--frozen-lockfile` and creates only a repository-local launcher under `node_modules\.bin`. It does not modify the system PATH.
 
-Regenerate the Prisma client after a schema/client checkout change:
+Regenerate the Core Prisma client after changes to `apps/core/prisma/schema.prisma`:
 
 ~~~powershell
 npm.cmd run db:generate
@@ -80,11 +82,13 @@ The script:
 - renders and verifies the effective Compose mounts;
 - verifies that published ports are loopback-only;
 - starts PostgreSQL 17 on `127.0.0.1:54329` with a named persistent volume and waits for its healthcheck;
-- enables the experimental participation endpoints; H2 is the only policy;
+- enables the experimental participation endpoints for the active H3 policy;
 - runs Prisma migrations inside the API container;
-- starts API, worker and web.
+- starts the Core API, worker, static Web, Gateway, Profiles and Auth with their databases.
 
-Open `http://127.0.0.1:5173`. API and Swagger are at `http://127.0.0.1:3000/api/v1` and `http://127.0.0.1:3000/api/docs`.
+Open `http://127.0.0.1:5173`. Gateway serves both Web and `/api/v1` on that origin. Direct Core diagnostics and Swagger are on loopback port 3000. Use `-WithoutAuth`, `-WithoutProfiles` or both to skip these services. Use `-CoreOnly` to start only PostgreSQL, API and worker. [Local Docker runbook](local-dev.md#start).
+
+Auth uses a separate PostgreSQL cluster and is reachable through Gateway. See [Auth service](auth-service.md) for creating or recovering a local account and [frontend handoff](auth-frontend-handoff.md) for browser integration.
 
 Choose non-default ports and a distinct Compose project without editing files:
 
@@ -149,7 +153,7 @@ $env:API_URL = 'http://127.0.0.1:3010'
 npm.cmd --prefix apps/web run dev -- --port 5184
 ~~~
 
-Open `http://127.0.0.1:5184`. The normal native default is 5174; using an explicit alternate port prevents a collision with another worktree. Vite proxies `/api` to `API_URL`.
+Open `http://127.0.0.1:5184`. The default native Vite port is 5174. Vite uses the Docker Gateway at `http://127.0.0.1:5173` when `API_URL` is unset. The explicit override above is for an independent native Core run.
 
 Set `RETAIN_SOURCE_DEMO=0` to test normal post-publication cleanup. Keeping it at 1 is safer while diagnosing a disposable local run.
 
@@ -166,7 +170,8 @@ A copied `.env` is input to Docker Compose; native Node processes do not load it
 | `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_PORT` | Compose | PostgreSQL container identity/secret and loopback host port; `dev-up.ps1` supplies the secret |
 | `API_BIND_HOST`, `API_PORT` | API | bind address/port; `127.0.0.1:3000` default |
 | `API_CORS_ORIGINS` | API | comma-separated exact HTTP origins |
-| `API_URL` | Vite | development proxy target; `http://127.0.0.1:3000` default |
+| `API_URL` | Vite | development proxy target, defaults to the Gateway at `http://127.0.0.1:5173` |
+| `WEB_PORT` | Compose | Gateway loopback host port, defaults to 5173 |
 | `ENABLE_EXPERIMENTAL_PARTICIPATION_RATING` | API | Enabled by default. Use `0` to disable rating and explanation routes |
 | `RETAIN_SOURCE_DEMO` | worker | `0` default; delete only after verified result binding |
 | `MAX_UPLOAD_BYTES`, `MIN_UPLOAD_FREE_BYTES` | API | streamed upload ceiling and disk reserve |

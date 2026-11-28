@@ -4,6 +4,7 @@ import {
   h3RadarReportSchema,
   playerRadarWithConfirmedEvidenceSchema,
   radarNormalizationVersion,
+  radarMaximums,
   type CanonicalMatchResult,
   type HistoricalMatchResult,
   type H3ExplanationFamily,
@@ -37,14 +38,14 @@ const CLUTCH_WEIGHTS: Readonly<Record<string, number>> = Object.freeze({
 });
 
 const AXIS_DEFINITIONS: readonly AxisDefinition[] = Object.freeze([
-  { axisId: 'MULTIKILL', primaryMetricId: 'MULTIKILL_ROUNDS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: 4 }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['CONFIRMED_2_TO_5_KILL_ROUNDS_ONLY'] },
-  { axisId: 'ASSISTS', primaryMetricId: 'NON_FLASH_ASSISTS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: 6 }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['FLASH_ASSISTS_EXCLUDED'] },
-  { axisId: 'FLASH', primaryMetricId: 'ENEMY_BLIND_SECONDS_PER_VERIFIED_ROUND', unit: 'SECONDS_PER_VERIFIED_ROUND', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: 4 }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['ENEMY_BLINDS_ONLY'] },
-  { axisId: 'TRADES', primaryMetricId: 'TRADE_KILLS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: 3 }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['CONFIRMED_TRADE_RULE_ONLY'] },
-  { axisId: 'CLUTCH', primaryMetricId: 'CLUTCH_WINS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: 1 }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['CONFIRMED_WON_1VX_ONLY'] },
-  { axisId: 'ENTRY', primaryMetricId: 'OPENING_KILLS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: 3 }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['OPENING_DEATHS_ARE_SECONDARY_CONTEXT'] },
-  { axisId: 'UTILITY', primaryMetricId: 'ENEMY_HE_INFERNO_DAMAGE_PER_VERIFIED_ROUND', unit: 'DAMAGE_PER_VERIFIED_ROUND', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: 20 }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['HE_AND_INFERNO_ENEMY_DAMAGE_ONLY'] },
-  { axisId: 'OBJECTIVES', primaryMetricId: 'CONFIRMED_BOMB_ACTIONS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: 4 }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['BOMB_SCENARIO_ONLY', 'PLANTS_AND_DEFUSES_ARE_ACTION_COUNTS'] },
+  { axisId: 'MULTIKILL', primaryMetricId: 'MULTIKILL_ROUNDS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: radarMaximums.MULTIKILL }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['CONFIRMED_2_TO_5_KILL_ROUNDS_ONLY'] },
+  { axisId: 'ASSISTS', primaryMetricId: 'NON_FLASH_ASSISTS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: radarMaximums.ASSISTS }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['FLASH_ASSISTS_EXCLUDED'] },
+  { axisId: 'FLASH', primaryMetricId: 'ENEMY_BLIND_SECONDS_PER_VERIFIED_ROUND', unit: 'SECONDS_PER_VERIFIED_ROUND', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: radarMaximums.FLASH }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['ENEMY_BLINDS_ONLY'] },
+  { axisId: 'TRADES', primaryMetricId: 'TRADE_KILLS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: radarMaximums.TRADES }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['CONFIRMED_TRADE_RULE_ONLY'] },
+  { axisId: 'CLUTCH', primaryMetricId: 'CLUTCH_WINS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: radarMaximums.CLUTCH }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['CONFIRMED_WON_1VX_ONLY'] },
+  { axisId: 'ENTRY', primaryMetricId: 'OPENING_KILLS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: radarMaximums.ENTRY }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['OPENING_DEATHS_ARE_SECONDARY_CONTEXT'] },
+  { axisId: 'UTILITY', primaryMetricId: 'ENEMY_HE_INFERNO_DAMAGE_PER_VERIFIED_ROUND', unit: 'DAMAGE_PER_VERIFIED_ROUND', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: radarMaximums.UTILITY }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['HE_AND_INFERNO_ENEMY_DAMAGE_ONLY'] },
+  { axisId: 'OBJECTIVES', primaryMetricId: 'CONFIRMED_BOMB_ACTIONS_PER_10_VERIFIED_ROUNDS', unit: 'COUNT_PER_10_VERIFIED_ROUNDS', direction: 'HIGHER_IS_BETTER', normalization: { kind: 'LINEAR_FIXED_CAP', minimum: 0, maximum: radarMaximums.OBJECTIVES }, comparisonPoolRule: 'AVAILABLE_PLAYERS_WITH_SAME_METRIC_AND_DENOMINATOR', limitationCodes: ['BOMB_SCENARIO_ONLY', 'PLANTS_AND_DEFUSES_ARE_ACTION_COUNTS'] },
 ]);
 
 const RELATED_H2_FAMILIES: Readonly<Record<PlayerRadarAxisId, PlayerRadarAxis['relatedH2Families']>> = {
@@ -293,6 +294,36 @@ function healthDamage(event: MatchEvent, previousHealth: number | null): HealthD
     return { actual: null, nextHealth: null };
   }
   return { actual, nextHealth: after.value };
+}
+
+/** Factual damage for read projections. Counts are separate from the frozen M2/H3 inputs. */
+export function measureEnemyDamage(match: CanonicalMatchResult['artifact']['match'], playerId: string, roundIds: ReadonlySet<string>) {
+  const teamByPlayer = new Map(match.players.map(player => [player.id, player.teamId]));
+  const rounds = new Map<string, { damage: number; he: number; fire: number; hits: number; heHits: number; fireHits: number; complete: boolean; heComplete: boolean; fireComplete: boolean }>();
+  const hpByTarget = new Map<string, number | null>();
+  const hurts = match.events.filter(event => roundIds.has(event.roundId) && isLive(event) && event.kind === 'PLAYER_HURT').sort(eventOrder);
+  for (const event of hurts) {
+    const round = rounds.get(event.roundId) ?? { damage: 0, he: 0, fire: 0, hits: 0, heHits: 0, fireHits: 0, complete: true, heComplete: true, fireComplete: true };
+    rounds.set(event.roundId, round);
+    const relation = teamRelation(teamByPlayer, event);
+    const weapon = event.attrs.weapon;
+    const hpKey = JSON.stringify([event.roundId, event.targetId]);
+    const damage = healthDamage(event, hpByTarget.has(hpKey) ? hpByTarget.get(hpKey)! : 100);
+    if (event.targetId) hpByTarget.set(hpKey, damage.nextHealth);
+    if ((event.actorId !== playerId && event.actorId !== null) || relation === 'SELF' || relation === 'FRIENDLY') continue;
+    if (relation !== 'ENEMY' || damage.actual === null) {
+      round.complete = false;
+      if (typeof weapon !== 'string' || weapon === 'hegrenade') round.heComplete = false;
+      if (typeof weapon !== 'string' || weapon === 'inferno') round.fireComplete = false;
+      continue;
+    }
+    round.damage += damage.actual;
+    round.hits += 1;
+    if (weapon === 'hegrenade') { round.he += damage.actual; round.heHits += 1; }
+    if (weapon === 'inferno') { round.fire += damage.actual; round.fireHits += 1; }
+    if (typeof weapon !== 'string') { round.heComplete = false; round.fireComplete = false; }
+  }
+  return [...rounds.values()];
 }
 
 type UtilityDamage = { he: number; inferno: number; events: MatchEvent[]; complete: boolean };

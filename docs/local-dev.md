@@ -21,26 +21,38 @@ The script combines `docker-compose.yml` and `docker-compose.local-dev.yml` unde
 
 - API and worker mount exactly `<worktree>\_local-dev\data` at `/data`;
 - that path is not the owner `data` directory;
-- API, web and PostgreSQL published ports are loopback-only and distinct;
+- Gateway and diagnostic published ports are loopback-only and distinct. The Web container has no published port;
 - a password-redacted effective configuration is saved at `_local-dev\compose.resolved.yml`.
 
 The script creates an ignored random PostgreSQL password, starts PostgreSQL 17 with a named persistent volume, waits for its healthcheck, enables participation rating, runs `prisma migrate deploy` in the API container and gives the worker separate resource limits.
 
+The default starts Web, Gateway, the Core API and worker, Profiles, Auth and their databases. Use `http://127.0.0.1:<WebPort>` for local Auth and see the [operator workflow](auth-service.md#operator-workflow) for account provisioning.
+
+| Launch flags | Services started |
+| --- | --- |
+| None | Full stack |
+| `-WithoutAuth` | Web, Gateway, Core and Profiles |
+| `-WithoutProfiles` | Web, Gateway, Core and Auth |
+| `-WithoutAuth -WithoutProfiles` | Web, Gateway and Core |
+| `-CoreOnly` | Core API, worker and PostgreSQL |
+
+The existing explicit `-Profiles` and `-Auth` flags still select the named optional services. To change a running stack to a reduced configuration, run [the stop command](#stop) first, then start with the desired flags.
+
 ## URLs
 
-- Web: `http://127.0.0.1:5173`
-- API: `http://127.0.0.1:<ApiPort>/api/v1`
-- Health: `http://127.0.0.1:<ApiPort>/api/v1/health`
-- Swagger: `http://127.0.0.1:<ApiPort>/api/docs`
+- Web and public API: `http://127.0.0.1:<WebPort>` (5173 by default). Requests to `/api/v1` go through Gateway.
+- Gateway liveness: `http://127.0.0.1:<WebPort>/healthz`
+- Core diagnostic health: `http://127.0.0.1:<ApiPort>/api/v1/health`
+- Core diagnostic Swagger: `http://127.0.0.1:<ApiPort>/api/docs`
+- Profiles diagnostic readiness: `http://127.0.0.1:<ProfilesPort>/api/v1/ready` (when Profiles is running)
 - PostgreSQL for explicitly configured native clients: `127.0.0.1:<PostgresPort>`
-
-The container web build proxies `/api` to the Compose API service.
 
 ## Inspect
 
 ~~~powershell
-docker compose -p wrc-local-dev -f .\docker-compose.yml -f .\docker-compose.local-dev.yml ps
-docker compose -p wrc-local-dev -f .\docker-compose.yml -f .\docker-compose.local-dev.yml logs postgres api worker web
+docker ps --filter label=com.docker.compose.project=wrc-local-dev
+docker logs wrc-local-dev-gateway-1 --tail 30
+docker logs wrc-local-dev-api-1 --tail 30
 ~~~
 
 Use job/public error codes and request IDs rather than private container paths when reporting a problem.
@@ -53,15 +65,17 @@ powershell -ExecutionPolicy Bypass -File .\scripts\dev-down.ps1
 
 This stops containers and preserves `_local-dev\data`, the generated local secret and the named PostgreSQL volume. It does not remove volumes, images or owner data.
 
+When Auth is enabled, its separate PostgreSQL volume and signing key are also preserved. Loopback Auth stays unavailable when the site is accessed by a LAN-IP HTTP URL.
+
 ## Optional home-LAN access
 
-The normal command remains loopback-only. To start the same isolated stack and expose only its web port to devices on the current private subnet, run PowerShell as administrator:
+The normal command binds to loopback. To expose the same stack's Gateway port to devices on the current private subnet, run PowerShell as administrator:
 
 ~~~powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\dev-up-lan.ps1
 ~~~
 
-The script keeps Docker web bound to `127.0.0.1`, creates a Windows `portproxy` for the detected private IPv4 address and adds a firewall rule limited to `LocalSubnet`. API requests continue through the existing web proxy; API and PostgreSQL ports are not exposed separately.
+The script keeps Gateway bound to `127.0.0.1`, adds Windows `portproxy` for the private IPv4 address and limits the firewall rule to `LocalSubnet`. Core, Profiles diagnostics and PostgreSQL remain on loopback. Use `-Profiles` to include Profiles in the startup.
 
 To remove the LAN rule and stop the stack:
 

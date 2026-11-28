@@ -1,6 +1,6 @@
 # Current architecture map
 
-**Status:** canonical architecture reference after refactoring stages P0-P5. For design rationale and remaining P6 work, see [the roadmap](architecture/refactoring-roadmap.md). `SPEC.md` is normative for domain semantics.
+**Status:** current domain and backend map. See the [Gateway guide](api-gateway-and-service-layout.md) for the deployable layout. `SPEC.md` is normative for domain semantics.
 
 ## Boundary rules
 
@@ -17,7 +17,7 @@ The repository enforces package/app direction through `npm.cmd run architecture:
 
 ## Applications
 
-### `apps/api`
+### `apps/core/api`
 
 The Nest application keeps transport controllers separated by capability while
 sharing one match provider scope:
@@ -39,7 +39,7 @@ input and delegate. They do not parse demos or calculate ratings. Root
 `health.controller.ts` and `matches.controller.ts` are source-compatibility barrels
 used by existing tests; new code imports capability controllers directly.
 
-### `apps/worker`
+### `apps/core/worker`
 
 The worker owns background state transitions and artifact production:
 
@@ -60,6 +60,10 @@ parsing; controllers and application use cases do not see native rows.
 ### `apps/web`
 
 The React application uses an app shell plus capability modules. See [frontend architecture](frontend.md).
+
+### Gateway and Profiles
+
+`apps/gateway` routes allowed public HTTP calls to Core and optional Profiles and serves Web through the same browser origin. Core owns its migrations in `apps/core/prisma`. `apps/services/profiles` builds its own read model from Core's private versioned feed, using a separate database, role and migrations. See [Profiles](player-profiles.md).
 
 ## Shared packages
 
@@ -86,9 +90,9 @@ POST .dem
   -> parser-adapter decodes rows into NormalizationInput
   -> match-domain normalizes roster teams, rounds and events
   -> features computes factual analytics with availability
-  -> scoring builds legacy reports + active H2 result
+  -> scoring builds legacy reports + active H3 result
   -> replay builder publishes index + round artifacts when evidence is available
-  -> artifact store publishes match-result@1 immutably
+  -> artifact store publishes match-result@2 immutably
   -> database transaction binds result path/SHA and terminal job state
   -> source demo is removed only after binding is verified and policy permits
 ~~~
@@ -106,15 +110,15 @@ HTTP route
   -> public error mapper
 ~~~
 
-The active rating and explanation use the rating already stored inside `match-result@1`. The API never reads `.dem` for GET requests and never exposes the internal recompute seed or policy digest.
+Rating and explanation use the stored canonical rating: H3 in `match-result@2`, historical H2 in `match-result@1`. GETs do not reopen demos or expose private recompute data.
 
 Replay reads validate the replay index first, then the requested round and its binding. A missing/corrupt replay has typed errors and does not invalidate the canonical match result.
 
 ## Rescore and rating rebuild flows
 
-`POST /api/v1/matches/:id/rescore` creates a `RESCORE` job for a requested compatible scoring report. The worker reads the normalized artifact embedded in `match-result@1`, recomputes that report, publishes a new immutable result and swaps the database pointer. It does not need the original `.dem`.
+`POST /api/v1/matches/:id/rescore` creates a `RESCORE` job for compatible stored input. The worker reads the stored normalized match, recomputes the compatible report, publishes a new immutable result and swaps the database pointer. The original `.dem` is unnecessary.
 
-The owner-only `rating:rebuild` command reconstructs H2 from the private recompute seed, calls the same active rating builder used by new parses, then conditionally replaces the canonical result. It is the explicit transition path for historical H1 results. Legacy artifacts without sufficient stored input fail instead of inventing evidence.
+The owner-only `rating:rebuild` command rebuilds under the active H3 policy when the saved evidence is sufficient. It conditionally replaces the canonical result and keeps the previous pointer if reconstruction cannot be verified.
 
 ## Dependency direction
 
@@ -131,6 +135,6 @@ More precisely, domain packages may depend on contracts and lower-level pure pac
 
 ## Runtime topology
 
-The supported local topology is one API process, one or more lease-coordinated worker processes, one Vite/static web process, one PostgreSQL 17 database and one shared artifact data root. API and worker use independent Prisma connections to the same database. Defaults bind HTTP and PostgreSQL host ports to loopback.
+Core runs the API and one or more lease-coordinated workers against its PostgreSQL 17 database and one shared artifact root. Profiles uses its own database and login. Gateway and Web have no database dependency. Compose publishes Gateway as the user origin and loopback-only diagnostic ports separately.
 
 This is a trusted-owner architecture. Authentication, tenant isolation, cross-process admission control and public object storage are not implemented; see [limitations](limitations.md).

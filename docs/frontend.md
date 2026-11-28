@@ -15,6 +15,8 @@ src/
   app/                 providers, router, shell and route error boundary
   pages/               thin route composition
   features/
+    auth/
+    player-profile/
     upload-demo/
     match-report/
     player-report/
@@ -48,6 +50,9 @@ Thin pages compose capabilities:
 | `/jobs/:jobId` | queued/processing/completed job |
 | `/matches/:matchId` | match report, rating and replay |
 | `/matches/:matchId/players/:playerId` | player report and explanation |
+| `/players/:steamId` | persistent player profile and paginated match history |
+| `/profile` | signed-in player's selected profile, upload and About me |
+| `/login` | local password sign-in |
 | `/about` | product/method overview |
 | `/preview/:scenario?` | development or demo-build synthetic states only |
 
@@ -70,7 +75,7 @@ Vite proxies same-origin `/api` requests to `API_URL` and removes the developmen
 
 The match and player pages accept the stored H2 and H3 rating and explanation contracts. H2 reports contain six families. H3 adds round impact with independent coverage. The player page displays the supplied reconstruction, observed and withheld rounds, and links to the recorded rounds and events. A missing contribution displays as unavailable, and a measured zero displays as zero.
 
-The match report lists persisted EVP awards. The player radar displays eight stored axes, their raw values, comparison pools and evidence. Geometry comes from the radar DTO. Award highlights use the supplied attributions. See [H3 response formats](h3-frontend-handoff.md).
+The match report lists persisted EVP awards. The player radar displays seven of the eight supplied axes, with raw values, comparison pools and evidence. Geometry comes from the radar DTO. Award highlights use the supplied attributions. See [H3 response formats](h3-frontend-handoff.md).
 
 `important-moments` renders the backend's deterministic multikill/trade selection. Internal event codes, anchor IDs and diagnostic field names are not user-facing labels.
 
@@ -97,6 +102,18 @@ The browser does not reopen the demo or synthesize unseen player positions.
 Upload percentage comes only from XHR transfer events. Once the file is accepted, the UI shows named job stages rather than invented processing percentages or completion times.
 
 Cancellation stops the local transfer; it does not claim to cancel an already accepted server job. A refresh restores state from `GET /jobs/:id`.
+
+`RESULT_READY` opens the saved report directly and shows a reuse notice. `ANALYSIS_IN_PROGRESS` opens the existing job. New and legacy responses poll the returned job normally. An explicit recovery conflict may link to the identified match for the operator.
+
+## Account and persistent player profiles
+
+Use the Docker Gateway at `http://127.0.0.1:5173` for same-origin Auth, Profiles and Core. The access JWT lives in memory. The browser sends the HttpOnly refresh cookie. Web Locks serialize cookie writes across tabs, and tabs share only non-sensitive coordination state. If a refresh outcome is uncertain, a fresh password login can establish a new session. Browsers without Web Locks use manual password sign-in and skip automatic rotation. [Auth integration](auth-frontend-handoff.md)
+
+Persistent profiles use the validated SteamID64 and the supplied aggregate, revision string, freshness state and history cursor. They render H3 families per policy, awards and seven radar axes using the existing normalization caps. A retained summary remains visible during synchronization or a refresh failure. [Profiles integration](profiles-aggregation-frontend-handoff.md)
+
+Successful sign-in opens `/profile`. The same player page renders public and personal routes. The personal route loads the current account's manual SteamID and in-game nickname from Auth. The user can edit the setting on About me if Profiles is unavailable. The compact uploader in the header uses the workspace upload form and its existing Smart Upload behavior.
+
+The selected tab is reflected by `?tab=stats`, `?tab=matches` or `?tab=about`. Statistics requests three recent matches. Opening All matches starts a separate 20-match cursor query. Opened tabs keep their local state, and history keys include the SteamID64 and page size. Private account-link queries are keyed by user UUID and released when the personal screen unmounts.
 
 ## Errors and retained data
 

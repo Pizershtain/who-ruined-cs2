@@ -24,6 +24,10 @@
   "synthetic": "Näidisandmed",
   "upload-cancelled": "Üleslaadimine peatatud. Server võib olla demo juba kätte saanud.",
   "upload-confirming": "Fail saadetud. Serveri vastuse ootamine…",
+  "upload-deleting": "Sama demo kustutatakse. Proovi uuesti pärast kustutamise lõppu.",
+  "upload-existing-match": "Ava olemasolev mäng",
+  "upload-job-reused": "Seda demo juba analüüsitakse. Jälgime käimasolevat ülesannet.",
+  "upload-report-reused": "Seda demo on juba analüüsitud. Avame salvestatud aruande.",
   "upload-wait": "Hoia leht avatuna, kuni üleslaadimine lõpeb.",
   "uploading": "Sinu demo üleslaadimine…",
   "workflow": "Kuidas analüüs toimib"

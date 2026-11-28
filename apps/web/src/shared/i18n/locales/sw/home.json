@@ -24,6 +24,10 @@
   "synthetic": "Data za mfano",
   "upload-cancelled": "Upakiaji umesimamishwa. Huenda seva tayari imepokea demo.",
   "upload-confirming": "Upakiaji umetumwa. Inasubiri seva…",
+  "upload-deleting": "Demo inayolingana inafutwa. Jaribu tena baada ya kufutwa.",
+  "upload-existing-match": "Fungua mechi iliyopo",
+  "upload-job-reused": "Demo hii tayari inachanganuliwa. Tunafuatilia kazi inayoendelea.",
+  "upload-report-reused": "Demo hii ilichanganuliwa awali. Inafungua ripoti iliyohifadhiwa.",
   "upload-wait": "Weka ukurasa huu wazi hadi upakiaji ukamilike.",
   "uploading": "Inapakia demo yako…",
   "workflow": "Uchambuzi unavyofanya kazi"

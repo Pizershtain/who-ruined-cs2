@@ -1,8 +1,7 @@
-import { jobDtoSchema, jobStatusSchema, qualitySchema, type JobDto } from '@who-ruined/contracts';
+import { jobDtoSchema, jobStatusSchema, matchUploadResultSchema, qualitySchema, type JobDto, type MatchUploadResult } from '@who-ruined/contracts';
 import { z } from 'zod';
 import { ApiClientError, decodeResponse, request } from '../../shared/api/transport.js';
 
-const uploadResultSchema = z.object({ matchId: z.string().min(1), jobId: z.string().min(1), duplicate: z.boolean() });
 const matchesSchema = z.object({
   items: z.array(z.object({ id: z.string().min(1), map: z.string().nullable(), status: jobStatusSchema, quality: qualitySchema.nullable(), createdAt: z.string().datetime() })),
   nextCursor: z.string().optional(),
@@ -12,7 +11,7 @@ export type MatchList = z.infer<typeof matchesSchema>;
 export interface UploadProgress { loaded: number; total: number | null; sent: boolean }
 
 export function uploadDemo(file: File, signal: AbortSignal, onProgress: (progress: UploadProgress) => void) {
-  return new Promise<z.infer<typeof uploadResultSchema>>((resolve, reject) => {
+  return new Promise<MatchUploadResult>((resolve, reject) => {
     if (signal.aborted) { reject(new DOMException('Aborted', 'AbortError')); return; }
     const xhr = new XMLHttpRequest();
     const abort = () => xhr.abort();
@@ -24,7 +23,7 @@ export function uploadDemo(file: File, signal: AbortSignal, onProgress: (progres
     xhr.upload.onload = () => onProgress({ loaded: file.size, total: file.size, sent: true });
     xhr.onload = () => {
       cleanup();
-      try { resolve(decodeResponse(xhr.response as unknown, xhr.status, uploadResultSchema)); }
+      try { resolve(decodeResponse(xhr.response as unknown, xhr.status, matchUploadResultSchema)); }
       catch (error) { reject(error); }
     };
     xhr.onerror = () => { cleanup(); reject(new ApiClientError('NETWORK_ERROR')); };
