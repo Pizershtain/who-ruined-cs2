@@ -88,7 +88,7 @@ test('Nginx Gateway preserves public HTTP and isolates independent upstreams', a
     compose('up', '-d', 'auth');
     await ready('/api/v1/auth/me');
     const headers = { Origin: origin, Cookie: 'fixture_auth=synthetic', 'X-Real-IP': '192.0.2.42' };
-    for (const route of ['login', 'refresh', 'logout']) {
+    for (const route of ['login', 'register', 'refresh', 'logout']) {
       const result = await send(`/api/v1/auth/${route}?echoHeaders`, { method: 'POST', headers });
       assert.equal(result.status, 200);
       assert.equal(result.json().headers.origin, origin);
@@ -100,6 +100,7 @@ test('Nginx Gateway preserves public HTTP and isolates independent upstreams', a
     assert.equal(core.json().headers.cookie, null);
     for (const path of ['health', 'ready', 'register', 'dev-user', 'login']) assertError(await send('/api/v1/auth/' + path), 404, 'NOT_FOUND');
     assertError(await send('/api/v1/auth/refresh', { method: 'POST', headers: { 'Content-Length': 4097 } }), 413, 'SIZE_LIMIT');
+    assertError(await send('/api/v1/auth/register', { method: 'POST', headers: { 'Content-Length': 4097 } }), 413, 'SIZE_LIMIT');
     for (const method of ['GET', 'PUT', 'DELETE']) {
       const link = await send('/api/v1/auth/player-link?echoHeaders', { method, headers: { Origin: origin } });
       assert.equal(link.status, 200);

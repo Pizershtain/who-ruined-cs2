@@ -1,4 +1,4 @@
-import type { AuthTokensDto, AuthUserDto } from '@who-ruined/contracts';
+import type { AuthRegistrationInput, AuthTokensDto, AuthUserDto } from '@who-ruined/contracts';
 import { ApiClientError } from '../../shared/api/transport.js';
 import { authApi } from './api.js';
 import { browserCoordination, type SessionEvent } from './coordination.js';
@@ -7,7 +7,7 @@ type State = 'GUEST' | 'CHECKING' | 'AUTHENTICATED' | 'UNAVAILABLE';
 type Snapshot = { state: State; user: AuthUserDto | null; error: unknown; busy: boolean; logoutUnconfirmed: boolean };
 
 function rejectedBeforeRotation(error: unknown) {
-  return error instanceof ApiClientError && [400, 401, 403, 404, 413, 414, 429].includes(error.status);
+  return error instanceof ApiClientError && [400, 401, 403, 404, 409, 413, 414, 429].includes(error.status);
 }
 
 export function waitUntil(error: unknown, now: number): number {
@@ -138,7 +138,15 @@ export class AuthSession {
     return this.withAccess(token => this.api.me(token));
   }
 
-  async login(username: string, password: string): Promise<boolean> {
+  login(username: string, password: string): Promise<boolean> {
+    return this.start(() => this.api.login(username, password));
+  }
+
+  register(input: AuthRegistrationInput): Promise<boolean> {
+    return this.start(() => this.api.register(input));
+  }
+
+  private async start(issue: () => Promise<AuthTokensDto>): Promise<boolean> {
     if (!this.enabled || this.snapshot.busy || Date.now() < this.retryAt) return false;
     this.generation++;
     this.clear();
@@ -148,7 +156,7 @@ export class AuthSession {
         const guard = this.coordination.guard();
         this.coordination.setGuard('uncertain');
         let issued: AuthTokensDto;
-        try { issued = await this.api.login(username, password); }
+        try { issued = await issue(); }
         catch (error) {
           if (rejectedBeforeRotation(error)) this.coordination.setGuard(guard);
           throw error;

@@ -2013,6 +2013,11 @@
         "targetHash": "8fc9ab2eeb38ad7a5ee16c668e0b80d52041249411f886b28981e93ff32d52b9",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "85afe4db43ed6d0fae5372b210c0c2675b6855657e73a9d2cc34066994ad3085",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "5690c2e63b9da5a0850da4489903418a68f997e56b1aa6458902a437caa5ace7",
@@ -2036,6 +2041,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "47042cefb9d5bcaad6613f551f634206e14104d12fc9c4ca4641b1fe088891a3",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "6629491d4d2233255ad34ea1e40ef6896f388ce3fb94cfc56c08ee5fde6dbc5c",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "dfac285107edf30f1194fae9964b9b511c970de08933bcb1a288bc6f49f2c4d1",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "0ef3e01b4aacad7006dcc9fe9b214df3ac36acaeb4e5ed5edd6a8369c8de1c3f",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "3e24f7fef76efc26a23bcabaa5aa658fd9506b8fee88a2c416813358d274825e",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "f55a73296c8153daebbdc39d1afa061c355f753704b3e43fb6a06858f8039fc2",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "5c87518b10e6abf28ad8f6dec0a41cd9390a5b4f3a27d710269aceb06a576053",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "b56a5d29a24349b5b5f4e448c3d54fed724a5fa5b15fa74e0f8077d5e0d4361c",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -2066,6 +2106,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "5be12bfe49ea673f88eeb9e05adf6a347f7af04165deb33c158ac7ca070f68a1",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "41859888161442dc799999848ed7acc75f465bbb1b8611911d1ea5f618266dda",
         "stale": false
       },
       "close-dialog": {
@@ -4444,6 +4489,11 @@
         "targetHash": "f584775e1c28b95be9ea84158c6bf98a74731a8ce2bdd52f2a10aa3f7374a00c",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "c82322e38a23d666e786451a45691e56c494168baf1bab49bdbcdd6f1f166f82",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "a374e0798f945b9079ac26dc6c6e5b83cda2cf0ef1c6ecd31d5bb34d355e875d",
@@ -4467,6 +4517,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "3f41bb7bdc10b11fcc39ad1553b66f1c4a68751187db46065cab884ea08fcbde",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "f94413c5045f40cb25cbad2a4ea915a846e03e90fd46b8324330494e3442250f",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "26c4ad87338332ec49e8cc05057c0fb33f24e13c64bad7be5cd3220f9e3e42c0",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "9759708d56f3de09c348752ea2cb709aa1275e4be58b8891c9da473135eb5004",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "8fa3c0dede32ede0e4036b87e0d518724af294e0b1652ad2880a74f205f9d737",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "b0a36a4c32aa6c77b968521d18108a7e115ccf3145d4a9001146e43920213f7a",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "664e3e9a33bdc821389017728f24249379e9598dfb3c94b71f598c5f93453bfc",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "5df557d72cbbbbbe3adee3e3a3233c0ad85c9a691141dacc99538b66318e7f91",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -4497,6 +4582,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "bb90ae2449961328f499fd1832fe8e71713830ba5ed6e6b953fd489003257796",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "b4dfb9aa4b065ddf5d99ec009c819e087d59826d07c9957f3c577aa305de90b4",
         "stale": false
       },
       "close-dialog": {
@@ -6860,6 +6950,11 @@
         "targetHash": "0ac3d2cb30052ced36bebf53425a8008771d10c4da8fb6107c05bbd1ddab5cbf",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "8421595f28d000358b1deda3e92b29088713c27c53e23616243f1ea3ec12d817",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "b18aeed1a806af345dc778153697c0242a31308bf0986865154915cd62815b08",
@@ -6883,6 +6978,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "eb895f74c8b0e73905cfc79e98b7398bbde8384058a3f37799a0178064cc83bc",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "a628af9809b4b8c255d369107a382705ffce990a7a2e5e3107eec33161570ed1",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "bacaadb6651838316b9b6d51065f52ea35fa270e9b49b62c3c40a3aaf3263aab",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "25fcffa02b3f0fd160f5064239f4493f2f1c1d7c1c24bd424b7360431a896d6b",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "27ef4a495a321a62de632fa1fddd90d5b5abe54fd05c135e2806d7e74b5e42e9",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "77b2c40143ee928c2e986deed6eb57f401f433f809b2e397d19a5a5109fd6446",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "1c3387ac39741696765be543300eaaab569c41f3f45808ae0812fc5727dd2021",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "1776476146060364e5b7d22ada88002331ade963f7eb25423c5e339d7c833ba6",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -6913,6 +7043,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "f9e7d49e47452469603c94c862eb32b6a6b99d6ef2bc81b1e3cfc2b3b0c54ef9",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "e4e3afbac6a24742c353deaa6b4a3c94eb7f5da94bbaaa4df6f929a611574766",
         "stale": false
       },
       "close-dialog": {
@@ -9261,6 +9396,11 @@
         "targetHash": "a329a32263a460ff8d4bdf4640fd793b5dd91c99362e0ab4fb061d56883b098f",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "21b7d7b687f46816e8fc5179680f6f4cfb7431ad403f80c3e567f03cbcdd1ed6",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "545f8be33bf06a1cb6eaa138814f3530c78354caf5f2edcec690c2cf8f9251bc",
@@ -9284,6 +9424,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "99d219a4348e4d918e213d5d08ec6447c65f53fa99ad184b7d0d60f473cc47f6",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "d7e7f57a7cd451f8ef6d4d4bb1da1326c5ca8ce8179315f195b96be3687e64a8",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "45114d044f773626d5cbb341b114260dfb2b1e09c91ccc9b29de6a4599be4fd5",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "ff995692b5b7af880ac0a40993b1f4a2e41f57f95c1795ffd558a2f4099112fa",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "a75d0278c58e79acf51898307e7df5c628a53bc58c624aac555f46bdadeffeca",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "02becb77cd14082fd44e3bb57faabc0c49d1186ae3f23eb6cfb8f03bb2ec56cc",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "7866ad764e299706d8dafb59cee638e31b983fb9510ef8ae0c3e287dd6b18f5f",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "d3cb57714e07024392f08c18ef4979007035922d78a0b6290f5271a25933ffd9",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -9314,6 +9489,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "fc309e30dbbe8a435efbdd0b7e382595932509ed56f140aa1759256b00485a18",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "6b25469d83578c7826b06ece424b78a11a175bffa3f7f3d1c45a274a65418587",
         "stale": false
       },
       "close-dialog": {
@@ -11677,6 +11857,11 @@
         "targetHash": "8d518bb65ea3dedb5250e357ef5d2ea42c178c140f655b95f7b610835f72f3d0",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "326defb1dab0f2f50e07074c413b7b08a59b8762ef27de47e50c0c1911800973",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "c6e6960395f49b48a0ddbfa72f24ebc612bb356d498f18ffa708832d7af1d798",
@@ -11700,6 +11885,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "f2c121752a33922d6853e832a231ad5865582f84599b20be0a9e008e21c48af8",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "f620f0331df880f122e7dd939a98ce6dcd00ff2c70099d7b80b0161f4bf8083b",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "e7d728c4c7c3579edc28056939181803618be9d5880bfcc0cb674cc49c4d1304",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "5664601b6864410e2f4bf2bef8a1cd27454ad16f34e0e057289777ebb5604120",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "e9ea642e16439b0002f2b59cf0b5eda1dbebf5ed65ad11aaddb310ab42a29501",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "d89deaaf52f34205540dedcd4ba67e495d1fde3ae41195f50789832bf9bfe71b",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "5f7049134e22bf43d272fa49944ff91e44915b81cbaa355127050b2257ed4921",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "c58dd5527602c4d496d119d96e797e44ed3a39611f3cb30cabc0a61f166402ba",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -11730,6 +11950,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "63614ffde2d350df40e2c69689693d0612835b1370e0e2037d4d198939bb5184",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "756e91604ec6099a1270fa3eac4936a52d941f95c41a152b462183c57bc475e4",
         "stale": false
       },
       "close-dialog": {
@@ -14093,6 +14318,11 @@
         "targetHash": "095f43426e52cc662c13ddcfb8299245e9bc6799c59d930fee28d3e6441c267f",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "903798073589d598c7b2d677c8464977a55026a28bfbf5644d79493ebb2b04e8",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "1e4e5e9c798736500b704c1b05fc8b1a0469b8c3fbcfec0100c9df97e52d4328",
@@ -14116,6 +14346,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "2a9a3c0975a30923e3f13d8ba55d87deacf9697c5ec4c18db9bf2a180be15d94",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "8cb3525e3b7e28c9ac58fb7b467acba78a1d61d1e65533cabc3f24940069c866",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "662a75380d2a672011460e0515001ba7aa0ccdef2005ae337af0a7ed11b89cc7",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "38bfe50a3b74d4303e9308fd219a3482f8cab1cb6b93774b4e9e0d630dcf2bbf",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "e9ea642e16439b0002f2b59cf0b5eda1dbebf5ed65ad11aaddb310ab42a29501",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "97d17f3864945ac87fef16355f97fd0b71591bdb6165cb7f612743dbac6dc378",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "65d00495eb7297a7a6111a1fabac7a70e5c4dc021fb36665c4fcb17c8f40d4a0",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "e49aee7ca206a4c7f65df1f73febb65d2ef6fb3354c9c76d5a77d826716ec6e5",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -14146,6 +14411,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "2376ea2496ab54dd88108a506ab25546076cfcef91d575b52e2065cc4d06bcce",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "319a97dd07f0d304d5d633cfc5a809ff055c299ba84a828d8c22610188951895",
         "stale": false
       },
       "close-dialog": {
@@ -16494,6 +16764,11 @@
         "targetHash": "b872b116e8f60434a4e2b2a619f67db07ce85b4526e04cbbd6603908f7b98171",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "1222515722fe90c11b3defda467e5584cfc43368843e5d171b50da5bc371c0c7",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "ea5b69c1ad7479bbb4ad00685c45dc1d91ca6791cded2e9ccd71787fec8f7ed8",
@@ -16517,6 +16792,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "3edb12a4186cbb9b657b4e44b237f010ad35bdc6f7ff15f00386793a2efea4e9",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "bc5c818f2f4600b73813e9c45bffec95775a724796c82c46dee3b36184186de1",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "b4f25e3fec2babe6bf0cd4621a3245d713803538bef6531c436c40c1ba3e46d2",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "2179f6fa00d1b6783bdab63979a1305320dae4ba687bbd2f8b6d1b1b941c996c",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "bacabe87f6efa92ebfad4fac9bec5c17e62b0efb577baa09f9f00729cee90a7d",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "cd5aa9e9eeb6ae8e4dbe3d3a05ff03ead1eb1f19d08af982507f360582d5237b",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "a5508dd93b6c2cf5c3c59a0213107aa86788d549ad76978344421fec337b7d0e",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "3224b5b5d2aea7eb5fcaf9ff4d8774006f603bac82c70f8d3bae0b3951a92d9c",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -16547,6 +16857,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "50ba9df0032c148b287e97930d8745c6a985d67853fc79d1d125af06820255d0",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "3fba2b7ecd517df058a587f09ec527ba871f9c191d5b093c224d0ac1f5c5d260",
         "stale": false
       },
       "close-dialog": {
@@ -18895,6 +19210,11 @@
         "targetHash": "2e157a51ec7cdefe1e8eb177c24b8a0ba4fb02ad3977da6d0c191d7925a9653e",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "f23e91a3f50af3f3c4a207afd71300fe067afa76ce369ca16e38439767fb51bf",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "778a7ba29fac66411ca13893801c538c490c3d3fa5a5590f6691e5ffbd46f180",
@@ -18918,6 +19238,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "5d9e5df8cee462840e433cd0c19f0b4841032a893f06cdfbe0958887ad63b579",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "54e62f4ca44e87318c692f21fe3c1738ac185b425363f1e332ac5b42da62e0e7",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "3b374c0754b7f2b6630f1976ac363a68542c12a2909e8300c9f8c467659347c7",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "4bd0750368cbaaa69a1f593e287615581bdcf5487c9d3bbc8593befa3ec68030",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "595c3fc894e61f1cd3ab654452ab5150a08e97d491a6c3f8f9d368196f1e9baf",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "46ec77c9c5cb09a5cee07f58e52aa27b6d5e00db5c9c2038bd8938fa327c8abe",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "153bafa3e8d1488e36d998ea1d8e51ed40d7acf83e5a3fd9424d0610e429d243",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "5dbf6e9b6d7db0d5a950be623f612db07b702b3790eea4f9834acddd09609383",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -18948,6 +19303,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "d87f3b4eee872bfbaf4557fa101184bf08386ead6463f97e84697267a3730538",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "523f445d8c802d635d62cc134d1531d1bae07f3c24b845617d7beafd6ce08cfa",
         "stale": false
       },
       "close-dialog": {
@@ -21296,6 +21656,11 @@
         "targetHash": "a07a860dcea0e0a21ab4f85f601324c1df969266e3a54bad70e9af88e94cadcf",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "63525f7473d6f85ad8d05ba4afaeace4fd9c2f3f5ae5af7c1c39be0bca27bff6",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "c56c62793aac9bf87443678014b84c9dacf25dc9caa80f0a16da5802fd0dbdcc",
@@ -21319,6 +21684,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "81f92ad63a8a468a719ee2ac71e24244c2b942f183e648a731fb668df5407f47",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "faba0a8fcf19259afeafde168f3a27e0d3b72d55b9b7f7eceeaa346487a01986",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "e3b9b53e71f5b5072f8ab8d97908f061e26bc45851fe954479b0a0ad90f9f658",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "5c46cc2e96bad6d6fca8ef28c96f52040bf515184ad9d842d4778ddc4af6c2e0",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "5b4a32df1bea857a8bb07838ee1476a5dfde4a6ccfe074ce2e35f969310d25c2",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "eb980c2c66f1f8c3a3f3b99d36a6df788a21eaacf9a35c5b9935c29008cacd0d",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "37c4ad1fa070c4440e44fa4815442fb152a2bf7917b02681b7a086908fcdc8ae",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "7e49bd5bc5ffd3e7e4080d7be5a2afacf3ba2d6029bd513e1745dd8d949256eb",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -21349,6 +21749,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "6a61c3a549ac9467b41fffd2ccb5a83aa4259d9e08b3ac6eed690a15620195dc",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "f5ca016536ea95d401853ae283d59fa7435f44e8f35fd75f468f9908f4a0eb29",
         "stale": false
       },
       "close-dialog": {
@@ -23697,6 +24102,11 @@
         "targetHash": "6fc55260b72db85c37e5c55f5a40113a6e16500a15c7444689d37638072d0cab",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "45839c269597c86b6ce10126026def14e93d9cd32dccd83b93154937b951ad88",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "fdc99663db288972f459f22b10e514f295752f255115db27398f55dd22e353cc",
@@ -23720,6 +24130,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "a3be5c90ce35b1203bc5ef18c48e4eb80d76cf90cab1783b5d674d2227f1ea18",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "61c21aada0eca5d8f9d5e7bfcbbbd85ea18e499295193c2c01ad056297d976fb",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "fc3f14bde47b6d1e212d6a92640cf20b6d0ee316175c3ac3f789f3984e8beff9",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "35029cc022b1466c02c16ff89198f3ab4b813ef8d8ab38e557a6f28b4bb1a62e",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "96725976afcf69b3cb56a6401a7889d28d30fdf5f580db9e5fc02feb12f90c16",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "53d4d540cc723ba290d52c37504051a40a63e9e832b7197f823c66666f224d73",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "d91a2f865e201b1d126929dcd3ccb50156fc36b21fe4e725b63dfa0520f34623",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "3433b361bc3bb600a9a4aa4fe174120c18fd0e54d8fb0137eb5dc3ac8287a9b5",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -23750,6 +24195,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "47d9f1d3a24d8e6763fee56e6575ac8059f28055db08717bf39b307826a1cac7",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "d9c138e12aaa628fca40aa12b928e26bb59002d3fe1430b62d08bd6755fadcf1",
         "stale": false
       },
       "close-dialog": {
@@ -26083,6 +26533,11 @@
         "targetHash": "1e2df9c3075ae9e48a96d1013063f777b1728a4c5d08c6d667421587b464e3de",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "a8f53c73e29434351180cba6829cb30ca0ecf62e2311be0367758983d02c7a19",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "3ab8cc15939f3b5c56d8e0a811acebba7200fdc7a1b8a4450eed2954f6e91255",
@@ -26106,6 +26561,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "4cc53cafce9b1902ea417661a245336b22c669b7dca4b5bf8253a78f7e43ef82",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "f48d12cf530a7ffa69d99818186305667f55e7dc1d0d464c047c2013e44ca599",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "e769d8fb79f8e363887602a76cb66be16025708e09a137871acdc490cc78900d",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "a3b81734b2ce552049e23b25b65d420de061787a29c909f2921d1940915e02a1",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "c229e03982d4d67b3af39a41a4eac9c0f25f2ffbecac13529141ad0aa25cb24a",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "beb0d99fcee8b8a98541d9eaaeae6e171b1d42d58e7daf203376836c8451fa36",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "3886120346cc43ef0f6c75a2cf26b3f075f757e29ae8b18aec47bf9d5b5a06f6",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "079c17659329fb1e753f3202ecc8c6a5e3136fc6fe22889c538027814ee85e95",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -26136,6 +26626,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "1a3f0617d6de8e52b118615b380a998dcf5b35642b485c26a44d2fc3e87a50ba",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "befe6e191d578c0e9c7d05b46bf958996733ba55893217aec363cb747e96f810",
         "stale": false
       },
       "close-dialog": {
@@ -28469,6 +28964,11 @@
         "targetHash": "21c1d78f850fc4e90a60488e0fc8e32498383425a026ad678fa6cf7668670810",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "595472faa53af0519bc3c8cabbd7e12984f0ace42d6d034e83547e37fab96ea2",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "0d8b0e1435e4aa4001be5dc9f8e097778f6b5008940fd27ab801da38f44655e6",
@@ -28492,6 +28992,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "cd5fd2316c5805c1c1e1d8d4e86c85b416dba20b7abc715890f41bd4b4f772b9",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "25f7cc1b246820bc7f1d007895985e56b830dc3aec369963771acc029a5dbfff",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "c86adfc290c7d02bcb0c444c0bb73f7e201cfdae3e066fce2b7b9e2e47ea1177",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "3e4671b2ac42f8e9df4e6025dcce8010541edef589988afb80195b7377931aa1",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "786569af51231d9a8b75811d774a3a2944b4f25921b1d109a6501f34aa79bf0e",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "0eb908502a54f0895fdf0306b0817a18b0ff861616990467a294b43d10886a2b",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "4b90f5653c3c9ed8ffe8523c59c30f0a0705ce60a952adf567220ae8fc503874",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "fff77a0da127ccc5d4a7192362c3ab687d62b2a1ec403e064adba9bdbb3e1b92",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -28522,6 +29057,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "6fe038568057107925412cecad86e7a10ec4a649e1b28da641be62a9ee8e4c9b",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "313f6f80ac717075fe284a395f5ff17b7d20da33221b020d84ea1a9edabec116",
         "stale": false
       },
       "close-dialog": {
@@ -30870,6 +31410,11 @@
         "targetHash": "80342ff67646f85de483f720b8a406fbd4774cc9b2ecc46719af687599216d92",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "89ae301a940f74d3e04ff3537e625589808c70d837c25c09b5b33c9f9d601428",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "ec602d5330c3bbbed4ebfa6a330e940165bfd6687470e62d40cf919874cb5d3e",
@@ -30893,6 +31438,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "713cf74dc49d02d48aa082b831070b662028e79a7bcd969d2965353e525ff1ca",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "0bae7ee1c49e679c051c28d546c7a4ebbae3c93a30993141fa31d653def336b0",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "f95805b5a31aecb0616a3e1e09a7ac713c4d5a650e7cd1b0ad001a47ad08dd22",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "f5a7b4ffef11d841ad2633c1d6e7fbcf5cdc1cf1e93e1158b4526d0f1351eb40",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "4cce9628fc5a11aa7f27857b8c88b599ca8119ca76b0cf47eaee6f4d637102cf",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "1c8971f743aea95660187dfcf8d77120d4b926fcca32c652562194f3b42d84e9",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "315e434ccd4777b4f6869065a9fa008263540e410e311cab251214a398b59d29",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "631ad93e6fde07f403a781bd55d0048830bf35972a47c01e81eb459b8ded6dc1",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -30923,6 +31503,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "8d13d57770d4930eb9baf25d5954b2073a0466010a9bc84b5614a7801de47403",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "3a8ba2b2df62bec34a2daa2c40cc04ca38f1a806b03db8d91518e6054ee0b5b7",
         "stale": false
       },
       "close-dialog": {
@@ -33271,6 +33856,11 @@
         "targetHash": "16d9fb05e03557179264dad403c14c41c98dd2d331125d131c264e010b0897df",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "41371a6ea4ab5765ba3a993dc4ced14af7e637b5a4dab4010211317e2d0d56ff",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "141c785c348a1f6a31b96588cf9dd9f67caaa1146bb919af5253e17120bf9011",
@@ -33294,6 +33884,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "80c95e29d48ed3deaaa06155f365a248daba8e2befb41f70ac46c4fbc42b9349",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "0b495f6d41a4abe051999447c33ac7b0e7a142f2d47d71d0e5d6d21b50e17744",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "c05f248847ce09077a055a13a0897eadaf22620b3483ca01028da51f6fc91ef0",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "f0f2fb2c7a04ec604c0e2c3cba78f2228c6966d873ff972bf6e5811ec45637da",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "b2b8646331c06811cbb0b6785073aaacd63c0b03636df0194e54a5c8a672c7fa",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "d66ab42e8ddeb06bd2ac11ff52a364163ad13fd0a5534c690c9de3841f760d22",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "c502bf6ead7cc614baafb77c188570da2e880f43b603c41e042923c7cb9f0a89",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "0e2ffe38f308bfb77045b45aaeb3af4dc79be2f494f7e64075cac4f9e4f57c84",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -33324,6 +33949,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "f1258228eeb5ac25edb00cc8f2f6a3e7add3958ffcce7ef5c7cd1face751da6b",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "cf6ecba3f383abb2e533fb09e3f8210e9f2f6026981876b6ddf2a96501b212d0",
         "stale": false
       },
       "close-dialog": {
@@ -35687,6 +36317,11 @@
         "targetHash": "94834c0eaeee4aaaa86d26385f7b9765d62c1778344ebaf602a8d24c1c71290f",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "f6e6a6acd6c6b05a88a54002cb532a78c55a4ccaf0de44cb25ec97e7e7412468",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "da3fc3c543362c72b9e3cb0b7309e4e3a2420aed470fcb07024d8fc3fa1dc14f",
@@ -35710,6 +36345,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "6e2bf5b55452130dcc7f04d6f1e03d875f3a103e72629c2dcd592bcf939cb8e9",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "216147cfd0d20f2c1f86787a2878a50628d24198661a1cdd99935f26023aac10",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "abe80f8d2510741091e7457c3c1cc65c151c9a16c1ee8b883b0562fad9fe1175",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "b95f66bcbc527bf22e10e5ad4c8879717a4a26668d1622e4ad67df83db90e469",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "4ec5ee77ed0d6b537c906f9908487b34e59f1ff5323134c1e1e532b3859d76c9",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "fc14bcbe88923d4810c3955b7c787a4362a10dde677d5751b485652b939203fc",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "58f8e9227cbfacbe4e62e30fcaae0af416662ae607a98d4dc8dd6c3e5cd2ae09",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "16d4852df63d153f813773dcddff4628b7dd54939e74a278f4c845ee953cf1b5",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -35740,6 +36410,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "84c731a8980f557ef2f8a4c94c3c3e43e4e5243352320cde8dec98fc4b4b3115",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "bbbe2a76126acf08e9ef0f64ac9e2994881a9e77669441555809ccca4d6326a9",
         "stale": false
       },
       "close-dialog": {
@@ -38088,6 +38763,11 @@
         "targetHash": "1338de4e9c32ed95d4302cdcd26e72e48669363a741159ff4ef2ec9e6e6f4cb5",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "14b6419f9532f4cbb7868d4fd7d048c89a75365bec699c5a833b44f7815fb9f0",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "86de70dcc08f705768c3288e533d9aace99aff2de5f02c5c63b94969837aa193",
@@ -38111,6 +38791,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "10f005201fb0bc9fdd96fcacf402bd54510a645522c254d8bac57ea5b24c244e",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "766afa097dfe87d8fbcc946790f2bb9827ace4b8a320d43c05b276524caa67da",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "769c561d4acf0e96d8249673a805a392fb570ac169bb4cba38ab37e5a53a9b30",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "fb18e9aed427b0f6fb2e161e62317e83615e5f192007b4c90e994d072aed389b",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "cb9b0b9bdfb6ee61313c7321bc3d63bd73e1f93909cdb82980fb807fdbc4870b",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "c4120bf7a6ab3d05cd327bb93f7684ca1fcd24b30721cbf74449623f390e1db7",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "0cbb0480817702084cbb29f6d326362ebbf58d8f853113d410de542441a0c43d",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "ce66430ea0b3383d61e5befa6fb65dff036cb75f28bd5b98d90a323ad977d5aa",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -38141,6 +38856,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "521939cc706c71e7304b6466408acc9d9a7314f113288b1e9cdac2f263c3ad43",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "88076d6ae8002919edbec50e152db7628266f013b1bf46945a10e393a5702a9d",
         "stale": false
       },
       "close-dialog": {
@@ -40519,6 +41239,11 @@
         "targetHash": "97e9e9bb2dab0052ba7023c03c6cdbb4c6ff4dec66d0ba15bd06253a084306bd",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "1593c5177fdc60d8abcc4e2ee58d24362b952b054dd9579866d07db2b9518944",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "b7946a4a26bcfb8b81b31f733f69c50d65054f2ff85063e96ff2d1b7ec0b7485",
@@ -40542,6 +41267,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "fb9fefed0c9778d47b6a4bf0496924ee94a960ab151ad6e42f6110077966a111",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "978ccf026f373f135b7eacf3ed81ac2bc4fdf175164d7981c6f66085244cc6ed",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "a83d9d7344112015c6534f5e719cfefc41e25e4779e3a53267c5b1fdf0448bfe",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "abbec7e0893b1458e475cc54f245a97616c5fd812ad5a146d7b26d4ca2f045fc",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "ab95f90f60fd3968d64d6837d3324462b9cdc38978425878a672a734a9dc99e7",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "7d031b32e1bc7ee244b57c56803b6c41dd29e04853b9fc19cea8309a3a5dcdc1",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "20283529ef5cf2b7d6aa7b4ba885369592a0b835769d14eda5a139016dc53d21",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "8798ae7f8eb2ef22058f52794397d2eda90966725cff1720d950c42cf05157c2",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -40572,6 +41332,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "057acab32c84a24e60787fb1c88de5d290bce09467dddd6cf86e9e9da3c2a832",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "3f70902c340482bec1a2493d0a559ac1741704c85fe01aa5056a75bd95b1c0af",
         "stale": false
       },
       "close-dialog": {
@@ -42950,6 +43715,11 @@
         "targetHash": "56c34a8b71f9f19112e6c60ff4f1962a6fe9cd871c03630b95cb233912a9f7dc",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "17e243216315b1f282e2f9143587cae0675cdcfdeefda8a2b35123627be3f0d6",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "2b9286cd17a0a796444c59a1f76db994c565a155aa937d314df2ff46b1c2b00c",
@@ -42973,6 +43743,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "d687b641c9cefac149affe973b5cf7e0f92e9cc7b1206e697e7045f39e86eb0e",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "f464e10cb867106eb7a123eb698b5cb04eab722621905b39f2d11c1f80b02aae",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "bd354bfa5544a608c0a7d060ed23d4d8cfdebe44de6022a945d2095a1535b574",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "872a8d83269c2a58f5edfad0d28fb14d74d2ad4deab2d0783525ab44e17913ca",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "169db3a74558f5c30ba3059d0ae6f5d4368c49a3a745ce174c9ceb9247896c3d",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "0c71097faad21e5069ceb110e77897ac09e36ce763bde71b5d850d695b27fb19",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "f5483b30c2dc849bd826df7db4cb44af219cfd5e619e670f795964088487a861",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "4803dda2fb1af11f7fb2723b076dc6b4c5b44c58a5589800b239d857da4d93bf",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -43003,6 +43808,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "34a1fe2154500669cc6836cf3e10c8c97504d3db9fe63b9677cad6393f339bb2",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "235fdc15b114dd2c746e8f62d2748e7ef05cbe84849e207793742a845c352717",
         "stale": false
       },
       "close-dialog": {
@@ -45381,6 +46191,11 @@
         "targetHash": "7bcd197ef8f7ac29d990a42da82c2830252f2ca2824ad671005b48aec13cf8a3",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "8b6db732d9d81359fdbeb891ee2624c7bc4abbda0cb036ccf2fb1a9a35134dbf",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "a0b33286dccb3bf5fbc57c2f72549961320514d3e7ec6fef1d4b87b0975982ef",
@@ -45404,6 +46219,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "f325c426d0ac3710a98c0ee173f8d1643fdae58c2ab9708062ea4ba7bd8d48c7",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "3ebfb7186ea78c8ab9cd90545a49de1dec0fac5848e96d0193283db4d93463e1",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "a8beee28156203da37ac5de67aa5e4d019e6ad2225473f13518307d7a56a76be",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "c0e0201903eed25c39fc046141fed86af5c120c54c2f8bbe1b6e68eacc9b43bc",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "8828278cf84ad46ee433b5a34a103bd237b6a047d18058496306a24be37964b1",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "70a2d33ec273c5255fd9d2e7c025df87f3ef164a28b71f3c409fc830e7f29c98",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "1ca58d1d7d5d7360779596afdbb1922bf4f747183471c35a05864add46fb0d19",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "14f57a0471054c7401253e7aa67caa3b3eea3a255ba6bdbe4d255171a250ad1d",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -45434,6 +46284,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "5a7e5abd8619909a7712ac2a11465358058388da7191ba7c956f4f898fed991c",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "e92bc60373146fc4b7327150dd26eb12f2f8966a4779c94df990815f2eea03a3",
         "stale": false
       },
       "close-dialog": {
@@ -47782,6 +48637,11 @@
         "targetHash": "71f0f92570b3eb6b7569d16e6f1c1fd316551bd10130f5b357630bcee1bf976e",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "f7af3d5ac30d830308b0e8fadac23966d140eccb69d07284a056d17d20aa9aa8",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "616619f2d77e89bc768e0be4fc3df22e7e05b70070725851259499be1892a0f8",
@@ -47805,6 +48665,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "dc4b2b4c80780182f2a72a228a68191d9a8b5067a987718fd04b43343bd14fab",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "ab1144ef4b1cf6c370cefdcc75766570187dc4652cfb1254b12cc6c81dd8f26a",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "6ff577be1850340b102334a2db57a7b1ad5e4609561a1ea1cab614145ca6a344",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "7ea3cbd1b5f5a5761627f5ede489982cc7cb684b108323702cf0a28f1b8a6cba",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "840de9e1263ba3c0d6dadba089a99c4d77c3c958d5bff0001455afe2d946faac",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "62e759ff25bfa0731fc0c58894e91f9ec5a9ae7c236af652f3e5289a0834b613",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "3102604b259696af619878e1a27f298a992b7276d0fdf19fd6a3f365b7ed1470",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "5ec15013922cf4c8b4407228f1ba8a20575a65a352d074cf7b9b6deb6208058e",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -47835,6 +48730,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "e2749c658d93ff8128c7ed37cc6d902dd7e49027cdf5910d5adfddfaa3d8c2d5",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "c352c310860db2073c7320359701c141df3d81142f33e1ef0b8bbfd56258786d",
         "stale": false
       },
       "close-dialog": {
@@ -50183,6 +51083,11 @@
         "targetHash": "16f170b06689263dc33a2e60a0dd56d4e3c9d90229d690a27b88ebaa5d13eb6b",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "3c2f64e7cad372edb6ba5ed4d7eadcdb07dacdbf8be5fe5da2d4a211c86f5749",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "22b75b375d49e636aebf46b68b094d07f275adf019fd032d0cca15e049d614e1",
@@ -50206,6 +51111,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "bc773797c715981ce7f159492559a86279d9d7c16ced934c74e10585dd946fc7",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "fa4fd544d84b3f61eecb55cdf85cc2d14af6d9f0a0d9f6459aa5c1c4c83ce4bc",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "9eceab4b4a399e38bf6150b00dd15967f6def0fb7d63c53390e1bd7b1863e7e3",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "21da095fbd4bc5a1da578309e0231e3ec30c41be0e7cc0f7a16c54f39b7c8311",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "7bf2ff0cdfae4e93fc72bd56e0e54f1b3da228725aef81693bbd109a3e54badf",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "105af6f3dde32e3d0fdc5bb650a8e38417a8c6f3cd69a741f70514313277b01d",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "72e7adfe282913c2c345e9dc75f7a0ec323e3246adf51190d9f13289a7216a0a",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "fcd3e5db8dc7773b1e7cdcdd63e60145bfa4eab3fea58377aad9f6c3508bbe59",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -50236,6 +51176,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "5d339fbeb1b647654946b7c837baa18588b9c4cd86f7e42bf4e0b54018411f79",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "0b443f4c75a67c25ffc1454b6a250fecb202aebdd8989ac4e748f289f736319e",
         "stale": false
       },
       "close-dialog": {
@@ -52614,6 +53559,11 @@
         "targetHash": "d98806a3f3d24ff2e9572a86165eba4e7740f4850c8db7e1c74288ef114f0ed0",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "f85f69681dce7b5731a747b75c2028e706568505cf5ff90d31f6cec7753c9bfa",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "0553dadf8c1761cd86047a266358323a9000c08fd825743cbfecb38bb8abfb1f",
@@ -52637,6 +53587,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "4ebe4d3161f6e7e196f91b63fae801e2f55517a77f641a89ad46711ca1b986fc",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "87f9e92d51f0e4704184062a2bbfbe9593a2fb76a1ca82917043946085224806",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "615e97b27ae72f81114e9237c13da7ef868d5ed8d5c8cfc856e7e290eec13d3a",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "617da25a0c43cca7720232aff1ce83b0078b5548cf5aa549fa2c3eafa897920b",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "169db3a74558f5c30ba3059d0ae6f5d4368c49a3a745ce174c9ceb9247896c3d",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "3ec0dbdfe5becfe50e9a3e0c51f2e08512435cb9d7502fada81590fe7c38984b",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "e1d1bda6cb82304fa8c837c9e70d12a6a076ddef10caf69dbdf762aaa3a80464",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "88dbd4bd9fc125f8ae5cb32ab9302b6f1fa09ac682d07799d0ad61ef3ee91ef4",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -52667,6 +53652,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "f1cf747bdaa4a611de789036f2bc8bbe97c709de4192aef456735b6738f2e23f",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "898f0f6a5da614a1d9e659624a446fe8016a5e2e0bb56995c1a049d06e4daf60",
         "stale": false
       },
       "close-dialog": {
@@ -55075,6 +56065,11 @@
         "targetHash": "beb869eecc12ef01a03379ecbcc74d7c7c4a8ae809ba7423ab0172e8246d9d4f",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "8afb19328a37be5d1388c996852c5e0f60e9cfb7ed1b1bb65901b56fd475ab49",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "21f4744276382a6f1e5a245db30209c56be97e448073e503e2620e0a8ab8c613",
@@ -55098,6 +56093,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "468fd956fdb2f42d171e0331125c4108d038739cf0957a9cafe61d0fe5bad16b",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "af21ddc4ae9de640c2ea843de0cdf1ce3813dbd13265f023e3cfb182f88c6903",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "c385e1ac5392a329577b8df525ed91df6f5eddf24ba63cc24cb8bc3653d18ea9",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "331b3ea65bbe57d2b5b4a9e297bdaf76dc1ace60369cae913c762343c7305923",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "15597ed36c424128a5f7649a9689666226c53ce659a42c8833f60ffc7426cc40",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "16bf7be8dc42497b962c694de02c525cd5d3fca212051af0d062effbace43c74",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "fb4146a547fd390d68452f884e437de83f19ed755765358397fa50c98bdcbd5c",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "e066fe1f9bb467deca6f230e66d28b2f241c2f5816b376abaec2017bd5a20ff1",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -55128,6 +56158,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "06668ac85e3db71381835fbdd04f4342430c5009d41da5e8d7f9e055f9b0650e",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "cdb157b668b5cd055704e08d46cdc8060f0951eb697b66716678e3f72ea669f7",
         "stale": false
       },
       "close-dialog": {
@@ -57476,6 +58511,11 @@
         "targetHash": "fe5ccab3be7eb0bcc9f2e3f39580a5b31a21ed5cdc48066316e43520cb06e73d",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "425c4b442f20d4f92ffee55f433db7d8e457729b01346c3e72e15017dfd4e677",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "c3e21d00a9fc3da23580e34243ee27986f39d2fefe3df2648ae1b31346fcf48e",
@@ -57499,6 +58539,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "1cd1a1a0617fdcd8483d052e49fa2f30ce03f6ac89140f38e5d3f8e793806232",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "130cb1660405bce887416d85026889c42c06e150e00b78b8cdfb5aed4769ebfb",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "0496cef6ae6b00c10da3bef2c212b33cd4bed14c48f0af3047a71d42d2a7c2b5",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "df8084a7eeb45e3999f27c7b2a2159580ce8bd1597126169d4ba8e416f486a80",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "c25100a78726224c339aab66598a082e36576a6836b78371887d316f76e44438",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "6375d617c59bdfa1122d8fe36d9a3bf28b552a569046d99eea4c18fa9de9496d",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "08cb3603824e2a43bdf0a5c968ee490339efedce2ff5965d0cdcfeafcee261ba",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "489a5872df30ff2f44c6f3f2971e400aefb2950804831995258f3c81cf8d5299",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -57529,6 +58604,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "ce3bc844c7ea1d9434dfd9a1e45f29589caa607846b8091a51643d0b37935290",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "b459d6291ce9b59c1049b953aeb076c7699ac7d2ac53d0b50eebb7f1ef4ac7de",
         "stale": false
       },
       "close-dialog": {
@@ -59892,6 +60972,11 @@
         "targetHash": "70d3e53005427a47df7c8d3e1cae2a1441217cf02431602cde093db621100cb8",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "39a8cbd919b87da6a9db21ee24753e0fb752aefcafbe2e4cfe59a677d9b381bc",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "58025f3619bfaf7783d8125abacb9fe1571c2b8a0a0f1ca9340f1d9243753d26",
@@ -59915,6 +61000,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "991bc1dc77d6bd425240a224de54532f7613b7f47995ae980edeeb4808b082e2",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "ff4e55a61b75414ba57978e23cdaac7c3c18d158ccdef3535785d0ee719e23f8",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "477d69c6102fa3578811c29791a13707eddb9ff2915648c39381d6c82f209a6d",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "9ec920242026a3417e17a262e05aeb0fb7d8f716fd5f917d0afca36e7b879473",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "7830823e893de3d40525e1e2fb1789e6bbd5e50e970f01b9ea5d485f5a6df6b4",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "a28cafafd3e58a5ffa5351f2fa8185c7251948418d90ae509c20fa53c9420956",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "8d8affc577cd784f5afd98fa78c0a0451e93c33a7b02d5d999681b324b89893a",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "09eefb5497228b55fcb3112ea6a54af710c6d0d2026975c6f3667787743cf0bf",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -59945,6 +61065,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "89335e64deac74dbf501e802f6d0520ec1952a2ecf3a937fbc0a012e61919d5d",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "e422fe9371ed1787042a1264756fc2a7fd0ee288d097dbd841254d5df941e0bd",
         "stale": false
       },
       "close-dialog": {
@@ -62308,6 +63433,11 @@
         "targetHash": "546a4a12a711c03d4382166de1c30396d647042eace1fbbe0e0711fa400dee7a",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "9a5cb5eff2a9ea678050d1a06632392ea55b8ef038a5b484f3f5725d75eed734",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "97be6a48a623c65870087136439ee2af55ba7fd2636c2489f7f15db5db494aa9",
@@ -62331,6 +63461,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "395869d5d95c6ba98cf6fdeb4c38973e167147a86cc9e6cdd63d70822ae1049b",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "352286446be79235b0a137232dec3205edbcaa5cd5b172d332a7e1987215ccd2",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "9b4adece631457e45df8ade49f6d0e425845e9e8910c0af0dfa0a42e00f21abe",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "9f0b15798704b3e02581de476afa466f5fd3d6620fc648e19d8730300cd3422c",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "f35469300706e905ed5a5e8236f8a80847825a022a552c15e8ca40b9e1646151",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "a6e102fbf8d7f1559156c1d5a8dca1b42f01636417fb9ca4bda3c3ac2d7b50c2",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "71b7615fc5453ee733ac1851fffefe8c2ee80ffe843b9323cb8ab406dd8e2a62",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "62bb7825ba1bbaff77ac422a2d6ad74db46af6de9d1286ee8919ee8bc8cb71af",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -62361,6 +63526,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "dd629f072912df8dcee032a1697232bed1af30beedae7130f0d497db006adfe0",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "e8e148125af8b5cfe2ff542251ed8d98f922e130cf0a5612f66d7fdc4acbc959",
         "stale": false
       },
       "close-dialog": {
@@ -64739,6 +65909,11 @@
         "targetHash": "61e00e03a0ce374f952719dfe71a8f649b1ecde97bcfa5121de19d453c2bcf95",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "207023818dcd952a47453cfbe58c9a965a0c70a85364a101294108714ead54e6",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "a277988ca555b052d7aa37815ac922f536f21efb8894d71ad48d88aa5dbf6589",
@@ -64762,6 +65937,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "c6b2913a795d5424476770a9e9617f39773e6c1104cfbcc895d9acfe21e99fbd",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "3ad850333bb8df0bdd9a9c270d940b466e270a568b1a625ac0e9c6b372b7e541",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "bcc3ae151d8092a164432c47258f21249d6b23c98f42ed61f086bf6cf8f1f55f",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "516805d64b5841d383d5443db1f53145bbdbf91c5a6fd4b5426b5588c3ca5e04",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "540b766ed7a2dffe60fe1aa55fac2edd4411f3af456a6a2197b5a7e1b4d6cc40",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "4edbe7d6bf7b74b356e435944bd5b241aa0671ad6318191ba1166f070336fd83",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "1ae135c0d0d232d6367666009366fccdc2d45633c8f5c4b8d74b916d77f84d98",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "b3e5ae35af03e1d006f1fbbcba92ce6663f6d16051ad8acd16ed7b35082c8aed",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -64792,6 +66002,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "e7de9dc62ecb95b770bdca8321cbec0330c6bd6b0f989a4883c7c48349af5913",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "677872823dad693ed29f1389f5c05205006d4c98af5907edc4c2a326ddfb73d4",
         "stale": false
       },
       "close-dialog": {
@@ -67140,6 +68355,11 @@
         "targetHash": "77770991ffc6ebae4cc0af146e3882df52c74d76fa0167a7af46e5a617e2217f",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "561a61236677118d55936ab1af2b01840fd1bf9e532e9e3cf643f4d12a4d42f0",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "260d36a0c75d93ab6eb238979b53d5b399d98b940c9f294252eced607148f610",
@@ -67163,6 +68383,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "4f4faa35f42576dbde8a0e673f0f5bcbe6ddabf762591266b3048f7a2a0c4051",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "7987b014b84a11b430d8e6086cbf1c618c8254de7f0eeae898c6f1dcd758c4bd",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "152cf9afe1f5b2eadcc6f37d4b84b9e3023ec27fb172c1caf0c1fc82b0572e23",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "2dadf160baa7d684722e7cc0c5a3bbd8f2e9da2eedeba226ae57790d08a28e24",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "4a3cb7d6ac7631045203dbd031c662ca3f1e576a3414bd18e24479143dab8405",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "fbc1a7bbe9d9cb4271c1fdcdb909155d27f8452bfd1c718e63db5ea39cf8a04b",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "4af39b0c26eedc29d7b8849551c7602fef59eba3ff0bef631b7c4436dfd0a307",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "8439b4c2f6954db9ee378925c764cd813360fdf97a1817aaac72a22101e40718",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -67193,6 +68448,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "930e3fe4c87b2fd3880b9c21ef4b819f76796cc0ed8fdbe8f9901f0e86c21f04",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "7a2fd19e6768fd295e55028b4cbe56175dacdbda77033c7a25e4333fcb07a047",
         "stale": false
       },
       "close-dialog": {
@@ -69541,6 +70801,11 @@
         "targetHash": "ec2146035f53fb4401cb522a8f8f7d88d8451f946b0d9601fef5afad4f249009",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "4bccb4ad7f4b0dce939b597571e347a2030b09ba03def7ecb52e9001b2c29f21",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "99a698dc3042b71860a2d1434f42d905d8fefadeb565aab8643a227ffbdf4411",
@@ -69564,6 +70829,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "aa8049a41d1aac49cce00209463c31d465210048b556f897adb9831f948cbc7f",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "74b684168d480d17e9f12a262ccaf40275120669ea28f672bcecd9ccbd2c1925",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "9efaa4a55cbfdabe39adabede885b7a14d7d5c81da13e962054e1e897ff57bb3",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "856a0504d122d442540385b3611c7e18344dca26922360b5f6ca999ccb41dec6",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "8548d52931eee6e0980fd346acadd8242d6a9ed9611b359780e431191971db01",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "3888d507df1ab394130b8fd50cfddb4686a0b0b8925b1a766fe4bfa564762682",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "1eaf2f33882bf80858dceaace612457b1d54ebe0011c5c4590b5c7ff6252bae5",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "da4211c6b49e00b28449ed52529f068aa6c22f6739d4d6ddb91dc2d48c8f3958",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -69594,6 +70894,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "6495aefeff4c9ea501d0383653bbb74c7b78f0d05e1680fd63793c6002266617",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "a55a71437dd3068c2a1f817875ff27eef468c236dc65082adb08a4cc3c9a9a43",
         "stale": false
       },
       "close-dialog": {
@@ -71942,6 +73247,11 @@
         "targetHash": "7ee8bd85146cc29903eaca00fce6048d1a57ca16a14dc8443f09214d62be7586",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "f9132fab6b8d6e81a255e0994a270a9a3d9c87fb2024ed479b9febbbe66e801f",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "934bd87aed70556112405484b39fc225b2f2125e30421a3c7720201c5bb3b217",
@@ -71965,6 +73275,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "1cb676593c58362d2c739e738519462ac7990d3c9f090b7624bf5ed5aca178f5",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "a2e4932bc72d7d4f11789a1649d51a1fcc0f3adae97a6790a087615ec09e982c",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "74992c2dfa5d0c3f9591178c8aa8a3b09da92322d2327ee6c94845103b4b29f4",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "58be6ffc590c653458bcc9b7834d223b391a0a98d9033e0ef650204cc86f3808",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "b08f4f0c22bb30aaea0f6b92301eeef5445d38e86b951274b68bc23c892f528d",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "ba4ce3d3e730d33434bb954f65bf7d6ba329801971c6c7ccb1d908ed5a78d474",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "a5ef62e5a3c56952bf6b969ba0a4b0435e02dfd550353c4853fc0d39a86c4440",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "2dca09bfd3248c0c02934234f67e954c38e5dd4af3c35a0955628f6ebb660411",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -71995,6 +73340,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "e3e39754a5e4f77f1c51d633c57eb1cba2a08c8bba44af5a7e799cfd84dc9cd5",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "4baf639d1339e65aa896205b1f8028a5ba411670d88387b0a40f66acc4f05e84",
         "stale": false
       },
       "close-dialog": {
@@ -74343,6 +75693,11 @@
         "targetHash": "63f5c2c2f95afc7b15623aaba5a8fe3d279c7ab602e878b58a3b4e5e4f614b83",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "d8892853b93d243b5e987601ed7877b7e4f1f4babd5feeb02fa689b76bd54937",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "0b11240b7c981998fe045fd61d4adb25a3adf858aad4c714306f8a6a63a9028f",
@@ -74366,6 +75721,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "e361071e4248216f2c6007910eebc04724c84c0ef33885c189a2876d5a4a1d2c",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "ebfa857d84b0c1fbeae27efcdb09cc2f93f72e7a7ce1d72b17b3be6ed8aa184f",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "247f57d643b0113e8156c64a43a004d5067f5b888bbd8dd2fec8652773341aa1",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "11856359cf38b4ffe0c7f944ff67c1fd878e5113d616598048c79f4221ccd345",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "c3ebc5e3da1ba182bf85fe722328a772ad172ac3f18e23063e835aa8fae17b4f",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "9d9d861eb1e47b4277afd186b054f2fd3ca1f2bcb8261290c47b12ac5be91d52",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "698c185e747c11b1f0218d3dd5f505c6edaf4c1a948ec18a97a76c320fdc68f6",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "294e112e558af0b2ad1b5045745f6965c197baa1dfccd3e319acfd9f2b1205d9",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -74396,6 +75786,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "7ffd578a654caba1c95588b99dcf9577ea493a9e02d659c6e611a9f66d0efdf5",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "23a31c0aa0ad6de6c5625c3f71503b2f9041d8cf7aeec12fe1177c587b5578d6",
         "stale": false
       },
       "close-dialog": {
@@ -76759,6 +78154,11 @@
         "targetHash": "7bcd197ef8f7ac29d990a42da82c2830252f2ca2824ad671005b48aec13cf8a3",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "db16cb36ce716d4ba629d9d99b72d29157e7398d088a64128996a068a43e48aa",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "a0b33286dccb3bf5fbc57c2f72549961320514d3e7ec6fef1d4b87b0975982ef",
@@ -76782,6 +78182,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "9a55317dd20e2299ddb160d29219d29f9ebcae6fb68142c6df59f81091412871",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "d99dc742f35e35ebcf6a1fe56b4a26d15c8d856bac4ab199ea6e84e79d03b9d9",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "8b9282cd99fb3df87db47f82d55686a7fab362039e2a2b8bd39f8d78c43a1dd6",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "51600ddc5644a1adb9117fc8b3bd65271f83d7429b13691b6ceb5f9ab36c417c",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "c762ec30cd12faa1a2ae90fc522df7021d93222c7d1d68ae369f93deacce03ca",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "a15f0330673a6eb670b36ff53f52e58d9c33772a4c4332e9cd25abc18eee0944",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "0c7a2c9343fccfc806d7b42b683c657706735e15f8b30f54aa69d7f0e1165bde",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "2ef6e3ebddc41f1b5a3166bce95b20e22be2691e840e0b37b940d4db0f25d2a0",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -76812,6 +78247,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "b3c88cc20d0a48731cdc2e0529e4f0715ce1badffe509877fa18677a4035efb7",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "5f85cd96b55159d3ec087ea9995cc9ef727400c1cc49661f759823832635fbce",
         "stale": false
       },
       "close-dialog": {
@@ -79160,6 +80600,11 @@
         "targetHash": "91813e1ae18643ab7b234f877ffaf4eb2a639e9c264dc5add94480905398171c",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "5e71411e033e757d9577e2ea3eb3fde6eeffee01616804e41d2f87c20b5b3b03",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "f5692c496b7d628e6c0888530be8015ef41e4f1b8b49e36c162d15c7f121ca05",
@@ -79183,6 +80628,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "b07bde3dc61696442b6112e950841b19b7f651c0e236a69afc2da1414d9ccd19",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "cf0cc8f2b32e797c06046b47429ce403042a0fba34c9e26054064bf0a20a8cde",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "51e31e30357c53c05d981a830937c4837b4b3e6c74f886df75a495f7c3dc174f",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "96ac85c1c6c6bff6a092eecc01053ce4fcc91c4bda54295a596f85c1673c412d",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "6c2a9d51f4aa17530633faadfd33378b419fe5017d271917d9eaf29f7ee86128",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "24416e66855847f4fea2f5a0c1d0db4573ae5c3a55622e9fdb191579095ba525",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "b049387e2ad32e0518915b744add2e2a362ef114d7b9b04f0ddc0aa14ce55421",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "3b655cd5be5be0c9bb36e598fcefb5e6155c9d648bdf056ee7b7b8b92d91a30d",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -79213,6 +80693,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "58e1135da6f9103a60d57224831852d9ecbe334b903eca0852e10f2319ef6654",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "a4a34b24f3c989307019fbe482b1cc0ce73d5ba5b006f38f894b1e439e14c6ae",
         "stale": false
       },
       "close-dialog": {
@@ -81561,6 +83046,11 @@
         "targetHash": "d25d5b098adefb9cda97990e0438d881a59cc409bb47f700fac1dc9f75555b0e",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "39611ef5d9ed573a171ea0bd3dd8a982a70ed6ca7c7e29cbe88c9cac12ceb249",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "d23870b308af9f97988b229ee6e35cd768b2b981da479e97c49ac034956d02c7",
@@ -81584,6 +83074,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "62a4aec72f01a4ee3a393f4ae2f38fc7381362f56bc859a9bec6e3e840dec135",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "ef05a9de51af988cc6e06e241e0a81fd0b905036019a7d328bb02cadc6b2f2c3",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "a7e04c5b5678e74ce8b733b5f8b2e945ff4cfc86e7fb63388f7d1cfe101e9709",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "d47f9bd2ea2871d366cd642ff27c2ebfb936cf5bc98aaaa80b5eee9cd7630d62",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "d27a0045457b1d8b18f40a1136ca17bc2690e13da8e0dc79db36d7211e5fb3dd",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "7ac930ef24d014ec43bd3cfcb322da47502995da7adfaeecce040d58e3fa3d0b",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "0e210ba2f15aa0d59013af02a6bfa5c6273b069a68d66b35676b8fd6d18cf37f",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "589d6e99770e3d9b873d5a32986c11013beb9c87762de4428953d575ea216372",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -81614,6 +83139,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "912512b4b7b0fd92ec29af3f3376837e87644f3b34aff460b22c8495d307ada1",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "f6bdb39ac4e59d37c56c875a4b4fba6583e06d5ae9357f5a13026aba8d23319e",
         "stale": false
       },
       "close-dialog": {
@@ -83962,6 +85492,11 @@
         "targetHash": "57f02d77ea5d9955a0775b427489d56df32777c9f743822a01c79b5968e39a9a",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "22ca487ec59ba7531658d76c6a464da6c7a6bcf38fdbd52730585283484a28c4",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "966f7c827862637318f21061f55a4b584390be1a3f1edfe0e68fb2955d63fa40",
@@ -83985,6 +85520,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "c2013e383fe7c747e5a74bc7b66e3c197471a2e720b4de65723c7114c782754d",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "4c270ec5156808c48d2aca2eb6c5d1dad21d29ae397b04ab9c2927096647f457",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "bfc91d06a6f75110856d3c81fa9f242503d7a65852e21dd6a5f08f0a5f4063e1",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "4079a98cdde7ca0949dd6cb9a5905cbbbc2b0c55ab7a5292d8c4fa643357a22d",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "ea35ba706cc1ffd46db06e5e3915ed9904efb2dcd550e8f9704861abad69f964",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "9b911521b15c90aeff66a2ead1331e87771413e019f5ff84af6a164c00807ffc",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "df4f01ef5f4ea9f063851517d495d4bde98f70c88677a68d2318d5030c24697a",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "7b8ae17e4a34b687bc50b919abea3a3efd92ad328e4ed6f392d656de97a978c9",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -84015,6 +85585,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "e7132e85d4de313c86df24710287f70f3c96d4db8046ed37158394d5b2568754",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "bee8b35695f63dbe679afc1ffd2688f365f44c33b09d555f557dd2fd8e589654",
         "stale": false
       },
       "close-dialog": {
@@ -86363,6 +87938,11 @@
         "targetHash": "fb8fd2dead0724bf5019ec5a2ff6a1b2dcec9de4172b23f73c60a4a0237659e4",
         "stale": false
       },
+      "auth-login-to-register": {
+        "sourceHash": "a093af81988f4cdba838a4c3d9d22910c541bd73ef03b3525b88b186b870289f",
+        "targetHash": "ea66d7dac5eb1c7fa9a2029d0093677ad584e1979bacfd52939c2062329de913",
+        "stale": false
+      },
       "auth-logout": {
         "sourceHash": "48f0d3d397d49f135f116d947a805b49f084f637154a8e9913e7233a11dc16a0",
         "targetHash": "b0daa20325bf0cfd221c84b19e84d82f404533389584addaf112fef28375f761",
@@ -86386,6 +87966,41 @@
       "auth-rate-limited": {
         "sourceHash": "94ee60629c12b12d6d2eefd52390df48a850fdbe39eedd8123445f441a2dcc56",
         "targetHash": "5124607d6647063890e0fa7b505721633455d10f46c7187cbb212ea39bcf6a65",
+        "stale": false
+      },
+      "auth-register": {
+        "sourceHash": "798ca2ce18bf2038bc13aaa33ebfe6db7020df5b4bba40f68e21462a9207db3d",
+        "targetHash": "2f9302c8859829e81516753d6d72e5fe772e95a22a51dd5636e7529651c751d0",
+        "stale": false
+      },
+      "auth-register-invalid-input": {
+        "sourceHash": "806fdf63bec45c3bfb523b4b58090bae5cf4e8cd5bcaceb7ed8fa7fe0e7fae61",
+        "targetHash": "49714c624ad993213ef5802ec8807a3861c6c351180da5bffb47f220053d8409",
+        "stale": false
+      },
+      "auth-register-invalid-steam-id": {
+        "sourceHash": "0814ef4427b0524562f19901cad807417d3447e7ea5ec8e0000c606510769d3c",
+        "targetHash": "c6b1ac5010c55ffe6c11c8f5fcc1ff6fe4516cdf78f815df3f29ceb22aff551d",
+        "stale": false
+      },
+      "auth-register-steam-id": {
+        "sourceHash": "504edad07933f5616b8312f9aeb8b8238b81de08426e11f725aed6ddbdb7f10c",
+        "targetHash": "8d2145c03c85d9c762fe23e178de217f9d42082329232432bd77e2bb27d31325",
+        "stale": false
+      },
+      "auth-register-steam-note": {
+        "sourceHash": "a7a6ff65b1e2ba50386e6eed05e3655c6be3210db9670f8e6315939773d1f497",
+        "targetHash": "c2b51925527621d0bb187221ff95e9a20d6d8d546d5fa37fed7dad075802ff24",
+        "stale": false
+      },
+      "auth-register-to-login": {
+        "sourceHash": "0f5b1d1f5fc821b51776c6e9249cf1e0a8a6efaa9f758d4668cf96b2ef1efc5c",
+        "targetHash": "cb21e5910addcaf7134049e7c68c8f58ca2c39e21af38be0258fce671d49a571",
+        "stale": false
+      },
+      "auth-registering": {
+        "sourceHash": "f2daf61e527b4f1cc077bff842c08d60cb55659f295db8b3827822d10056f80f",
+        "targetHash": "1724a8bb793402ad8f9a4adfb0bb95ffaa9502b07b46802dedb908a7120602f1",
         "stale": false
       },
       "auth-restore-uncertain": {
@@ -86416,6 +88031,11 @@
       "auth-username": {
         "sourceHash": "e3b89e9d33f88e523083d8b4436adcc3726c89e97fd3179a2e102d765d1b16ed",
         "targetHash": "3b73d35b26f87e876b0652596032c8514b11757af790f90d29c626108ad472dd",
+        "stale": false
+      },
+      "auth-username-taken": {
+        "sourceHash": "da2c9d394ae37aee7edf1fd32294aeb88346c31dd1c2a046463eebd843188bf2",
+        "targetHash": "27c71f6a5e4b07970e98249fc9f3730632758b93b4bccc1aff7d86b925fb14b6",
         "stale": false
       },
       "close-dialog": {

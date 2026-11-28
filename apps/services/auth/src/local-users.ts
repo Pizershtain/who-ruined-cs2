@@ -1,5 +1,5 @@
 import { hash } from '@node-rs/argon2';
-import { authUsernameSchema } from '@who-ruined/contracts';
+import { authNewPasswordSchema, authUsernameSchema } from '@who-ruined/contracts';
 import { Prisma, type PrismaClient } from '../generated/client/index.js';
 import type { passwordCost } from './runtime.js';
 
@@ -12,7 +12,7 @@ export function localDisplayName(value: string): string {
 }
 
 function checkPassword(value: string): void {
-  if (Array.from(value).length < 12 || Buffer.byteLength(value) > 1024 || /[\r\n\0]/u.test(value)) {
+  if (!authNewPasswordSchema.safeParse(value).success) {
     throw new Error('A password must have at least 12 characters and at most 1024 UTF-8 bytes');
   }
 }

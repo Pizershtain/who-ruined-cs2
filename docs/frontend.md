@@ -51,6 +51,7 @@ Thin pages compose capabilities:
 | `/matches/:matchId` | match report, rating and replay |
 | `/matches/:matchId/players/:playerId` | player report and explanation |
 | `/players/:steamId` | persistent player profile and paginated match history |
+| `/register` | account creation with an optional manual SteamID64 and immediate sign-in |
 | `/profile` | signed-in player's selected profile, upload and About me |
 | `/login` | local password sign-in |
 | `/about` | product/method overview |

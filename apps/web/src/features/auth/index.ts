@@ -1,2 +1,2 @@
 export { AuthProvider, useAuth } from './AuthProvider.js';
-export { AuthNavigation, LoginPage } from './AuthViews.js';
+export { AuthNavigation, LoginPage, RegisterPage } from './AuthViews.js';

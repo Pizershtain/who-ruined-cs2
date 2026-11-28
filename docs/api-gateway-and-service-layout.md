@@ -40,7 +40,7 @@ Core's API and worker share a database and artifact root. Profiles owns its data
 | GET | `/api/v1/matches/:id/replay`, `/api/v1/matches/:id/replay/rounds/:roundId` | Core replay |
 | POST | `/api/v1/matches/:id/rescore` | Core RESCORE |
 | GET | `/api/v1/players/:steamId/profile`, `/api/v1/players/:steamId/profile/matches` | Profiles read model |
-| POST | `/api/v1/auth/{login,refresh,logout}` | Auth token lifecycle |
+| POST | `/api/v1/auth/{login,register,refresh,logout}` | Account creation and Auth token lifecycle |
 | GET | `/api/v1/auth/me` | Auth account |
 | GET, PUT, DELETE | `/api/v1/auth/player-link` | Auth account's manual SteamID64 setting |
 | GET, HEAD | SPA pages and static assets outside the API namespace | Web |

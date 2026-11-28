@@ -4,7 +4,7 @@ import { demoBuild, previewEnabled } from '../shared/env.js';
 import { Layout } from './Layout.js';
 import { LandingPage } from '../pages/LandingPage.js';
 import { RouteError } from './RouteError.js';
-import { LoginPage } from '../features/auth/index.js';
+import { LoginPage, RegisterPage } from '../features/auth/index.js';
 
 const HomePage = lazy(() => import('../pages/HomePage.js').then(({ HomePage }) => ({ default: HomePage })));
 const JobPage = lazy(() => import('../pages/JobPage.js').then(({ JobPage }) => ({ default: JobPage })));
@@ -26,6 +26,7 @@ export const router = (demoBuild ? createHashRouter : createBrowserRouter)([{
     { path: '/about', element: <AboutPage/> },
     ...(!demoBuild ? [
       { path: '/login', element: <LoginPage/> },
+      { path: '/register', element: <RegisterPage/> },
       { path: '/profile', element: <PersonalProfilePage/> },
       { path: '/players/:steamId', element: <PlayerProfilePage/> },
     ] : []),
