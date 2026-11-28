@@ -5,7 +5,7 @@ import {
 import { randomUUID } from 'node:crypto';
 import { isIP } from 'node:net';
 import type { Request, Response } from 'express';
-import { authLoginSchema, authPlayerLinkInputSchema } from '@who-ruined/contracts';
+import { authLoginSchema, authPlayerLinkInputSchema, authRegistrationSchema } from '@who-ruined/contracts';
 import { PrismaClient } from '../generated/client/index.js';
 import { AuthFault } from './fault.js';
 import { AuthService, type Issued } from './service.js';
@@ -102,6 +102,17 @@ export class AuthController {
       console.info(JSON.stringify({ event: 'auth_login_rejected', requestId: response.getHeader('x-request-id') }));
       throw error;
     }
+  }
+
+  @Post('register')
+  @HttpCode(201)
+  async register(@Req() request: Request, @Body() payload: unknown, @Res({ passthrough: true }) response: Response) {
+    assertBrowserOrigin(request, this.config, true);
+    if (!request.is('application/json')) throw new AuthFault('INVALID_REQUEST');
+    const input = authRegistrationSchema.safeParse(payload);
+    if (!input.success) throw new AuthFault('INVALID_REQUEST');
+    const issued = await this.auth.register(input.data, clientAddress(request, this.config.trustGateway));
+    return this.writeCookie(response, issued);
   }
 
   @Post('refresh')

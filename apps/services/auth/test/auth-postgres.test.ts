@@ -77,6 +77,38 @@ describe.skipIf(!target)('Auth transactions on PostgreSQL', () => {
     await expect(replacement.refresh(issued.refreshToken)).resolves.toHaveProperty('body.user.id', user.id);
   });
 
+  it('registers one independent account and session for concurrent case variants', async () => {
+    const steamId = '76561197960265729';
+    const original = { username: 'Registration-Fixture', password: fixturePassword, steamId };
+    const before = await db.authUser.count();
+    const attempts = await Promise.allSettled([
+      auth.register(original, '192.0.2.15'),
+      other.register({ ...original, username: original.username.toLowerCase() }, '192.0.2.15'),
+    ]);
+    const winner = attempts.find(result => result.status === 'fulfilled');
+    expect(attempts.filter(result => result.status === 'fulfilled')).toHaveLength(1);
+    expect(attempts.find(result => result.status === 'rejected')).toMatchObject({ reason: { code: 'USERNAME_TAKEN', status: 409 } });
+    const issued = winner!.value;
+    const account = issued.body.user;
+    expect(await db.authUser.count()).toBe(before + 1);
+    expect(await db.authSession.count({ where: { userId: account.id } })).toBe(1);
+    expect(await db.authExternalIdentity.count({ where: { userId: account.id } })).toBe(0);
+    await expect(auth.readPlayerLink(issued.body.accessToken)).resolves.toMatchObject({
+      state: 'LINKED', steamId, nickname: account.displayName, source: 'MANUAL', verificationStatus: 'UNVERIFIED',
+    });
+
+    const separate = await auth.register({ username: 'Registration-No-Steam', password: fixturePassword }, '192.0.2.15');
+    expect(separate.body.user.id).not.toBe(account.id);
+    expect(separate.body.user.displayName).toBe('Registration-No-Steam');
+    await expect(auth.readPlayerLink(separate.body.accessToken)).resolves.toMatchObject({ state: 'UNLINKED' });
+    await auth.savePlayerLink(separate.body.accessToken, { steamId, nickname: 'Second account' });
+    await auth.logout(issued.refreshToken);
+    await expect(auth.me(issued.body.accessToken)).rejects.toMatchObject({ code: 'UNAUTHENTICATED' });
+    const reissued = await login('registration-fixture');
+    expect(reissued.body.user.id).toBe(account.id);
+    await expect(auth.readPlayerLink(reissued.body.accessToken)).resolves.toMatchObject({ steamId, nickname: account.displayName });
+  });
+
   it('rejects invalid, unknown and disabled users with the same login error', async () => {
     await create('fixture-disabled');
     const issued = await login('fixture-disabled');

@@ -1,6 +1,6 @@
 import { hash, verify } from '@node-rs/argon2';
-import type { AuthPlayerLink, AuthPlayerLinkInput, AuthTokensDto, AuthUserDto } from '@who-ruined/contracts';
-import type { Prisma, PrismaClient } from '../generated/client/index.js';
+import { authUsernameSchema, type AuthPlayerLink, type AuthPlayerLinkInput, type AuthRegistrationInput, type AuthTokensDto, type AuthUserDto } from '@who-ruined/contracts';
+import { Prisma, type PrismaClient } from '../generated/client/index.js';
 import { AuthFault } from './fault.js';
 import type { AuthConfig } from './runtime.js';
 import { newRefreshToken, secretDigest, signAccess, tokenKeyId, verifyAccess } from './tokens.js';
@@ -20,6 +20,7 @@ function publicUser(user: User): AuthUserDto {
 
 const unlinkedPlayer = { schemaVersion: 'auth-player-link@1', state: 'UNLINKED' } as const;
 const playerLinkFields = { steamId: true, nickname: true, source: true, verificationStatus: true } as const;
+const registrationsPerIpPerMinute = 5;
 
 export type Issued = { body: AuthTokensDto; refreshToken: string; cookieUntil: Date };
 
@@ -70,6 +71,39 @@ export class AuthService {
     }
   }
 
+  async register(input: AuthRegistrationInput, ip: string): Promise<Issued> {
+    const source = await countAttempt(this.db, 'register:ip:' + ip);
+    if (source.attempts > Math.min(registrationsPerIpPerMinute, this.config.perIp)) {
+      throw new AuthFault('RATE_LIMITED', source.retryAfter);
+    }
+    if (this.argonInUse >= this.config.argonSlots) throw new AuthFault('RATE_LIMITED', 1);
+    this.argonInUse++;
+    try {
+      const username = authUsernameSchema.parse(input.username);
+      const passwordHash = await hash(input.password, this.config.passwordCost);
+      const steamId = input.steamId;
+      return await this.db.$transaction(async tx => {
+        const user = await tx.authUser.create({
+          data: {
+            displayName: input.username,
+            password: { create: { username, passwordHash } },
+            ...(steamId ? { playerLink: { create: { steamId, nickname: input.username } } } : {}),
+          },
+          include: userInclude,
+        });
+        return this.startSession(tx, user);
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002'
+        && Array.isArray(error.meta?.target) && error.meta.target.includes('username')) {
+        throw new AuthFault('USERNAME_TAKEN');
+      }
+      throw error;
+    } finally {
+      this.argonInUse--;
+    }
+  }
+
   // A trusted authentication method supplies a verified UUID. The optional
   // password-generation check closes a race with operator password changes.
   private issueTokens(userId: string, passwordHash?: string): Promise<Issued> {
@@ -81,12 +115,16 @@ export class AuthService {
         const current = await tx.authPassword.findUnique({ where: { userId }, select: { passwordHash: true } });
         if (current?.passwordHash !== passwordHash) throw new AuthFault('INVALID_CREDENTIALS');
       }
-      const now = this.now();
-      const session = await tx.authSession.create({ data: {
-        userId, expiresAt: later(now, this.config.refreshSeconds), idleExpiresAt: later(now, this.config.idleSeconds),
-      } });
-      return this.mint(tx, user, session, now);
+      return this.startSession(tx, user);
     });
+  }
+
+  private async startSession(tx: Prisma.TransactionClient, user: User): Promise<Issued> {
+    const now = this.now();
+    const session = await tx.authSession.create({ data: {
+      userId: user.id, expiresAt: later(now, this.config.refreshSeconds), idleExpiresAt: later(now, this.config.idleSeconds),
+    } });
+    return this.mint(tx, user, session, now);
   }
 
   private async mint(tx: Prisma.TransactionClient, user: User, session: Session, now: Date): Promise<Issued> {

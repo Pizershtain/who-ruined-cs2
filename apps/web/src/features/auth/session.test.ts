@@ -35,13 +35,29 @@ function browser(canRefresh = true) {
 }
 
 function api() {
-  return { login: vi.fn(async () => tokens), refresh: vi.fn(async () => tokens), logout: vi.fn(async () => undefined), me: vi.fn(async () => user) };
+  return { login: vi.fn(async () => tokens), register: vi.fn(async () => tokens), refresh: vi.fn(async () => tokens),
+    logout: vi.fn(async () => undefined), me: vi.fn(async () => user) };
 }
 
 beforeEach(() => vi.useFakeTimers());
 afterEach(() => { vi.clearAllTimers(); vi.useRealTimers(); });
 
 describe('Auth session on a shared browser origin', () => {
+  it('uses the same session for registration, preserves the cookie guard on conflict and rejects duplicate submits', async () => {
+    const service = api();
+    const coordination = browser()();
+    const a = new AuthSession(true, service, coordination);
+    const input = { username: 'fixture', password: 'synthetic-password' };
+    service.register.mockRejectedValueOnce(new ApiClientError('USERNAME_TAKEN', 409));
+    await expect(a.register(input)).resolves.toBe(false);
+    expect(coordination.guard()).toBe('ready');
+    expect(a.getSnapshot()).toMatchObject({ state: 'GUEST', error: { code: 'USERNAME_TAKEN' } });
+    await expect(Promise.all([a.register(input), a.register(input)])).resolves.toEqual([true, false]);
+    expect(a.getSnapshot()).toMatchObject({ state: 'AUTHENTICATED', user });
+    expect(service.register).toHaveBeenCalledTimes(2);
+    expect(service.login).not.toHaveBeenCalled();
+  });
+
   it('coalesces parallel readers on expiry and serializes refresh requests across tabs', async () => {
     const makeTab = browser();
     const service = api();

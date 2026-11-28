@@ -30,6 +30,7 @@ The dedicated PostgreSQL container prevents Core's existing PostgreSQL admin rol
 | Method and route | Success | Credentials used |
 | --- | --- | --- |
 | `POST /api/v1/auth/login` | 200, tokens DTO and refresh cookie | JSON username and password |
+| `POST /api/v1/auth/register` | 201, tokens DTO and refresh cookie | Same-origin JSON username and password, with an optional `steamId` |
 | `POST /api/v1/auth/refresh` | 200, new tokens DTO and rotated cookie | Refresh cookie |
 | `POST /api/v1/auth/logout` | 204, cleared cookie | Refresh cookie when present |
 | `GET /api/v1/auth/me` | 200, account DTO | Bearer access JWT and active Auth session |
@@ -37,7 +38,9 @@ The dedicated PostgreSQL container prevents Core's existing PostgreSQL admin rol
 | `PUT /api/v1/auth/player-link` | 200, saved link | Bearer access JWT, active Auth session and same-origin JSON with `steamId` and `nickname` |
 | `DELETE /api/v1/auth/player-link` | 200, `UNLINKED` | Bearer access JWT, active Auth session and same origin |
 
-The Auth schemas live at [packages/contracts/src/auth.ts](../packages/contracts/src/auth.ts). Private `/api/v1/auth/health` and `/api/v1/auth/ready` are available on the service network. Readiness queries the owned schema. Gateway exposes no registration, operator CLI or diagnostic routes. If Auth is stopped, Gateway returns `503 AUTH_UNAVAILABLE` for its routes. Public reads and jobs continue on their existing upstreams.
+The Auth schemas live at [packages/contracts/src/auth.ts](../packages/contracts/src/auth.ts). Private `/api/v1/auth/health` and `/api/v1/auth/ready` are available on the service network. Readiness queries the owned schema. Operator commands and diagnostic routes are private. If Auth is stopped, Gateway returns `503 AUTH_UNAVAILABLE` for its routes. Public reads and jobs continue on their existing upstreams.
+
+Registration uses the same password rules as the operator CLI and creates an active account, its credential, an optional manual player link and the first session in one transaction. The login keeps its entered case for display and is canonicalized for authentication and uniqueness. If that login already exists, the endpoint returns `409 USERNAME_TAKEN`. After a lost response, use the login form with the same credentials. Registration has a separate maximum of five attempts per minute per source IP, capped by the configured login IP limit, and shares the existing per-process Argon2 limit. A linked account uses the login as a fallback nickname until the user changes it in About me.
 
 The player link is an account setting saved in one `AuthPlayerLink` row per user UUID. The response is either `UNLINKED` or `LINKED` with `steamId`, `nickname`, `source: MANUAL` and `verificationStatus: UNVERIFIED`. The SteamID64 uses the Profiles identifier rules and may be selected by more than one account. The authenticated session supplies the only user ID for the operation. Removing the link only removes that account setting. Public player history reads from Profiles and manual links never write to `AuthExternalIdentity` or award ownership.
 

@@ -11,6 +11,8 @@ Use the same browser origin for Web and the Auth API. The default Docker dev sta
 
 Use `credentials: "same-origin"`. A browser supplies the Origin and Fetch Metadata headers for these requests. The client does not read, store or construct the refresh cookie. Store neither passwords nor tokens in web storage, URLs or client logs. Keep guest, checking, signed-in and Auth-unavailable states distinct. Auth errors belong in the login/session UI, so the user can keep using public matches and player profiles.
 
+Registration sends `POST /api/v1/auth/register` with `username`, `password` and an optional `steamId`. On 201, consume the same token DTO and refresh cookie as login and open `/profile`. After a lost response, the user can try signing in with the chosen credentials.
+
 ## Errors
 
 Error responses use `{ error: { code, message }, requestId }`. Branch on the machine code and localize the visible text. Gateway may also reject oversized or malformed requests before Auth handles them.
@@ -21,6 +23,7 @@ Error responses use `{ error: { code, message }, requestId }`. Branch on the mac
 | 401 | `INVALID_CREDENTIALS`, `UNAUTHENTICATED`, `SESSION_EXPIRED` | Show the shared credential error or enter the signed-out state for a failed session check |
 | 403 | `AUTH_ORIGIN_NOT_ALLOWED` | Verify the browser is on the configured origin |
 | 404 / 408 / 413 / 414 | `NOT_FOUND`, `REQUEST_TIMEOUT`, `SIZE_LIMIT`, `REQUEST_URI_TOO_LONG` | Handle transport/request failure |
+| 409 | `USERNAME_TAKEN` | Show that the login is already taken |
 | 429 | `RATE_LIMITED` | Respect `Retry-After` |
 | 503 | `AUTH_UNAVAILABLE` | Show a retryable Auth-only failure |
 
