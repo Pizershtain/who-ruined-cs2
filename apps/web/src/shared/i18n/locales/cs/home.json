@@ -24,6 +24,10 @@
   "synthetic": "Ukázková data",
   "upload-cancelled": "Nahrávání zastaveno. Server již mohl demo přijmout.",
   "upload-confirming": "Soubor odeslán. Čekání na server…",
+  "upload-deleting": "Shodné demo se maže. Zkuste to po dokončení smazání.",
+  "upload-existing-match": "Otevřít existující zápas",
+  "upload-job-reused": "Toto demo se už analyzuje. Sledujeme probíhající úlohu.",
+  "upload-report-reused": "Toto demo už bylo analyzováno. Otevíráme uložený report.",
   "upload-wait": "Nechte stránku otevřenou do dokončení nahrávání.",
   "uploading": "Nahrávání dema…",
   "workflow": "Jak funguje analýza"

@@ -24,6 +24,10 @@
   "synthetic": "Pavyzdiniai duomenys",
   "upload-cancelled": "Įkėlimas sustabdytas. Serveris jau galėjo gauti demo.",
   "upload-confirming": "Failas išsiųstas. Laukiama serverio atsakymo…",
+  "upload-deleting": "Sutampantis įrašas trinamas. Bandykite dar kartą, kai trynimas baigsis.",
+  "upload-existing-match": "Atverti esamas rungtynes",
+  "upload-job-reused": "Šis įrašas jau analizuojamas. Stebima vykdoma užduotis.",
+  "upload-report-reused": "Šis įrašas jau išanalizuotas. Atveriama išsaugota ataskaita.",
   "upload-wait": "Neužverkite puslapio, kol įkėlimas nebaigtas.",
   "uploading": "Įkeliamas demo…",
   "workflow": "Kaip veikia analizė"

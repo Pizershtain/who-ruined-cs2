@@ -11,7 +11,7 @@ $devCompose = Join-Path $repo 'docker-compose.local-dev.yml'
 $passwordPath = Join-Path $repo '_local-dev\postgres-password.txt'
 
 if (-not (Test-Path -LiteralPath $passwordPath)) {
-  throw "PostgreSQL development password not found at $passwordPath. Run npm.cmd run dev:up first."
+  throw "PostgreSQL development password not found at $passwordPath. Run scripts/dev-up.ps1 first."
 }
 
 $env:POSTGRES_PASSWORD = (Get-Content -LiteralPath $passwordPath -Raw).Trim()
@@ -19,7 +19,7 @@ if ([string]::IsNullOrWhiteSpace($env:POSTGRES_PASSWORD)) {
   throw "PostgreSQL development password file is empty: $passwordPath"
 }
 
-& docker compose -p $ProjectName -f $baseCompose -f $devCompose stop
+& docker compose -p $ProjectName -f $baseCompose -f $devCompose --profile profiles --profile auth stop
 if ($LASTEXITCODE -ne 0) { throw 'docker compose stop failed' }
 
 Write-Host "Stopped $ProjectName. PostgreSQL volume and isolated artifacts were preserved."

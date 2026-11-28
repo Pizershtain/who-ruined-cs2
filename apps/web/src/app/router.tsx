@@ -4,11 +4,14 @@ import { demoBuild, previewEnabled } from '../shared/env.js';
 import { Layout } from './Layout.js';
 import { LandingPage } from '../pages/LandingPage.js';
 import { RouteError } from './RouteError.js';
+import { LoginPage } from '../features/auth/index.js';
 
 const HomePage = lazy(() => import('../pages/HomePage.js').then(({ HomePage }) => ({ default: HomePage })));
 const JobPage = lazy(() => import('../pages/JobPage.js').then(({ JobPage }) => ({ default: JobPage })));
 const MatchPage = lazy(() => import('../pages/MatchPage.js').then(({ MatchPage }) => ({ default: MatchPage })));
 const PlayerPage = lazy(() => import('../pages/PlayerPage.js').then(({ PlayerPage }) => ({ default: PlayerPage })));
+const PlayerProfilePage = lazy(() => import('../features/player-profile/index.js').then(({ PlayerProfilePage }) => ({ default: PlayerProfilePage })));
+const PersonalProfilePage = lazy(() => import('../features/player-profile/index.js').then(({ PersonalProfilePage }) => ({ default: PersonalProfilePage })));
 const AboutPage = lazy(() => import('../pages/AboutPage.js').then(({ AboutPage }) => ({ default: AboutPage })));
 const NotFoundPage = lazy(() => import('../pages/AboutPage.js').then(({ NotFoundPage }) => ({ default: NotFoundPage })));
 const PreviewPage = previewEnabled ? lazy(() => import('../preview/PreviewPage.js')) : null;
@@ -21,6 +24,11 @@ export const router = (demoBuild ? createHashRouter : createBrowserRouter)([{
     { path: '/matches/:matchId', element: <MatchPage/> },
     { path: '/matches/:matchId/players/:playerId', element: <PlayerPage/> },
     { path: '/about', element: <AboutPage/> },
+    ...(!demoBuild ? [
+      { path: '/login', element: <LoginPage/> },
+      { path: '/profile', element: <PersonalProfilePage/> },
+      { path: '/players/:steamId', element: <PlayerProfilePage/> },
+    ] : []),
     ...(PreviewPage ? [{ path: '/preview/:scenario?', element: <PreviewPage/> }, { path: '/preview/:scenario/players/:playerId', element: <PreviewPage/> }] : []),
     { path: '*', element: <NotFoundPage/> },
   ],

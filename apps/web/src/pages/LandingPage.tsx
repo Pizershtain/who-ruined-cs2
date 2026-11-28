@@ -4,6 +4,7 @@ import { brand } from '../brand.js';
 import { AsciiField, Icon } from '../shared/ui/index.js';
 import { previewEnabled } from '../shared/env.js';
 import { LanguageSwitcher } from '../shared/i18n/LanguageSwitcher.js';
+import { AuthNavigation } from '../features/auth/index.js';
 
 export function LandingPage() {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export function LandingPage() {
       <NavLink className="liquid-pill" to="/about">{t('nav-method', 'How it works')}</NavLink>
       {previewEnabled && <Link className="liquid-pill" to="/preview/available">{home('preview-link', 'Explore an example report')}<span className="micro-badge">{home('synthetic', 'Sample data')}</span></Link>}
       <LanguageSwitcher/>
+      <AuthNavigation/>
     </nav>
   </section>;
 }

@@ -20,6 +20,7 @@ export function useAnalysisJob(jobId: string) {
   return useQuery({
     queryKey: uploadDemoKeys.job(jobId),
     queryFn: ({ signal }) => getJob(jobId, signal),
+    refetchOnWindowFocus: true,
     refetchInterval: (state) => {
       if (state.state.error) return false;
       return state.state.data && ['COMPLETED', 'PARTIAL', 'FAILED', 'CANCELLED'].includes(state.state.data.status) ? false : 2000;

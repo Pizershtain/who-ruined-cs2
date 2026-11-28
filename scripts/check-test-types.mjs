@@ -1,16 +1,15 @@
-import { existsSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync } from 'node:fs';
+import { join, relative } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { workspaceDirectories } from './workspace-directories.mjs';
 
 const require = createRequire(import.meta.url);
 const root = join(import.meta.dirname, '..');
 const projects = ['tests'];
-for (const group of ['apps', 'packages']) {
-  for (const workspace of readdirSync(join(root, group)).sort()) {
-    const directory = join(group, workspace, 'test');
-    if (existsSync(join(root, directory))) projects.push(directory);
-  }
+for (const workspace of workspaceDirectories(root)) {
+  const directory = join(workspace, 'test');
+  if (existsSync(directory)) projects.push(relative(root, directory));
 }
 
 const compiler = require.resolve('typescript/lib/tsc.js');

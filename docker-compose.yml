@@ -19,7 +19,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile.api
+      dockerfile: infra/docker/core-api.Dockerfile
     environment:
       DATA_DIR: /data
       DATABASE_URL: postgresql://${POSTGRES_USER:-who_ruined_cs2}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-who_ruined_cs2}?schema=public
@@ -28,6 +28,7 @@ services:
       ENABLE_EXPERIMENTAL_PARTICIPATION_RATING: ${ENABLE_EXPERIMENTAL_PARTICIPATION_RATING:-1}
       API_BIND_HOST: 0.0.0.0
       API_PORT: 3000
+      MATCH_PUBLICATION_TOKEN: ${MATCH_PUBLICATION_TOKEN:-}
       API_CORS_ORIGINS: ${API_CORS_ORIGINS:-http://127.0.0.1:5173,http://localhost:5173}
       API_REQUEST_TIMEOUT_MS: ${API_REQUEST_TIMEOUT_MS:-1800000}
       API_HEADERS_TIMEOUT_MS: ${API_HEADERS_TIMEOUT_MS:-15000}
@@ -40,7 +41,7 @@ services:
       MAX_RESULT_JSON_BYTES: ${MAX_RESULT_JSON_BYTES:-67108864}
       MAX_RESULT_JSON_DEPTH: ${MAX_RESULT_JSON_DEPTH:-128}
     volumes:
-      - ${LOCAL_DATA_DIR:-./data}:/data
+      - ${LOCAL_DATA_DIR:-./_local-dev/data}:/data
     ports:
       - "127.0.0.1:${API_PORT:-3000}:3000"
     depends_on:
@@ -61,7 +62,7 @@ services:
   worker:
     build:
       context: .
-      dockerfile: Dockerfile.worker
+      dockerfile: infra/docker/core-worker.Dockerfile
     environment:
       DATA_DIR: /data
       DATABASE_URL: postgresql://${POSTGRES_USER:-who_ruined_cs2}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-who_ruined_cs2}?schema=public
@@ -83,7 +84,7 @@ services:
       MAX_RESULT_JSON_BYTES: ${MAX_RESULT_JSON_BYTES:-67108864}
       MAX_RESULT_JSON_DEPTH: ${MAX_RESULT_JSON_DEPTH:-128}
     volumes:
-      - ${LOCAL_DATA_DIR:-./data}:/data
+      - ${LOCAL_DATA_DIR:-./_local-dev/data}:/data
     depends_on:
       api:
         condition: service_healthy
@@ -97,15 +98,147 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.web
-    environment:
-      API_URL: http://api:3000
+      dockerfile: infra/docker/web.Dockerfile
+    restart: unless-stopped
+
+  gateway:
+    build:
+      context: .
+      dockerfile: apps/gateway/Dockerfile
     ports:
-      - "127.0.0.1:${WEB_PORT:-5173}:5173"
+      - "127.0.0.1:${WEB_PORT:-5173}:8080"
+    networks: [default, auth-edge]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    mem_limit: 128m
+    pids_limit: 128
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  profiles-db-init:
+    profiles: ["profiles"]
+    image: postgres:17-bookworm
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PROFILES_DATABASE_PASSWORD: ${PROFILES_DATABASE_PASSWORD:-}
+    command: ["sh", "-ec", "test -n \"$$PROFILES_DATABASE_PASSWORD\" && exec psql -X -v ON_ERROR_STOP=1 -h postgres -U ${POSTGRES_USER:-who_ruined_cs2} -d postgres -f /profiles-db-init.sql"]
+    volumes:
+      - ./infra/docker/profiles-db-init.sql:/profiles-db-init.sql:ro
     depends_on:
-      api:
+      postgres:
         condition: service_healthy
+
+  profiles:
+    profiles: ["profiles"]
+    build:
+      context: .
+      dockerfile: infra/docker/profiles.Dockerfile
+    environment:
+      PROFILES_DATABASE_URL: postgresql://wrc_profiles:${PROFILES_DATABASE_PASSWORD:-}@postgres:5432/who_ruined_profiles?schema=public
+      PROFILES_CORE_URL: http://api:3000
+      PROFILES_BIND_HOST: 0.0.0.0
+      PROFILES_PORT: 3001
+      MATCH_PUBLICATION_TOKEN: ${MATCH_PUBLICATION_TOKEN:-}
+    ports:
+      - "127.0.0.1:${PROFILES_PORT:-3001}:3001"
+    depends_on:
+      profiles-db-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/v1/ready').then(r=>{if(!r.ok)process.exit(1)})"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    mem_limit: 384m
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  auth-postgres:
+    profiles: ["auth"]
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_USER: auth_admin
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: ${AUTH_DB_ADMIN_PASSWORD:-}
+    volumes:
+      - auth-postgres-data:/var/lib/postgresql/data
+    networks: [auth-db]
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "auth_admin", "-d", "postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  auth-db-init:
+    profiles: ["auth"]
+    image: postgres:17-bookworm
+    environment:
+      PGPASSWORD: ${AUTH_DB_ADMIN_PASSWORD:-}
+      AUTH_DB_PASSWORD: ${AUTH_DB_PASSWORD:-}
+    command: ["sh", "-ec", "test -n \"$$AUTH_DB_PASSWORD\" && exec psql -X -v ON_ERROR_STOP=1 -h auth-postgres -U auth_admin -d postgres -f /auth-db-init.sql"]
+    volumes:
+      - ./infra/docker/auth-db-init.sql:/auth-db-init.sql:ro
+    networks: [auth-db]
+    depends_on:
+      auth-postgres:
+        condition: service_healthy
+
+  auth:
+    profiles: ["auth"]
+    build:
+      context: .
+      dockerfile: infra/docker/auth.Dockerfile
+    environment:
+      AUTH_DATABASE_URL: postgresql://wrc_auth:${AUTH_DB_PASSWORD:-}@auth-postgres:5432/who_ruined_auth?schema=public&connection_limit=4&pool_timeout=4
+      AUTH_ORIGIN: ${AUTH_ORIGIN:-}
+      AUTH_MODE: ${AUTH_MODE:-production}
+      AUTH_BIND_HOST: 0.0.0.0
+      AUTH_PORT: 3002
+      AUTH_TRUST_GATEWAY: "1"
+      AUTH_SIGNING_KEY_FILE: /run/secrets/auth-signing.pem
+      AUTH_ACCESS_SECONDS: ${AUTH_ACCESS_SECONDS:-720}
+      AUTH_REFRESH_SECONDS: ${AUTH_REFRESH_SECONDS:-2592000}
+      AUTH_REFRESH_IDLE_SECONDS: ${AUTH_REFRESH_IDLE_SECONDS:-604800}
+      AUTH_LOGIN_PER_IP: ${AUTH_LOGIN_PER_IP:-20}
+      AUTH_LOGIN_PER_USERNAME: ${AUTH_LOGIN_PER_USERNAME:-6}
+      AUTH_ARGON2_MEMORY_KIB: ${AUTH_ARGON2_MEMORY_KIB:-19456}
+      AUTH_ARGON2_ITERATIONS: ${AUTH_ARGON2_ITERATIONS:-2}
+      AUTH_ARGON2_PARALLELISM: ${AUTH_ARGON2_PARALLELISM:-1}
+      AUTH_ARGON2_SLOTS: ${AUTH_ARGON2_SLOTS:-2}
+    volumes:
+      - type: bind
+        source: ${AUTH_SIGNING_KEY_SOURCE:-./_local-dev/auth/signing.pem}
+        target: /run/secrets/auth-signing.pem
+        read_only: true
+        bind:
+          create_host_path: false
+    networks: [auth-edge, auth-db]
+    depends_on:
+      auth-db-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3002/api/v1/auth/ready').then(r=>{if(!r.ok)process.exit(1)})"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    mem_limit: 384m
+    cpus: 1
+    pids_limit: 128
+    security_opt: [no-new-privileges:true]
     restart: unless-stopped
 
 volumes:
   postgres-data:
+  auth-postgres-data:
+
+networks:
+  auth-edge:
+    internal: true
+  auth-db:
+    internal: true

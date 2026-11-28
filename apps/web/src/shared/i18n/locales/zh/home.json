@@ -24,6 +24,10 @@
   "synthetic": "示例数据",
   "upload-cancelled": "上传已停止。服务器可能已经收到录像。",
   "upload-confirming": "上传已发送，正在等待服务器…",
+  "upload-deleting": "匹配的录像正在删除，请在删除完成后重试。",
+  "upload-existing-match": "打开已有比赛",
+  "upload-job-reused": "此录像已在分析中，正在跟踪已有任务。",
+  "upload-report-reused": "此录像已经分析过，正在打开已保存的报告。",
   "upload-wait": "请保持页面开启，直到上传完成。",
   "uploading": "正在上传录像…",
   "workflow": "分析流程"

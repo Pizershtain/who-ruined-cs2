@@ -6,7 +6,7 @@
 
 ## 0. Executive decisions and hard constraints
 
-1. MVP runs locally via Docker Compose with a React/Vite/TypeScript frontend, NestJS/TypeScript HTTP API, standalone Node.js worker, Prisma + PostgreSQL 17, shared packages, and `@laihoe/demoparser2` behind an adapter. Monorepo via pnpm workspaces + Turborepo. Do not introduce Redis, microservices, ML, Steam sign-in, match-link download, paid APIs or LLM-generated verdicts into MVP.
+1. Core runs locally via Docker Compose with a React/Vite/TypeScript frontend, NestJS/TypeScript HTTP API, standalone Node.js worker, Prisma + PostgreSQL 17, shared packages, and `@laihoe/demoparser2` behind an adapter. Monorepo via pnpm workspaces + Turborepo. Core stays one domain. Optional product capabilities may run as separately deployed services with owned data and versioned exchange, as documented for Profiles. Redis, ML, Steam sign-in, match-link download, paid APIs and LLM-generated verdicts remain outside this scope.
 2. Upload **only a local `.dem`**; do not claim to support direct CS2 match links, `.dem.bz2`, POV demos, incomplete demos, Source 1 demos or nonstandard modes. Reject unsupported input explicitly.
 3. Analyze a standard competitive-style 5v5 CS2 match with two stable squads, playable rounds and side swaps; any side/round uncertainty leads to `PARTIAL` or `UNSUPPORTED` instead of made-up results. Premier/Competitive/FACEIT are eligible if parsing and validation pass. Overtime may be supported if valid team identity survives side changes; otherwise partial analysis with no ranking.
 4. The app cannot establish intent, in-game voice communication, visibility/lines of sight, sophisticated tactical correctness, or causal responsibility solely from the basic event stream. **Never label an unsupported inference as a proven mistake**. In MVP, display verified facts with neutral phrasing; "ruiner" is explicitly a playful evidence-based index, not proof of fault.
@@ -33,7 +33,7 @@
 - Public multi-tenant security posture in local release; a hardening plan is specified for deployment.
 
 ### Acceptance gates
-- `docker compose up --build` results in functioning UI (`http://localhost:5173`) and API (`http://localhost:3000`). Health endpoint returns OK.
+- `docker compose up --build` results in functioning UI (`http://localhost:5173`) and API (`http://localhost:5173/api/v1`) through Gateway. Health endpoint returns OK.
 - Upload valid test demo, get job status updates, complete a results page without server crash. Unsupported input yields meaningful status and error.
 - Core unit tests pass 100%; parser golden fixture tests pass using at least 3 *real, user-provided or legally redistributable* demos; no demo is invented or downloaded without permission.
 - Matches marked `VALID` satisfy invariants in §5; other matches show partial findings with no ruin verdict.
@@ -46,8 +46,13 @@
 who-ruined-cs2/
   apps/
     web/                  # Vite React Router TS, Tailwind, TanStack Query
-    api/                  # NestJS REST, upload, job queue, reports
-    worker/               # Node process polls PostgreSQL-backed jobs
+    gateway/              # Nginx public HTTP ingress
+    core/
+      api/                # NestJS REST, upload, job queue, reports
+      worker/             # Node process polls PostgreSQL-backed jobs
+      prisma/             # Core schema and migration history
+    services/
+      profiles/           # optional profile read model, separate schema
   packages/
     contracts/            # shared Zod schemas and DTOs
     parser-adapter/       # @laihoe/demoparser2 pinned, conversion layer
@@ -56,7 +61,6 @@ who-ruined-cs2/
     scoring/              # pure deterministic scorer, configurable version
     reports/              # human-readable evidence templates
     testkit/              # builders/fixtures
-  prisma/schema.prisma
   docs/
     compatibility.md
     limitations.md
@@ -67,9 +71,7 @@ who-ruined-cs2/
   data/uploads/.gitkeep
   data/cache/.gitkeep
   docker-compose.yml
-  Dockerfile.api
-  Dockerfile.worker
-  Dockerfile.web
+  infra/docker/           # Core, Profiles and Web images
   pnpm-workspace.yaml
   turbo.json
   .env.example

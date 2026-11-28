@@ -1477,3 +1477,61 @@ td { color: var(--muted); }
 .radar-axes small { display: block; color: var(--text-2); }
 .radar-axes summary .report-award, .radar-value { margin-inline-start: .6rem; }
 .radar-note { margin-inline-start: 1rem; margin-block-start: .25rem; }
+
+/* Account and persistent profile surfaces */
+.header-inner, .header-actions, .account-controls { flex-wrap: wrap; }
+.header-actions { min-inline-size: 0; }
+.account-controls { display: flex; align-items: center; gap: .5rem; min-inline-size: 0; }
+.account-name { max-inline-size: 13rem; overflow: hidden; text-overflow: ellipsis; }
+.account-status { color: var(--text-2); font-size: .85rem; overflow-wrap: anywhere; }
+.landing-dock .account-controls { justify-content: center; }
+.account-controls .button { min-height: 42px; }
+.auth-panel { max-inline-size: 32rem; margin: clamp(2rem, 8vw, 6rem) auto; padding: clamp(1rem, 4vw, 2rem); border: 1px solid rgb(var(--glass) / .14); border-radius: 1.25rem; }
+.auth-panel h1 { font-size: clamp(1.8rem, 5vw, 2.75rem); margin-block-end: 1.25rem; }
+.auth-panel form { display: grid; gap: .75rem; }
+.auth-panel input { width: 100%; min-inline-size: 0; padding: .65rem .8rem; color: var(--text); background: rgb(var(--glass) / .06); border: 1px solid rgb(var(--glass) / .2); border-radius: .65rem; }
+.password-control { display: flex; gap: .5rem; flex-wrap: wrap; }
+.password-control input { flex: 1 0 min(100%, 12rem); }
+.password-control button { flex-shrink: 0; }
+.auth-panel form > .button { margin-block-start: .5rem; justify-self: start; }
+.persistent-profile { padding-block: clamp(1.5rem, 5vw, 4rem); overflow-wrap: anywhere; }
+.persistent-profile h1 { font-size: clamp(1.75rem, 5vw, 3.25rem); }
+.profile-section { padding: clamp(.9rem, 2.5vw, 1.5rem); margin-block: 1rem; border: 1px solid rgb(var(--glass) / .12); border-radius: 1rem; }
+.profile-section h2 { margin-block-end: .75rem; }
+.profile-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: .65rem; margin: .75rem 0; }
+.profile-metric { padding: .55rem .7rem; border-radius: .55rem; background: rgb(var(--glass) / .045); min-inline-size: 0; }
+.profile-metric dt { color: var(--text-2); }
+.profile-metric dt small { display: block; font-size: .72rem; }
+.profile-metric dd { margin-inline-start: 0; }
+.profile-metric > dd:nth-child(2) { font-family: var(--mono); font-weight: 600; }
+.profile-coverage { color: var(--muted); font-size: .78rem; }
+.profile-freshness, .profile-history-heading, .profile-history-actions { display: flex; gap: .65rem; flex-wrap: wrap; align-items: center; }
+.profile-history-heading { justify-content: space-between; }
+.profile-history-heading h3 { color: var(--accent); }
+.profile-history { list-style: none; padding: 0; margin: 0 0 .75rem; }
+.profile-history > li { padding-block: 1rem; border-block-end: 1px solid rgb(var(--glass) / .12); }
+.profile-family-history { margin-block-start: .7rem; }
+.profile-family-history summary { cursor: pointer; }
+.scoreboard-profile-link { margin-inline-start: .5rem; }
+.account-name[href]:hover { color: var(--accent); }
+.player-hero > .profile-identity { display: flex; gap: clamp(.75rem, 2vw, 1.4rem); align-items: center; }
+.profile-identity > div { min-inline-size: 0; }
+.profile-identity > .profile-avatar { flex: 0 0 auto; }
+.personal-profile-hero { align-items: flex-start; }
+.personal-profile-hero > .profile-identity { flex: 1 1 min(100%, 18rem); align-self: center; }
+.personal-profile-hero > .profile-upload { flex: 0 1 min(100%, 24rem); min-inline-size: 0; margin: 0; }
+.profile-upload .drop-zone { min-height: auto; padding: .75rem; gap: .4rem; }
+.profile-upload .upload-icon { width: 2.5rem; height: 2.5rem; }
+.profile-tabs { display: flex; flex-wrap: wrap; gap: .25rem; padding: .3rem; inline-size: fit-content; max-inline-size: 100%; margin-block: .5rem 1rem; border: 1px solid rgb(var(--glass) / .14); border-radius: 1.25rem; }
+.profile-tabs button { border: 0; background: transparent; color: var(--text-2); min-block-size: 2.5rem; min-inline-size: 0; padding: .5rem .85rem; border-radius: 1rem; overflow-wrap: anywhere; }
+.profile-tabs button:hover { background: rgb(var(--glass) / .07); }
+.profile-tabs button[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
+.profile-about form { display: grid; gap: .7rem; max-inline-size: 28rem; margin-block-start: 1rem; }
+.profile-about input { width: 100%; min-inline-size: 0; padding: .65rem .8rem; color: var(--text); background: rgb(var(--glass) / .06); border: 1px solid rgb(var(--glass) / .2); border-radius: .65rem; }
+@media (max-width: 600px) {
+  .header-actions { gap: .5rem; justify-content: flex-end; }
+  .account-name { max-inline-size: 9rem; }
+  .persistent-profile .player-hero { align-items: flex-start; gap: .75rem; }
+  .persistent-profile .profile-avatar { inline-size: 3rem; block-size: 3rem; }
+  .personal-profile-hero > .profile-upload { flex-basis: 100%; }
+}

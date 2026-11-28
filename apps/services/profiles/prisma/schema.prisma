@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PROFILES_DATABASE_URL")
+}
+
+model ProfileFeedCursor {
+  id       Int    @id
+  revision BigInt
+  aggregateBackfillAfter    String?
+  aggregateBackfillComplete Boolean @default(false)
+  replaying                 Boolean @default(false)
+}
+
+model ProfileAggregate {
+  steamId  String @id
+  version  Int
+  revision BigInt
+  summary  Json
+}
+
+model ProfilePendingMatch {
+  matchId       String   @id
+  revision      BigInt
+  retryAt       DateTime @default(now())
+  attempts      Int      @default(0)
+  affectedSteamIds Json?
+  @@index([retryAt, revision])
+  @@index([affectedSteamIds], type: Gin)
+}
+
+model ProfileMatch {
+  matchId    String               @id
+  revision   BigInt
+  fileSha256 String?
+  uploadedAt DateTime?
+  playedAt   DateTime?
+  map        String?
+  quality    String?
+  policy     Json?
+  players    ProfileParticipation[]
+}
+
+model ProfileParticipation {
+  steamId String
+  matchId String
+  player  Json
+  match   ProfileMatch @relation(fields: [matchId], references: [matchId], onDelete: Cascade)
+  @@id([steamId, matchId])
+  @@index([matchId])
+}

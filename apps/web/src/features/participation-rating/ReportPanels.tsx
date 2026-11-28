@@ -1,28 +1,14 @@
+import { RadarChart, specializationAxis, useRadarLabels } from '../../entities/match/radar.js';
 import { EvidenceLinks } from '../../entities/match/EvidenceLinks.js';
 import { useFamilyLabels } from '../../entities/match/family-labels.js';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import type { MatchData, PlayerRadarAxisId, EvpSpecializationId, StoredParticipationRating } from '@who-ruined/contracts';
+import type { MatchData, StoredParticipationRating } from '@who-ruined/contracts';
 import { ApiClientError } from '../../shared/api/transport.js';
 import { useEvpReport, useRadarReport } from './stored-reports.js';
 import { errorMessage } from '../../shared/messages.js';
 import { Skeleton } from '../../shared/ui/Skeleton.js';
 import { RefreshStatus } from '../../shared/ui/States.js';
-
-function useAxisLabels(): Record<PlayerRadarAxisId, string> {
-  const { t } = useTranslation('player');
-  return {
-    MULTIKILL: t('radar-multikill', 'Multi-kills'), CLUTCH: t('impact-clutch', 'Clutch'),
-    ENTRY: t('radar-entry', 'Opening duels'), UTILITY: t('radar-utility', 'Utility'),
-    TRADES: t('trades', 'Successful trades'), ASSISTS: t('assists-nonflash', 'Non-flash assists'),
-    FLASH: t('source-flashes', { ns: 'match', defaultValue: 'Flashes' }), OBJECTIVES: t('family-objectives', 'Objectives'),
-  };
-}
-
-const specializationAxis: Record<EvpSpecializationId, PlayerRadarAxisId> = {
-  FLASH_SUPPORT: 'FLASH', NON_FLASH_ASSIST_SUPPORT: 'ASSISTS', TRADE_SPECIALIST: 'TRADES', CLUTCH_SPECIALIST: 'CLUTCH',
-  MULTIKILL_SPECIALIST: 'MULTIKILL', ENTRY_SPECIALIST: 'ENTRY', UTILITY_DAMAGE_SPECIALIST: 'UTILITY', OBJECTIVE_SPECIALIST: 'OBJECTIVES',
-};
 
 function ReportStatus({ error, retry }: { error: unknown; retry: () => void }) {
   const { t } = useTranslation();
@@ -32,7 +18,7 @@ function ReportStatus({ error, retry }: { error: unknown; retry: () => void }) {
 
 export function EvpAwards({ match, query }: { match: MatchData; query: ReturnType<typeof useEvpReport> }) {
   const { t } = useTranslation('player');
-  const labels = useAxisLabels();
+  const labels = useRadarLabels();
   const retry = () => void query.refetch();
   return <section className="panel stored-awards"><h2>EVP</h2>
     {query.data ? <>
@@ -45,46 +31,6 @@ export function EvpAwards({ match, query }: { match: MatchData; query: ReturnTyp
   </section>;
 }
 
-const chart = { width: 460, height: 340, x: 230, y: 170, radius: 110 };
-
-function axisPoint(index: number, length: number, value: number) {
-  const angle = index * 2 * Math.PI / length - Math.PI / 2;
-  return { x: chart.x + Math.cos(angle) * value * chart.radius, y: chart.y + Math.sin(angle) * value * chart.radius };
-}
-
-type RadarChartAxis = { axisId: PlayerRadarAxisId; caption: string; geometry: number | null; partial: boolean; award: 'MVP' | 'EVP' | null };
-
-function RadarChart({ axes }: { axes: RadarChartAxis[] }) {
-  const points = axes.map((axis, index) => axis.geometry === null ? null : axisPoint(index, axes.length, axis.geometry));
-  return <div className="radar-chart" aria-hidden="true">
-    <svg viewBox={`0 0 ${chart.width} ${chart.height}`}>
-      {[0.25, 0.5, 0.75, 1].map(radius => <circle key={radius} cx={chart.x} cy={chart.y} r={radius * chart.radius} className="radar-grid"/>)}
-      {axes.map((axis, index) => {
-        const end = axisPoint(index, axes.length, 1);
-        const point = points[index];
-        const nextIndex = (index + 1) % axes.length;
-        const next = points[nextIndex];
-        const partial = axis.partial || axes[nextIndex]?.partial;
-        return <g key={axis.axisId}>
-          <line x1={chart.x} y1={chart.y} x2={end.x} y2={end.y} className="radar-grid"/>
-          {point && next && <path d={`M ${chart.x} ${chart.y} L ${point.x} ${point.y} L ${next.x} ${next.y} Z`} className="radar-area"/>}
-          {point && next && <line x1={point.x} y1={point.y} x2={next.x} y2={next.y} className={`radar-edge${partial ? ' radar-partial-edge' : ''}`}/>}
-        </g>;
-      })}
-      {axes.map((axis, index) => {
-        const point = points[index];
-        return point && <circle key={axis.axisId} cx={point.x} cy={point.y} r={axis.award ? 5 : 4} className={axis.award === 'MVP' ? 'radar-mvp' : axis.award === 'EVP' ? 'radar-evp' : axis.partial ? 'radar-partial-point' : 'radar-point'}/>;
-      })}
-    </svg>
-    {axes.map((axis, index) => {
-      const label = axisPoint(index, axes.length, index === 0 ? 1.27 : 1.3);
-      return <span key={axis.axisId} className="radar-axis-label" style={{ left: `${label.x / chart.width * 100}%`, top: `${label.y / chart.height * 100}%` }}>
-        {axis.caption}{axis.award && <b className={`report-award ${axis.award.toLowerCase()}`}>{axis.award}</b>}
-      </span>;
-    })}
-  </div>;
-}
-
 export function PlayerRadar({ match, playerId, rating }: { match: MatchData; playerId: string; rating: StoredParticipationRating | undefined }) {
   const query = useRadarReport(match);
   const evpDigest = query.data?.sourceBinding.evpInputDigest;
@@ -92,7 +38,7 @@ export function PlayerRadar({ match, playerId, rating }: { match: MatchData; pla
   const boundEvp = !!evpDigest && evpDigest === evp.data?.binding.inputDigest
     && query.data?.sourceBinding.matchResultSchemaVersion === evp.data.binding.matchResultSchemaVersion;
   const { t, i18n } = useTranslation('player');
-  const labels = useAxisLabels();
+  const labels = useRadarLabels();
   const player = query.data?.players.find(row => row.playerId === playerId);
   const retry = () => void query.refetch();
   const missingData = t('radar-insufficient-data', 'The demo has too little data to calculate this metric.');

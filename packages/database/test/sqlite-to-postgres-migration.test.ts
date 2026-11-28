@@ -36,7 +36,7 @@ async function sourceFixture(options: {
   try {
     for (const migration of archivedMigrations) {
       const sql = await readFile(fileURLToPath(new URL(
-        `../../../prisma/migrations-sqlite-archive/${migration}/migration.sql`,
+        `../../../apps/core/prisma/migrations-sqlite-archive/${migration}/migration.sql`,
         import.meta.url,
       )), 'utf8');
       database.exec(sql);

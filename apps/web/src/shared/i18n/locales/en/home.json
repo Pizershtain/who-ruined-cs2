@@ -24,6 +24,10 @@
   "synthetic": "Sample data",
   "upload-cancelled": "Upload stopped. The server may already have received the demo.",
   "upload-confirming": "Upload sent. Waiting for the server…",
+  "upload-deleting": "The matching demo is being deleted. Try again after deletion finishes.",
+  "upload-existing-match": "Open the existing match",
+  "upload-job-reused": "This demo is already being analyzed. Tracking the existing job.",
+  "upload-report-reused": "This demo was already analyzed. The saved report is opening.",
   "upload-wait": "Keep this page open until the upload finishes.",
   "uploading": "Uploading your demo…",
   "workflow": "How analysis works"

@@ -24,6 +24,10 @@
   "synthetic": "Esimerkkitiedot",
   "upload-cancelled": "Lataus pysäytetty. Palvelin on saattanut jo vastaanottaa demon.",
   "upload-confirming": "Tiedosto lähetetty. Odotetaan palvelinta…",
+  "upload-deleting": "Sama demo on poistettavana. Yritä uudelleen, kun poisto on valmis.",
+  "upload-existing-match": "Avaa olemassa oleva ottelu",
+  "upload-job-reused": "Tätä demoa analysoidaan jo. Seurataan käynnissä olevaa tehtävää.",
+  "upload-report-reused": "Tämä demo on jo analysoitu. Avataan tallennettu raportti.",
   "upload-wait": "Pidä sivu auki, kunnes lataus on valmis.",
   "uploading": "Ladataan demoa…",
   "workflow": "Näin analyysi toimii"

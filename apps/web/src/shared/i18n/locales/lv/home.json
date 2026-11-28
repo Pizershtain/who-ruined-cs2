@@ -24,6 +24,10 @@
   "synthetic": "Parauga dati",
   "upload-cancelled": "Augšupielāde apturēta. Serveris, iespējams, jau ir saņēmis demo.",
   "upload-confirming": "Fails nosūtīts. Gaida servera atbildi…",
+  "upload-deleting": "Atbilstošais demo tiek dzēsts. Mēģiniet vēlreiz, kad dzēšana būs pabeigta.",
+  "upload-existing-match": "Atvērt esošo spēli",
+  "upload-job-reused": "Šis demo jau tiek analizēts. Tiek rādīts pašreizējais uzdevums.",
+  "upload-report-reused": "Šis demo jau ir analizēts. Tiek atvērts saglabātais pārskats.",
   "upload-wait": "Neaizveriet lapu, līdz augšupielāde ir pabeigta.",
   "uploading": "Notiek demo augšupielāde…",
   "workflow": "Kā darbojas analīze"

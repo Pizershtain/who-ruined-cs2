@@ -24,6 +24,10 @@
   "synthetic": "Dati di esempio",
   "upload-cancelled": "Caricamento interrotto. Il server potrebbe aver già ricevuto la demo.",
   "upload-confirming": "File inviato. In attesa del server…",
+  "upload-deleting": "La demo corrispondente è in fase di eliminazione. Riprova una volta terminata.",
+  "upload-existing-match": "Apri la partita esistente",
+  "upload-job-reused": "L’analisi di questa demo è già in corso. Si apre l’attività corrente.",
+  "upload-report-reused": "Questa demo è già stata analizzata. Si apre il rapporto salvato.",
   "upload-wait": "Lascia aperta questa pagina fino al termine del caricamento.",
   "uploading": "Caricamento della demo…",
   "workflow": "Come funziona l'analisi"

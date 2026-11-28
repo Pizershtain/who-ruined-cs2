@@ -24,6 +24,10 @@
   "synthetic": "Données d’exemple",
   "upload-cancelled": "Envoi arrêté. Le serveur a peut-être déjà reçu la démo.",
   "upload-confirming": "Démo envoyée. En attente du serveur…",
+  "upload-deleting": "La démo correspondante est en cours de suppression. Réessayez après la suppression.",
+  "upload-existing-match": "Ouvrir le match existant",
+  "upload-job-reused": "Cette démo est déjà en cours d’analyse. Suivi de la tâche en cours.",
+  "upload-report-reused": "Cette démo a déjà été analysée. Ouverture du rapport enregistré.",
   "upload-wait": "Gardez cette page ouverte jusqu’à la fin de l’envoi.",
   "uploading": "Envoi de votre démo…",
   "workflow": "Comment fonctionne l’analyse"

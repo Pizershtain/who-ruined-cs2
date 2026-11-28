@@ -96,12 +96,15 @@ export function environmentForGate(name, environment = process.env) {
   const result = { ...environment };
   if (name === 'fast') {
     delete result.TEST_DATABASE_URL;
+    delete result.TEST_PROFILES_DATABASE_URL;
+    delete result.TEST_AUTH_DATABASE_URL;
     delete result.REQUIRE_POSTGRES_INTEGRATION;
     return result;
   }
   if (name === 'integration') {
     const testUrl = environment.TEST_DATABASE_URL;
     assertSafePostgresTestTarget(testUrl);
+    if (environment.TEST_AUTH_DATABASE_URL) assertSafePostgresTestTarget(environment.TEST_AUTH_DATABASE_URL);
     result.DATABASE_URL = testUrl;
     result.TEST_DATABASE_URL = testUrl;
     result.REQUIRE_POSTGRES_INTEGRATION = '1';
@@ -136,8 +139,8 @@ async function runGate(name) {
   }
   if (name === 'integration') {
     runCommands([
-      pnpmStep('Prisma migrate deploy', 'exec', 'prisma', 'migrate', 'deploy'),
-      pnpmStep('Prisma migrate status', 'exec', 'prisma', 'migrate', 'status'),
+      pnpmStep('Prisma migrate deploy', 'db:migrate'),
+      pnpmStep('Prisma migrate status', 'db:status'),
       pnpmStep('required PostgreSQL integration tests', 'test:postgres', '--force'),
     ], { cwd: repositoryRoot, environment: environmentForGate('integration') });
     return;

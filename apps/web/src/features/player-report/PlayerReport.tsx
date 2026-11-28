@@ -6,7 +6,8 @@ import type { MatchData, MatchEvent, StoredParticipationExplanation } from '@who
 import type { TFunction } from 'i18next';
 import type { MatchAnalytics } from '../../entities/match/types.js';
 import { playerEvents, teamOutcome, timeAtTick } from '../../entities/match/presentation.js';
-import { steamProfileUrl } from '../../entities/match/player.js';
+import { playerProfilePath, steamProfileUrl } from '../../entities/match/player.js';
+import { demoBuild } from '../../shared/env.js';
 import { ImportantMoments } from '../important-moments/index.js';
 import { Charts } from '../match-report/index.js';
 import { Icon } from '../../shared/ui/Icon.js';
@@ -42,6 +43,7 @@ export function PlayerReport({ radarPanel, match, playerId, base, analytics, exp
   if (!player) return <ErrorState message={t('not-found', 'This player is not in this match.')}/>;
   const team = match.teams.find((item) => item.id === player.teamId);
   const steam = steamProfileUrl(player.steamId);
+  const profile = !demoBuild && base.startsWith('/matches/') ? playerProfilePath(player.steamId) : null;
   const outcome = teamOutcome(match, player.teamId);
   const metrics = analytics?.players[playerId];
   const factEvents = new Set(metrics?.analytics?.facts.filter(fact => fact.category === factCategory).map(fact => fact.eventId));
@@ -69,7 +71,7 @@ export function PlayerReport({ radarPanel, match, playerId, base, analytics, exp
   const isWhoRuined = analytics?.whoRuined.state === 'available' && analytics.whoRuined.playerId === playerId;
   return <>
     <Link className="text-link back-link" to={base}><Icon name="back" size={17}/>{t('back', 'Back to match report')}</Link>
-    <section className="player-hero panel"><span className="profile-avatar"><Icon name="crosshair" size={42}/></span><div><p className="eyebrow">{t('eyebrow', 'Player · this match only')}</p><h1>{player.displayName || t('unnamed', 'Unnamed player')}</h1><div className="player-meta"><span>{team?.label ?? '—'}</span><span>{match.map ?? '—'}</span>{steam && <a href={steam} target="_blank" rel="noreferrer">{t('steam', 'Steam profile')} ↗</a>}</div></div><span className={`pill ${outcome === 'win' ? 'success' : ''}`}>{outcome === 'win' ? t('won', 'Victory') : outcome === 'loss' ? t('lost', 'Defeat') : outcome === 'draw' ? t('draw', 'Draw') : t('unknown-result', 'Result unconfirmed')}</span></section>
+    <section className="player-hero panel"><span className="profile-avatar"><Icon name="crosshair" size={42}/></span><div><p className="eyebrow">{t('eyebrow', 'Player · this match only')}</p><h1>{player.displayName || t('unnamed', 'Unnamed player')}</h1><div className="player-meta"><span>{team?.label ?? '—'}</span><span>{match.map ?? '—'}</span>{profile && <Link to={profile}>{t('persistent-profile', 'Player profile')}</Link>}{steam && <a href={steam} target="_blank" rel="noreferrer">{t('steam', 'Steam profile')} ↗</a>}</div></div><span className={`pill ${outcome === 'win' ? 'success' : ''}`}>{outcome === 'win' ? t('won', 'Victory') : outcome === 'loss' ? t('lost', 'Defeat') : outcome === 'draw' ? t('draw', 'Draw') : t('unknown-result', 'Result unconfirmed')}</span></section>
     <section className="player-stats">{stats.map((item) => <div className="panel stat-card" key={item.title}><span>{item.title}</span><strong>{item.pending ? <Skeleton className="skeleton-metric"/> : item.value}</strong></div>)}</section>
     <section className="rating-section">
       <div className="player-insights scoring-components">

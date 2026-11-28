@@ -24,6 +24,10 @@
   "synthetic": "Eksempeldata",
   "upload-cancelled": "Opplastingen er stoppet. Serveren kan allerede ha mottatt demoen.",
   "upload-confirming": "Filen er sendt. Venter på serveren…",
+  "upload-deleting": "Den tilsvarende demoen slettes. Prøv igjen når slettingen er ferdig.",
+  "upload-existing-match": "Åpne den eksisterende kampen",
+  "upload-job-reused": "Demoen analyseres allerede. Følger oppgaven som pågår.",
+  "upload-report-reused": "Demoen er allerede analysert. Den lagrede rapporten åpnes.",
   "upload-wait": "Hold denne siden åpen til opplastingen er ferdig.",
   "uploading": "Laster opp demoen din…",
   "workflow": "Slik fungerer analysen"

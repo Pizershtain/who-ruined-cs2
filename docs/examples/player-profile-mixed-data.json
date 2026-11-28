@@ -1,0 +1,948 @@
+{
+  "synthetic": true,
+  "profile": {
+    "schemaVersion": "player-profile@1",
+    "steamId": "76561198000000001",
+    "displayName": "Synthetic Nova",
+    "matchCount": 2,
+    "results": {
+      "wins": 1,
+      "losses": 0,
+      "draws": 0,
+      "unknown": 1,
+      "winRate": {
+        "status": "PARTIAL",
+        "numerator": 1,
+        "denominator": 1,
+        "observedRounds": null,
+        "expectedRounds": 0,
+        "value": 100,
+        "observedMatches": 1,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      }
+    },
+    "measurements": {
+      "verifiedRounds": {
+        "status": "PARTIAL",
+        "numerator": 22,
+        "denominator": null,
+        "observedRounds": 22,
+        "expectedRounds": 24,
+        "value": 22,
+        "observedMatches": 2,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "kills": {
+        "status": "PARTIAL",
+        "numerator": 28,
+        "denominator": null,
+        "observedRounds": 22,
+        "expectedRounds": 24,
+        "value": 28,
+        "observedMatches": 2,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "deaths": {
+        "status": "PARTIAL",
+        "numerator": 18,
+        "denominator": null,
+        "observedRounds": 22,
+        "expectedRounds": 24,
+        "value": 18,
+        "observedMatches": 2,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "assists": {
+        "status": "PARTIAL",
+        "numerator": 8,
+        "denominator": null,
+        "observedRounds": 22,
+        "expectedRounds": 24,
+        "value": 8,
+        "observedMatches": 2,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "kd": {
+        "status": "PARTIAL",
+        "numerator": 28,
+        "denominator": 18,
+        "observedRounds": 22,
+        "expectedRounds": 24,
+        "value": 1.5555555555555556,
+        "observedMatches": 2,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "damage": {
+        "status": "PARTIAL",
+        "numerator": 1740,
+        "denominator": null,
+        "observedRounds": 22,
+        "expectedRounds": 24,
+        "value": 1740,
+        "observedMatches": 2,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "adr": {
+        "status": "PARTIAL",
+        "numerator": 1740,
+        "denominator": 22,
+        "observedRounds": 22,
+        "expectedRounds": 24,
+        "value": 79.0909090909091,
+        "observedMatches": 2,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "kast": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "openingKills": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "openingDeaths": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "tradeKills": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "doubleKills": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "tripleKills": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "quadKills": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "aces": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "clutchWins": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "enemiesFlashed": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "enemyBlindSeconds": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "heDamage": {
+        "status": "PARTIAL",
+        "numerator": 0,
+        "denominator": null,
+        "observedRounds": 22,
+        "expectedRounds": 24,
+        "value": 0,
+        "observedMatches": 2,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "fireDamage": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "bombPlants": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "bombDefuses": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "hostageRescues": {
+        "status": "UNAVAILABLE",
+        "numerator": null,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 24,
+        "value": null,
+        "observedMatches": 0,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      }
+    },
+    "ratings": [
+      {
+        "policy": {
+          "id": "h3-seven-family@1",
+          "digest": "17b310bd0e8173a899519d91adf5533bf888e9c858b7e04ad93d1bf6ccb0b68a"
+        },
+        "rating": {
+          "status": "PARTIAL",
+          "numerator": 1.6,
+          "denominator": 1,
+          "observedRounds": null,
+          "expectedRounds": 0,
+          "value": 1.6,
+          "observedMatches": 1,
+          "applicableMatches": 2,
+          "totalMatches": 2
+        },
+        "families": [
+          {
+            "family": "COMBAT",
+            "contribution": {
+              "status": "PARTIAL",
+              "numerator": 0.6000000000000001,
+              "denominator": 1,
+              "observedRounds": null,
+              "expectedRounds": 0,
+              "value": 0.6000000000000001,
+              "observedMatches": 1,
+              "applicableMatches": 2,
+              "totalMatches": 2
+            }
+          },
+          {
+            "family": "SUPPORT",
+            "contribution": {
+              "status": "PARTIAL",
+              "numerator": 0,
+              "denominator": 1,
+              "observedRounds": null,
+              "expectedRounds": 0,
+              "value": 0,
+              "observedMatches": 1,
+              "applicableMatches": 2,
+              "totalMatches": 2
+            }
+          },
+          {
+            "family": "DEATH_RELATED",
+            "contribution": {
+              "status": "PARTIAL",
+              "numerator": 0,
+              "denominator": 1,
+              "observedRounds": null,
+              "expectedRounds": 0,
+              "value": 0,
+              "observedMatches": 1,
+              "applicableMatches": 2,
+              "totalMatches": 2
+            }
+          },
+          {
+            "family": "OBJECTIVES",
+            "contribution": {
+              "status": "PARTIAL",
+              "numerator": 0,
+              "denominator": 1,
+              "observedRounds": null,
+              "expectedRounds": 0,
+              "value": 0,
+              "observedMatches": 1,
+              "applicableMatches": 2,
+              "totalMatches": 2
+            }
+          },
+          {
+            "family": "CONTEXT",
+            "contribution": {
+              "status": "PARTIAL",
+              "numerator": 0,
+              "denominator": 1,
+              "observedRounds": null,
+              "expectedRounds": 0,
+              "value": 0,
+              "observedMatches": 1,
+              "applicableMatches": 2,
+              "totalMatches": 2
+            }
+          },
+          {
+            "family": "DIRECT_HARM",
+            "contribution": {
+              "status": "PARTIAL",
+              "numerator": 0,
+              "denominator": 1,
+              "observedRounds": null,
+              "expectedRounds": 0,
+              "value": 0,
+              "observedMatches": 1,
+              "applicableMatches": 2,
+              "totalMatches": 2
+            }
+          },
+          {
+            "family": "ROUND_IMPACT",
+            "contribution": {
+              "status": "PARTIAL",
+              "numerator": 0,
+              "denominator": 1,
+              "observedRounds": null,
+              "expectedRounds": 0,
+              "value": 0,
+              "observedMatches": 1,
+              "applicableMatches": 2,
+              "totalMatches": 2
+            }
+          }
+        ]
+      }
+    ],
+    "awards": {
+      "mvp": {
+        "status": "PARTIAL",
+        "numerator": 1,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 0,
+        "value": 1,
+        "observedMatches": 1,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "whoRuined": {
+        "status": "AVAILABLE",
+        "numerator": 0,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 0,
+        "value": 0,
+        "observedMatches": 2,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "evp": {
+        "status": "PARTIAL",
+        "numerator": 0,
+        "denominator": null,
+        "observedRounds": null,
+        "expectedRounds": 0,
+        "value": 0,
+        "observedMatches": 1,
+        "applicableMatches": 2,
+        "totalMatches": 2
+      },
+      "evpSpecializations": {}
+    },
+    "radar": {
+      "normalizationVersion": "radar-normalization@1",
+      "axes": {
+        "MULTIKILL": {
+          "status": "UNAVAILABLE",
+          "numerator": null,
+          "denominator": null,
+          "observedRounds": null,
+          "expectedRounds": 24,
+          "value": null,
+          "observedMatches": 0,
+          "applicableMatches": 2,
+          "totalMatches": 2
+        },
+        "ASSISTS": {
+          "status": "UNAVAILABLE",
+          "numerator": null,
+          "denominator": null,
+          "observedRounds": null,
+          "expectedRounds": 24,
+          "value": null,
+          "observedMatches": 0,
+          "applicableMatches": 2,
+          "totalMatches": 2
+        },
+        "FLASH": {
+          "status": "UNAVAILABLE",
+          "numerator": null,
+          "denominator": null,
+          "observedRounds": null,
+          "expectedRounds": 24,
+          "value": null,
+          "observedMatches": 0,
+          "applicableMatches": 2,
+          "totalMatches": 2
+        },
+        "TRADES": {
+          "status": "UNAVAILABLE",
+          "numerator": null,
+          "denominator": null,
+          "observedRounds": null,
+          "expectedRounds": 24,
+          "value": null,
+          "observedMatches": 0,
+          "applicableMatches": 2,
+          "totalMatches": 2
+        },
+        "CLUTCH": {
+          "status": "UNAVAILABLE",
+          "numerator": null,
+          "denominator": null,
+          "observedRounds": null,
+          "expectedRounds": 24,
+          "value": null,
+          "observedMatches": 0,
+          "applicableMatches": 2,
+          "totalMatches": 2
+        },
+        "ENTRY": {
+          "status": "UNAVAILABLE",
+          "numerator": null,
+          "denominator": null,
+          "observedRounds": null,
+          "expectedRounds": 24,
+          "value": null,
+          "observedMatches": 0,
+          "applicableMatches": 2,
+          "totalMatches": 2
+        },
+        "UTILITY": {
+          "status": "UNAVAILABLE",
+          "numerator": null,
+          "denominator": null,
+          "observedRounds": null,
+          "expectedRounds": 24,
+          "value": null,
+          "observedMatches": 0,
+          "applicableMatches": 2,
+          "totalMatches": 2
+        },
+        "OBJECTIVES": {
+          "status": "UNAVAILABLE",
+          "numerator": null,
+          "denominator": null,
+          "observedRounds": null,
+          "expectedRounds": 24,
+          "value": null,
+          "observedMatches": 0,
+          "applicableMatches": 2,
+          "totalMatches": 2
+        }
+      }
+    }
+  },
+  "history": {
+    "schemaVersion": "player-profile-history@1",
+    "steamId": "76561198000000001",
+    "matches": [
+      {
+        "fileSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "uploadedAt": "2026-11-27T19:00:00.000Z",
+        "playedAt": null,
+        "map": "de_mirage",
+        "quality": "VALID",
+        "policy": {
+          "id": "h3-seven-family@1",
+          "digest": "17b310bd0e8173a899519d91adf5533bf888e9c858b7e04ad93d1bf6ccb0b68a"
+        },
+        "matchId": "synthetic-a",
+        "player": {
+          "playerId": "76561198000000001",
+          "steamId": "76561198000000001",
+          "displayName": "Synthetic Nova",
+          "teamId": "synthetic-team",
+          "teamLabel": "Team A",
+          "outcome": "WIN",
+          "measurements": {
+            "verifiedRounds": {
+              "status": "AVAILABLE",
+              "numerator": 12,
+              "denominator": null,
+              "observedRounds": 12,
+              "expectedRounds": 12
+            },
+            "kills": {
+              "status": "AVAILABLE",
+              "numerator": 18,
+              "denominator": null,
+              "observedRounds": 12,
+              "expectedRounds": 12
+            },
+            "deaths": {
+              "status": "AVAILABLE",
+              "numerator": 9,
+              "denominator": null,
+              "observedRounds": 12,
+              "expectedRounds": 12
+            },
+            "assists": {
+              "status": "AVAILABLE",
+              "numerator": 4,
+              "denominator": null,
+              "observedRounds": 12,
+              "expectedRounds": 12
+            },
+            "kd": {
+              "status": "AVAILABLE",
+              "numerator": 18,
+              "denominator": 9,
+              "observedRounds": 12,
+              "expectedRounds": 12
+            },
+            "damage": {
+              "status": "AVAILABLE",
+              "numerator": 960,
+              "denominator": null,
+              "observedRounds": 12,
+              "expectedRounds": 12
+            },
+            "adr": {
+              "status": "AVAILABLE",
+              "numerator": 960,
+              "denominator": 12,
+              "observedRounds": 12,
+              "expectedRounds": 12
+            },
+            "kast": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "openingKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "openingDeaths": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "tradeKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "doubleKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "tripleKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "quadKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "aces": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "clutchWins": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "enemiesFlashed": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "enemyBlindSeconds": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "heDamage": {
+              "status": "AVAILABLE",
+              "numerator": 0,
+              "denominator": null,
+              "observedRounds": 12,
+              "expectedRounds": 12
+            },
+            "fireDamage": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "bombPlants": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "bombDefuses": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "hostageRescues": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            }
+          },
+          "radar": null,
+          "rating": {
+            "value": 1.6,
+            "families": [
+              {
+                "family": "COMBAT",
+                "finalAttribution": 0.6000000000000001
+              },
+              {
+                "family": "SUPPORT",
+                "finalAttribution": 0
+              },
+              {
+                "family": "DEATH_RELATED",
+                "finalAttribution": 0
+              },
+              {
+                "family": "OBJECTIVES",
+                "finalAttribution": 0
+              },
+              {
+                "family": "CONTEXT",
+                "finalAttribution": 0
+              },
+              {
+                "family": "DIRECT_HARM",
+                "finalAttribution": 0
+              },
+              {
+                "family": "ROUND_IMPACT",
+                "finalAttribution": 0
+              }
+            ]
+          },
+          "awards": {
+            "mvp": true,
+            "whoRuined": false,
+            "evp": []
+          }
+        }
+      },
+      {
+        "fileSha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "uploadedAt": "2026-11-26T19:00:00.000Z",
+        "playedAt": null,
+        "map": "de_mirage",
+        "quality": "VALID",
+        "policy": {
+          "id": "h3-seven-family@1",
+          "digest": "17b310bd0e8173a899519d91adf5533bf888e9c858b7e04ad93d1bf6ccb0b68a"
+        },
+        "matchId": "synthetic-b",
+        "player": {
+          "playerId": "76561198000000001",
+          "steamId": "76561198000000001",
+          "displayName": "Synthetic Alias",
+          "teamId": "synthetic-team",
+          "teamLabel": "Team A",
+          "outcome": "UNKNOWN",
+          "measurements": {
+            "verifiedRounds": {
+              "status": "PARTIAL",
+              "numerator": 10,
+              "denominator": null,
+              "observedRounds": 10,
+              "expectedRounds": 12
+            },
+            "kills": {
+              "status": "PARTIAL",
+              "numerator": 10,
+              "denominator": null,
+              "observedRounds": 10,
+              "expectedRounds": 12
+            },
+            "deaths": {
+              "status": "PARTIAL",
+              "numerator": 9,
+              "denominator": null,
+              "observedRounds": 10,
+              "expectedRounds": 12
+            },
+            "assists": {
+              "status": "PARTIAL",
+              "numerator": 4,
+              "denominator": null,
+              "observedRounds": 10,
+              "expectedRounds": 12
+            },
+            "kd": {
+              "status": "PARTIAL",
+              "numerator": 10,
+              "denominator": 9,
+              "observedRounds": 10,
+              "expectedRounds": 12
+            },
+            "damage": {
+              "status": "PARTIAL",
+              "numerator": 780,
+              "denominator": null,
+              "observedRounds": 10,
+              "expectedRounds": 12
+            },
+            "adr": {
+              "status": "PARTIAL",
+              "numerator": 780,
+              "denominator": 10,
+              "observedRounds": 10,
+              "expectedRounds": 12
+            },
+            "kast": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "openingKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "openingDeaths": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "tradeKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "doubleKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "tripleKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "quadKills": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "aces": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "clutchWins": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "enemiesFlashed": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "enemyBlindSeconds": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "heDamage": {
+              "status": "PARTIAL",
+              "numerator": 0,
+              "denominator": null,
+              "observedRounds": 10,
+              "expectedRounds": 12
+            },
+            "fireDamage": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "bombPlants": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "bombDefuses": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            },
+            "hostageRescues": {
+              "status": "UNAVAILABLE",
+              "numerator": null,
+              "denominator": null,
+              "observedRounds": null,
+              "expectedRounds": 12
+            }
+          },
+          "radar": null,
+          "rating": null,
+          "awards": {
+            "mvp": null,
+            "whoRuined": false,
+            "evp": null
+          }
+        }
+      }
+    ],
+    "nextCursor": null
+  }
+}

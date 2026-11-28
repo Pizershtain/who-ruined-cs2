@@ -56,3 +56,7 @@ stored recompute seed without reopening a demo.
 ## ADR-012: PostgreSQL is the only active relational database
 
 Prisma targets PostgreSQL 17. API admission operations that make global queue/match decisions run in `SERIALIZABLE` transactions under one transaction-scoped advisory lock and retry only `P2034` a bounded number of times. Worker ownership remains row-conditional and lease-fenced across independent connections. The retired SQLite migration history is archived only to validate and import an offline owner snapshot; it is not an alternate runtime. Immutable artifacts stay on the filesystem and keep their existing formats and bindings.
+
+## ADR-013: Core remains one domain and Profiles owns its projection
+
+Profiles is independently deployable with its own PostgreSQL database and login. Core publishes versioned match changes from a transactional outbox and serves bound, bounded snapshots over HTTP. Core writes remain independent of subscriber availability. Independently verifiable measurements retain explicit partial coverage while canonical integrity and frozen H3 policy checks stay strict. The decision adds no new network boundaries within Core. See [Profiles architecture and recovery](player-profiles.md).

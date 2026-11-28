@@ -112,7 +112,7 @@ The audit cross-checked the actual consumers [`computeMatchAnalytics`](../../../
 [`prepareEvpMatchInput`](../../../packages/scoring/src/evp-input.ts),
 [`buildPlayerRadar`](../../../packages/scoring/src/player-radar.ts),
 [parser normalization](../../../packages/parser-adapter/src/normalization-mapping.ts),
-and [H2 input preparation](../../../apps/worker/src/prepared-participation-input.ts).
+and [H2 input preparation](../../../apps/core/worker/src/prepared-participation-input.ts).
 
 ## Properties with no separate score
 

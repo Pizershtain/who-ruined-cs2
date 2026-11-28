@@ -1,0 +1,28 @@
+# HTTP-only synthetic upstreams. This test project has no database or data volume.
+services:
+  gateway:
+    build:
+      context: ../..
+      dockerfile: apps/gateway/Dockerfile
+    ports:
+      - "127.0.0.1::8080"
+  api:
+    image: node:22.17.0-bookworm-slim
+    volumes:
+      - ./upstream.mjs:/upstream.mjs:ro
+    command: ["node", "/upstream.mjs", "core", "3000"]
+  profiles:
+    image: node:22.17.0-bookworm-slim
+    volumes:
+      - ./upstream.mjs:/upstream.mjs:ro
+    command: ["node", "/upstream.mjs", "profiles", "3001"]
+  auth:
+    image: node:22.17.0-bookworm-slim
+    volumes:
+      - ./upstream.mjs:/upstream.mjs:ro
+    command: ["node", "/upstream.mjs", "auth", "3002"]
+  web:
+    image: node:22.17.0-bookworm-slim
+    volumes:
+      - ./upstream.mjs:/upstream.mjs:ro
+    command: ["node", "/upstream.mjs", "web", "5173"]

@@ -8,11 +8,15 @@ This index separates the current system contract from milestone evidence. A docu
 | --- | --- | --- |
 | Product and quick start | [root README](../README.md) | Capabilities, limitations, architecture summary and entry points |
 | System boundaries | [backend map](backend-map.md) | Apps, packages, dependency direction and data flow |
+| API Gateway and service layout | [Gateway guide](api-gateway-and-service-layout.md) | Public routes, private feed, runtime commands and failure isolation |
+| Auth | [Service and operations](auth-service.md), [frontend handoff](auth-frontend-handoff.md) | Password accounts, JWT and refresh lifecycle, private database and UI integration |
+| Profiles aggregation and demo reuse | [Backend design](profiles-aggregation-and-demo-reuse.md), [frontend handoff](profiles-aggregation-frontend-handoff.md) | Durable summaries, recovery, deduplication, and readiness |
 | Development | [development guide](development.md) | Windows setup, isolated native/Docker runs, targeted checks and troubleshooting |
 | API | [API reference](api.md) | Routes, versioned DTOs and public error envelope |
 | Storage and jobs | [storage lifecycle](storage-lifecycle.md) | Artifacts, checksums, leases, publication, recovery and retention |
 | Owner data migration | [SQLite to PostgreSQL runbook](sqlite-to-postgresql-migration.md) | Offline snapshot, atomic import, verification, switch and rollback |
 | Frontend | [frontend architecture](frontend.md) | Feature modules, routes, data ownership, i18n and browser checks |
+| Product backlog | [TODO](TODO.md) | Open product decisions and follow-ups |
 | Replay maps | [radar assets](replay-maps.md) | Catalogue updates, rollback, map layers and future Workshop acquisition |
 | Rating and reports | [scoring](scoring.md) | H2 semantics, explanation, important moments and historical compatibility |
 | H2 evolution research | [H2-E1 baseline](research/h2-evolution/README.md) | Evidence inventory, semantic differences, coverage and experiment protocol |
@@ -20,6 +24,7 @@ This index separates the current system contract from milestone evidence. A docu
 | H3 frontend handoff | [H3 DTOs and fixtures](h3-frontend-handoff.md) | Rating, explanation, EVP, Radar and historical H2 |
 | Experimental EVP | [EVP report](evp.md) | Immutable report, API, bindings, RESCORE and historical backfill |
 | Player radar | [radar projection](player-radar.md) | Eight-axis registry, fixed normalization, match averages and award attribution |
+| Persistent player profiles | [service architecture](player-profiles.md), [frontend handoff](player-profiles-frontend-handoff.md) | Lifecycle, read models, cumulative measurements and API |
 | Constraints | [limitations](limitations.md) | Known data, model, runtime and deployment limits |
 | Parser evidence | [compatibility](compatibility.md) | Verified parser capability mapping and external-demo evidence |
 | Decisions | [decision log](decisions.md) | Current architectural decisions and superseded context |

@@ -23,6 +23,15 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm quality:fast
 
+  gateway:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test tests/gateway/gateway.test.mjs
+
   postgres:
     runs-on: ubuntu-latest
     services:
@@ -39,8 +48,22 @@ jobs:
           --health-interval 5s
           --health-timeout 3s
           --health-retries 20
+      auth-postgres:
+        image: postgres:17-bookworm
+        env:
+          POSTGRES_DB: wrc_auth_test
+          POSTGRES_USER: wrc_auth_test
+          POSTGRES_PASSWORD: wrc_auth_test_password
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U wrc_auth_test -d wrc_auth_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 20
     env:
       TEST_DATABASE_URL: postgresql://wrc_test:wrc_test_password@127.0.0.1:5432/wrc_test?schema=public
+      TEST_AUTH_DATABASE_URL: postgresql://wrc_auth_test:wrc_auth_test_password@127.0.0.1:5433/wrc_auth_test?schema=public
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

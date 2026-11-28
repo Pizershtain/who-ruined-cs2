@@ -1,6 +1,6 @@
 # HTTP API and versioned contracts
 
-**Status:** canonical route and contract index. The API is local-first and mounted under `/api/v1`. Swagger UI is served at `/api/docs`.
+**Status:** canonical route and contract index. The API is local-first and mounted under `/api/v1`. The browser uses Gateway on port 5173. Swagger is available on Core?s diagnostic port 3000 at `/api/docs`.
 
 ## Contract ownership
 
@@ -26,7 +26,7 @@ Clients branch on `error.code`, not on the localized/backend diagnostic message.
 | Method | Route | Success result |
 | --- | --- | --- |
 | GET | `/health` | process/database health |
-| POST | `/matches` | 202; streamed demo ingestion and queued job |
+| POST | `/matches` | 202; streamed upload and `match-upload@1` admission or duplicate reuse |
 | GET | `/jobs/:id` | job stage/status |
 | GET | `/matches?cursor=...` | paginated match list |
 | GET | `/matches/:id` | match summary |
@@ -41,10 +41,15 @@ Clients branch on `error.code`, not on the localized/backend diagnostic message.
 | GET | `/matches/:id/experimental-participation-explanation` | `m4.6-participation-explanation@2` for H3, `@1` for H2 |
 | GET | `/matches/:id/radar` | `player-radar@2` for H3, `player-radar@1` for historical H2 |
 | GET | `/matches/:id/evp` | `evp-report@1` |
+| GET | `/matches/:id/measured-stats` | coverage-aware verified measurements |
 | GET | `/matches/:id/replay` | `m4.7-replay-metadata@1`; `?version=2` opts into map images and altitude layers |
 | GET | `/matches/:id/replay/rounds/:roundId` | `m4.7-replay-round@1` |
 
-Exact input validation and HTTP response annotations live with the capability controllers in `apps/api/src/modules`.
+Exact input validation and HTTP response annotations live with the capability controllers in `apps/core/api/src/modules`.
+
+Profiles has separate public routes under `/players/:steamId/profile`. See the [Gateway route policy](api-gateway-and-service-layout.md#routes) for routing, diagnostic endpoints and upstream availability errors.
+
+Optional Auth exposes `POST /auth/login`, `POST /auth/refresh`, `POST /auth/logout` and `GET /auth/me` under the same `/api/v1` origin. These use `auth@1` response and error schemas. See the [Auth API](auth-service.md#routes).
 
 Rating and explanation routes are enabled by default and can be disabled with `ENABLE_EXPERIMENTAL_PARTICIPATION_RATING=0`. They return the policy of the stored result. The server rejects query-string policy selectors with `INVALID_POLICY_SELECTOR`. [H3 DTOs and historical compatibility](h3-frontend-handoff.md).
 

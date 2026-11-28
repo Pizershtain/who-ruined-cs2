@@ -24,6 +24,10 @@
   "synthetic": "Vzorčni podatki",
   "upload-cancelled": "Nalaganje je ustavljeno. Strežnik je morda posnetek že prejel.",
   "upload-confirming": "Datoteka je poslana. Čakanje na strežnik…",
+  "upload-deleting": "Ujemajoči se demo se briše. Poskusite znova po koncu brisanja.",
+  "upload-existing-match": "Odpri obstoječo tekmo",
+  "upload-job-reused": "Ta demo se že analizira. Spremljamo obstoječo nalogo.",
+  "upload-report-reused": "Ta demo je že bil analiziran. Odpiramo shranjeno poročilo.",
   "upload-wait": "Stran naj ostane odprta, dokler se nalaganje ne konča.",
   "uploading": "Nalaganje posnetka…",
   "workflow": "Kako deluje analiza"

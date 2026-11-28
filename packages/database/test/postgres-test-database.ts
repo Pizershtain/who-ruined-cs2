@@ -72,8 +72,8 @@ export async function createPostgresTestDatabase(
   try {
     await clients[0]!.$connect();
     const migrationPaths = [
-      '../../../prisma/migrations/20261105000000_postgresql_initial/migration.sql',
-      '../../../prisma/migrations/20261108000000_add_evp_report_pointer/migration.sql',
+      '../../../apps/core/prisma/migrations/20261105000000_postgresql_initial/migration.sql',
+      '../../../apps/core/prisma/migrations/20261108000000_add_evp_report_pointer/migration.sql',
     ];
     for (const migrationPath of migrationPaths) {
       const migration = await readFile(fileURLToPath(new URL(migrationPath, import.meta.url)), 'utf8');

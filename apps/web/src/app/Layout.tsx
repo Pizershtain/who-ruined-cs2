@@ -8,6 +8,7 @@ import { JobSkeleton, ReportSkeleton } from '../shared/ui/Skeleton.js';
 import { LanguageSwitcher } from '../shared/i18n/LanguageSwitcher.js';
 import { AsciiField } from '../shared/ui/AsciiField.js';
 import { demoBuild } from '../shared/env.js';
+import { AuthNavigation } from '../features/auth/index.js';
 
 export function Layout() {
   const { t, i18n } = useTranslation();
@@ -37,6 +38,7 @@ export function Layout() {
         <NavLink to="/about">{t('nav-method', 'How it works')}</NavLink>
       </nav>
       <div className="header-actions">
+        <AuthNavigation/>
         <LanguageSwitcher key={location.pathname}/>
       </div>
     </div></header>}

@@ -24,6 +24,10 @@
   "synthetic": "Voorbeeldgegevens",
   "upload-cancelled": "Upload gestopt. De server heeft de demo mogelijk al ontvangen.",
   "upload-confirming": "Bestand verstuurd. Wachten op de server…",
+  "upload-deleting": "De overeenkomende demo wordt verwijderd. Probeer het opnieuw zodra dit klaar is.",
+  "upload-existing-match": "Bestaande wedstrijd openen",
+  "upload-job-reused": "Deze demo wordt al geanalyseerd. De lopende taak wordt gevolgd.",
+  "upload-report-reused": "Deze demo is al geanalyseerd. Het opgeslagen rapport wordt geopend.",
   "upload-wait": "Houd deze pagina open totdat de upload klaar is.",
   "uploading": "Je demo uploaden…",
   "workflow": "Zo werkt de analyse"

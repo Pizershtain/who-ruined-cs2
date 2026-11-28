@@ -9,12 +9,19 @@
 
 ## Architecture
 
+- Core retains parsing, normalization, factual features, rating, canonical artifacts, jobs and match API as one domain. Independent product capabilities can have separately deployable services in the monorepo. Keep small internal functions in their owning domain.
+- Core lives in `apps/core/{api,worker,prisma}`. Optional services live in `apps/services`. The Nginx Gateway in `apps/gateway` is the browser's single API origin in Compose. It uses an explicit public route allowlist and contains no business code. Keep Core's publication API private and keep Profiles polling Core directly. See [Gateway and service layout](docs/api-gateway-and-service-layout.md).
+- Each service owns its data, migrations and runtime. Profiles consumes Core's versioned match publication API and owns a separate PostgreSQL database and login. Core has no dependency on a Profiles process, database, client or acknowledgement.
+- Auth owns accounts, local credentials, externally verified identities and sessions in its own PostgreSQL cluster. Core and Profiles remain independent of Auth. Keep refresh secrets in HttpOnly cookies and share only the versioned public DTOs and trusted public verification keys. Never use a self-asserted SteamID as an account identity. See [Auth service](docs/auth-service.md).
+- Cross-service updates use versioned events or HTTP, with a documented replay strategy, idempotency and restart behavior. An optional service outage must preserve Core functionality.
+- Partial Data Resilience: preserve independently verified fields, events and rounds. Return confirmed values with their scope and availability, distinguish a confirmed zero from unknown and inapplicable, and identify a partial rate's verified numerator and denominator. A provable sum can survive without a denominator. Never substitute incomplete measurements into frozen scoring or award policies; unsafe reads, broken binding, identity and integrity checks still fail closed.
 - `packages/parser-adapter` owns demoparser2 calls, aliases and decoding. `packages/match-domain` accepts parser-neutral `NormalizationInput` and must not import the adapter.
 - `packages/features` emits deterministic factual analytics only. Scoring/ranking/blame labels belong to `packages/scoring`.
 - `packages/artifacts` owns bounded reads, binding/integrity checks and immutable publication. `packages/database` owns Prisma repositories and lease/fencing transactions.
 - API controllers validate transport and delegate to application use cases. Use cases orchestrate; domain functions compute; infrastructure performs I/O. Do not put formulas in controllers/repositories or Prisma/filesystem/environment access in pure calculations.
 - The worker owns parsing, normalization/features/scoring/replay pipelines, leases, publication and recovery. API GETs read stored artifacts and must not reopen demos.
 - Frontend `apps/web` renders versioned DTOs. It must not import parser/database/features/scoring implementations or reproduce backend formulas.
+- Frontend uses relative `/api/v1/…` paths. A service's internal hostname or port belongs only in infrastructure and development tooling.
 
 ## Design and compatibility rules
 
@@ -46,6 +53,7 @@ Use the smallest evidence set covering the changed package, its direct consumers
 - `npm.cmd run quality:golden` is the strict external-corpus gate. All manifest demo/info paths and exact demo SHA-256 values must be present; missing fixtures are `BLOCKED` (exit 2), not PASS. `npm.cmd run test:golden` remains the diagnostic partial runner that may report individual SKIP.
 - `npm.cmd run quality:real-demo -- --demo=<approved.dem>` is a real API/worker/replay/H2/RESCORE smoke, not golden verification. It requires an already authorized running dev stack. `--match=<id>` rechecks persisted results after a restart without uploading or rescoring.
 - Root `npm.cmd run test` runs workspace tests only. Real demos, golden fixtures, Docker and PostgreSQL remain separate explicit gates.
+- `npm.cmd run test:gateway` runs the Nginx HTTP integration suite with synthetic upstreams in Docker. It is separate from `quality:fast` and runs in CI.
 - At handoff, list modified, added, moved and deleted files, explain removals, and state which checks passed, failed or were blocked. Separate existing workspace changes from the current task.
 
 ## Frontend structure
@@ -56,7 +64,7 @@ Use the smallest evidence set covering the changed package, its direct consumers
 - Upload percentage comes only from XHR. Processing uses real job stages, never invented percentage or ETA. Refresh errors do not hide already received data.
 - Rating, explanation, important moments and replay come only from their versioned backend DTOs. No fallback to legacy ratings and no invented events/positions.
 - Synthetic preview routes are development/demo-build fixtures and must remain labeled synthetic.
-- Current frontend details: `docs/frontend.md`. Native Vite default is `http://localhost:5174`; Docker web is 5173.
+- Current frontend details: `docs/frontend.md`. Native Vite default is `http://localhost:5174`; Docker Gateway serves Web and the API on port 5173.
 - Replay radar assets: `docs/replay-maps.md`. Use `npm.cmd run maps:check`, stage with `maps:sync -- --revision <commit>`, then explicitly activate with `maps:activate -- <commit>`. Keep old asset revisions; never draw approximate geometry or fetch arbitrary map URLs during report GETs.
 
 ## Localization

@@ -24,6 +24,10 @@
   "synthetic": "Namuna ma’lumotlar",
   "upload-cancelled": "Yuklash to‘xtatildi. Server demoni allaqachon olgan bo‘lishi mumkin.",
   "upload-confirming": "Fayl yuborildi. Server javobi kutilmoqda…",
+  "upload-deleting": "Mos demo o‘chirilmoqda. O‘chirish tugagach qayta urinib ko‘ring.",
+  "upload-existing-match": "Mavjud o‘yinni ochish",
+  "upload-job-reused": "Bu demo allaqachon tahlil qilinmoqda. Joriy vazifa kuzatilmoqda.",
+  "upload-report-reused": "Bu demo oldin tahlil qilingan. Saqlangan hisobot ochilmoqda.",
   "upload-wait": "Yuklash tugaguncha sahifani ochiq saqlang.",
   "uploading": "Demo yuklanmoqda…",
   "workflow": "Tahlil qanday ishlaydi?"

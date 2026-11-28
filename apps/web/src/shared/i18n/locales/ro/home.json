@@ -24,6 +24,10 @@
   "synthetic": "Date de exemplu",
   "upload-cancelled": "Încărcarea s-a oprit. Este posibil ca serverul să fi primit deja demoul.",
   "upload-confirming": "Fișier trimis. Se așteaptă răspunsul serverului…",
+  "upload-deleting": "Demo-ul identic este în curs de ștergere. Încearcă din nou după finalizare.",
+  "upload-existing-match": "Deschide meciul existent",
+  "upload-job-reused": "Acest demo este deja analizat. Se urmărește sarcina în curs.",
+  "upload-report-reused": "Acest demo a fost deja analizat. Se deschide raportul salvat.",
   "upload-wait": "Păstrează pagina deschisă până la finalizarea încărcării.",
   "uploading": "Se încarcă demoul…",
   "workflow": "Cum funcționează analiza"

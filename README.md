@@ -11,10 +11,10 @@ The repository is an active prototype, not a public service. The parser, rating 
 - Computes availability-aware analytics: K/D/A, ADR, KAST, trades, openings, clutches, utility, economy and objective facts.
 - Publishes one immutable `match-result@2` artifact with a content checksum and a PostgreSQL pointer. Historical H2 results remain readable.
 - Exposes the seven-family H3 participation rating, MVP/Who Ruined pools and per-player coverage for new matches.
-- Explains each rating through six families, typed evidence and transformations. The six final attributions plus the base value of 1 reconstruct the displayed score within `1e-12`.
+- Explains H3 through seven families with typed evidence and transformations. The final attributions plus the base value of 1 reconstruct the score within `1e-12`.
 - Selects up to eight deterministic important moments per player: multikills and confirmed trades, including reliable fast-trade timing.
 - Builds a factual 2D replay from sampled positions, round events and map metadata. Missing map assets or replay data remain explicit unavailable/partial states.
-- Ships a React UI with 37 locales, RTL support, responsive layouts and development-only synthetic preview states.
+- Ships a React UI with 37 locales, RTL support, responsive layouts and development-only synthetic preview states. Profiles provides cumulative H3 stats and match history when enabled.
 
 ## Read the rating correctly
 
@@ -27,23 +27,22 @@ See [scoring and explanation](docs/scoring.md) and [known limitations](docs/limi
 ## Architecture
 
 ~~~text
-browser
-  -> Vite/React feature modules
-  -> Nest API (/api/v1)
-  -> PostgreSQL job + match metadata
-  -> leased worker
-  -> parser child process
-  -> normalized match domain
-  -> features -> scoring -> replay
-  -> immutable gzip artifacts
-  -> API DTO adapters -> browser
+Browser → Gateway → Web assets / SPA
+                  → Core API → Core PostgreSQL + immutable artifacts
+                  → Profiles → Profiles PostgreSQL
+                  → Auth → dedicated Auth PostgreSQL
+Core worker → leased jobs → parser child → normalization → features → H3 / replay → artifacts
+Profiles → Core's private publication feed
 ~~~
 
 | Area | Location | Responsibility |
 | --- | --- | --- |
 | Web | `apps/web` | Routing, rendering, interaction and i18n only |
-| API | `apps/api` | HTTP validation, use cases, DTOs and storage reads |
-| Worker | `apps/worker` | Leases, parser supervision, pipelines, publication and recovery |
+| Gateway | `apps/gateway` | Public HTTP routing, streaming and infrastructure errors |
+| Core | `apps/core/{api,worker,prisma}` | Match HTTP, parsing, scoring, replay, jobs and owned database schema |
+| Profiles | `apps/services/profiles` | Independent H3 history and aggregate read model with its own schema |
+| Auth | `apps/services/auth` | Optional password login, JWT access and revocable refresh sessions |
+| Docker | `infra/docker` | Application images and service database provisioning |
 | Contracts | `packages/contracts` | Versioned Zod DTOs and public errors |
 | Parser adapter | `packages/parser-adapter` | Native parser calls and capability mapping |
 | Match domain | `packages/match-domain` | Parser-neutral normalization and stable roster identity |
@@ -52,7 +51,7 @@ browser
 | Artifacts | `packages/artifacts` | Bounded reads and immutable publication |
 | Database | `packages/database` | Prisma client, repositories and lease operations |
 
-The dependency direction and data ownership rules are documented in the [current architecture map](docs/backend-map.md).
+See the [Gateway guide](docs/api-gateway-and-service-layout.md) and [backend map](docs/backend-map.md) for routing and data ownership.
 
 ## Quick start on Windows
 
@@ -76,11 +75,12 @@ Start the isolated Docker profile:
 powershell -ExecutionPolicy Bypass -File .\scripts\dev-up.ps1
 ~~~
 
-This profile uses `_local-dev/data`, refuses the owner `data` directory and binds services to loopback. Open:
+The dev stack starts Web, Gateway, Core, Profiles, Auth and their databases. It uses `_local-dev/data` and loopback bindings. Use `-WithoutAuth` or `-WithoutProfiles` to skip individual services, or `-CoreOnly` to start just the API, worker and Core PostgreSQL. See the [local runbook](docs/local-dev.md#start) and [Auth operator workflow](docs/auth-service.md#operator-workflow).
 
-- Web: http://127.0.0.1:5173
-- API health: http://127.0.0.1:3000/api/v1/health
-- OpenAPI: http://127.0.0.1:3000/api/docs
+- Web and API origin: http://127.0.0.1:5173
+- Gateway health: http://127.0.0.1:5173/healthz
+- Core API health through Gateway: http://127.0.0.1:5173/api/v1/health
+- Direct Core diagnostics and OpenAPI: http://127.0.0.1:3000/api/docs
 
 Stop it without deleting its isolated data:
 
@@ -115,11 +115,10 @@ npm.cmd run i18n:check
 
 Do not run real demos unless they are explicitly authorized. Synthetic fixtures must remain labeled synthetic and cannot support real-demo claims.
 
-The P6 repository gate includes architecture, lint, typecheck, package tests,
-build, i18n and contrast. Its latest result is recorded in the
-[final quality report](docs/architecture/final-quality-report.md). The root
-`npm.cmd run test` additionally invokes the real-demo golden test; if its
-external demo inputs are unavailable, that is a skip/blocker, not a pass.
+`npm.cmd run quality:fast` covers architecture, lint, typecheck, workspace tests,
+build, i18n and contrast. `npm.cmd run test:gateway` uses Docker and synthetic
+HTTP upstreams. PostgreSQL integration and golden demos have separate commands.
+See the [development guide](docs/development.md#quality-gates).
 
 ## Documentation
 
@@ -138,4 +137,4 @@ Start with the [documentation index](docs/README.md). The canonical references a
 
 ## Current release boundary
 
-The current application is designed for one trusted local owner. It has loopback defaults and resource bounds, but no authentication, authorization, tenant isolation, rate limiting across multiple API processes, malware scanning or public object-store design. Treat a public deployment as a separate security and operations project, not a configuration toggle.
+The dev deployment is designed for trusted local users. Optional Auth provides password login and revocable sessions. Match and Profiles endpoints remain public on the configured Gateway. Public multi-user deployment still requires TLS, authorization, isolation and an exposure review. [Auth service](docs/auth-service.md).

@@ -24,6 +24,10 @@ export const playerRadarAxisIds = [
 ] as const;
 
 export const playerRadarAxisIdSchema = z.enum(playerRadarAxisIds);
+// Fixed display caps for radar-normalization@1.
+export const radarMaximums = Object.freeze({
+  MULTIKILL: 4, ASSISTS: 6, FLASH: 4, TRADES: 3, CLUTCH: 1, ENTRY: 3, UTILITY: 20, OBJECTIVES: 4,
+} satisfies Record<(typeof playerRadarAxisIds)[number], number>);
 export const playerRadarAvailabilitySchema = z.enum(['AVAILABLE', 'UNAVAILABLE']);
 export const playerRadarUnavailableReasonSchema = z.enum([
   'ANALYTICS_MISSING',

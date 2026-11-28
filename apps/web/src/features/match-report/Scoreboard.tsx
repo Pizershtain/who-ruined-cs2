@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import type { MatchData } from '@who-ruined/contracts';
 import type { MatchAnalytics, PlayerMetrics } from '../../entities/match/types.js';
 import { finalScore, playerPath } from '../../entities/match/presentation.js';
-import { steamProfileUrl } from '../../entities/match/player.js';
+import { playerProfilePath, steamProfileUrl } from '../../entities/match/player.js';
+import { demoBuild } from '../../shared/env.js';
 import { Skeleton } from '../../shared/ui/Skeleton.js';
 import { metricGroups, compareMetricValues, type MetricColumn } from '../../entities/match/metric-groups.js';
 
@@ -48,6 +49,7 @@ export function Scoreboard({ match, analytics, base, awards, loading = false }: 
   const playerIdentity = (id: string, teamIndex: number, ordinal: number) => {
     const player = match.players.find(item => item.id === id);
     const steam = steamProfileUrl(player?.steamId ?? null);
+    const profile = !demoBuild && base.startsWith('/matches/') ? playerProfilePath(player?.steamId ?? null) : null;
     const award = awards?.mvpPlayerId === id ? 'MVP' : awards?.evpPlayerIds.includes(id) ? 'EVP' : null;
     return <div className="player-cell">
       <span className={`player-avatar team-${teamIndex}`} aria-hidden="true">{String(ordinal + 1).padStart(2, '0')}</span>
@@ -57,6 +59,7 @@ export function Scoreboard({ match, analytics, base, awards, loading = false }: 
           {award && <b className={`report-award ${award.toLowerCase()}`}>{award}</b>}
         </span>
         {steam && <a className="steam-link" href={steam} target="_blank" rel="noreferrer" aria-label={t('steam-profile', 'Steam profile: {{name}}', { name: player?.displayName })}>Steam ↗</a>}
+        {profile && <Link className="steam-link scoreboard-profile-link" to={profile}>{t('persistent-profile', { ns: 'player', defaultValue: 'Player profile' })}</Link>}
       </span>
     </div>;
   };

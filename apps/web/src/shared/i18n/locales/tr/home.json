@@ -24,6 +24,10 @@
   "synthetic": "Örnek veriler",
   "upload-cancelled": "Yükleme durduruldu. Sunucu demoyu zaten almış olabilir.",
   "upload-confirming": "Yükleme gönderildi. Sunucu bekleniyor…",
+  "upload-deleting": "Eşleşen demo siliniyor. Silme işlemi tamamlanınca tekrar dene.",
+  "upload-existing-match": "Mevcut maçı aç",
+  "upload-job-reused": "Bu demo zaten analiz ediliyor. Mevcut görev takip ediliyor.",
+  "upload-report-reused": "Bu demo daha önce analiz edildi. Kayıtlı rapor açılıyor.",
   "upload-wait": "Yükleme bitene kadar bu sayfayı açık tutun.",
   "uploading": "Demonuz yükleniyor…",
   "workflow": "Analiz nasıl çalışır?"

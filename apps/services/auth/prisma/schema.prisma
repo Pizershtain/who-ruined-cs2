@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("AUTH_DATABASE_URL")
+}
+
+enum AuthUserStatus {
+  ACTIVE
+  DISABLED
+}
+
+model AuthUser {
+  id            String                 @id @default(uuid()) @db.Uuid
+  displayName   String
+  status        AuthUserStatus         @default(ACTIVE)
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+  password      AuthPassword?
+  identities    AuthExternalIdentity[]
+  sessions      AuthSession[]
+  playerLink    AuthPlayerLink?
+}
+
+enum AuthPlayerLinkSource {
+  MANUAL
+}
+
+enum AuthPlayerLinkVerification {
+  UNVERIFIED
+}
+
+model AuthPlayerLink {
+  userId             String                     @id @db.Uuid
+  steamId            String                     @db.VarChar(17)
+  nickname           String                     @db.VarChar(80)
+  source             AuthPlayerLinkSource       @default(MANUAL)
+  verificationStatus AuthPlayerLinkVerification @default(UNVERIFIED)
+  createdAt          DateTime                   @default(now())
+  updatedAt          DateTime                   @updatedAt
+  user               AuthUser                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuthPassword {
+  userId       String   @id @db.Uuid
+  username     String   @unique
+  passwordHash String
+  user         AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// Only a future verified provider adapter may write this mapping.
+model AuthExternalIdentity {
+  provider       String
+  providerUserId String
+  userId         String   @db.Uuid
+  user           AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerUserId])
+  @@index([userId])
+}
+
+model AuthSession {
+  id            String             @id @default(uuid()) @db.Uuid
+  userId        String             @db.Uuid
+  createdAt     DateTime           @default(now())
+  expiresAt     DateTime
+  idleExpiresAt DateTime
+  revokedAt     DateTime?
+  user          AuthUser           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokens        AuthRefreshToken[]
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model AuthRefreshToken {
+  digest    String      @id @db.Char(64)
+  sessionId String      @db.Uuid
+  usedAt    DateTime?
+  session   AuthSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+}
+
+model AuthLoginLimit {
+  key       String   @id @db.Char(64)
+  attempts  Int
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}

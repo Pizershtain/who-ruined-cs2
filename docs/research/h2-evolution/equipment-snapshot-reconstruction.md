@@ -2,7 +2,7 @@
 
 The research contract is `h2-e6-economy@1-research`. The maintained offline
 comparison uses [parser equipment sampling](../../../packages/parser-adapter/src/equipment-sampling.ts),
-[worker binding](../../../apps/worker/src/rating-equipment.ts) and
+[worker binding](../../../apps/core/worker/src/rating-equipment.ts) and
 [economy evidence](../../../packages/scoring/src/h3/economy-evidence.ts).
 
 ## Snapshot identity

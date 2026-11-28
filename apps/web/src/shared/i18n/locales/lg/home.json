@@ -24,6 +24,10 @@
   "synthetic": "Ebikwata ku kyokulabirako",
   "upload-cancelled": "Okuteekako kuyimiriziddwa. Seeva eyinza okuba nga yafunye dda demo.",
   "upload-confirming": "Demo eweerezeddwa. Elinda seeva…",
+  "upload-deleting": "Demo efaanagana eggyibwawo. Gezaako nate nga okuggyawo kuwedde.",
+  "upload-existing-match": "Ggulawo omupiira oguliwo",
+  "upload-job-reused": "Demo eno ekyekenneenyezebwa. Tulondoola omulimu ogugenda mu maaso.",
+  "upload-report-reused": "Demo eno yekenneenyezebwa dda. Tuggulawo alipoota eterekeddwa.",
   "upload-wait": "Leka olupapula luno nga luggule okutuusa ng'okuteekako kuwedde.",
   "uploading": "Eteekako demo yo…",
   "workflow": "Engeri okwekenneenya gye kukolamu"
